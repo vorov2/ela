@@ -18,6 +18,33 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElaLibrary", "ElaLibrary\ElaLibrary.csproj", "{AFD398CA-09A8-486A-9C65-EDC4954F08C0}"
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs26
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Utils\\VersionGenerator\\VersionGenerator.csproj
+		SccProjectTopLevelParentUniqueName1 = Ela.sln
+		SccProjectName1 = Utils/VersionGenerator
+		SccLocalPath1 = Utils\\VersionGenerator
+		SccProjectUniqueName2 = Utils\\VersionTracker\\VersionTracker.csproj
+		SccProjectTopLevelParentUniqueName2 = Ela.sln
+		SccProjectName2 = Utils/VersionTracker
+		SccLocalPath2 = Utils\\VersionTracker
+		SccProjectUniqueName3 = Ela\\Ela.csproj
+		SccProjectName3 = Ela
+		SccLocalPath3 = Ela
+		SccProjectUniqueName4 = ElaConsole\\ElaConsole.csproj
+		SccProjectName4 = ElaConsole
+		SccLocalPath4 = ElaConsole
+		SccProjectUniqueName5 = Tests\\Tests.csproj
+		SccProjectName5 = Tests
+		SccLocalPath5 = Tests
+		SccProjectUniqueName6 = ElaLibrary\\ElaLibrary.csproj
+		SccProjectTopLevelParentUniqueName6 = Ela.sln
+		SccProjectName6 = ElaLibrary
+		SccLocalPath6 = ElaLibrary
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
