@@ -1,0 +1,316 @@
+#file list.ela
+#title list
+#category Ela Standard Library
+
+This module contains multiple functions for linked lists. 
+
+=Instances
+
+===Lazy
+Implements an instances of `Lazy` class that can be used to indentify lazy lists and safely
+print them as strings.
+
+=Functions
+
+==Sorting functions
+
+#sort xs
+Sorts a given list. This function implements a merge sort. It can sort an list with values of
+any type if their types have instances for `Ord` class.
+
+#sortBy pred xs
+A generalization of a `sort` function that allows to specify a predicate.
+
+#sort' xs
+Sorts a given list. This is a non-strict function, which implements a quicksort algorithm.
+
+==Folds
+
+#fold
+This function is equivalent to `foldr` called with a nil list as its second argument. This is a 
+strict function. 
+
+#foldl' f z xs
+Function `foldl'`, applied to a binary operator, a starting value (typically the left-identity of 
+the operator), and a list, reduces the list using the binary operator, from left to right. This 
+is a non-strict function. 
+
+#foldr' f z xs
+Function `foldr'`, applied to a binary operator, a starting value (typically the left-identity of 
+the operator), and a list, reduces the list using the binary operator, from right to left. This 
+is a non-strict function. 
+
+#fold'
+This function is equivalent to `foldr'` called with a nil list as its second argument. This is a 
+non-strict function. 
+
+#foldl1 f xs
+A variant of `foldl` that has no starting value element and can only be applied to non-empty lists.
+
+#foldr1 f xs
+A variant of `foldr` that has no starting value element and can only be applied to non-empty lists.
+
+#foldl1' f xs
+A lazy version of `foldl1`.
+
+#foldr1' f xs
+A lazy version of `foldr1`.
+
+#any p xs
+Returns `true` if at least one of the elements in `xs` list satisfies `p` predicate. 
+
+#all p xs
+Returns `true` if all elements in `xs` list satisfy `p` predicate. 
+
+#sum xs
+Computes the sum of a finite list of numbers: 
+>>>sum [1,2,3]
+
+#product xs
+Computes the product of a finite list of numbers. 
+
+#minimum xs
+Returns a minimum element of a given list: 
+>>>minimum [1,2,3]
+
+#maximum xs
+Returns a maximum element of a given list: 
+>>>maximum [1,2,3]
+
+#concat xs
+Concatenates a list of lists: 
+>>>concat [[1],[2]]
+
+#concatMap f xs
+Maps a function over a list and concatenate the results. 
+
+==Buildings lists
+
+#scanl f z xs
+Function `scanl` is similar to `foldl`, but returns a list of successive reduced values from the 
+left.
+
+#scanl1 f xs
+A variant of `scanl` that has no starting value argument.
+
+#scanr f z xs
+Function `scanr` is the right-to-left version of `scanl`.
+
+#scanr1 f xs
+A variant of `scanr` that has not starting value argument. 
+
+#repeat e
+Repeats a given element and constructs an infinite list. This function is non-strict. 
+
+#cycle xs
+Cycles a given list and constructs an infinite list. This function is non-strict. 
+
+#iterate f x
+Constructs a lazy list by applying function `f` to `x`. This function is non-strict. It can be 
+seen as a generalization of repeat function. Function `repeat` can be defined in terms of 
+iterate as: 
+>>repeat = iterate id
+
+#replicate n x
+The application of this function like so: `replicate n x` is equivalent to `take n (repeat x)`.
+
+#deleteBy p e xs
+Constructs a new list from the elements of `xs` list but excludes all elements for which an 
+application of a binary predicate `p` returns `true`. 
+
+#delete e xs
+Function `delete` can be defined in terms of `deleteBy` like so: 
+>>delete = deleteBy (==)
+
+#insert x xs
+The `insert` function takes an element and a list and inserts the element into the list at the 
+last position where it is still less than or equal to the next element. In particular, if the 
+list is sorted before the call, the result will also be sorted. It is a special case of `insertBy`, 
+which allows the programmer to supply their own comparison function. 
+
+#insertBy cmp x xs
+A version of `insert` function that allows to specify your own comparison function. 
+
+#nub xs
+Removes duplicate elements from list. 
+
+#nubBy cmp xs
+A version of `nub` function that allows to specify your own comparison function. 
+
+#intersectBy eq xs ys
+Takes the list intersection of two lists. 
+
+#intersect xs ys
+This function can be defined in terms of intersectBy as follows: 
+>>intersect = intersectBy (==)
+
+==Sublists
+
+#takeWhile p xs
+Returns elements from a list `xs` that satisfy a predicate p until the predicate fails: 
+>>>takeWhile (<5) [1..10]
+
+#take n xs
+Takes `n` elements from `xs` list. 
+
+#skip n xs
+Skips `n` elements starting from the head of `xs` list. 
+
+#splitAt n xs
+Splits a list `xs` at the index `n` and produces a tuple with two lists: 
+>>>splitAt 3 [1..5]
+This function throws an exception if an `n` argument is less than zero. 
+
+#splitHalf xs
+Splits a given list by half.
+
+#span p xs
+Function `span`, applied to a predicate `p` and a list `xs`, returns a tuple where first element 
+is longest prefix (possibly empty) of `xs` of elements that satisfy `p` and second element is the 
+remainder of the list: 
+>>>span (<3) [1,2,3,4,1,2,3,4]
+
+#break p xs
+This function is equivalent to `span (not << p)`: 
+>>>break (>3) [1,2,3,4,1,2,3,4]
+
+#drop n xs
+Function `drop` returns the suffix of `xs` after the first `n` elements, or a nil list if `n` is 
+greater than the length of a list. This function throws an exception if an `n` argument is less 
+than zero. 
+
+#dropWhile p xs
+Function `dropWhile` returns the suffix remaining after `takeWhile`, called with the same 
+arguments. 
+
+#groupBy eq xs
+Takes a predicate and two lists and returns the first list with the first occurrence of each 
+element of the second list removed. 
+
+#group xs
+This function can be defined in terms of `groupBy` as follows: 
+>>group = groupBy (==)
+
+#stripPrefix prefix xs
+The `stripPrefix` function drops the given `prefix` from a list `xs`. It returns `None` if the list did not start with the prefix
+given, or `Some` the list after the prefix, if it does.
+>>>stripPrefix [1,2] [1..10]
+
+#inits xs
+The `inits` function returns all initial segments of the argument, shortest first.
+>>>inits [1,2,3]
+
+#tails xs
+The `tails` function returns all final segments of the argument, longest first.
+>>>tails [1,2,3]
+
+==Predicates
+
+#isPrefixOf xs ys
+The `isPrefixOf` function takes two lists and returns true if the first list is a prefix of the second.
+>>>isPrefixOf [1,2] [1..10]
+
+#isSuffixOf xs ys
+The `isSuffixOf` function takes two lists and returns true if the first list is a suffix of the second. Both lists must be finite.
+>>>isSuffixOf [9,10] [1..10]
+
+#isInfixOf xs ys
+The `isInfixOf` function takes two lists and returns true if the first list is contained anywhere within the second.
+>>>isInfixOf [5,6,7] [1..10]
+
+==Search
+
+#elem e xs
+Returns `true` if a list `xs` contains an element `e`, otherwise returns `false`. 
+
+#notElem e xs
+This function is equivalent to `not (elem e xs)`.
+
+#elemBy eq e xs
+This function is similar to elem but accepts a custom equality operator as a first argument. 
+Function `elem` can be defined in the terms of `elemBy` as: 
+>>elem = elemBy (==)
+
+#filter' p xs
+Returns all elements from list `xs` that satisfy `p` predicate. This is a non-strict function, it 
+always constructs a lazy list. 
+
+#find p xs
+The `find` function takes a predicate and a list and returns the first element in the list matching the predicate, 
+wrapped in `Some` constructor of `Maybe` type, or `None` if there is no such element. This function is lazy.
+>>>find (==3) [1..]
+
+#partition p xs
+The `partition` function takes a predicate a list and returns the pair of lists of elements which do and do not satisfy 
+the predicate.
+
+#count f xs
+Counts elements in a list `xs` that satisfy predicate `f`.
+
+==Indexing
+
+#findIndices p xs
+This function returns indices of all elements from the list `xs` satisfying the predicate `p`, in ascending order.
+This function is lazy.
+
+#findIndex p xs
+This function takes a predicate and a list and returns the index of the first element in the list satisfying the predicate, 
+wrapped in `Some` constructor of `Maybe` type, or `None` if there is no such element. This function is lazy.
+>>>findIndex (==10) [1..]
+
+#elemIndex e xs
+The `elemIndex` function returns the index of the first element in the given list which is equal (by `==`) to the query element,
+or 'None' if there is no such element. This function is lazy.
+>>>elemIndex 55 [1..]
+
+#elemIndices e xs
+The `elemIndices` function extends `elemIndex`, by returning the indices of all elements equal to the query element, in 
+ascending order. This function is lazy.
+
+==Zips
+
+#zipWith f xs1 xs2
+Function `zipWith` zips lists with the function given as the first argument. 
+
+#zip xs1 xs2
+This function is equivalent to zipWith function called with a tupling function as a first argument. 
+It produces a list of tuples: 
+>>>zip [1,2,3] [4,5,6]
+
+#zipWith3 f xs1 xs2 xs3
+The same as `zipWith` function but for three lists. 
+
+#zip3 xs1 xs2 xs3
+The same as `zip` function but for three lists. 
+
+#unzip xs
+This function transforms a list of pairs into a list of first components and a list of second components.
+
+#unzip3 xs
+This function takes a list of triples and returns three lists, analogous to `unzip`.
+
+==Lists transformations
+
+#intersperse e xs
+Takes an element and a sequence and intersperses that element between the elements of the 
+sequence: 
+>>>intersperse 0 [1,2,3]
+
+#transpose xs
+Transposes the rows and columns of its argument: 
+>>>transpose [[1,2,3],[4,5,6]]
+
+#intercalate xs xss
+Inserts the given sequence in between the sequences and concatenates the result. 
+
+#nonEmptySubsequences xs
+Returns the list of all subsequences of the argument, except for the empty list: 
+>>>nonEmptySubsequences [1,2]
+
+#subsequences xs
+Returns the list of all subsequences of the argument: 
+>>>subsequences [1,2]
+
+#permutations xs
+Returns a list with all permutations of an argument: 
+>>>permutations [[1,2],[2,3]]

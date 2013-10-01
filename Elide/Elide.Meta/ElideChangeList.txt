@@ -1,0 +1,93 @@
+﻿0.1.9.5:Fix:Elide, crush after font change in settings (Issue #59).
+0.1.9.4:Change:EIL code editor syntax highlighting is changed according to EIL instruction set changes.
+0.1.9.3:Change:Behavior of output view (bottom area) is enhanced. Now when switching between outputs the height of the area is preserved and doesn't change to what was previously memorized by the workbench.
+0.1.9.2:Fix:EIL code editor syntax highlighting corrected (now correctly deals with char tokens and single quote characters).
+0.1.9.1:Fix:EIL code editor crush fixed (Issue #60).
+0.1.9.0:Release:Release of Elide 0.1.9.0.
+0.1.8.2:Change:Minor UI changes.
+0.1.8.1:Fix:A problem with syntax highlighting in EIL code editor is fixed (Issue #52).
+0.1.8.0:Release:Release of Elide 0.1.8.0.
+0.1.7.4:New:Help menu is expanded with new links.
+0.1.7.3:Fix:Minor spelling fixes.
+0.1.7.2:Change:Minor user interface changes.
+0.1.7.1:Change:Ela syntax highlighting is updated according to the language changes (do notation).
+0.1.7.0:Release:Release of Elide 0.1.7.0.
+0.1.6.2:Fix:A bug fixed in menu builder logic that could cause Elide to crash on systems with german locale. (Issue #44).
+0.1.6.1:Change:Ela syntax highlighting is updated according to the language changes (numeric literals).
+0.1.6.0:Release:Release of Elide 0.1.6.0.
+0.1.5.7:Change:Syntax highlighting of EIL is updated according to the language changes.
+0.1.5.6:Change:Scrolling to the location of a run-time error is improved.
+0.1.5.5:Change:Now EIL generator shows op codes offsets by default.
+0.1.5.4:Fix:Elide could crash if another program modified a file currently editing.
+0.1.5.3:Fix:Highlighting in output window wasn't always done correctly.
+0.1.5.2:Change:Default highlighting settings for Ela code editor has changed.
+0.1.5.1:Fix:Links in About dialog are now clickable.
+0.1.5.0:Release:Release of Elide 0.1.5.0.
+0.1.4.16:Fix:After a document is closed, a document name could still be displayed in a window header.
+0.1.4.15:Change:Syntax highlighting for EIL is updated according to the language changes.
+0.1.4.14:Change:A bug fixed in syntax highlighting of comments in Ela code editor.
+0.1.4.13:Change:Now Bindings folder in Outline view shows private bindings along with public. Private bindings are marked with a special icon.
+0.1.4.12:Change:Now Bindings folder in Outline view only shows global function that are not class members.
+0.1.4.11:Fix:Signatures for class members in Outline view are now always displayed and formatted correctly.
+0.1.4.10:Change:Now it is possible to navigate to class members in Outline view by clicking on them.
+0.1.4.9:New:Now Outline view can navigate classes, instances and types in the same way as regular bindings.
+0.1.4.8:Change:Now autocomplete window ignores case when looking for an item in a list.
+0.1.4.7:Change:Now Open/Save dialog by default show files '*.*', but remember the choice if a user changes a filter.
+0.1.4.6:Change:Ela Object file viewer is corrected according to the object file format changes; also it now displays a list of constructors declared in a module.
+0.1.4.5:Change:Ela syntax highlighter is updated according to the syntax changes.
+0.1.4.4:Fix:The same file could be opened twice.
+0.1.4.3:Change:A 'Standard Library' setting from Linker Settings is decomissioned (it is no longer supported by Ela linker).
+0.1.4.2:Change:Now when Elide outputs the result of script execution it uses an appropriate 'show' overload.
+0.1.4.1:New:A new menu item 'Create File' is added to the context menu in File Explorer.
+0.1.4.0:Release:Release of Elide 0.1.4.0.
+0.1.3.20:New:A new 'Indentation' menu item is available for Ela code files - it allows to insert a new line with block indent by pressing Ctrl+Enter.
+0.1.3.19:New:Basic smart indenting for Ela code is implemented.
+0.1.3.18:Fix:A bug with view panel sizes (e.g. output and tool windows) not correctly restoring is fixed.
+0.1.3.17:New:A welcome page now contains a What's new link that opens a document with overview of platform changes.
+0.1.3.16:Change:Now Elide always put focus in the editor when navigating between items in Error List and Result List and when switching between files.
+0.1.3.16:Change:Now 'Find and Replace' window is not shown in the task bar.
+0.1.3.15:New:A new settings that allows to automatically list module members after entering a dot symbol is added (turned on by default).
+0.1.3.14:New:Now Ela code editor can show a list of module members.
+0.1.3.13:Fix:A flickering problem in Results and Error List windows is fixed.
+0.1.3.12:Change:Folding for Ela files is rewritten according to the language changes.
+0.1.3.11:Fix:Locations for errors in Error List could display an incorrect file.
+0.1.3.10:Fix:Search and replace inside selection didn't always work correctly.
+0.1.3.9:Change:Changes in File Explorer - now when a mask is applied to a folder a mask is only tested against files, inner folders are always shown.
+0.1.3.8:New:Now Ela code editor folds classes, instances and types declarations in addition to let-bindings.
+0.1.3.7:Change:Syntax highlighting for EIL is updated according to the new/removed op codes.
+0.1.3.6:Change:Syntax highlighting for Ela is updated according to the language changes.
+0.1.3.5:Change:Ela Object file view is updated and now displays tables with types, classes and instances from object files.
+0.1.3.4:Change:Autocomplete is updated and now displays types and members in autocomplete window with separate icons.
+0.1.3.3:Change:Outline view is updated and now displays types, classes and instances in addition to bindings and references.
+0.1.3.2:Fix:A bug fixed in EIL code generation - debug information was never used.
+0.1.3.1:Fix:A bug fixed in EIL code editor that could degrade performance during file editing/scrolling.
+0.1.3.0:Release:Release of Elide 0.1.3.0.
+0.1.2.2:Change:Thunks highlighting is changed according to the literal changes.
+0.1.2.1:New:Now documentation viewer is using actual Ela lexer to do syntax highlighting of code samples.
+0.1.2.0:Release:Release of Elide 0.1.2.0.
+0.1.1.6:Fix:Ela lexer corrected (multiline comments highlighting).
+0.1.1.5:Fix:EIL lexer corrected (highlighting didn't work correctly in a file with syntax errors).
+0.1.1.4:Fix:A flagged document in Open Files view could still be shown event if closed.
+0.1.1.3:New:Documentation generator now generates a member list for modules.
+0.1.1.2:New:Now a symbol is pre-filled in the Find Symbol dialog based on the current selection.
+0.1.1.1:Change:Find Symbol feature is fully rewritten and now searches symbols more correctly.
+0.1.1.0:Release:Release of Elide 0.1.1.0.
+0.1.0.18:Fix:Autocomplete window could be shown inside unclosed strings.
+0.1.0.17:Fix:A bug fixed in highlighting thunks in Ela editor.
+0.1.0.16:Change:Console settings are moved from Environment category to Views category in Options dialog.
+0.1.0.15:New:Output settings added to the Options dialog.
+0.1.0.14:New:File Explorer settings added to the Options dialog.
+0.1.0.13:Change:File Explorer settings are restructured. Now it supports filter of folder levels instead of global filtering.
+0.1.0.12:New:A 'Favorite Folders' feature added to File Explorer.
+0.1.0.11:Change:Now File Explorer view has a root 'My Computer' node (instead of drive nodes as top levels).
+0.1.0.10:Change:Sorting if File Explorer view is corrected - now directories always come first.
+0.1.0.9:New:A 'Flagged documents' node added to Open Files now (now it is possible to 'flag' open documents and to move them a separate folder in this view).
+0.1.0.8:New:Now Console view supports Ctrl+C,Ctrl+X,Ctrl+V and Ctrl+F shortcuts.
+0.1.0.7:New:Now Output view supports Ctrl+A and Ctrl+C shortcuts.
+0.1.0.6:New:Now EIL generation can be configuration through Options dialog.
+0.1.0.5:Fix:Folding now works correctly with multiline strings.
+0.1.0.4:Fix:Autocomplete window could be shown inside comments.
+0.1.0.3:New:A common exception handling dialog is added.
+0.1.0.2:New:A context menu added to the document tab. This menu allows to Save/Close/Close All Other/Copy File Path/Open Container Directory for the current document.
+0.1.0.1:New:A shortcut (Ctrl+F4) is added for Window\Close Current menu item.
+0.1.0.0:Release:Initial release of Elide.

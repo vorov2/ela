@@ -1,0 +1,24 @@
+#title Records
+#category Language Reference
+
+=Introduction
+This article discusses a record data type. 
+
+=Overview
+Records are pretty similar to tuples, but provide an ability to access their elements by name. Records in Ela are 
+effectively associative immutable arrays which elements can be accessed both by index and by name. One can use the 
+following literal form to construct records: 
+>>r = {x = 1, y = 2}
+It is possible to name record fields using a combination of symbols that is not valid for Ela identifier: 
+>>r = { "long field name" = 1, y = 2 }
+Also if you assign record fields with values of variables Ela can infer field names like so (this feature is also
+known as _record punning_): 
+>>>x = 1
+>>>y = 2
+>>>{x,y}
+Records are always compared using structural equality. Also it is not possible to change elements of records or to add 
+new elements. However you can "clone" existing records and create new records that "inherit" their attributes. This done 
+using concatenation function `++`: 
+>>>r1 = {x=1,y=2}
+>>>r1 ++ {z=3}
+Concatenation always produces a new record. 

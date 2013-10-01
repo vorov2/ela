@@ -1,0 +1,55 @@
+#file number.ela
+#title number
+#category Ela Standard Library
+This module contains major numeric classes and instances. 
+
+=Classes
+
+#Float
+Defines functions `inf` (tests if a given float is a positive or negative infinity),
+`posInf` (tests if a given float is a positive infinity), `negInf` (tests if a given
+float is a negative infinity) and `nan` (tests if a given float is not a number).//br
+>>>nan 12.2
+Instances of this class should be provided by all floating point numbers.//br
+This module provides instances of `Float` class for types `Single` and `Double`.
+
+#Fractional
+Defines functions `round` (rounds a number to a nearest integer), `truncate`
+(calculates the integral part of a specified number), `floor` (returns the largest integer 
+less than or equal to the specified number) and `ceiling` (returns the smallest integer 
+greater than or equal to the specified number).
+>>>ceiling 12.01
+Instances of this class should be provided by all fractional numbers.//br
+This module provides instances of `Fractional` class for types `Single` and `Double`.
+
+#Integral
+Defines two integer division functions - `quot`, which is an integer division, truncated
+towards zero, and `div`, which is an integer division, truncated towards negative
+infinity.
+>>>-5 `div` 2
+This module provides instances of `Integral` class for types `Int` and `Long`.
+
+#Absolute
+Defines functions for the types with a notion of an absolute value. Function `abs` returns
+an absolute value of a given value, and function `signum` returns a sign of a given value.
+>>>signum -2
+This module provides instances of `Absolute` class for types `Int`, `Long`, `Single` and `Double`.
+
+#Transcendental
+Represents a class for numbers supporting elementary transcendental functions.//br
+This module provides instances of `Transcendental` class for types `Single` and `Double`.
+
+#Principal
+A principal ideal domain is a ring in which every ideal, the set of multiples of some generating
+set of elements, is principal. This class defines functions `gcd` (greatest common divisor for 
+the two given arguments) and `lcm` (the least common multiple of two given arguments).//br
+This module provides instances of `Principal` class for types `Int`, `Long`, `Single` and `Double`.
+
+=Default instances
+
+===Transcendental
+This partial default instance contains definitions of functions `logBase`, `tan`
+and `tanh`:
+>>logBase x y = log y / log x
+>>tan x       = sin x / cos x
+>>tanh x      = sinh x / cosh x

@@ -1,0 +1,144 @@
+-->begin
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Text;
+using Elide.Scintilla;
+
+-->namespace
+namespace Elide.EilCode.Lexer {
+
+internal sealed partial class Parser {
+-->constants
+	const bool T = true;
+	const bool x = false;
+	const int minErrDist = 2;
+	
+	public Scanner scanner;
+	public Errors  errors;
+
+	public Token t;    // last recognized token
+	public Token la;   // lookahead token
+	int errDist = minErrDist;
+
+-->declarations
+
+
+
+
+	public Parser(Scanner scanner) {
+		ErrorCount = 0;
+		this.scanner = scanner;
+		errors = new Errors(this);
+	}
+
+	void SynErr (int n) {
+		if (errDist >= minErrDist) errors.SynErr(la.line, la.col, n);
+		errDist = 0;
+	}
+
+	public void SemErr (string msg) {
+		if (errDist >= minErrDist) errors.SemErr(t.line, t.col, msg);
+		errDist = 0;
+	}
+	
+	void Get () {
+		for (;;) {
+			t = la;
+			la = scanner.Scan();
+			if (la.kind <= maxT) { ++errDist; break; }
+-->pragmas
+			la = t;
+		}
+	}
+	
+	void Expect (int n) {
+		if (la.kind==n) Get(); else { SynErr(n); }
+	}
+	
+	bool StartOf (int s) {
+		return set[s, la.kind];
+	}
+	
+	void ExpectWeak (int n, int follow) {
+		if (la.kind == n) Get();
+		else {
+			SynErr(n);
+			while (!StartOf(follow)) Get();
+		}
+	}
+
+
+	bool WeakSeparator(int n, int syFol, int repFol) {
+		int kind = la.kind;
+		if (kind == n) {Get(); return true;}
+		else if (StartOf(repFol)) {return false;}
+		else {
+			SynErr(n);
+			while (!(set[syFol, kind] || set[repFol, kind] || set[0, kind])) {
+				Get();
+				kind = la.kind;
+			}
+			return StartOf(syFol);
+		}
+	}
+
+	
+-->productions
+
+	public void Parse() {
+		la = new Token();
+		la.val = "";		
+		Get();
+-->parseRoot
+    Expect(0);
+	}
+	
+	static readonly bool[,] set = {
+-->initialization
+	};
+} // end Parser
+
+
+internal sealed class Errors {
+	private Parser p;
+
+	internal Errors(Parser p)
+	{
+		this.p = p;
+	}
+  
+	internal void SynErr (int line, int col, int n) {
+		string s;
+		switch (n) {
+-->errors
+			default: s = "error " + n; break;
+		}
+		
+		Console.WriteLine(s + "; line=" + line + ";col=" + col);
+		p.ErrorCount++;
+		//ErrorList.Add(new ElaError(s, ElaErrorType.Parser_SyntaxError, new ElaLinePragma(line, col)));
+	}
+
+	internal void SemErr (int line, int col, string s) {
+		//ErrorList.Add(new ElaError(s, ElaErrorType.Parser_SemanticError, new ElaLinePragma(line, col)));
+		p.ErrorCount++;
+	}
+	
+	internal void SemErr (string s) {
+		//ErrorList.Add(new ElaError(s, ElaErrorType.Parser_SemanticError, null));
+		p.ErrorCount++;
+	}
+	
+	
+} // Errors
+
+
+public class FatalError: Exception {
+	public FatalError(string m): base(m) {}
+}
+
+}
+
+$$$

@@ -1,0 +1,19 @@
+open console cell core
+
+//An implementation of a function that creates an iterator for a given list
+iter xs = iter' (ref xs)
+              where iter' c () = 
+                      match valueof c with
+                            x::xs = c := xs `seq` Some x
+                            []    = None
+
+//This is a 'foreach' function implementation that works with iterator defined above
+each f xs = for' (iter xs)
+                where for' it =
+                        match it() with
+                              Some x = f x `seq` for' it
+                              _ = ()
+
+//Iterate through a list and write each element to console
+//Prints 12345
+each (write << show) [1..5]

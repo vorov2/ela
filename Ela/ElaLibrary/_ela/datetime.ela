@@ -1,0 +1,99 @@
+/* 
+  Module datetime
+  Created in 2012 by Basil Voronkov
+*/
+import libDateTime#elalib@dt
+open generic string
+
+/* Construction */
+type DateTime = DateTime a # private
+
+fromTicks # qualified
+fromTicks x = DateTime (force x)
+
+fromTuple # qualified
+fromTuple (y,m,d) = DateTime (dt.newDateTime y m d 0 0 0 0)
+fromTuple (y,m,d,h,mm) = DateTime (dt.newDateTime y m d h mm 0 0)
+fromTuple (y,m,d,h,mm,s,ms) = DateTime (dt.newDateTime y m d h mm s ms)
+
+now # qualified
+now () = DateTime (dt.now ())
+
+today # qualified
+today () = DateTime (dt.today ())
+
+parse # qualified
+parse fmt str = DateTime (dt.parse (force fmt) (force str))
+
+/* Instances */
+instance Eq DateTime where
+  (DateTime x) == (DateTime y) = x == y
+  (DateTime x) <> (DateTime y) = x <> y
+
+instance Ord DateTime where
+  (DateTime x) > (DateTime y)  = x > y
+  (DateTime x) < (DateTime y)  = x < y
+  (DateTime x) >= (DateTime y) = x >= y
+  (DateTime x) <= (DateTime y) = x <= y
+
+instance Bounded DateTime where
+  maxBound = dt.maxDateTime
+  minBound = dt.minDateTime
+
+instance Default DateTime where
+  default = dt.minDateTime
+
+instance Show DateTime where 
+  show (DateTime x) = dt.formatToString "" x
+
+instance Format DateTime where
+  fmt f x = dt.formatToString (force fmt) x
+
+/* Functions */
+addDates (DateTime x) (DateTime y) = fromTicks <| dt.add (force x) (force y)
+
+addTicks x (DateTime y) = fromTicks <| dt.addTicks (force x) (force y)
+
+addMilliseconds x (DateTime y) = fromTicks <| dt.addMilliseconds (force x) (force y)
+
+addSeconds x (DateTime y) = fromTicks <| dt.addSeconds (force x) (force y)
+
+addMinutes x (DateTime y) = fromTicks <| dt.addMinutes (force x) (force y)
+
+addHours x (DateTime y) = fromTicks <| dt.addHours (force x) (force y)
+
+addDays x (DateTime y) = fromTicks <| dt.addDays (force x) (force y)
+
+addMonths x (DateTime y) = fromTicks <| dt.addMonths (force x) (force y)
+
+addYears x (DateTime y) = fromTicks <| dt.addYears (force x) (force y)
+
+years (DateTime x) = dt.years (force x)
+
+months (DateTime x) = dt.months (force x)
+
+days (DateTime x) = dt.days (force x)
+
+hours (DateTime x) = dt.hours (force x)
+
+minutes (DateTime x) = dt.minutes (force x)
+
+seconds (DateTime x) = dt.seconds (force x)
+
+milliseconds (DateTime x) = dt.milliseconds (force x)
+
+ticks (DateTime x) = dt.ticks (force x)
+
+dayOfWeek (DateTime x) = dt.dayOfWeek (force x)
+
+dayOfYear (DateTime x) = dt.dayOfYear (force x)
+
+date (DateTime x) = fromTicks <| dt.date (force x)
+
+diff (DateTime x) (DateTime y) = dt.diff (force x) (force y)
+
+diffSeconds x y = seconds (diffTicks x y)
+
+diffMilliseconds x y = milliseconds (diffTicks x y)
+
+diffTicks (DateTime x) (DateTime y) = (force x) - (force y)

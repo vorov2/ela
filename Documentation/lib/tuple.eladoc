@@ -1,0 +1,74 @@
+#file tuple.ela
+#title tuple
+#category Ela Standard Library
+This module contains instances and functions for a tuple.
+
+=Instances
+
+===Additive
+Implements basic mathematical functions, including addition, subtraction and negation,
+for a tuple.
+>>>(1,2) + (3,4)
+Also all binary functions in this instance require the tuples to be of the same length.
+
+===Ring
+Implements multiplication and 'power' for tuples.
+>>>(2,3) * (3,4)
+All functions in this instance require the tuples to be of the same length.
+
+===Field
+Implements real division for tuples.
+>>>(2,3) / (2,2)
+All functions in this instance require the tuples to be of the same length.
+
+===Enum
+Implements functions from `Enum` class for a tuple.//br
+Functions `succ` and `pred` are implemented by sequentially applying `succ` and `pred` to all 
+tuple elements - therefore they will only work on tuples that contain enumerable types.
+>>>succ (1,2,3)
+Functions `enumFrom` and `enumFromTo` are implemented based on `Additive`, and therefore
+would also require all tuples in ranges to be of the same length.
+
+===ListLike
+Implements `toList` and `fromList` functions that converts a given tuple to a linked list, and
+a list to a tuple.
+>>>toList (1,2,3)
+
+=Functions
+
+#map f t
+Maps a given function to all elements of a tuple. This function requires a qualified access.
+>>>map succ (1,2,3)
+
+#join f a b
+Joins two given tuples into a single tuple by applying a binary function `f` to their elements.
+Tuples should be of the same length. This function requires a qualified access.
+>>>join (+) (1,2) (3,4)
+
+#any p t
+Checks if at least one tuple element satisfies a given predicate. This function requires a qualified access.
+>>>any (>2) (1,2,3)
+
+#all p t
+Checks if all tuple elements satisfy a given predicate. This function requires a qualified access.
+>>>all (>2) (1,2,3)
+
+#concat t
+Concatenates a tuple of tuples. This function requires a qualified access.
+>>>concat ((1,2),(3,4))
+
+#foldl f z xs
+Function `foldl`, applied to a binary operator, a starting value (typically the left-identity of 
+the operator), and a tuple, reduces a tuple using the binary operator, from left to right. This function
+requires a qualified access.
+
+#foldr f z xs
+Function `foldr`, applied to a binary operator, a starting value (typically the left-identity of 
+the operator), and a tuple, reduces a tuple using the binary operator, from right to left. This function
+requires a qualified access.
+
+#foldl1 f xs
+The same as `foldl`, but with a first tuple element as a starting value. This function requires a qualified access.
+
+#foldr1 f z xs
+The same as `foldr`, but with a first tuple element as a starting value. This function requires a qualified access.

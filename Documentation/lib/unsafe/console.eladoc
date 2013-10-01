@@ -1,0 +1,33 @@
+#file console.ela
+#title console
+#category Ela Standard Library
+This module contains standard input and output functions.
+
+=Functions
+
+#write
+Writes a given string to standard output: 
+>>write "Hello, world!"
+
+#writen
+Writes a given string and a new line to standard output: 
+>>writen "Hello, world!"
+
+#readn ()
+Reads a line from standard input: 
+>>res = readn ()
+
+#printf
+Works like `format` function from `string` module but instead of returning a result string prints it to console. 
+
+#printfn
+Works like `format` function from `string` module  but instead of returning a result string prints it to console and 
+adds a new line. 
+
+#print
+This function is defined like so:
+>>print = write << show
+
+#printn
+This function is defined like so:
+>>printn = writen << show

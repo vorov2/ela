@@ -1,0 +1,209 @@
+#title Ela and Haskell comparison
+
+=Introduction
+This article provides a brief overview of differences between Ela and Haskell. It can be used as a 
+a "quick start" guide for those who are familiar with Haskell. 
+
+=Feature comparison
+|                           |*Ela*                                |*Haskell*
+|Major programming paradigm |Functional                           |Functional 
+|Syntax                     |ML style, layout based               |ML style, layout based 
+|Purity                     |Impure *i*                           |Pure 
+|Type system                |No type system, only dynamic typing  |Statically typed with type inference 
+|Type strength              |Strong                               |Strong 
+|Type safety                |Safe                                 |Safe 
+|Evaluation strategy        |Strict by default, lazy by demand    |Lazy by default, string by demand 
+|Pattern matching           |Yes                                  |Yes 
+|Function definition by PM  |Yes                                  |Yes 
+|Algebraic types            |Yes                                  |Yes 
+|First class modules        |Yes                                  |No 
+|OOP support                |Through duck typing and modules      |Through existential types 
+|Monads                     |Yes                                  |Yes 
+|Exceptions                 |Yes                                  |Yes
+|Curried functions          |Yes, all functions are curried       |Yes, all functions are curried 
+|Operators as functions     |Yes                                  |Yes 
+|Type classes               |Yes *iii*                            |Yes
+\*i* Actually Ela is a pure language. The language itself provides no support for mutation of state 
+- no variables, mutable data structures, etc. However Ela doesn't restrict and/or control side 
+effects in the code therefore mutation of state can be easily implemented on a library level. For 
+example, module `cell` adds a support for reference cells and module `console` provides a support 
+for classical C-style console input/output.//br
+\*iii* Ela (as of 0.11) provides a support for single parameter type classes. However the implementation
+is quite different from Haskell as long as Ela is dynamically typed and the whole notion of type
+has a different (runtime) meaning in Ela.
+
+=Syntax overview
+
+==Global bindings
+Both Ela and Haskell do not require any keywords (such as `let`) for global bindings: //br
+Haskell: 
+>x = 0
+>fib a b 0 = a
+>fib a b n = fib b (a + b) (n - 1)
+Ela: 
+>>x = 0
+>>fib a b 0 = a
+>>fib a b n = fib b (a + b) (n - 1)
+Additionally Ela supports attributes for bindings, e.g.:
+>>sum # private
+>>sum x y = x + y
+In the example above the function `sum` will not be included in the module export list.
+
+==Local bindings
+Both Ela and Haskell use `let` and `where` constructs for local bindings: //br
+Haskell: 
+>fib = fib2 0 1
+>      where fib2 a b 0 = a
+>            fib2 a b n = fib2 b (a + b) (n - 1)
+Ela: 
+>>fib = fib2 0 1
+>>      where fib2 a b 0 = a
+>>            fib2 a b n = fib2 b (a + b) (n - 1)
+Haskell: 
+>fib = let fib2 a b 0 = a
+>         fib2 a b n = fib2 b (a + b) (n - 1)
+>      in fib2 0 1
+Ela: 
+>>fib = let fib2 a b 0 = a
+>>          fib2 a b n = fib2 b (a + b) (n - 1)
+>>      in fib2 0 1
+
+==Prefix, infix and postfix
+Haskell supports function declaration in infix and prefix forms. Ela supports declarations of 
+functions in infix, prefix and postfix forms.//br
+Haskell: 
+>x `sum` y = x + y
+>sum x y = x + y
+Ela: 
+>>x `sum` y = x + y
+>>sum x y = x + y
+>>x `negate` = --x
+
+==Unary negation
+Haskell uses a `-` operator for unary negation. Ela standard library doesn't provide a prefix
+operator for unary negation (a `negate` function is used instead), however, a `-` sign is a part
+of numeric literals.//br
+Haskell: 
+>x = -2
+>y = -x
+>fun (-2)
+Ela: 
+>>x = -2
+>>y = negate 2
+>>fun -2
+
+== List construction and list pattern matching
+By default Ela uses `::` operator for list construction. Haskell uses `:` operator. //br
+Haskell:
+>xs = 1:2:3:[]
+>(y:ys) = xs
+Ela: 
+>>xs = 1::2::3::[]
+>>(y::ys) = xs
+Note that `:` is also a standard operator in Ela, however it is used as an indexing operator (a 
+Haskell equivalent is `!!`).
+
+==Algebraic data types
+Both languages support them, however, Ela additionally provides an ability to declared open algebraic data 
+types, which can be extended after declaration with additional constructors. Also syntax is different. //br
+Haskell: 
+>data Couple a = Foo a | Bar a
+>unbox (Foo a) = a
+>unbox (Bar a) = a
+Ela: 
+>>type Couple = Foo a | Bar a //Closed type
+>>unbox (Foo a) = a
+>>unbox (Bar a) = a
+>>
+>>opentype AnyNumber = Foo a | Bar a //Open type
+>>data AnyNumber = Zoo a //Extension of AnyNumber type
+Ela doesn't require to specify type variables on the left-hand side of a type definition. Type variables
+in constructor definitions are not used by Ela compiler (but can be queried at run-time). Also Ela 
+supports constructors in prefix, infix and postfix forms:
+>>type Complex = a :+ b
+
+==Partial operator application
+Both languages support it. //br
+Haskell: 
+>div2 = (/2)
+>x = div2 10 --5.0
+Ela: 
+>>div2 = (/2)
+>>x = div2 10 //5
+
+==Pattern matching
+Haskell uses `case` expression, when Ela have `match` expression. Layout rules for both constructs 
+are similar. //br
+Haskell: 
+>xs = 1:2:3:[]
+>res = case xs of 
+>           (x:xs) ->x
+>           []     ->0
+Ela: 
+>>xs = 1::2::3::[]
+>>res = match xs with 
+>>            x::xs = x
+>>            []    = 0
+
+==Guards
+Both Haskell and Ela support guards in a similar way, however `else` clause in Ela is always 
+mandatory. //br
+Haskell: 
+>x = case (1,2) of
+>         (x,y) | x < y     -> x
+>               | x < y     -> y
+>               | otherwise -> x + y
+Ela: 
+>>x = match (1,2) with
+>>          (x,y) | x > y = x
+>>                | x < y = y
+>>                | else  = x + y
+
+==Ranges
+Both Ela and Haskell support ranges with similar syntax. //br
+Haskell: 
+>r1 = [1..] --infinite range
+>r2 = [10,9..] --infinite range
+>r3 = [1..10] --finite range
+>r4 = [10,9..1] --finite range
+Ela: 
+>>r1 = [1..] //infinite range
+>>r2 = [10,9..] //infinite range
+>>r3 = [1..10] //finite range
+>>r4 = [10,9..1] //finite range
+
+==Comprehensions
+Both Ela and Haskell support comprehensions, but syntax in Ela is slightly different. 
+Also comprehensions in Ela are strict by default. //br
+Haskell: 
+>xs = [x+y | x <- [1..10], y <- [10,9..1], x `mod` y == 0]
+Ela: 
+>>xs = [x+y \\ x <- [1..10], y <- [10,9..1] | x % y == 0] //strict
+>>xs' = [& x+y \\ x <- [1..10], y <- [10,9..1] | x % y == 0] //lazy
+
+==Non-strict evaluation
+In Haskell evaluation is non-strict by default. In Ela one should explicitely mark a certain 
+expression as lazy.  //br
+Haskell: 
+>map2 f (x:xs) = f x : map2 f xs
+>map2 _ []     = []
+>cycle2 xs = xs ++ cycle xs
+Ela: 
+>>map2 f (x::xs) = f x :: (& map2 f xs)
+>>map2 _ []      = []
+>>cycle2 xs = xs ++ (& cycle xs)
+
+==Function application and composition
+Haskell uses `.` operator for function composition (right associative, with applicative order) 
+and `$` operator for function application (right associative, with applicative order). By default 
+Ela has four operators instead (similar to F#). These are forward pipe `|>`, backward pipe `<|`, 
+forward composition `>>` and backward composition `<<`. //br
+Backward pipe is fully equivalent to `$` and backward composition is equivalent to `.`. They are 
+both right associative and use applicative order. (Remember, that `.` is a different operator in 
+Ela and is used specifically for "member access"). //br
+Haskell: 
+>funk = (negate . abs)
+>funk x = negate $ abs $ x
+Ela: 
+>>funk = negate << abs
+>>funk x = negate <| abs <| x

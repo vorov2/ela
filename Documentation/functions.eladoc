@@ -1,0 +1,65 @@
+#title Functions
+#category Language Reference
+
+=Introduction
+This article discusses function declaration in Ela. 
+
+=Declaration
+Functions in Ela are first class values and are declared using regular binding syntax like so: 
+>>sum x y = x+y
+Functions are curried, therefore, the declaration above is equivalent to the following declaration: 
+>>sum x = sum'
+>>         where sum' y = x+y
+Ela also supports anonymous functions syntax. The function above can be also written like so: 
+>>sum = \x y -> x+y
+or like so (taking into account that the function is curried): 
+>>sum = \x -> \y -> x+y
+Functions in Ela can be declared using both `let` and `where` bindings in local scope and don't require 
+any keywords at top level. 
+
+=Headers
+Functions in Ela (as well as other bindings) can have an optional header, used to specify attributes such as `private`
+(not included in module export list) and `qualified` (included in module export list but always requires qualified 
+access):
+>>sum # private
+>>sum x = x+y
+
+=Operators
+Strictly speaking, Ela doesn't have a concept of operators. Instead, it recognizes two types of idenfiers for functions - 
+a regular type (which is a standard Ela identifier) which is used for functions called in prefix notation by default,
+and a symbolic identifier which is used by default in infix (or postfix) notations. Therefore, declaration of operators is 
+effectively the same as declaration of functions: 
+>>(+.) x y = x+y
+This function is basically an equivalent to the `sum` function shown in the previous section. The only difference is that 
+by default it is applied using infix notation: 
+>>x +. y
+
+=Application Notation
+Prefix, postfix and infix notations can be used for any functions in Ela. For example, operators can be applied using prefix 
+notation: 
+>>(+) 2 2
+And even postfix notation: 
+>>2+
+The latter code partially applies an operator `+`. However for unary operators it will result in saturation. //br
+Functions also can be called using infix and postfix notations: 
+>>2 `sum` 2
+or even 
+>>2 `sum`
+which has effectively the same effect as a right section for `+` shown above. //br
+You can also declare functions and operators using all these notations: 
+>>sum x y = x+y //Prefix
+>>x +. y = x+y //Infix
+>>x `sum` y = x+y
+>>x+++ = x+x //Postfix
+
+=Pattern Matching
+Functions in Ela can be defined using pattern matching. In such a case a function will have a separate body for each of the match 
+entries. A typical example is a known `map` function: 
+>>map _ [] = []
+>>map f (x::xs) = f x :: map f xs
+Here we have a function for two arguments that accepts a function (as a first argument) and a list (as a second argument). A list 
+is deconstructed using head/tail pattern. One can also use guards in functions (in the same manner as in bindings): 
+>>filter _ [] = []
+>>filter p (x::xs) | p x  = x :: filter p xs
+>>                 | else = filter p xs
+An `else` clause is required.

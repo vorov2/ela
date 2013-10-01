@@ -1,0 +1,38 @@
+#file bench.ela
+#title bench
+#category Ela Standard Library
+This module contains an implementation of simple benchmarking suite for Ela. This suite
+measures time of execution of pure functions, trying to exclude all the time needed for
+GIT compilation and for function calls themselves.
+
+=Types
+
+#Bench
+This data type is used to present a single item in a collection of benchmarks. A function
+`runBenches` returns a list, whose elements are values of `Bench` type.
+
+=Functions
+
+#benchmark name num fun arg xs
+This function registers a benchmark. It accepts a benchmark name, an integer `num`, 
+determining how many times this benchmark should be executed, a function `fun`, which
+execution time will be measured, an argument `arg` for a function `fun` and list of
+benchmarks (or a nil list).//br
+This is how a single benchmark can be registered:
+>>benchmark "Concat lists" 1 (++[1..100]) [1..100] []
+And this is how multiple benchmarks can be registered using piping:
+>>xs = [] 
+>>  |> benchmark "foldl (+)" 100 (foldl (+) 0) [1..5000]
+>>  |> benchmark "foldr (+)" 100 (foldr (+) 0) [1..5000]
+
+#runBenches xs
+Accepts a list of benchmarks, built using function `benchmark` and executes them. This
+function returns a list with benchmark results. Each result is presented as a value of
+`Bench` data type.
+
+#formatBench xs
+Accepts a list of benchmark results, returned by `runBenches` function and formats results
+to a string.
+>>>res = runBenches <| benchmark "Concat lists" 1 (++[1..100]) [1..100] []
+>>>formatBench res
+

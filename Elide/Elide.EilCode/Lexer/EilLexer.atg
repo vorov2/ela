@@ -1,0 +1,91 @@
+﻿COMPILER Eil
+
+CHARACTERS
+	cr = '\r'.
+	lf = '\n'.
+	newLine = cr + lf.
+	tab = '\t'.    
+	letter = 'A' .. 'Z' + 'a' .. 'z' + '_'.
+	digit = "0123456789".
+	notDigit = ANY - digit.
+	hexDigit = digit + "ABCDEFabcdef".
+	verbatimChar = ANY.
+	stringChar = ANY - '"' - '\\'.
+	char = ANY - "'" - '\\' - newLine.
+	op = "!%&+-/.,:<=>?*@^|$~`\\".
+	parens = "[]{}()".
+	cmt = ANY - newLine.
+
+TOKENS
+    ident = letter { letter | digit | "'" }
+			| "_" ("'"|letter) { letter | digit | "'" }
+			| "'" letter [ (letter|digit|"'") {letter|digit|"'"} (letter|digit) ]
+			| "$" digit
+			| "#"
+			| parens.
+	
+	intTok = ["-"]( digit { digit } | digit { digit } CONTEXT ("." notDigit) | 
+			( "0x" | "0X" ) hexDigit { hexDigit } ) [ "L" | "l" ].
+			
+    address = "#" ( digit { digit } | digit { digit } CONTEXT ("." notDigit) 
+			| ( "0x" | "0X" ) hexDigit { hexDigit } ) [ "L" | "l" ].
+						
+	stringTok = "\"" { stringChar
+					| "\\\"" | "\\\\" | "\\0" | "\\b" | "\\n" | "\\r" | "\\t" | "\\'"
+					| "\\u" hexDigit hexDigit hexDigit hexDigit
+					| "\\x" digit digit digit digit digit
+					}  
+				"\"".				
+	
+	charTok = 	"'" ( char
+					| "\\\"" | "\\\\" | "\\0" | "\\b" | "\\n" | "\\r" | "\\t" | "\\'"
+					| "\\u" hexDigit hexDigit hexDigit hexDigit
+					| "\\x" digit digit digit digit digit
+					)  
+				"'".
+	operatorTok = op { op }.
+	
+	NL = newLine.
+	
+IGNORE tab
+
+PRODUCTIONS
+	SingleLineComment = 
+		"//"  (. var pos = t.pos; .) { ANY } (NL|EOF)
+		(. Add(pos, t.pos - pos + t.val.Length, TextStyle.Style4); .).
+						
+	OpNum = 
+	    (
+	        "[" (. Add(t.pos, t.val.Length, TextStyle.Style7); .)
+	            intTok 
+	            (. Add(t.pos, t.val.Length, TextStyle.Style7); .)
+	        "]" (. Add(t.pos, t.val.Length, TextStyle.Style7); .)
+	    ).
+		
+	Keyword = 
+		( 
+		"Nop"|"Len"|"Pushunit"|"Pushelem"|"Pushfld"|"Hasfld"|"PushI4_0"|"PushI1_0"|"PushI1_1"|"Pop"|"Pushstr_0"|"Genfin"|"Cons"|"Tail"|"Head"|"Ret"|"Concat"|"Add"|"Mul"|"Div"|"Quot"|"Rem"|"Mod"|"Pow"|"Sub"|"Shr"|"Shl"|"Ceq"|"Cneq"|"Clt"|"Cgt"|"Cgteq"|"Clteq"|"AndBw"|"OrBw"|"Xor"|"Not"|"Neg"|"NotBw"|"Dup"|"Swap"|"Newlazy"|"Newlist"|"Newtup_2"|"Stop"|"NewI8"|"NewR8"|"Leave"|"Flip"|"LazyCall"|"Call"|"Callt"|"Ctx"|"Throw"|"Rethrow"|"Force"|"Isnil"|"Show"|"Addmbr"|"Traitch"|"Skiptag"|"Newtype"|"Newtype0"|"Newtype1"|"Newtype2"|"Ctype"|"Disp"|"Newconst"|"Api"|"Api2"|"Untag"|"Reccons"|"Tupcons"|"Ctorid"|"Typeid"|"Classid"|"Newfunc"|"Newmod"|"Pushext"|"Newrec"|"Newtup"|"Failwith"|"Start"|"Pushstr"|"PushCh"|"PushI4"|"PushR4"|"Pushloc"|"Pushvar"|"Poploc"|"Popvar"|"Runmod"|"Br"|"Brtrue"|"Brfalse"|"Newfun"
+	    )
+		(. Add(t.pos, t.val.Length, TextStyle.Style2); .).		
+		
+	Value = 
+	    (
+	        ident (. Add(t.pos, t.val.Length, TextStyle.Style1); .)			
+	        | operatorTok (. Add(t.pos, t.val.Length, TextStyle.Style3); .)
+	        | intTok (. Add(t.pos, t.val.Length, TextStyle.Style6); .)
+		    | stringTok (. Add(t.pos, t.val.Length, TextStyle.Style5); .)	
+		    | address (. Add(t.pos, t.val.Length, TextStyle.Style8); .)
+		).
+		
+	Code = 
+	    (
+	        OpNum
+	        | Keyword
+	        | Value
+	        | SingleLineComment
+	        | NL
+	    ).
+	
+	Eil = Code { Code }.
+
+END Eil.

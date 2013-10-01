@@ -1,0 +1,98 @@
+#title Embedding Ela
+
+=Introduction
+This article discusses embedding Ela in .NET applications. 
+
+=Overview
+You can use Ela interpreter within your .NET application. For such purpose you only need to 
+reference `Ela.dll`, there is no need in Ela Console which is only a tool to run Ela programs 
+from command line.//br
+Implementation of Ela includes four loosely coupled components - a parser (`ElaParser`), a linker 
+(`ElaLinker` and `ElaIncrementalLinker`), a compiler (`ElaCompiler`) and a virtual machine 
+(`ElaMachine`). Normally you would only need a linker and an Ela machine to execute Ela code. 
+
+=Embedding
+==Running Ela code
+Ela provides two implementations of a linker. The one that is named `ElaIncrementalLinker` is used 
+to support interactive mode. It allows you to build and execute Ela code chunk by chunk. 
+Incremental linker is also useful if you want to evaluate Ela code in a string representation. 
+If this is not what you need, you can use a regular Ela linker. This is a sample in C# that shows 
+how to execute Ela code from a string: 
+>var l = new ElaIncrementalLinker(new LinkerOptions(), CompilerOptions.Default);
+>l.SetSource(elaSourceCode);
+>var res = l.Build();
+>if (res.Success) {
+>  var vm = new ElaMachine(res.Assembly);
+>  vm.Run();
+>}
+In many cases you might need to provide some arguments to Ela code. Here is a full example of 
+an `Eval` function in C# that uses an anonymous class to capture arguments and their names: 
+
+>public static object Eval(string source, object args)
+>{
+>  var l = new ElaIncrementalLinker(new LinkerOptions(), CompilerOptions.Default);        
+>  foreach (var pi in args.GetType().GetProperties())
+>    l.AddArgument(pi.Name, pi.GetValue(args, null));
+>            
+>  l.SetSource(source);
+>  var res = l.Build();
+>
+>  if (res.Success) {
+>    var vm = new ElaMachine(res.Assembly);
+>    return vm.Run().ReturnValue.AsObject();
+>  }
+>  else {
+>    var sb = new StringBuilder();
+>    foreach (var m in res.Messages)
+>      sb.AppendLine(m.ToString());
+>
+>    throw new ElaTranslationException(sb.ToString());
+>  }
+>}
+> 
+>//sample usage
+>var r = Eval("fun x y", new { 
+>  fun = ElaFunction.Create<int,int,int>((x,y) => x + y), 
+>  x = 2, y = 4});
+
+==Writing Ela modules in C#
+You can also create Ela modules in C# (or any other .NET language). This is an example of a simple 
+module: 
+
+>public class MathModule : Ela.Linking.ForeignModule
+>{
+>  public override void Initialize()
+>  {  
+>    base.Add<Int32,Int32,Int32>("rnd", Randomize);  
+>  }
+>            
+>  public int Randomize(int seed, int max)
+>  {
+>    var rnd = new Random(seed);
+>    return rnd.next(max);
+>  }
+>}
+
+And this is what you need to do to make this module available in Ela: 
+
+>var l = new ElaIncrementalLinker(CompilerOptions.Default, new LinkerOptions());
+>l.ModuleResolve += (o,e) => {
+>  if (e.Module.ModuleName == "math")
+>    e.AddModule(new MathModule());
+>};
+>l.SetSource(source);
+>var res = l.Build();
+
+And now you can seamlessly use this module from Ela: 
+
+>>open math
+>>r = rnd 0 42
+
+You can also compile your module into regular .NET assembly, reference `Ela.dll` and specify 
+the following attribute: 
+
+>[assembly:ElaModule("math", typeof(MathModule)]
+
+Now you don't have to manually add this module into collection of modules. Ela linker will 
+be able to find it without your help. But you will have to specify the DLL name in your open 
+directive like so: `open math#myMathDll`. 

@@ -1,0 +1,31 @@
+#file test.ela
+#title Test
+#category Ela Standard Library
+A basic unit testing module.
+
+=Functions
+
+#regFun
+Registers a given function in a list of test functions that should be executed:
+>>xs = [] 
+>>xs |> regFun fun1 |> regFun fun2
+This function can be used to build a list with test functions. It always returns a list with
+functions as a result.
+
+#regFuns
+Registers all public functions from a given module as test functions in a list `xs`.
+
+#run
+Executes all test functions from a given list and a returns a result of execution as a tuple
+with a total number of executed tests and a number of failed tests.
+
+#report pred act xs
+This function generates a report of an execution result (obtained from `run`) function. The first
+argument `pred` is a predicate that can be used to skip certain items in the report. For example,
+the following code:
+>>fmt (\(_,x,_) -> not x) writen
+would output to console only failed tests. If you want to output all test results an `id` function
+can be used here.//br
+The second argument `act` is an output function (a `console.writen` is used for output in the
+code sample above). And the last argument of this function is a test execution result, obtained by
+evaluating `run` function.

@@ -1,0 +1,58 @@
+#title What's new? (Ela Platform 2012.9)
+
+=Ela changes
+Platform 2012.9 comes with a new version of Ela that contains multiple important changes. This document contains an
+overview of the most important changes in this release.
+
+==Better support for non-strict evaluation
+Now Ela compiler, while generally favoring eager evaluation, performs an analysis to understand which parts of code
+cannot be executed in a strict manner and can defer an evaluation of certain expressions. Also compiler rewrites order
+of bindings when needed. This enables total mutual recursion of definitions at any level. Besides that, code like so:
+>>a = 1::a
+now doesn't require any additional annotations and would create a lazy infinite data structure (previously it would hang
+Ela execution environment). Explicit thunks annotations, e.g. `& exp` are still supported.//br
+Despite of the majority of this change, this new behavior of Ela compiler is backwards compatible - all Ela programs will
+still have a mostly strict (by default) behavior, and all existing code is accepted by a compiler without a single change.
+
+==Negative numeric literals
+Now Ela provides a support for negative numeric literals which enables several useful properties, such as an ability to
+match against negative numbers in pattern matching constructs. This change is not backwards compatible. Currently Ela
+supports a common notation for negative number, e.g. `-42`. An unary operator `--`, used for negation, is currently 
+decomissioned and replaced by a `negate` function from `Additive` class. Also previously expressions like `n-1` and `(-1)`
+would be interpreted as 1) binary operation and 2) right section for a binary minus. Currently these expressions are
+interpreted as 1) an application of function `n` to `-1` and 2) a literal for a negative number. One would have to rewrite
+these expressions and add spaces if a different meaning is required, e.g. `n - 1` and `(- 1)`.//br
+Ela compiler now generates warnings for all ambitious cases, such as `(-1)`, which would simplify code migration.
+
+==Logical and sequencing operators
+Previously Ela had three operators defined as normal forms - logical AND operator (`and`), logical OR operator (`or`) and
+sequencing operator (`$`). Now all these operators are decomissioned. A symbol `$` is reserved for an application operator.
+All three operators are now replaced by regular prelude functions - `&&` (logical AND), `||` (logical OR) and `seq` 
+(sequencing). Ela, however, guarantees that when these functions are referenced by their direct name, they are always
+inlined and a strict (from left o right) evaluation order is guaranteed.
+
+==Match validation for overlapping
+Validation of pattern matching constructs is back. Now Ela compiler validates patterns for overlapping and generates
+appropriate warnings when needed.
+
+==Bang patterns
+Bang patterns can be used to ensure that a matched value is always strictly evaluated. A bang pattern is basically a special
+case of a name pattern when a value is forced before binding its to a name:
+>>strict_id !a = a
+Bang patterns can only be used in functions and constructor definitions. Also a bang pattern can be followed by a name; patterns
+in the form `!(x,y)` and similar are not valid.
+
+==Type constraints for constructor arguments
+Now Ela supports type constraints in constructor arguments, which are written like so:
+>>type Circle = Circle (Double a)
+Type constraint is always enclosed in parentheses and is written as a juxtaposition of a type type (optionally prefixed with a
+module alias and a parameter name). A single constructor can have parameters with and without type constraints. Also, unless
+bang patterns are used, type checking in constructors is conservative and never evaluates a value if this value is a thunk.
+Please refere to languages reference for more details.
+
+=Library changes
+A new version of standard library also contains several notable changes. Here is a quick summary of them:
+  * Standard `Show` class is redesigned and now defines a single argument `show` function (instead of two argument `showf` function). Also formatting of standard types using `show` now mimics the literal syntax.
+  * A new `Format` class which is used for arguments that are substituted into format strings.
+  * Module `format` is decomissioned; its functions are moved to modules `string` and `console`.
+  * New prelude functions, such as logical operators `&&` and `||`, sequencing function `seq` are added.

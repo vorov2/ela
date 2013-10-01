@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7EB01154-F308-44DF-9F55-1124A87D01C7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Elide.Workbench</RootNamespace>
+    <AssemblyName>Elide.Workbench</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.Compatibility" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutDialog.Designer.cs">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoSaveService.cs" />
+    <Compile Include="BrowserService.cs" />
+    <Compile Include="Configuration\AddFolderDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuration\AddFolderDialog.Designer.cs">
+      <DependentUpon>AddFolderDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\OutputConfig.cs" />
+    <Compile Include="Configuration\OutputConfigPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\OutputConfigPage.Designer.cs">
+      <DependentUpon>OutputConfigPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\FileExplorerConfig.cs" />
+    <Compile Include="Configuration\FileExplorerConfigPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\FileExplorerConfigPage.designer.cs">
+      <DependentUpon>FileExplorerConfigPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\WorkbenchConfig.cs" />
+    <Compile Include="Configuration\WorkspaceConfigPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\WorkspaceConfigPage.Designer.cs">
+      <DependentUpon>WorkspaceConfigPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DialogService.cs" />
+    <Compile Include="DocumentService.cs" />
+    <Compile Include="EditorService.cs" />
+    <Compile Include="EnvironmentService.cs" />
+    <Compile Include="ExceptionHandling\DumpSender.cs" />
+    <Compile Include="ExceptionHandling\ExceptionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExceptionHandling\ExceptionDialog.Designer.cs">
+      <DependentUpon>ExceptionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionHandling\ExceptionDump.cs" />
+    <Compile Include="ExceptionHandling\ExceptionManager.cs" />
+    <Compile Include="ExceptionHandling\SenderData.cs" />
+    <Compile Include="FileService.cs" />
+    <Compile Include="Images\_NS.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuBuilder.cs" />
+    <Compile Include="MenuService.cs" />
+    <Compile Include="OpenWindowsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpenWindowsDialog.designer.cs">
+      <DependentUpon>OpenWindowsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PrintHelper.cs" />
+    <Compile Include="PrintService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Configuration\AddFolderDialog.resx">
+      <DependentUpon>AddFolderDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\OutputConfigPage.resx">
+      <DependentUpon>OutputConfigPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\FileExplorerConfigPage.resx">
+      <DependentUpon>FileExplorerConfigPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\WorkspaceConfigPage.resx">
+      <DependentUpon>WorkspaceConfigPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExceptionHandling\ExceptionDialog.resx">
+      <DependentUpon>ExceptionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenWindowsDialog.resx">
+      <DependentUpon>OpenWindowsDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RecentFilesService.cs" />
+    <Compile Include="StatusBarService.cs" />
+    <Compile Include="Tag.cs" />
+    <Compile Include="ViewService.cs" />
+    <Compile Include="Views\AddFilterDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AddFilterDialog.Designer.cs">
+      <DependentUpon>AddFilterDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExplorerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ExplorerControl.Designer.cs">
+      <DependentUpon>ExplorerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExplorerView.cs" />
+    <Compile Include="Views\LazyTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\OpenFilesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\OpenFilesControl.Designer.cs">
+      <DependentUpon>OpenFilesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OpenFilesView.cs" />
+    <Compile Include="Views\OutputLexer.cs" />
+    <Compile Include="Views\OutputService.cs" />
+    <Compile Include="Views\OutputView.cs" />
+    <Compile Include="Views\OutputControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\OutputControl.designer.cs">
+      <DependentUpon>OutputControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WB.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Elide.Common\Elide.Common.csproj">
+      <Project>{A5363A1F-8DD1-4F6F-A631-EB6864BB1224}</Project>
+      <Name>Elide.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Core\Elide.Core.csproj">
+      <Project>{134691C3-4CFB-4D1B-AA75-D34587CA0B69}</Project>
+      <Name>Elide.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Environment\Elide.Environment.csproj">
+      <Project>{8226ABEC-FC5B-4A9E-87BD-53DBC7CC6F72}</Project>
+      <Name>Elide.Environment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Forms\Elide.Forms.csproj">
+      <Project>{99415DC5-9DE6-449E-8F55-D676AB900A04}</Project>
+      <Name>Elide.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Main\Elide.Main.csproj">
+      <Project>{B49AC677-1154-4F7B-8B57-9AE3CE20F615}</Project>
+      <Name>Elide.Main</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Meta\Elide.Meta.csproj">
+      <Project>{958A8279-AAC7-49E0-961E-C24FDB663B45}</Project>
+      <Name>Elide.Meta</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Scintilla\Elide.Scintilla.csproj">
+      <Project>{6A4F4A56-BCFF-4492-AE87-02FBCF43089E}</Project>
+      <Name>Elide.Scintilla</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.TextEditor\Elide.TextEditor.csproj">
+      <Project>{E78D9E9A-3654-4BB7-916E-E3571FAD854F}</Project>
+      <Name>Elide.TextEditor</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AboutDialog.resx">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Drive.bmp" />
+    <EmbeddedResource Include="Images\File.bmp" />
+    <EmbeddedResource Include="Images\Folder.bmp" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AddFilterDialog.resx">
+      <DependentUpon>AddFilterDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ExplorerControl.resx">
+      <DependentUpon>ExplorerControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\OpenFilesControl.resx">
+      <DependentUpon>OpenFilesControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\OutputControl.resx">
+      <DependentUpon>OutputControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\FilterFolder.bmp" />
+    <EmbeddedResource Include="Images\Favorite.bmp" />
+    <EmbeddedResource Include="Images\Computer.bmp" />
+    <Content Include="Images\Error.png" />
+    <EmbeddedResource Include="Images\Flag.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

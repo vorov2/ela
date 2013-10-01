@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BottomReached" xml:space="preserve">
+    <value>A bottom is reached. Execution aborted.</value>
+  </data>
+  <data name="CallFailed" xml:space="preserve">
+    <value>An unexpected error occured during function call: {0}</value>
+  </data>
+  <data name="CallWithNoParams" xml:space="preserve">
+    <value>Unable to call a function that accepts {0} parameters with an empty argument list.</value>
+  </data>
+  <data name="ConstructorSequenceError" xml:space="preserve">
+    <value>Constructor '{0}' is out of range for the requested operation.</value>
+  </data>
+  <data name="Cyclic" xml:space="preserve">
+    <value>A cyclic definition is recognized.</value>
+  </data>
+  <data name="DivideByZero" xml:space="preserve">
+    <value>Division by zero of value '{0}' of type '{1}'.</value>
+  </data>
+  <data name="ExpectedFunction" xml:space="preserve">
+    <value>A function is expected.</value>
+  </data>
+  <data name="ImmutableStructure" xml:space="preserve">
+    <value>An element at index '{0}' of the record '{1}' is immutable and cannot be changed.</value>
+  </data>
+  <data name="IndexOutOfRange" xml:space="preserve">
+    <value>Index '{0}' of type '{1}' was out of range on object '{2}' of type '{3}'.</value>
+  </data>
+  <data name="InvalidConstructor" xml:space="preserve">
+    <value>Unable to find metadata for constructor '{0}' of type '{1}'.</value>
+  </data>
+  <data name="InvalidConstructorCode" xml:space="preserve">
+    <value>A constructor code '{0}' doesn't correspond to any existing constructor.</value>
+  </data>
+  <data name="InvalidFormat" xml:space="preserve">
+    <value>Format '{0}' for the value '{1}' of type '{2}' is invalid or not supported.</value>
+  </data>
+  <data name="InvalidIndexType" xml:space="preserve">
+    <value>Indices of type '{0}' are not supported.</value>
+  </data>
+  <data name="InvalidOp" xml:space="preserve">
+    <value>A value of type '{0}' doesn't support operation '{1}'.</value>
+  </data>
+  <data name="InvalidParameterType" xml:space="preserve">
+    <value>Invalid type for the function parameter. Expected '{0}', got '{1}'.</value>
+  </data>
+  <data name="InvalidType" xml:space="preserve">
+    <value>Invalid type. Expected: '{0}', got: '{1}'.</value>
+  </data>
+  <data name="InvalidTypeArgument" xml:space="preserve">
+    <value>A constructor '{0}' of type '{1}' doesn't have '{2}' arguments.</value>
+  </data>
+  <data name="InvalidTypeCode" xml:space="preserve">
+    <value>A type code '{0}' doesn't correspond to any existing type.</value>
+  </data>
+  <data name="MatchFailed" xml:space="preserve">
+    <value>Match failed. None of the patterns were successful.</value>
+  </data>
+  <data name="NoContext" xml:space="preserve">
+    <value>Unable to dispatch '{0}'. No context is available for a dispatch.</value>
+  </data>
+  <data name="NoOverload" xml:space="preserve">
+    <value>'{0}' is not implemented for the given argument list. Expected '{1}', got '{2}'.</value>
+  </data>
+  <data name="NotAlgebraicType" xml:space="preserve">
+    <value>A type '{0}' is not an algebraic type.</value>
+  </data>
+  <data name="OperationNotSupported" xml:space="preserve">
+    <value>This operation is not supported by the object of type '{0}'.</value>
+  </data>
+  <data name="PrivateVariable" xml:space="preserve">
+    <value>The name '{0}' is declared as private and cannot be referenced.</value>
+  </data>
+  <data name="TooFewParams" xml:space="preserve">
+    <value>Partial application of a function is not supported. Function is called from external context (e.g. Ela function from .NET code).</value>
+  </data>
+  <data name="TooManyParams" xml:space="preserve">
+    <value>Too many parameters specified in a function call.</value>
+  </data>
+  <data name="TuplesLength" xml:space="preserve">
+    <value>The length of two tuples '{0}' and '{1}' should be equal to support some operations (such as comparison).</value>
+  </data>
+  <data name="UnableCreateConstructor" xml:space="preserve">
+    <value>Unable to create a value using a constructor '{0}': {1}.</value>
+  </data>
+  <data name="UndefinedVariable" xml:space="preserve">
+    <value>A name '{0}' is not defined in the module '{1}'.</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>An unknown runtime error has occured. Error details: {0}.</value>
+  </data>
+  <data name="UnknownField" xml:space="preserve">
+    <value>Unknown field '{0}' in an object '{1}' of type '{2}'.</value>
+  </data>
+  <data name="UnknownParameterType" xml:space="preserve">
+    <value>Invalid type for the function parameter: '{0}'.</value>
+  </data>
+  <data name="UserCode" xml:space="preserve">
+    <value>An error in user code occured.</value>
+  </data>
+  <data name="ZeroContext" xml:space="preserve">
+    <value>Context is invalid.</value>
+  </data>
+</root>

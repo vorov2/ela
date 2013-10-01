@@ -1,0 +1,15 @@
+#title Lists
+#category Language Reference
+
+=Introduction
+This article discusses a single linked list data type. 
+
+=Overview
+Lists in Ela are implemented as immutable single linked lists. Such a data structure can be found in 
+most functional languages. Lists can be constructed using `cons` operator (declared as `::` in prelude): 
+>>xs = 1::2::3::[]
+A `[]` literal denotes an empty list (usually called _nil_ list). Operator `::` is right associative. and 
+when you construct lists using this operator the right-most operand should be always a list. //br
+One can also use a special literal syntax for list construction. The code above is fully equivalent to: 
+>>xs = [1,2,3]
+As soon as Ela is a dynamically typed language, lists can contain values of any type. Also lists can be nested. 

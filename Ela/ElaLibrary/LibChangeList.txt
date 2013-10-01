@@ -1,0 +1,239 @@
+0.1.9.3:Change:Implementation of 'Failure' class is changed for List and Maybe.
+0.1.9.2:Fix:A bug in a signature of 'failure' method in Failure class is fixed; signature is changed from 'failure a->_' to 'failure _->a'.
+0.1.9.1:New:Functions 'until' and 'untili' added to the 'imperative' module.
+0.1.9.0:Release:Release of 0.1.9.0.
+0.1.8.7:New:A new 'Read' class is added to prelude with a bunch of instances, as well as a generic 'gread' function (equivalent to decomissioned 'read.readStr' function).
+0.1.8.6:Change:A module 'read' is decomissioned.
+0.1.8.5:New:An operator ($) is added to prelude (a left associative alias for (<|) operator).
+0.1.8.4:Change:Now 'monad' module defines an instance of class 'Functor' for a function.
+0.1.8.3:Change:Modules 'cell', 'console' and 'file' are now moved to 'unsafe' namespace.
+0.1.8.2:Change:A module 'io' is renamed to 'file'.
+0.1.8.1:Fix:A function test.assert is fixed, it couldn't format arguments of certain types (related to #55).
+0.1.8.0:Release:Release of 0.1.8.0.
+0.1.7.5:Change:Functions 'upper' and 'lower' from 'string' module now require full qualification.
+0.1.7.4:Change:Functions 'upper' and 'lower' from 'char' module now require full qualification.
+0.1.7.3:New:A new module 'monad' is added that is to be used for 'monadic' classes and their instances.
+0.1.7.2:New:New functions 'print' and 'printn' are added to 'console' module.
+0.1.7.1:Fix:A bug fixed in list.take function (Issue #49)
+0.1.7.0:Release:Release of 0.1.7.0.
+0.1.6.14:Change:Now a 'Peano' data type (from 'peano') module defines a type constraint for 'Succ' constructor.
+0.1.6.13:Change:A 'format' function is decomissioned; function 'formatStr' is renamed to 'format' and moved to 'string' module (along with 'Format' class); 'printf' and 'printfn' functions are moved to console module.
+0.1.6.12:Change:An application operator (!) from prelude is decomissioned.
+0.1.6.11:Change:Default instance of 'Show' is corrected in 'generic' module. Now this instance inserts parens for nested data structures.
+0.1.6.10:New:A new function 'isAlgebraic' is added to the 'generic' module.
+0.1.6.9:New:Lazy functions foldl1' and foldr1' are added to 'list' module.
+0.1.6.8:Fix:A bug fixed in 'sort' function in 'list' module.
+0.1.6.7:Change:A function '--' (synonym to 'negate') is removed from prelude.
+0.1.6.6:New:New function 'seq' (that replaces '$' operator) is added to prelude.
+0.1.6.5:New:New functions '&&' and '||' are added to prelude.
+0.1.6.4:Change:Instances for 'Show' class for all types are changed according to the class changes.
+0.1.6.3:New:A type 'DateTime' (module 'datetime') now provides an instance for 'Format' class.
+0.1.6.2:New:A new class 'Format' added to 'format' module (it is now used for arguments that can be substituted in a format string). Also instances for most of built-in types are added.
+0.1.6.1:Change:Now class 'Show' defines a 'show' function (instead of 'showf') which doesn't accept a format string; a standalone 'show' function is decomissioned. (Issue #37)
+0.1.6.0:Release:Release of 0.1.6.0.
+0.1.5.32:New:A new 'bench' (benchmarking suite) module is added.
+0.1.5.31:New:A function 'dup' is added to prelude module.
+0.1.5.30:Fix:A bug fixed in implementation of 'Eq' class for 'StringBuilder' in prelude module.
+0.1.5.29:New:Function 'partitionEithers' added to 'core' module.
+0.1.5.28:New:Function 'mapMaybe' added to 'core' module.
+0.1.5.27:New:Functions 'isNone' and 'catMaybes' are added to 'core' module.
+0.1.5.26:Fix:A bug fixed in module 'format' - several occurences of the same pattern (such as {0}) weren't processed correctly.
+0.1.5.25:Change:Now 'espec' can output test result as string and as HTML with highlighting.
+0.1.5.24:Change:Now 'espec' can correctly handle thunks and lazy (and infinite) data structures.
+0.1.5.23:Change:Words 'do' and 'apply' from 'espec' module are renamed to 'when' and 'after'; 'do' is now a reserved keyword.
+0.1.5.22:New:Now classes 'Eq' and 'Ord' have complete recursive instances in prelude (minimum definition for 'Eq' is (==) or (<>); minimum definition for 'Ord' is 'compare').
+0.1.5.21:New:Now class 'Ord' defines an additional 'compare' function that returns an instance of 'Ordering' (used to be a separate function in `core` module).
+0.1.5.20:Change:An 'Ordering' type (and all related functions) is moved from 'core' module to prelude.
+0.1.5.19:Fix:A bug fixed in implementation of 'Enum.enumFromTo' for integers - if a second element is equal to the first the function could hang forever.
+0.1.5.18:Fix:A bug fixed in default instance of Ord class in 'generic' module.
+0.1.5.17:Fix:A bug fixed in implementation of Eq and Ord for tuples.
+0.1.5.16:New:Functions 'writeLines' and 'writeText' are added to 'io' module.
+0.1.5.15:New:Module 'generic' now defines a generic default instance for 'Default' class.
+0.1.5.14:New:A new 'Default' class is now added to 'prelude' module, most of standard types provide an instance for this class.
+0.1.5.13:New:A type 'Peano' now provides an instance for 'Num' class.
+0.1.5.12:New:A new 'Num' class is added to 'number' module. Now all numeric types provides an instance for this class.
+0.1.5.11:Change:Function 'consParams' is decomissioned from 'generic' module.
+0.1.5.10:Fix:Ranges for tuples do not work when the second element in a range is less than the first element and the range is finite. (Issue #31)
+0.1.5.9:Change:StringBuilder type from prelude is redesigned and string concatenation through this type is now much more effecient and easier to use.
+0.1.5.8:New:Instances for 'Field' and 'Ring' classes added to 'tuple' module. (Issue #22)
+0.1.5.7:New:Functions 'foldl', 'foldr', 'foldl1' and 'foldr1' added to 'tuple' module.
+0.1.5.6:New:A new 'concat' function added to 'tuple' module.
+0.1.5.5:Change:A negation function from 'Additive' class from prelude is now called 'negate', and '--' symbol is provided as its synonym.
+0.1.5.4:Fix:A 'reverse' function in prelude, when applied to a value other than list, used to crash VM instead of generating an appropriate exception.
+0.1.5.3:New:Now an instance for Ord class is provided for lists in prelude module (lists now can be compared using comparison operators). (Issue #28)
+0.1.5.2:Fix:A bug fixed in implementation of 'Cat' class (concatenation operator) for queues - the result of concatenation of two queues was a list, not a queue.
+0.1.5.1:Fix:A bug fixed in implementation of 'pred' function in default instance for 'Enum' class in 'generic' module.
+0.1.5.0:Release:Release of 0.1.5.0.
+0.1.4.52:Change:Functions 'last', 'init', 'map', 'foldl', 'foldr', 'reverse' and 'filter' are moved from 'list' module to prelude.
+0.1.4.51:New:Functions 'foldl1' and 'foldr1' are added to 'list' module.
+0.1.4.50:New:Functions 'isPrefixOf', 'isSuffixOf' and 'isInfixOf' are added to 'list' module.
+0.1.4.49:New:Functions 'stripPrefix', 'inits' and 'tails' are added to 'list' module.
+0.1.4.48:Change:Function 'index' removed from 'list' module.
+0.1.4.47:New:Function 'partition' added to 'list' module.
+0.1.4.46:New:Functions 'find', 'findIndices' and 'findIndex' are added to 'list' module.
+0.1.4.45:New:Functions 'unzip' and 'unzip3' added to 'list' module.
+0.1.4.44:Change:Function 'breakList' from 'list' module renamed to 'break'.
+0.1.4.43:New:Functions 'scanl1' and 'scanr1' added to 'list' module.
+0.1.4.42:Fix:Function 'concatMap' from 'list' module was implemented incorrectly.
+0.1.4.41:Change:Now 'espec' module uses StringBuilder for test result report generation.
+0.1.4.40:New:A new type StringBuilder is now added to prelude. This is an immutable data type that supports effecient string concatenation through '+>' operator.
+0.1.4.39:Change:Implementation of function 'foldr' from 'list' module is optimized.
+0.1.4.38:Change:Implementation of 'reverse' from 'list' module is optimized.
+0.1.4.37:Change:Implementation of 'take' from 'list' module is optimized.
+0.1.4.36:Change:New functions 'enumFrom' and 'enumFromTo' are added to 'Enum' class.
+0.1.4.35:Change:Functions 'maxValue', 'minValue' and 'compare' are moved from prelude to module 'core'.
+0.1.4.34:New:A new module 'core' is added (contains core algebraic types).
+0.1.4.33:Change:Now reference cells (module 'cell') don't implement Eq type class.
+0.1.4.32:Change:A module 'variant' is decomissioned (because a corresponding data type is decomissioned).
+0.1.4.31:New:A new 'peano' module is added.
+0.1.4.30:New:A new 'lazyList' function added to 'thunk' module.
+0.1.4.29:Change:Implementation of 'forceThunk' from 'thunk' module is optimized.
+0.1.4.28:Change:Implementation of Ix list ('length' function) is optimized.
+0.1.4.27:New:Function 'field' added to 'record' module.
+0.1.4.26:New:Functions 'any' and 'all' are added to 'tuple' module.
+0.1.4.25:New:Functions 'fold' and 'join' added to 'tuple' module.
+0.1.4.24:New:A function 'toList' added to 'tuple' module.
+0.1.4.23:Change:An instance Enum tuple is moved from prelude to 'tuple' module.
+0.1.4.22:Change:Implementation of Show for list, tuple and string is optimized.
+0.1.4.21:Change:Implementation of 'fromList' function in 'string' module is optimized.
+0.1.4.20:New:A new 'fromList' function is added to 'tuple' module.
+0.1.4.19:New:A new 'forceOnlyList' function is added to 'thunk' module.
+0.1.4.18:New:A new 'Transcendental' class is added to 'number' module with instances for single and double.
+0.1.4.17:New:A new 'Absolute' class is added to 'number' module with instances for int, long, single and double.
+0.1.4.16:New:A new 'Integral' class is added to 'number' module with instances for int and long.
+0.1.4.15:New:Classes 'Additive', 'Ring', 'Field' and 'Modulo' are added to prelude (they replace a 'Num' class).
+0.1.4.14:Change:Class 'Num' removed from prelude.
+0.1.4.13:Change:Module `math` is decomissioned. Function `rnd` is moved to the new `random` module.
+0.1.4.12:Change:Functions `minValue`, `maxValue` are moved from `math` module to prelude.
+0.1.4.11:Change:Functions `gcd`, `lcd`, `sqrt` are moved from `math` module to `number` module.
+0.1.4.10:New:Constants 'min', 'max' and 'zero' are added to 'char' module.
+0.1.4.9:New:Now 'number' module imports modules 'int', 'long', 'single' and 'double' and exposes them as constants of the same name.
+0.1.4.8:New:Modules 'int', 'long', 'single', 'double' are added. These modules contains constants 'max' and 'min' (maximum and minumum value of a corresponding numeric data type).
+0.1.4.7:Change:Functions 'maxInt', 'maxLong', 'maxSingle' and 'maxDouble' are removed from 'number' module.
+0.1.4.6:New:A new 'Fractional' class is added to 'number' module. This class has instances for double and single and contains function 'ceiling', 'floor', 'round' and 'truncate'.
+0.1.4.5:Change:Function 'ceiling', 'floor', 'round' and 'truncate' are removed from 'math' module.
+0.1.4.4:Change:Now 'number' modules defines a class 'Float' and instances 'Float single' and 'Float double'. Functions 'inf', 'nan', etc. are moved to this class.
+0.1.4.3:Change:Function 'abs' is removed from the 'math' module.
+0.1.4.2:New:A new 'evaled' function that can be used to test if a given value in unevaluated thunk, is added to 'thunk' module.
+0.1.4.1:Change:Function 'split' from 'list' module renamed to 'splitHalf' to avoid name collisions.
+0.1.4.0:Release:Release of 0.1.4.0.
+0.1.3.28:New:Functions 'parseInt', 'parseLong', 'parseSingle' and 'parseDouble' are added to 'number' module.
+0.1.3.27:Change:Module 'core' split into two modules - 'math' and 'list'.
+0.1.3.26:Change:Functions 'even' and 'odd' are moved from 'core' module to 'prelude'.
+0.1.3.25:Change:Functions 'chr' and 'ord' from 'core' module are decomissioned (they were just aliases for toChar and toInt).
+0.1.3.24:New:A new module 'espec' (test specification DSL) is added.
+0.1.3.23:New:A new 'funModule' function that returns a function module is added to 'reflect' module.
+0.1.3.22:New:A new 'funHandle' function that return a function handle is added to 'reflect' module.
+0.1.3.21:New:A new 'count' function (that sums all elements in a list that satisfy a given predicate) is added to 'core' module.
+0.1.3.20:New:Functions 'toList' and 'fromList' are added to 'string' module.
+0.1.3.19:New:A new 'variant' module added.
+0.1.3.18:New:A new sort' function added to core module (this is lazy sort function based on quicksort).
+0.1.3.17:New:A new function 'split' (a specialization of 'splitBy' that splits a given list by half) is added to 'core' module.
+0.1.3.16:New:Functions 'sort' and 'sortBy' (that implement merge sort) are added to 'core' module.
+0.1.3.15:Change:Now queue ('queue' module) is constructed using 'fromPair', 'fromList' functions and using an 'empty' constant.
+0.1.3.14:Change:Now datetime ('datetime' module) is constructed using 'fromTicks' and 'fromTuple' functions.
+0.1.3.13:Change:Now reference cells from 'cell' module are constructed using 'ref' function.
+0.1.3.12:Change:Function 'format' from 'format' module renamed to 'formatStr' in order not to interfere with the module name.
+0.1.3.11:Change:Functions 'indexOfAny' and 'indexOfAnyFrom' are removed from 'string' module.
+0.1.3.10:Change:Function 'fromSeq' is removed from 'string' module (it is now replace by overload of toString by a list).
+0.1.3.9:New:A new 'queue' module that implements an immutable queue is added.
+0.1.3.8:New:New functions 'addField', 'removeField' and 'changeField' are added to 'record' module.
+0.1.3.7.New:A new 'alist' module added that contains function to work with linked lists as associative lists.
+0.1.3.6:New:A new 'fields' function that returns record fields is added to 'record' module.
+0.1.3.5:New:A new 'reflect' module is added that contains function that extends standard Ela reflection capabilities.
+0.1.3.4:Change:Datetime module is completely rewritten and now defines a specific 'datetime' and its instances.
+0.1.3.3:Change:Prelude module is completely rewritten and now defines classes/types/instances instead of just global functions.
+0.1.3.2:Change:All modules names now start with a lower case letter.
+0.1.3.1:Change:Library modules are updated according to the language changes.
+0.1.3.0:Release:Release of 0.1.3.0.
+0.1.2.2:New:New functions foldl', foldr' and fold' with non-strict sematics added to Core module.
+0.1.2.1:New:New functions 'addFields' and 'removeFields' added to Record module.
+0.1.2.0:Release:Release of 0.1.2.0.
+0.1.1.6:New:Constants maxDateTime, minDateTime added to DateTime module.
+0.1.1.5:New:Constants maxInt, minInt, maxLong, minLong, maxSingle, minSingle, maxDouble, minDouble added to Number module.
+0.1.1.4:Change:Module Real renamed to Number.
+0.1.1.3:Change:Functions 'max' and 'min' removed from Prelude.
+0.1.1.2:Change:Now functions Console.writen and Console.write explicitly call show on a provided argument.
+0.1.1.1:Change:Module Con renamed to Console because of technical reasons.
+0.1.1.0:Release:Release of 0.1.1.0.
+0.1.0.7:New:A new Thunk module is added.
+0.1.0.6:Change:Function 'quot' from Core module is rewritten in Ela.
+0.1.0.5:New:New functions '.+', '.-' and ':=' are added to Cell module.
+0.1.0.4:Change:Library is restructured - now .NET functions are not called directly but through Ela functions.
+0.1.0.3:Change:Format module is restructured and rewritten in Ela (instead of C#). Module interface didn't change.
+0.1.0.2:Fix:A bug fixed in Format.printf and Format.printfn - format string without arguments weren't printed.
+0.1.0.1:Change:Now readn function from Con module trims all nil characters.
+0.1.0.0:Release:Release of 0.1.0.0.
+0.0.9.10:New:A new Format module is added (this module adds a support for format strings).
+0.0.9.9:Change:An indexing operator from Prelude is changed from (!) to (:).
+0.0.9.8:New:A Cell module is added (this module implements reference cells in ML style).
+0.0.9.7:New:An IO module is added.
+0.0.9.6:New:A new function loop is added to Imperative module.
+0.0.9.5:Change:Function each is moved from Core to a new Imperative module.
+0.0.9.4:Change:Functions rec and rec2 are moved from Prelude to a new Imperative module.
+0.0.9.3:Fix:A bug fixed in String.insert function - it didn't work correctly before.
+0.0.9.2:New:Functions zip, zipWith3 and zip3 added to Core module.
+0.0.9.1:Fix:A bug fixed in Core.scanl function.
+0.0.9.0:Release:Release of 0.0.9
+0.0.8.2:Change:Function 'clone' is removed from Prelude module.
+0.0.8.1:New:A new Record module implemented. This module currently supports one function - hasField (string->record->bool, test if a given field is present).
+0.0.8.0:Release:Release of 0.0.8
+0.0.7.1:Fix:Test module is fixed according to the language changes.
+0.0.7.0:Release:Release of 0.0.7
+0.0.6.1:Fix:Implementation of functions chr and ord from Core module is updated according to the language changes.
+0.0.6.0:Release:Release of 0.0.6
+0.0.5.1:New:Functions convert, toInt, toLong, toSingle, toDouble, toBool, toChar, toString, toList, toTuple, toRecord, toLazy, toVariant are added to Prelude. These functions should be preferred for conversion over old style syntax.
+0.0.5.0:Release:Release of 0.0.5
+0.0.4.2:New:Functions 'acos' and 'asin' added to Core module.
+0.0.4.1:Change:CoreInternal module renamed to $Core.
+0.0.4.0:Release:Release of 0.0.4
+0.0.3.1:Fix:A bug fixed in Prelude.compare function.
+0.0.3.0:Release:Release of 0.0.3
+0.0.2.3:Change:Refactoring in Test module.
+0.0.2.2:New:A 'sleep' function that can suspend a currently executing thread by a provided number of ms added to Debug module.
+0.0.2.1:Fix:A bug fixed in Core.any function.
+0.0.2.0:Release:Release of 0.0.2
+0.0.1.33:New:A Prelude module is introduced, some basic functions are moved to Prelude.
+0.0.1.32:New:An initial version of Async module is implemented.
+0.0.1.31:New:Functions 'intersectBy' and 'intersect' added to Core module.
+0.0.1.30:New:Functions 'groupBy' and 'group' added to Core module.
+0.0.1.29:New:Function 'permutations' added to Core module.
+0.0.1.28:New:Functions 'intercalate', 'nonEmptySubsequences', 'subsequences' added to Core module.
+0.0.1.27:New:Functions 'intersperse' and 'transpose' added to Core module.
+0.0.1.26:New:Functions 'insert' and 'insertBy' added to Core module.
+0.0.1.25:New:Functions 'nub' and 'nubBy' added to Core module.
+0.0.1.23:New:Functions 'delete' and 'deleteBy' added to Core module.
+0.0.1.22:New:Functions 'scanl' and 'scanr' added to Core module.
+0.0.1.21:Change:Implementation of Core.maximum function optimized.
+0.0.1.20:Change:Implementation of Core.minimum function optimized.
+0.0.1.19:Change:Implementation of Core.product function optimized.
+0.0.1.18:Change:Implementation of Core.sum function optimized.
+0.0.1.17:New:A new 'concatMap' function added to Core module.
+0.0.1.16:Change:All Core functions that work with lists are rewritten to be more generic (now they return not lists but containers of the same type as the passed container).
+0.0.1.15:Change:Implementation of Core.concat function optimized.
+0.0.1.14:New:A new 'fold' function added to Core module (simplified version of foldr).
+0.0.1.14:Change:Function 'nil' in Core module renamed to 'isNil'.
+0.0.1.13:New:An initial version of Queue module is implemented (including ElaQueue type).
+0.0.1.12:New:New 'swap' and 'swap3' functions (swapping elements of tuples) added to Core module.
+0.0.1.11:New:New 'on' function (that replicates Haskell's Data.Function.on) added to Core module.
+0.0.1.10:New:An initial version of DateTime module implemented (including ElaDateTime type).
+0.0.1.9:New:Now ElaMap (immutable map) supports 'Convert' trait and a conversion to record.
+0.0.1.8:Change:Core module modified in accordance to the language syntax changes.
+0.0.1.7:New:ElaSet type now supports 'Cons' trait.
+0.0.1.6:Change:ElaSet type is now made usable from .NET code as well.
+0.0.1.5:New:ElaArray now supports 'Cons' trait.
+0.0.1.4:Change:ElaMutableMap is now made usable from .NET code as well.
+0.0.1.3:Change:ElaMap type is now made usable from .NET code as well.
+0.0.1.2:New:Array module is implemented (an implementation of array that used to be built-in moved to the library and rearranged as a module).
+0.0.1.1:New:Set module is implemented.
+0.0.1.0:Release:Release of 0.0.1
+0.0.0.10:New:Initial version of Shell module is implemented.
+0.0.0.9:New:Map module is implemented.
+0.0.0.8:New:MutableMap module is implemented.
+0.0.0.7:New:Real module is implemented.
+0.0.0.6:New:Con (wrapper for Console) module is implemented.
+0.0.0.5:New:Guid module is implemented.
+0.0.0.4:New:Char module is implemented.
+0.0.0.3:New:StringBuilder module is implemented.
+0.0.0.2:New:String module is implemented.
+0.0.0.1:New:Initial version of Core module is implemented.

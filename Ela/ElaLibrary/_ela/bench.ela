@@ -1,0 +1,75 @@
+/*
+  Module bench (benchmarking)
+  Created in 2012 by Basil Voronkov
+*/
+open debug#elalib generic number string
+
+/* Types */
+type Bench = Bench name runs time
+  deriving Eq Show Name
+
+type BenchItem # private
+type BenchItem = BenchItem name runs fun arg
+
+/* Functions */
+benchmark name n f arg xs = BenchItem name n f arg :: xs
+
+runBenches xs = 
+  cycle void () 10 `seq`
+  mainRun rxs `seq`
+  mainRun rxs
+  where rxs = reverse xs
+
+mainRun # private
+mainRun (BenchItem name n fun arg :: xs) = 
+  Bench name n res :: mainRun xs
+  where idle = withTime void arg n
+        actual = withTime fun arg n
+        res | actual - idle < 0 = 0
+            | else = actual - idle
+mainRun [] = []
+
+withTime # private
+withTime f arg n = cycle f arg n `seq` stopClock c
+  where c = startClock ()
+
+void # private
+void arg = arg
+
+cycle # private
+cycle _ _ 0 = ()
+cycle f arg n = f arg `seq` cycle f arg (n - 1)
+
+formatBench xs = 
+  let sb =
+        "\r\n" +> "Name" +> (repeat (nameLen - 4) ' ') +> "|" +>
+        runsStr +> "|" +> timeStr +> "|" +> perStr +> "\r\n" +>
+        (repeat nameLen '-') +> "|" +>
+        (repeat (length runsStr - 1) '-') +> "|" +>
+        (repeat (length timeStr - 1) '-') +> "|" +>
+        (repeat (length perStr - 1) '-')
+   in toString <| walkBench xs sb +> "\r\n"
+  where runsStr = "Runs       "
+        timeStr = "Total time          "
+        perStr  = "Per run             "
+        nameLen = longest 0 xs
+        longest n [] = n
+        longest n (Bench name _ _ :: xs) 
+          | length name > n = longest (length name) xs
+          | else = longest n xs
+        repeat 0 c = c
+        repeat n c = c ++ repeat (n - 1) c
+        walkBench [] sb = sb
+        walkBench (Bench name runs time :: xs) sb = 
+          walkBench xs <|
+          sb +> "\r\n" +> name +> (repeat (nameLen - length name) ' ') +> "|" +>
+          rs +> (repeat (length runsStr - length rs - 1) ' ') +> "|" +> 
+          ts +> (repeat (length timeStr - length ts - 1) ' ') +> "|" +> pr
+          where rs = show runs
+                ts = formatRes time
+                pr = formatRes (time / runs)
+
+formatRes # private
+formatRes n
+  | n > 1000 = format "{0:0.000000}s" (n/1000)
+  | else = format "{0:0.000000}ms" n

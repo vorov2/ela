@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A7A5BEBC-536C-42A2-8FE2-31483B088F8A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Elide.CodeEditor</RootNamespace>
+    <AssemblyName>Elide.CodeEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutocompleteSymbol.cs" />
+    <Compile Include="AutocompleteSymbolType.cs" />
+    <Compile Include="CodeEditorConfig.cs" />
+    <Compile Include="CodeEditorFeatures.cs" />
+    <Compile Include="IAutocompleteService.cs" />
+    <Compile Include="ICodeEditor.cs" />
+    <Compile Include="Infrastructure\CodeLexerInfo.cs" />
+    <Compile Include="Infrastructure\CodeLexerReader.cs" />
+    <Compile Include="Infrastructure\IClass.cs" />
+    <Compile Include="Infrastructure\IClassInstance.cs" />
+    <Compile Include="Infrastructure\IClassMember.cs" />
+    <Compile Include="Infrastructure\ICodeLexer.cs" />
+    <Compile Include="Infrastructure\ICodeLexerService.cs" />
+    <Compile Include="Infrastructure\BackgroundCompilerService.cs" />
+    <Compile Include="Infrastructure\AbstractCodeBuilderService.cs" />
+    <Compile Include="Infrastructure\AbstractCodeRunnerService.cs" />
+    <Compile Include="Infrastructure\BackgroundCompiler.cs" />
+    <Compile Include="Infrastructure\BackgroundCompilerInfo.cs" />
+    <Compile Include="Infrastructure\BackgroundCompilerReader.cs" />
+    <Compile Include="Infrastructure\BuildOptions.cs" />
+    <Compile Include="Infrastructure\CodeBuilderInfo.cs" />
+    <Compile Include="Infrastructure\CodeBuilderReader.cs" />
+    <Compile Include="Infrastructure\CodeException.cs" />
+    <Compile Include="Infrastructure\CodeName.cs" />
+    <Compile Include="Infrastructure\CodeRunnerInfo.cs" />
+    <Compile Include="Infrastructure\CodeRunnerReader.cs" />
+    <Compile Include="Infrastructure\ExecOptions.cs" />
+    <Compile Include="Infrastructure\ExtendedOption.cs" />
+    <Compile Include="Infrastructure\ExtendedOptionExtensions.cs" />
+    <Compile Include="Infrastructure\IBackgroundCompiler.cs" />
+    <Compile Include="Infrastructure\IBackgroundCompilerService.cs" />
+    <Compile Include="Infrastructure\IBuildLogger.cs" />
+    <Compile Include="CodeDocument.cs" />
+    <Compile Include="CodeEditor.cs" />
+    <Compile Include="Infrastructure\ICodeBuilder.cs" />
+    <Compile Include="Infrastructure\ICodeBuilderService.cs" />
+    <Compile Include="Infrastructure\ICodeRunner.cs" />
+    <Compile Include="Infrastructure\ICodeRunnerService.cs" />
+    <Compile Include="Infrastructure\ICompiledAssembly.cs" />
+    <Compile Include="Infrastructure\ICompiledUnit.cs" />
+    <Compile Include="Infrastructure\ILocationBounded.cs" />
+    <Compile Include="Infrastructure\IReference.cs" />
+    <Compile Include="Infrastructure\IReferenceResolver.cs" />
+    <Compile Include="Infrastructure\IReferenceResolverService.cs" />
+    <Compile Include="Infrastructure\CodeLexerService.cs" />
+    <Compile Include="Infrastructure\IType.cs" />
+    <Compile Include="Infrastructure\Location.cs" />
+    <Compile Include="Infrastructure\ReferenceResolverReader.cs" />
+    <Compile Include="Infrastructure\ReferenceResolverService.cs" />
+    <Compile Include="Infrastructure\ResolverInfo.cs" />
+    <Compile Include="IOutlinerService.cs" />
+    <Compile Include="ISymbolFinder.cs" />
+    <Compile Include="ISymbolSearchService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SymbolLocation.cs" />
+    <Compile Include="Views\ConsoleSessionInfo.cs" />
+    <Compile Include="Views\IConsoleService.cs" />
+    <Compile Include="Views\IErrorListService.cs" />
+    <Compile Include="Views\ITaskListService.cs" />
+    <Compile Include="Views\ITaskProvider.cs" />
+    <Compile Include="Views\MessageItem.cs" />
+    <Compile Include="Views\MessageItemType.cs" />
+    <Compile Include="Views\TaskProviderReader.cs" />
+    <Compile Include="Views\SubmitEventArgs.cs" />
+    <Compile Include="Views\TaskItem.cs" />
+    <Compile Include="Views\TaskProviderInfo.cs" />
+    <Compile Include="Views\AbstractTaskListService.cs" />
+    <Compile Include="Views\TaskType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Elide.Common\Elide.Common.csproj">
+      <Project>{A5363A1F-8DD1-4F6F-A631-EB6864BB1224}</Project>
+      <Name>Elide.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Core\Elide.Core.csproj">
+      <Project>{134691C3-4CFB-4D1B-AA75-D34587CA0B69}</Project>
+      <Name>Elide.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Environment\Elide.Environment.csproj">
+      <Project>{8226ABEC-FC5B-4A9E-87BD-53DBC7CC6F72}</Project>
+      <Name>Elide.Environment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Main\Elide.Main.csproj">
+      <Project>{B49AC677-1154-4F7B-8B57-9AE3CE20F615}</Project>
+      <Name>Elide.Main</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Meta\Elide.Meta.csproj">
+      <Project>{958A8279-AAC7-49E0-961E-C24FDB663B45}</Project>
+      <Name>Elide.Meta</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Scintilla\Elide.Scintilla.csproj">
+      <Project>{6A4F4A56-BCFF-4492-AE87-02FBCF43089E}</Project>
+      <Name>Elide.Scintilla</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.TextEditor\Elide.TextEditor.csproj">
+      <Project>{E78D9E9A-3654-4BB7-916E-E3571FAD854F}</Project>
+      <Name>Elide.TextEditor</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

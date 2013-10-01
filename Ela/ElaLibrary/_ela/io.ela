@@ -1,0 +1,38 @@
+/* 
+  Module io
+  Created in 2013 by Basil Voronkov
+*/
+open monad unsafe.console 
+
+//Type and instances
+type IO = IO a # private
+  deriving Failure
+
+instance Pointed IO where
+  point x = IO x
+
+instance Union IO where
+  join (IO a) 
+    | a is IO = mkIO $ execIO a
+    | else = fail "Union IO.join: Expected IO."
+
+instance Functor IO where
+  fmap f x = mkIO (f $ execIO x)
+
+instance Show IO where
+  show _ = ""
+
+execIO (IO a)
+  | a is Fun  = a ()
+  | else      = a
+
+mkIO a = IO a
+
+//Console IO
+putStr s = mkIO (\_ -> write s)
+
+putStrLn s = putStr (s ++ "\r\n")
+
+readStr = mkIO (\_ -> readn ())
+
+readAny = mkIO (\_ -> gread $ readn())

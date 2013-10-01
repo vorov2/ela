@@ -1,0 +1,116 @@
+#file core.ela
+#title core
+#category Ela Standard Library
+This module contains implementations of some commonly used algebraic types, their instances and functions
+that operate on them.
+
+=Maybe
+
+#Maybe
+This type is used to represent an optional value. A value of type `Maybe` either contains a value `a` (represented
+as `Some a`), or is empty (represented as `None`).//br
+Using `Maybe` is a good way to way to deal with errors without using exceptions.
+
+#maybe d f o
+This function takes a default value, a function, and a `Maybe` value. If the `Maybe` value is `None`, the 
+function returns the default value. Otherwise, it applies the function to the value inside the `Some` and 
+returns the result.
+
+#isSome o
+Checks if a given value is a `Maybe`, created using `Some` constructor.
+
+#isNone o
+Checks if a given value is a `Maybe`, created using `None` constructor.
+
+#fromSome o
+Unpacks a given value of a `Maybe`, created using `Some` constructor.
+>>>fromSome (Some 12)
+
+#fromMaybe
+This function takes a default value and a `Maybe`. If a `Maybe` is 'Nothing', it returns the default value; 
+otherwise, it returns the value contained in `Maybe`.
+>>>fromMaybe 32 None
+
+#catMaybes
+The `catMaybes` function takes a list of `Maybe` values and returns a list of all the `Some` values.
+>>>catMaybes [Some 2,None,Some 12]
+
+#mapMaybe
+The `mapMaybe` function is a version of `map` which can throw out elements. In particular, the functional 
+argument returns something of type `Maybe`. If this is `None`, no element is added on to the result 
+list. If this is `Some a`, then `a` is included to the result list.
+
+=Either
+
+#Either
+This type is used to represent two possibilities - either `Left` or `Right`. Normally a `Left` constructor 
+is used to hold an error value, and `Right` constructor is used to hold a correct value.
+
+#either f1 f2 v
+If the value `v` is `Left a`, apply the first function to `a`; if it is `Right a`, apply the second 
+function to `a`.
+
+#lefts xs
+Extracts all `Left` elements from a given list in order.
+
+#rights xs
+Extracts all `Right` elements from a given list in order.
+
+#fromLeft x
+Upacks a given value of type `Either`, created using `Left` constructor.
+>>>fromLeft (Left 'a')
+
+#fromRight x
+Upacks a given value of type `Either`, created using `Right` constructor.
+>>>fromRight (Right 'b')
+
+#isLeft o
+Checks if a given value is an `Either`, created using `Left` constructor.
+
+#isRight o
+Checks if a given value is an `Either`, created using `Right` constructor.
+
+#partitionEithers
+Partitions a list of `Either` into two lists. All the `Left` elements are extracted, in order, 
+to the first component of the output. Similarly, the `Right` elements are extracted to the second 
+component of the output.
+
+=Or
+
+#Or
+This is type is similar to `Either`, but is used for non-exclusive disjunction.
+
+#orElse f1 f2 f3 x
+Accepts three functions and an `Or` value. If an `Or` value is `Fst a`, applies a first function to `a`;
+if an `Or` value is `Snd a`, applies a second function to `a`; if an `Or` value is `Both a b`, applies a
+third function to `a` and `b`.
+>>>orElse id id (+) <| Both 2 4
+
+#fromEither x
+Converts an `Either` into an `Or`.
+>>>fromEither <| Left 12
+
+#isFst x
+Tests if a given value is `Fst`.
+
+#isSnd x
+Tests if a given value is `Snd`.
+
+#isBoth x
+Tests if a given value is `Both`.
+
+#fromFst x
+Extracts a value from `Fst`.
+>>>fromFst <| Fst 12
+
+#fromSnd x
+Extracts a value from `Snd`.
+>>>fromSnd <| Snd 12
+
+#fromBoth1 x
+Extracts a first value from `Both`.
+>>>fromBoth1 <| Both 1 2
+
+#fromBoth2 x
+Extracts a second value from `Both`.
+>>>fromBoth2 <| Both 1 2

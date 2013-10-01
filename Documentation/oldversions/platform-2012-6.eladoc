@@ -1,0 +1,163 @@
+#title What's new? (Ela Platform 2012.6)
+
+=Elide changes
+
+Elide contains multiple performance enhancements and bug fixes. The most important are:
+* Improved overall stability and UI performance, reduced flickering
+* Multiple bug fixes in Find and Replace feature
+* Performance of EIL editor is improved
+* Bug fixes in Error List view which could show incorrect file locations in previous versions
+Also several new feature were added:
+* Outline view now displays classes, instances and types, declared in a module
+* Ela Object file (.elaobj) editor now also display metadata related to classes, instances and types
+* Ela editor now can list module members automatically when entering a dot symbol after a module name
+* Documentation format has changed
+
+=Ela changes
+Ela Platform 2012.6 is shipped with a new major version of Ela - Ela 0.11. This version includes a lot
+of changes and new features. Here is a list of most important changes.
+
+==User types
+In Ela 0.11 implementation of user types is simplified. One can declare user types using `type` declaration
+like so:
+>>type foo
+>>  where fromInt x = x
+>>        empty = 0
+A `type` declaration is always followed by `where` clause with type constructors (both functions and constants
+are allowed). For more information about user types please read a `User Types` article.
+
+==Classes and Instances
+Ela 0.11 introduces a _class_ concept which is somewhat similar to _typeclass_ concept in Haskell. Classes in Ela
+are a functional take on interfaces. A class contains declarations of functions which can be implemented for a
+particlar type using a specific _instance_:
+>>class IntegerTypeable a
+>>  where toInt a
+>>
+>>instance IntegerTypeable double
+>>  where toInt x = ...
+For more information about classes and instances please refer to the `Classes` article.
+
+==Global bindings
+Now `let` keyword is not needed for global bindings. Ela syntax is now more Haskell like.//br
+Global binding (Ela 0.10):
+>>let map f (x::xs) = f x :: map xs
+>>    map _ [] = []
+Global binding (Ela 0.11): //br
+>>map f (x::xs) = f x :: map xs
+>>map _ [] = []
+
+==Chain of local bindings
+In Ela 0.10 it was possible to declare several bindings at once using `let/in` and `where` constructs. In such 
+cases bindings were separated by `et` keyword. In Ela 0.11 this keyword is no longer needed.//br
+Chaining bindings (Ela 0.10):
+>>let z = x + y
+>>        where x = 2
+>>           et y = 3
+Chaining bindings (Ela 0.11):
+>>z = x + y
+>>    where x = 2
+>>          y = 3
+
+==Binding attributes
+Ela 0.10 supported binding attributes. Attribute were in fact keywords that should follow `let` (or `where`) keyword. 
+Ela 0.11 also provides a support for attributes but through binding header. Attributes are no longer keywords.//br
+Attributes (Ela 0.10):
+>>let private sum x y = x + y
+Attributes (Ela 0.11):
+>>sum # private
+>>sum x y = x + y
+Binding header consists of a binding name, followed by `#` sign, followed by one or more attributes. Headers can be specified 
+for both global and local bindings.
+
+==Referencing modules
+In Ela 0.10 only a single `open` directive was used for referencing modules. By default it was importing all names from a 
+target module into a global scope. One could override this behavior using `qualified` attribute. In such case all names 
+from a target module require full qualification (they should be prefixed with module alias).//br
+Ela 0.11 introduces two directives instead - `open` directive and `import` directive.//br
+Opening module (Ela 0.10):
+>>open moduleName
+Opening module (Ela 0.11):
+>>open moduleName
+Importing module, names should be qualified (Ela 0.10):
+>>open qualified moduleName
+Importing module, names should be qualified (Ela 0.11):
+>>import moduleName
+
+==Pattern matching
+Syntax for type check pattern has changed.//br
+Ela 0.10:
+>>match x with
+>>      ?int = ...
+Ela 0.11:
+>>match x with
+>>      _ is int = ...
+Ela 0.10:
+>>match x with
+>>      (?int)@name = ...
+Ela 0.11:
+>>match x with
+>>      name is int = ...
+Also type name can now be prefixed with the name of a module where this type is defined.
+
+==Name shadowing
+A name shadowing feature (an ability for bindings to hide each other even if they share the same scope) introduced in Ela 0.10 
+is now decomissioned. For example, the following code was valid in Ela 0.10:
+>>let x = 2
+>>let x = 4
+In Ela 0.11 however a similar code is not valid and would result in a compilation error:
+>>x = 2
+>>x = 4
+However shading in a function argument list is still supported and lambda definition like so: `\x x -> x` is still valid. 
+The following code is valid as well:
+>>fun x x = x
+
+==Operator is
+
+Ela 0.10 (and previous versions) supported a short-cut version of a `match` expression - an `is` expression:
+>>(x is (x::xs)) = lst
+It was useful in many cases however it had non-obvious scoping for the names declared in pattern. In Ela 0.11 this operator is no 
+longer supported. One should use regular `match` expression instead.
+
+==Guards
+In Ela 0.11 guards in bindings and inside `match` patterns should always terminate with `else` clause. For example, the following code 
+was valid in Ela 0.10:
+>>let fun x | x > 0 = x
+However it is not longer valid in Ela 0.11. One should write code like so:
+>>fun x | x > 0 = x
+>>      | else  = ...
+
+==Mutual recursion
+In Ela 0.11 all bindings (including top level bindings) are mutually recursive. Also the order of bindings is no longer 
+significant. For example, the following code is valid in Ela 0.11 (but would result in compile time error in Ela 0.10):
+>>sum x = x + y
+>>y = 2
+Also expressions in top level are also processed after bindings. For example, the equivalent code in Ela 0.10 would result in 
+compile time warning and yield a unit:
+>>2
+>>x = 3
+In Ela 0.11 however this code would be compiled without warnings and would yield a number `2`.
+
+==Naming
+In Ela 0.10 it was possible to use uppercase identifiers for module names. The following code was valid:
+>>open Core
+>>Core.map
+However uppercase identifiers in Ela are reserved for variant tags and modules in Ela are first class values. It could lead to
+a non-obvious code like so:
+>>fun Core
+What is going on here? Are we applying `fun` function to a variant or to a module reference?//br
+In Ela 0.11 use of uppercase identifiers for module names in disallowed.
+
+=Library changes
+Ela 0.11 is shipped with a new version of standard library that includes a whole set of new modules. Also all modules are renamed
+and now have lowercase names (to comply with language changes). //br
+Here is the list of most important changes in standard library:
+* Module `core` is now split into two modules - `list` and `math`
+* A new module `read` is added that can deserialize Ela literals in string representation to Ela objects
+* A new module `variant` with helper functions for variants is added
+* A lot of new functions are added to `record` module
+* A new module `reflect` that enhances Ela reflection capabilities is added
+* Module `prelude` is reorganized and most of standard operations are now build around classes/instances concept
+* A new module `alist` is added that allows to work with lists as with associative lists
+* A new module `queue` that implements immutable queue is added
+* A new module `espec` that implements DSL for test specifications is added
+For more information please refer to standard library documentation.

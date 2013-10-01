@@ -1,0 +1,10 @@
+open espec 
+open basic
+open unsafe.file
+
+res = []
+  |> addTests basic
+  |> run
+  |> formatResultHtm
+
+writeText res "C:\\testresult.htm"

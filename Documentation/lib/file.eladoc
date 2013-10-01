@@ -1,0 +1,32 @@
+#file file.ela
+#title file
+#category Ela Standard Library
+Module 'file' contains input and output functions. 
+
+=Functions
+
+#readLines
+This function works like `map` but instead of a list it accepts a name of a text file 
+(`fl` argument). It then applies function `fun` to each of the lines in a file and concatenates 
+the result. //br
+For example, if you have the following file:
+>First line
+>Second line
+>Third line
+reading it like so: 
+>>open io
+>>open string
+>>"myfile.txt" |> readLines upper
+would result in:
+>FIRST LINE
+>SECOND LINE
+>THIRD LINE
+
+#writeLines xs fl
+This function accepts a list of string a name of a file and writes these strings one by one
+to a provided file. If the file doesn't exist, it is created. If the file exists, it is 
+truncated.
+
+#writeText txt fl
+This functions accepts a string and a name of a file and writes this string to a file. If the
+file doesn't exist, it is created. If the file exists, it is truncated.

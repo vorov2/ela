@@ -1,0 +1,85 @@
+0.1.9.2:New:A new document 'Whats new' that contains platform changes overview is added.
+0.1.9.1:Change:An article 'imperative' is updated according to the module changes.
+0.1.9.0:Release:Release of 0.1.9.0.
+0.1.8.6:New:A new article 'io' is added about a corresponding new module.
+0.1.8.5:Change:An article 'prelude' is updated according to the module changes.
+0.1.8.4:Change:An article 'monad' is updated according to the module changes.
+0.1.8.3:New:A new document 'Whats new' that contains platform changes overview is added.
+0.1.8.2:Change:Articles 'file', 'cell' and 'console' are moved to a new 'unsafe' folder.
+0.1.8.1:Change:An article 'io' is renamed 'file' (according to module name changes).
+0.1.8.0:Release:Release of 0.1.8.0.
+0.1.7.8:New:A draft version of `Monads` article is added to Ela language reference.
+0.1.7.7:Change:An article 'Ela and Haskell' is corrected.
+0.1.7.6:Change:An article 'Classes' from Ela documentation is corrected.
+0.1.7.5:Change:An article 'char' is updated according to the module changes.
+0.1.7.4:Change:An article 'string' is updated according to the module changes.
+0.1.7.3:New:A new document 'Whats new' that contains platform changes overview is added.
+0.1.7.2:New:A new 'monad' article about a module of the same name is added.
+0.1.7.1:Change:An article 'console' is updated according to the module changes.
+0.1.7.0:Release:Release of 0.1.7.0.
+0.1.6.9.Change:An article about 'format' module is decomissioned.
+0.1.6.8:Change:Article 'Pattern matching' is updated with information about bang patterns.
+0.1.6.7:Change:An article 'classes' is updated with information about type constraints and strict constructors.
+0.1.6.6:Change:An article 'list' is updated according to the module changes.
+0.1.6.5:Change:An article 'generic' is updated according to the module changes.
+0.1.6.4:Change:An article 'elaandhaskell' is updated according to the language changes.
+0.1.6.3:New:A new document 'Whats new' that contains platform changes overview is added.
+0.1.6.3:Change:An article `read` is decomissioned (because a corresponding module is decomissioned).
+0.1.6.2:Change:Article 'operatorpriority' is updated according to the operator priority and associativity changes.
+0.1.6.1:Change:Article 'prelude' is updated according to the module changes.
+0.1.6.0:Release:Release of 0.1.6.0.
+0.1.5.6:New:A new article 'bench' about the new module of the same name is added.
+0.1.5.5:Change:Articles 'prelude', 'espec', 'io', 'number', 'core', 'tuple', 'list', 'peano', 'generic' are updated.
+0.1.5.4:New:A new document 'Whats new' that contains platform changes overview is added.
+0.1.5.3:Change:Article 'Operator priority' is updated according to the language changes.
+0.1.5.2:Change:Article 'Classes' is updated according to the language changes.
+0.1.5.1:Change:Article 'Pattern matching' is updated according to the language changes.
+0.1.5.0:Release:Release of 0.1.5.0.
+0.1.4.18:New:A new document 'Whats new' that contains platform changes overview is added.
+0.1.4.17:Change:Article 'list' is updated according to the module changes.
+0.1.4.16:Change:Article 'Classes' is updated according to the language changes.
+0.1.4.16:Change:Article 'Operator Priority' is updated according to the language changes.
+0.1.4.15:Change:Article 'Types' is updated according to the language changes.
+0.1.4.14:Change:An Eladoc utility is updated and all documentation now use an updated format.
+0.1.4.13:New:A new article 'core' about a module of the same name is added.
+0.1.4.12:New:A new article 'generic' about a module of the same name is added.
+0.1.4.11:Change:Article 'cell' updated according to the module changes.
+0.1.4.10:Change:Article 'variant' is removed.
+0.1.4.9:Change:Article 'thunk' updated according to the module changes.
+0.1.4.8:Change:Article 'tuple' updated according to the module changes.
+0.1.4.7:New:A new 'random' article is added about 'random' module.
+0.1.4.6:Change:Article 'prelude' is changed according to the module changes.
+0.1.4.5:Change:Article 'math' is decomissioned.
+0.1.4.4:Change:Article 'char' is changes according to the module changes.
+0.1.4.3:Change:Article 'thunk' is changed according to the module changes.
+0.1.4.2:New:An article 'peano' about 'peano' module is added.
+0.1.4.1:Change:Article 'number' is changed according to the module changes.
+0.1.4.0:Release:Release of 0.1.4.0.
+0.1.3.13:New:A document 'What's new' that contains platform changes overview is added.
+0.1.3.12:New:An article 'read' about a new module is added.
+0.1.3.11:Change:Article 'core' is now split into two articles - 'math' and 'list'.
+0.1.3.10:Change:Article 'core' is updated according to the module changes.
+0.1.3.9:New:Articles 'classes' about classes and class instances in Ela is added.
+0.1.3.8:New:Article 'Types' about user types in Ela is added.
+0.1.3.7:New:Article 'espec' about a module of the same name is added.
+0.1.3.6:New:Article 'variant' about a module of the same name is added.
+0.1.3.5:New:Article 'test' about a module of the same name is added.
+0.1.3.4:New:Article 'queue' about a module of the same name is added.
+0.1.3.3:New:Article 'alist' about a module of the same name is added.
+0.1.3.2:Change:Most of articles are updated because of language and article changes.
+0.1.3.1:Change:All documentation reformatted, a new documentation generator is now used.
+0.1.3.0:Release:Release of 0.1.3.0.
+0.1.2.1:Fix:Minor fixes in language reference.
+0.1.2.0:Release:Release of 0.1.2.0.
+0.1.1.4:New:Article CoreModule update information about new non-strict fold*.
+0.1.1.3:Change:Comprehensions article updated with new information.
+0.1.1.2:New:Information about new functions added to RecordModule article.
+0.1.1.1:Change:Article OperatorsPriority updated with new information.
+0.1.1.0:Release:Release of 0.1.1.0.
+0.1.0.6:Change:DateTime module documentation is updated (new constants added).
+0.1.0.5:Change:Number module documentation is updated (new constants added).
+0.1.0.4:Change:Prelude module documentation is updated according to the module changes (max and min removed).
+0.1.0.3:New:A new document about Thunk module is added.
+0.1.0.2:Change:Console module documentation is updated.
+0.1.0.1:Change:Cell module documentation is updated.
+0.1.0.0:Release:Initial release of Ela Platform documentation.

@@ -1,0 +1,14 @@
+0.9.0.0:Release:Release of Ela Console 0.9.0
+0.8.0.12:Fix:Interactive mode didn't always correctly process situation when Ela machine recovery is needed.
+0.8.0.11:Change:Now Ela Console support multiline mode through -ml switch.
+0.8.0.10:Change:Algorithm for execution speed calculation is enhanced.
+0.8.0.9:Change: A 'reload' command is removed. Now one can't reload an already loaded module because of possible problems with automatically declared names.
+0.8.0.8:Change:Switch 'onecmd' is decomissioned.
+0.8.0.7:Change:Execution time calculation is changed. Now code is executed twice to fully account for GIT.
+0.8.0.6:Change:Switch 'buildtime' is decomissioned.
+0.8.0.5:Change:Now Ela Console is less restrictive on file names and allows to path a file name without extension for interpretation (or a file that doesn't exist if a file with the same name and extension .ela or .elaobj exists).
+0.8.0.4:New:A new '#exit' interactive command added (quits Ela Console).
+0.8.0.3:Change:Ela Console doesn't use different colors now (such as for errors and warnings) for better support of different environments.
+0.8.0.2:Change:Changes in Ela interactive mode banner.
+0.8.0.1:New:Now console banner shows an operative system under which a console is running.
+0.8.0.0:Release:Release of Ela Console 0.8.0

@@ -1,0 +1,40 @@
+#file cell.ela
+#title cell
+#category Ela Standard Library
+This module adds a support for mutating state. It contains an implementation of a reference cell 
+(similar to ML languages) and functions to interact with it. 
+
+#Cell
+
+#Cell
+This type represents a reference cell. Reference cells acts as a wrapper for a given value 
+allowing to change this value in-place.//br
+This type doesn't have any public constructors.
+
+#ref a
+Creates a new reference cell by wrapping a provided value.
+
+#Show cell
+An implementation of `showf` function for a reference cell.
+
+#mutate x cl
+Changes a value inside a cell cl to a value x. 
+
+#valueof cl
+Unwraps a value from reference cell cl. For example, the following code evaluates to `12`: 
+>>>r = ref 10
+>>>mutate ((valueof r) + 2) r
+>>>valueof r
+
+#:= c v
+An assignment operator for a reference cell which provides some syntax sugar for value mutation. 
+A code above is equivalent to: 
+>>c |> mutate v
+
+#.+ c
+An unary increment operator. A code above is equivalent to: 
+>>c |> mutate (valueof c + 1)
+
+#.- c
+An unary decrement operator. A code above is equivalent to: 
+>>c |> mutate (valueof c - 1)

@@ -1,0 +1,16 @@
+//As simple as possible:
+"Hello, world!"
+
+//OK, here we cheat a little bit. The trick is that program in Ela is an expression
+//and yields a value. Both Ela Console (elac) and Elide print this expression in
+//standard output. As a result we have a complete pure 'Hello, world!' program -
+//without a single side effect.
+
+//A more traditional way to do this is to call console IO functions explicitly which
+//is also possible in Ela using IO monad:
+
+//open console
+//writen "Hello, world!"
+
+//open monad io
+//do putStrLn "Hello, world!" ::: IO

@@ -1,0 +1,108 @@
+#file string.ela
+#title string
+#category Ela Standard Library
+This module contains functions that operate with strings and string formatting functions 
+in .NET `String.Format` style.
+
+=Classes
+
+#Format
+This class is used for formatting values of different types to strings. It defines a function
+`fmt` that is used internally by `format` function that implements .NET style string
+formatting (similar to `String.Format`).//br
+
+=Instances
+
+===ListLike
+Provides an instance of `ListLike` class for a string, which converts a given string to a linked list.
+Only a list of chars, a list of string or a list of chars and strings can be transformed to a string 
+using `fromList` function of this instance.
+
+===Format
+Provides instances of this class for `Int`, `Long`, `Single`, `Double`, `String`, `Char` and `Bool`.
+
+=Functions
+
+#format fstr
+Takes a format string and returns a function for n-arguments (dependings on the format string), 
+which builds a new string by substituting format clauses with provided arguments. This function 
+implements .NET style format strings, e.g. `"{0} {1} {2}"`. 
+>>>format "{0}={1}" "key" 42
+It is also possible to specify formatting string for values:
+>>>format "value is {0:#.#}" 12.11
+Only types which implement `Show` class are accepted by this function. However all standard Ela 
+types have instances of `Show` class.
+
+#formatfn fn fstr
+The same as `format` but additionally takes a function that is applied to a saturated format
+string.
+
+#upper s
+Converts a given string to uppercase. This function requires a full qualification.
+
+#lower s
+Converts a given string to lowercase. This function requires a full qualification.
+
+#trim s
+Strips all trailing and leading spaces from a given string. 
+
+#trimChars
+Strips all trailing and leading characters from a given string. This function accepts variadic
+number of arguments:
+>>>trimChars ':' ';' ":Foo;"
+
+#trimStart s
+Strips all leading spaces from a given string. 
+
+#trimEnd s
+Strips all trailing spaces from a given string. 
+
+#trimStartChars
+Strips all leading characters from a given string. This function accepts variadic
+number of arguments:
+>>>trimStartChars ':' ';' ",;Foo"
+
+#trimEndChars
+Strips all trailing characters from a given string. This function accepts variadic
+number of arguments:
+>>>trimEndChars ':' ';' "Foo;"
+
+#indexOf search s
+Returns the first index (or `-1` if nothing was found) of an occurence of the string `search` 
+in the string `s`. In the example below `indexOf` will look for the string `"Ela"` inside 
+the string `"Language Ela"`: 
+>>>indexOf "Ela" "Language Ela"
+
+#indexOfFrom search idx s
+Works like `indexOf`, but allows to specify an index at which to start the search: 
+>>>indexOfFrom "Ela" 3 "Language Ela"
+
+#indexOfLast search s
+Works like `indexOf`, but returns an index of the last occurence of the first string in 
+the second string. 
+
+#startsWith search s
+Returns `true` if a string `s` starts with a string `search`, otherwise returns `false`. 
+
+#endsWith search s
+Returns `true` if a string `s` ends with a string `search`, otherwise returns `false`. 
+
+#replace search repl s
+Replaces a string `search` with a string `repl` in a string `s`: 
+>>>replace "Ela" "ELA" "Ela compiler"
+
+#remove start n s
+Removes a number of symbols `n` starting from the position `start` in a string `s`: 
+>>>remove 0 4 "Ela compiler"
+
+#substr start n s
+Returns a substring from `s` starting at position `start` with the length `n`: 
+>>>substr 0 3 "Ela compiler"
+
+#split sep s
+Splits a given string into a list using a separator, specified as a first argument: 
+>>>split ";" "Ela;Elide;ElaConsole"
+
+#insert idx ins s
+Inserts a string `ins` at a position `idx` inside the string `s`. This function creates a 
+new string. 

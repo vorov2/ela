@@ -1,0 +1,55 @@
+//This sample is a simple implementation of OOP style object system in Ela.
+//If you don't understand everything here, you can read first about classes and 
+//user types in Ela.
+
+//This is a type Object that will be used to represent objects in our code.
+//It has a single constructor of the same name. (Remember, constructor is just
+//a function and can be used in such a way everywhere you like).
+type Object = Object a
+
+//Here is our implementation of 'inheritance'. An 'Object' constructor
+//will always take a record as its argument. We will use a special `__base`
+//field in this record to store a reference to the base (or prototype) object.
+//Here 'inherit' is just a regular two argument function declared in an infix form.
+(Object rec) `inherit` base = Object <| {__base=base} ++ rec
+
+//More interestings things are happening here. 'Name' is one of the standard classes
+//in Ela (you can look at its definition in prelude). It allows to obtain an element
+//from a container by a name. We simply implement this class (classes in Ela are 
+//somewhat like interfaces in object oriented languages), so that we can use standard
+//syntax 'foo.bar' to refer to members of our objects.
+//Our implementation here is very straightforward. We first check if a requested field
+//is present in the given object and, if not, we check the its 'prototype', that is
+//stored in '__base' field. This is done recursively, so that a prototype can have its 
+//own prototype and so on.
+instance Name Object where
+  getField fld (Object rec) 
+    | fld `isField` rec = getField fld rec
+    | "__base" `isField` rec = getField fld rec.__base
+    | else = fail "Unknown field."
+  isField fld (Object rec)
+    | fld `isField` rec = true
+    | "__base" `isField` rec = fld `isField` rec.__base
+    | else = false
+
+//This will be our 'prototype'
+cls = Object {
+         sum  = \x y -> x + y //base implementation
+        ,sub  = \x y -> x - y
+        ,div  = \x y -> x / y
+        ,mul  = \x y -> x * y
+      }
+
+//An this is a derived object
+derived = Object {
+             pow  = \x y -> x ** y
+            ,sum  = \x y -> x + y + y //override
+          }
+          `inherit` cls
+
+//We use a tuple here to output several values at once
+(
+   derived.sum 3 2 //Here we call function derived.sum
+  ,derived.sub 3 2 //Here we call function class.sub
+  ,derived.pow 3 2 //Here we call function derived.mod
+  )

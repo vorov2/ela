@@ -1,0 +1,25 @@
+/* 
+  Module cell
+  Created in 2012 by Basil Voronkov
+*/
+import libCell#elalib@cl
+
+/* Types */
+type Cell = Ref a # private
+
+/* Instances */
+instance Show Cell
+  where show (Ref x) = "<cell:" ++ show (cl.valueof x) ++ ">"
+
+/* Functions */
+ref a = Ref (cl.newCell (force a))
+
+mutate e (Ref x) = Ref (cl.mutate (force e) x)
+
+valueof (Ref x) = cl.valueof x
+
+c.+ = mutate (valueof c + 1) c
+
+c.- = mutate (valueof c - 1) c
+
+c := e = mutate e c

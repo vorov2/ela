@@ -1,0 +1,45 @@
+0.0.2.0:Release:Release of 0.0.2
+0.0.1.33:New:A Prelude module is introduced, some basic functions are moved to Prelude.
+0.0.1.32:New:An initial version of Async module is implemented.
+0.0.1.31:New:Functions 'intersectBy' and 'intersect' added to Core module.
+0.0.1.30:New:Functions 'groupBy' and 'group' added to Core module.
+0.0.1.29:New:Function 'permutations' added to Core module.
+0.0.1.28:New:Functions 'intercalate', 'nonEmptySubsequences', 'subsequences' added to Core module.
+0.0.1.27:New:Functions 'intersperse' and 'transpose' added to Core module.
+0.0.1.26:New:Functions 'insert' and 'insertBy' added to Core module.
+0.0.1.25:New:Functions 'nub' and 'nubBy' added to Core module.
+0.0.1.23:New:Functions 'delete' and 'deleteBy' added to Core module.
+0.0.1.22:New:Functions 'scanl' and 'scanr' added to Core module.
+0.0.1.21:Change:Implementation of Core.maximum function optimized.
+0.0.1.20:Change:Implementation of Core.minimum function optimized.
+0.0.1.19:Change:Implementation of Core.product function optimized.
+0.0.1.18:Change:Implementation of Core.sum function optimized.
+0.0.1.17:New:A new 'concatMap' function added to Core module.
+0.0.1.16:Change:All Core functions that work with lists are rewritten to be more generic (now they return not lists but containers of the same type as the passed container).
+0.0.1.15:Change:Implementation of Core.concat function optimized.
+0.0.1.14:Change:Function 'nil' in Core module renamed to 'isNil'.
+0.0.1.14:New:A new 'fold' function added to Core module (simplified version of foldr).
+0.0.1.13:New:An initial version of Queue module is implemented (including ElaQueue type).
+0.0.1.12:New:New 'swap' and 'swap3' functions (swapping elements of tuples) added to Core module.
+0.0.1.11:New:New 'on' function (that replicates Haskell's Data.Function.on) added to Core module.
+0.0.1.10:New:An initial version of DateTime module implemented (including ElaDateTime type).
+0.0.1.9:New:Now ElaMap (immutable map) supports 'Convert' trait and a conversion to record.
+0.0.1.8:Change:Core module modified in accordance to the language syntax changes.
+0.0.1.7:New:ElaSet type now supports 'Cons' trait.
+0.0.1.6:Change:ElaSet type is now made usable from .NET code as well.
+0.0.1.5:New:ElaArray now supports 'Cons' trait.
+0.0.1.4:Change:ElaMutableMap is now made usable from .NET code as well.
+0.0.1.3:Change:ElaMap type is now made usable from .NET code as well.
+0.0.1.2:New:Array module is implemented (an implementation of array that used to be built-in moved to the library and rearranged as a module).
+0.0.1.1:New:Set module is implemented.
+0.0.1.0:Release:Release of 0.0.1
+0.0.0.10:New:Initial version of Shell module is implemented.
+0.0.0.9:New:Map module is implemented.
+0.0.0.8:New:MutableMap module is implemented.
+0.0.0.7:New:Real module is implemented.
+0.0.0.6:New:Con (wrapper for Console) module is implemented.
+0.0.0.5:New:Guid module is implemented.
+0.0.0.4:New:Char module is implemented.
+0.0.0.3:New:StringBuilder module is implemented.
+0.0.0.2:New:String module is implemented.
+0.0.0.1:New:Initial version of Core module is implemented.

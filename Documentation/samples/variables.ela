@@ -1,0 +1,37 @@
+//Here we use console output for testing purposes
+//Module console contains implementations of basic console functions such as
+//writen (write line), write (write), readn (read line)
+open console
+
+//Variables in Ela are declared as simple equations
+x = 2
+
+//Actually x is not exactly a variable, you can't change its value.
+//In functional languages such declarations are called bindings.
+//You can declare global and local bindings.
+
+foo = bar * 2 //foo is a global binding
+      where bar = 4 //bar is a local binding
+
+_ = writen ("foo=" ++ show foo) //Prints foo=8
+
+//Local bindings can be declared using 'where' or 'let/in' constructs
+//This code is equivalent to the previous sample
+foo2 = let bar = 4 
+        in bar * 2
+
+_ = writen ("foo2=" ++ show foo2) //Prints foo2=8
+
+//You can use pattern matching in bindings
+//Here we bind two names at once by deconstructing a list of two values
+[first,second] = [1,2]
+
+_ = writen ("first+second=" ++ show (first+second)) //Prints first+second=3
+
+//Ela does have a typical conditional if/else operator however in most cases
+//it is better to use guards like so:
+y = -2
+x2 | y < 0 = 0
+   | else  = x //This clause is mandatory
+
+_ = writen ("x2=" ++ show x2) //Prints x2=0

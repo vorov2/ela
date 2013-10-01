@@ -1,0 +1,7 @@
+open list
+
+xs = [1,3..] //infinite list
+
+//using non-strict filter' function from list module
+//only first 10 elements are shown
+take 10 <| filter' (>20) <| xs 

@@ -1,0 +1,43 @@
+#file record.ela
+#title record
+#category Ela Standard Library
+This module contains functions that operate with records. 
+
+=Functions
+
+==Modification
+
+#addFields
+Concatenates two records. This function has the same effect as record concatenation operator: 
+>>>addFields {y=2} {x=1}
+
+#addField
+Adds a field `fld` with a value `val` to a record `red`. This function always creates a new 
+record:
+>>>addField "z" 3 {x=1,y=2}
+
+#removeFields
+Removes fields from a given record. This function accepts a variadic number of arguments: 
+>>>rec' = {x=1,y=2,z=3}
+>>>removeFields "y" "z" rec'
+
+#removeField
+Removes a field `fld` from a record `rec`. This function always creates a new record:
+>>>removeField "y" {x=1,y=2}
+
+#changeField
+Changes a value of a field `fld` to `val` in a record `rec`. This function always creates a 
+new record:
+>>>changeField "y" 42 {x=1,y=2}
+
+==Indexing
+
+#field n rec
+Returns a name of a record field at index `n`.
+>>>field 1 {x=1,y=2}
+
+==Reflection
+
+#fields
+Returns a list of fields in a given record:
+>>>fields {x=1,y=2,z=3}

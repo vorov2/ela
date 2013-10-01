@@ -1,0 +1,147 @@
+#summary Getting started with Ela
+
+== Introduction ==
+
+This article provides basic information about compiling, installing and using Ela interpreter.
+
+== Installing Ela ==
+
+Ela itself doesn't require installation and/or configuration at all. The whole language implementation is a single _Ela.dll_ library that is installed using X-COPY method. The command line utility _Ela Console_ doesn't require installation as well however you might need to spend a minute or two to do some optional configuration which can simplify the usage of interpreter.
+
+Ela Console uses a standard application configuration file for settings. If you don't see any you can create it. The file should be placed in the same directory as Ela Console (_elac.exe_ file) and have the name _elac.exe.config_. The structure of the file is pretty straitforward:
+
+{{{
+<configuration>
+  <appSettings>
+    <add key="key name" value="key value" />
+  </appSettings>
+</configuration>
+}}}
+
+You can add multiple keys to the `appSettings` section. In order to learn how Ela Console can be configured simply lunch it with the `-help` key. You will see a list of command line options - all of these options can be specified via configuration file as well. For example lunching Ela Console like so `elac.exe -t` is the same as having the following key in the configuration file:
+
+{{{
+<add key="t" value="true" />
+}}}
+
+Normally you might need to provide some settings to Ela linker such as the locations where linker should look for the modules. It can be specified in the following manner:
+
+{{{
+<add key="ref" value="C:\MyModules\;C:\Ela\Code;C:\Misc" />
+}}}
+
+You specify several folders separated by semicolon. Ela linker will use these folders to loook for the modules that are opened within your code using `open <ModuleName>` statement. By default linker looks only in the same folder where the executable Ela file is located.
+
+
+== Compiling Ela ==
+
+Ela is implemented using C# 3.0 and runs on the .NET Framework 2.0 (or Mono 2.6). Higher versions of both .NET Framework and Mono are supported as well. All published builds are compiled using Microsoft C# 3.0 however the project can be also compiled with Microsoft C# 4.0. Other compilers (such as Mono C# compiler) are not currently used but would work as well.
+
+The code repository contains a Visual Studio 2008 solution that includes several projects - the core of them are Ela (which is a language implementation) and Ela Console (a command line utility that can be used to run Ela programs). If you need the language itself than _Ela_ project is all you need - this project is implemented in pure C#, without unsafe code and doesn't have any external dependencies except of the .NET Framework.
+
+All published Ela binaries are build using _Any CPU_ configuration; you can of course build it targeting a more specific platform such as x86 (for example if you want it to run as a 32-bit process even in 64-bit operative system).
+
+
+== Embedding Ela ==
+
+You can use Ela interpreter within your .NET application. For such purpose you only need to reference _Ela.dll_, there is not need in Ela Console which is only a tool to run Ela programs from command line.
+
+Implementation of Ela includes four loosely coupled components - a parser (_ElaParser_), a linker (_ElaLinker_ and _ElaIncrementalLinker_), a compiler (_ElaCompiler_) and a virtual machine (_ElaMachine_). Normally you would only need a linker and an Ela machine to execute Ela code.
+
+Ela provides two implementations of a linker. The one that is named _ElaIncrementalLinker_ is used to support interactive mode. It allows you to build and execute Ela code chunk by chunk. Incremental linker is also useful if you want to evaluate Ela code in a string representation. If this is not what you need you can use a regular Ela linker. This is a sample in C# that shows how execute Ela code represented as a regular string:
+
+{{{
+var l = new ElaIncrementalLinker(new LinkerOptions(), CompilerOptions.Default);
+l.SetSource(elaSourceCode);
+var res = l.Build();
+
+if (res.Success)
+{
+    var vm = new ElaMachine(res.Assembly);
+    vm.Run();
+}
+}}}
+
+In many cases you might need to provide some arguments to Ela code. Here is a full example of a _Eval_ function in C# that uses an anonymous class to capture arguments and their names:
+
+{{{
+public object Eval(string source, object args)
+{
+    var l = new ElaIncrementalLinker(new LinkerOptions(), CompilerOptions.Default);
+    l.SetSource(source);
+    var res = l.Build();
+
+    if (res.Success)
+    {
+        foreach (var pi in args.GetType().GetProperties())
+            res.Assembly.AddArgument(pi.Name, pi.GetValue(args, null));
+    
+        var vm = new ElaMachine(res.Assembly);
+        return vm.Run().ReturnValue.AsObject();
+    }
+    else
+    {
+        var sb = new StringBuilder();
+        
+        foreach (var m in res.Messages)
+            sb.AppendLine(m.ToString());
+    
+        throw new ElaTranslationException(sb.ToString());    
+    }
+}
+
+//sample usage
+var r = Eval("$x + $y", new { x = 2, y = 4 });
+}}}
+
+Notice the `$` prefix - it is mandatory if you want to reference an argument from Ela code.
+
+You can also create Ela modules in C# (or any other .NET language). This is an example of a simple module:
+
+{{{
+    public class MathModule : Ela.Linking.ForeignModule
+    {
+        private sealed class RandomizeFunction : ElaFunction
+        {
+            //Here we need to specify how many arguments our function has
+            internal RandomizeFunction() : base(2) { }
+                
+            public override RuntimeValue Call(params RuntimeValue[] args)
+            {
+                var rnd = new Random(args[0].AsInt32());
+                var ret = rnd.Next(arg[1].AsInt32());
+                return new RuntimeValue(ret);
+            }
+        }
+      
+        public override void Initialize()
+        {  
+            base.Add("rnd", new RandomizeFunction(this));  
+        }
+    }
+}}}
+
+And this is what you need to do to make this module available in Ela:
+
+{{{
+    var l = new ElaIncrementalLinker(CompilerOptions.Default, new LinkerOptions());
+    l.SetSource(source);
+    var res = l.Build();
+    res.Assembly.AddModule("Math", new MathModule());
+}}}
+
+And now you can seamlessly use this module from Ela:
+
+{{{
+open Math
+
+let r = rnd 0 42
+}}}
+
+You can also compile your module into regular .NET assembly, reference _Ela.dll_ and specify the following attribute:
+
+{{{
+[assembly:ElaModule("Math", typeof(MathModule)]
+}}}
+
+Now you don't have to manually add this module into collection of modules. Ela linker will be able to find it without your help. But you will have to specify the dll name in your `open` directive like so: `open Math#MyMathDll`.

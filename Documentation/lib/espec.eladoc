@@ -1,0 +1,211 @@
+#file espec.ela
+#title espec
+#category Ela Standard Library
+
+=Overview
+Module `espec` is an implementation of a domain specific language (DSL) that can be used
+to write test specifications in a form close to natural language.//br
+This module contains special functions (_words_) that can be used to compose test specifications.
+It also provides functions for registering tests, executing them and formatting tests results
+to a string.
+
+==Concept
+The idea behind `espec` is to provide an ability to write a test specification in a natural way.
+It is partially inspired by rspec for Ruby and similar libraries for F#. However because of Ela's
+dynamic nature and flexible syntax the DSL provided by `espec` is considerably more expressive.//br
+Presenting a test through a test specification rather than a "unit test" functions with asserts
+introduces a completely different approach to testing. A specification of a test doesn't actually
+perform any calculations - instead it generates a symbolic representation of calculations that
+have to be done. This symbolic representation can later be executed (interpreted) by explicitly
+calling a function `espec.run`.//br
+Another important property of `espec` is that it doesn't produce any side effects - this library
+is completely pure.//br
+One of the strong sides of a `espec` in comparison with regular style testing libraries (such as
+`test` module in Ela standard library) is a high quality output of test results. An output
+basically mirrors an input but with the results of all intermediate calculations and assertions.
+
+==Getting Started
+A test specification is a binding where a left-hand should be any valid Ela identifier and a 
+right-hand - a sequence of _espec words_. A test specification should start with `test` word
+(that gives a name to a test) followed by `given` word (that sets an initial value to be examined
+in a test).//br
+Here is an example of a simple test specification:
+>>test1 =
+>>  test "Integer equality"
+>>  given 2
+>>    should be 2
+>>    shouldn't be 33
+A value introduced by `given` word can be tested using predicates `should` and `shouldn't`.
+They both should be followed by a specific comparison word. In the example above this word is `be`,
+which tests a given for equality. Other options are `lesser`, `greater`, `lesserEqual`, 
+`greaterEqual`, `contain`, etc. 
+>>given 2
+>>  should greater 1
+>>  should lesser 3
+A predicate `should` expects a result of comparison to be `true`, a predicate
+`shouldn't` expects it to be `false`.//br
+It is also possible to encode calculations that should be done with a given value using `when` and
+`after` words.//br
+The word `when` expects a function as its first argument, followed by the function arguments:
+>>given 2
+>>  when (+) 3
+An example above can be translated to regular Ela syntax as `2 + 3` or `(+) 2 3`. Word `when` basically 
+acts as a variadic function - it would accept as much arguments as needed for a provided function:
+>>given 2
+>>  when negate
+When using `when` word a given value is always a first argument to the provided function. Sometimes
+this is not a desired behavior. That is where another word, `after`, can be used:
+>>given [1..10]
+>>  after filter even
+An example below can be translated to regular Ela syntax as `filter even [1..10]`. In other words
+with `after` a given value is always regarded as the last argument.//br
+Basically a test specification can be seen as a chain of _sentences_ in which each sentence either
+encodes a calculation to be done with a given value or an expectation about this value. A given 
+value if effectively _piped_ through all these sentences. An expectation (encoded through `should`
+and `shouldn't` words) always returns an original value even if it values. A calculation returns
+a result of a calculation:
+>>given 2
+>>  should be 2 //Value is 2
+>>  when (+) 2    //Value is 4
+>>  should be 4 //Value is 4
+Sometimes it might be useful to change a value introduced by word `given`. It can be seamlessly 
+done by adding another `given <something>` sentence to a test specification:
+>>given 2
+>>  should be 2
+>>given 3
+>>  should be 3
+A single test specification can have an unlimited number of sentences with `given` word. 
+
+==Running Tests
+Evaluation of a test specification includes two major phases. //br
+First a specification processed into a _symbolic calculation tree_. All test specifications are 
+packed in a linked list. A simple case of registering a test involves an `addTest` function:
+>>[] |> addTest test1
+A function `addTest` accepts a list as a first argument and a test specification. It then returns
+a new list with an added test. //br
+An alternate approach is to use `addTests` function that allows to register a bunch of tests at 
+once. This function always accepts a list as a first argument, however its second argument is a
+module (a value of type `module`):
+>>[] |> addTests testModule
+This function scans a module for test specifications and adds them to a given list.//br
+In order to execute tests one should use `run` function. This function accepts a list with 
+test specifications (built with `addTest` or `addTests` functions) and returns a list with
+test results.//br
+A typical example of running a test suite can look like so:
+>>open espec mytests1 mytests2
+>>[]
+>>  |> addTests mytests1
+>>  |> addTests mytests2
+>>  |> run
+>>  |> formatResult
+Function `formatResult` is used to format test results to a string.
+
+==Displaying Test Results
+Currently `espec` provides two functions to format test results to a string - a function
+`formatResult`, which output a string, and a function `formatResultHtm`, which outputs HTML with syntax highlighting.//br
+It is possible to implement additional formatting functions. For references how to accomplush you can inspect `formatResult` 
+implementation in `espec` module.//br
+Function `formatResult` outputs formatted plain text which mirrows the test specification. This 
+output also allows to track how a given value changes through test specification sentences. Let's
+write a simple example:
+>>>test1 = 
+>>>  test "Demonstration of espec"
+>>>  given [1..5]
+>>>    should contain 1
+>>>    shouldn't contain 3
+>>>    shouldn't contain 6
+>>>    when reverse
+>>>    should be [5,4..1]
+>>>    when tail
+>>>    should be [3,2..1]
+>>>    when head
+>>>    should be 4
+Here we have a simple specification that can be used to test linked list. This specification has
+some deliberate errors for demonstration purposes. Now we can execute this test like so:
+>>>[] 
+>>>  |> addTest test1 
+>>>  |> run
+>>>  |> formatResult
+The output above is automatically generated by documentation tool that processes this article (this
+tool evaluates provided code and prints results as comments). //br
+You can see that the output is pretty similar to the input. You can also track the value changes and
+examine explanations for all failures.
+
+=Functions
+
+==Words
+
+#test name
+The first word in test specification. It should be followed by a test name like so:
+>>test "List concatenation"
+Every test should start with this word, also a single occurence of this word is allowed.
+
+#should comp
+A test predicate that should be followed by a specific comparison. A `should` word 
+expected the result of this comparison to be `true`.
+
+#shouldn't comp
+A test predicate that should be followed by a specific comparison. A `should` word 
+expected the result of comparison to be `false`.
+
+#be x
+A comparison word, expects a value to be equal to `x`.
+
+#lesser x
+A comparison word, expects a value to be lesser than `x`.
+
+#greater x
+A comparison word, expects a value to be greater than `x`.
+
+#lesserEqual x
+A comparison word, expects a value to be lesser or equal to `x`.
+
+#greaterEqual x
+A comparison word, expects a value to be greater or equal to `x`.
+
+#contain x
+This words expects value to contain an element `x`. It would work for all types
+that have instances of `Seq` class, e.g. lists and strings.
+
+#when fun
+This word applies a function `fun` to a given value. It can also accept additional
+arguments for the function `fun` if needed.
+>>given 2
+>>  when negate
+The binary form is also valid:
+>>given 2
+>>  when (+) 2
+A `when` word can work with functions with any number of arguments. It assumes that
+a given value is first argument of a function.
+
+#after fun
+This word applies a function `fun` to a given value. It can also accept additional
+arguments for the function `fun` if needed.
+>>given []
+>>  after (::) 2
+An `after` word can work with functions with any number of arguments. It assumes that
+a given value is _last_ argument of a function. An example above would fail if you
+use `when` word instead of `after`.
+
+#given x
+This word introduces a value in a test specification:
+>>given 42
+
+==Running and formatting
+
+#run xs
+Function `run` executes test specifications which are compiled into a list using `addTest`
+and `addTests` functions. It also returns a list with the result of test evaludation.
+
+#addTest
+Adds a test `fn` to a list `xs` and returns a list with added test.
+
+#addTests
+Adds tests from module `mod` to a list `xs` and returns a list with added tests.
+
+#formatResult
+Formats test results obtained from `run` function into a string and returns this string.
+
+#formatResultHtm
+Formats test results obtained from `run` function into an HTML document with syntax 
+highlighting and returns this document as a string.

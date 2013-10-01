@@ -1,0 +1,90 @@
+#title Monads
+#category Language Reference
+
+=Introduction
+This article provides an overview of monadic programming in Ela. _This article discusses functionality which is still
+in an experimental state and is incomplete._
+
+=Overview
+Ela like other functional languages does provide a natural support for monadic programming through lambda. However,
+Ela provides additional support for monads through both library and language. It includes flexible monadic abstractions
+(exposed through Ela classes) and special syntax support that can simplify monadic programming (a so called `do` 
+notation).//br
+The high level of an approach to monadic programming is pretty similar to Haskell; syntax used in `do` notation 
+effectively mimics the one used in Haskell. The monadic class hierarchy, however, is rather different.
+
+=Core functions
+All monadic classes are currently are not exposed through prelude module, but are included in a dedicated `monad`
+module. This module also defines several useful functions, including the well known "bind" function. In order to write
+monadic code you first need to learn how to use the following three basic functions.//br
+The fist function is `>>=` (so called "bind"):
+>>m >>= f 
+The semantics of this function is pretty trivial - it takes the contents of its first argument (which should be a monad) 
+and passes it to a second argument (which should be a function) as a parameter.//br
+This function obeys the following law which can also help to understand its mechanics:
+>>return a >>= k == k a
+The code above, if evaluated, would return `true`. This means that the two expressions are equivalent and would always
+fetch the same value.//br
+The function `return`, used in our code sample, is the second basic function - it just takes a value and puts it in a 
+monadic context:
+>>>open monad
+>>>return 2 ::: List
+As you can see this function should be always executed in a context of a monadic type (and linked lists in Ela are
+monads). In fact the name `return` is just an alias for a function `point` and is defined in `monad` module like
+so: `return = point`.//br
+The third function is actually a redundant one. This a a `>>-` function (Haskell equivalent is `>>`). It can be defined
+in terms of `>>=` function like so:
+>>xs >>- ys = xs >>= (\_ -> ys)
+(And this is in fact the way how this function is actually defined in `monad` module).//br
+Behavior of this function is pretty similar to the standard `seq` function - it takes the contents of the first argument 
+and simply ignores it, moving on to the second argument.
+
+=Monadic classes
+Module `monad` defines the following core monadic classes: `Functor`, `Union` and `Pointed` (there are other classes
+but these three are the most important). Class `Functor` contains a single `fmap` function which is a generalization
+of `map` on lists. Class `Union` contains a single `join` function which is a generalization of `concat` on lists.
+And class `Pointed` contains a single `point` function which puts a value into a monadic contexts (or, in a case of
+lists, "packs" a value in a list). For clarity - this is how these classes are implemented for linked lists:
+>>instance Functor List where
+>>  fmap = List.map
+>>
+>>instance Union List where
+>>  join = List.concat
+>>
+>>instance Pointed List where
+>>  point x = [x]
+In fact function "bind" discusses in a previous section is not a class function (like in Haskell, where this function
+is a member of `Monad` class), but is defined through `fmap` and `join` like so:
+>>xs >>= f = join (fmap f xs)
+And `return`, as it was already mentioned, is simply an alias for `point`.
+
+=Do notation
+A so called `do` notation is a special syntax that was added to Ela to simplify writing monadic code. Heavy usage of
+"bind" operator can lead to a pretty unreadable code; the `do` notation can help to remove the clutter.//br
+A `do` notation is a special type of an expression that can be used in all the contexts where expression is valid. It 
+starts with `do` keyword. The layout for `do` expression is pretty similar to the one used for `where` binding - the first 
+entry can be on the same line with `do`, but other entries should indented after `do`:
+>>>open core
+>>>
+>>>foo = do  
+>>>    x <- Some "Is it "
+>>>    y <- Some 42
+>>>    z <- Some '?'
+>>>    Some (x ++ show y ++ z)  
+>>>
+>>>foo
+The monadic notation in Ela mimics the one used in Haskell; however, Ela currently supports only irrefutable patterns
+in left hand side of `<-` expressions.//br
+It is also possible to use `let` bindings in `do` notation in the following way:
+>>do
+>>  putStrLn "What is your height?"
+>>  x <- readAny
+>>  putStrLn "What is your weight?"
+>>  y <- readAny
+>>  let rec = x / y
+>>  putStr (
+>>    if rec > 2.25 then "You're too thin!"
+>>    else if rec < 2 then "You're too heavy!"
+>>    else "You're OK...")
+>>  putStr x
+The example above is written using `IO` monad and console IO actions available in `io` module.

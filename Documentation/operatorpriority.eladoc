@@ -1,0 +1,56 @@
+#title Operator Priority
+#category Language Reference
+
+=Introduction
+This article discusses operator priority and associativity in Ela. 
+
+=Operator symbols
+In Ela operator identifiers can include only the following symbols: `$!%&*+-.:/\<=>?@^|~`. Some of the symbols are already used by 
+language constructs. For example, it is not possible to define an operator `&` as soon as the one is already used to denote lazy lists 
+and lazy expressions. However it is possible to define an operator `&=`, etc. All standard arithmetic operators such as `+`, `-`, etc., 
+composition operators, application operators and so on are not syntax but functions defined in prelude and therefore can be easily redefined. 
+
+=Reserved operators and keywords
+The following operators and keywords are reserved and cannot be used for custom operators: 
+|`&`        |Lazy sections          |`if`       |Conditional operator |`opentype` |Type declaration
+|`->`       |Lambda operator        |`then`     |Conditional operator |`class`    |Class declaration
+|`|`        |Guard                  |`else`     |Conditional operator |`open`     |Module import
+|`@`        |As-pattern             |`is`       |Type check operator  |`import`   |Module import
+|`= `       |Binding                |`let`      |Local bindings       |`try`      |Exception handling
+|`\ `       |Lambda operator        |`in`       |Local bindings       |`with`     |Pattern matching
+|`\\`       |Comprehension operator |`where`    |Local bindings       |`match`    |Pattern matching
+|`<-`       |Comprehension selector |`instance` |Instance declaration |           | 
+|`..`       |Ranges                 |`deriving` |Deriving clause      |           | 
+|`.`        |Member access          |`type`     |Type declaration     |           | 
+|`:::`      |Context                |`data`     |Type declaration     |           | 
+
+=Priority and associativity
+In Ela operator priority and associativity is controlled by the first symbols in operator identifier. The following table lists all operator 
+priorities in order, starting from the loose operators. A notation `{op}` is used to show that any number (zero or more) of trailing operator 
+symbols is allowed here. For example, priroty of operators `=|` and `=||` is the same. 
+|*Operator Symbols*  |*Priority* |*Associativity* 
+|`<| {op}`           | 0         |Right 
+|`$ {op}`            | 1         |Left 
+|`|> {op}`           | 1         |Left
+|`| {op}`            | 2         |Left 
+|`& {op}`            | 3         |Left 
+|`= {op}`            | 4         |Left 
+|`< {op}`            | 4         |Left 
+|`> {op}`            | 4         |Left 
+|`^ {op}`            | 5         |Left 
+|`@ {op}`            | 6         |Right 
+|`+ {op}`            | 7         |Left 
+|`- {op}`            | 7         |Left 
+|`* {op}`            | 8         |Left 
+|`/ {op}`            | 8         |Left 
+|`% {op}`            | 8         |Left 
+|(infix application) | 9         |Left 
+|`<< {op}`           | 10        |Right 
+|`: {op}`            | 10        |Right 
+|`>> {op}`           | 11        |Left 
+|`~ {op}`            | 12        |Left 
+|`! {op}`            | 12        |Left 
+|`? {op}`            | 12        |Left 
+|`. {op}`            | 12        |Left 
+|`:::`               | 13        |Left
+|(application)       | 13        |Left
