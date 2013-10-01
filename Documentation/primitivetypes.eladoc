@@ -1,0 +1,51 @@
+﻿#title Primitive Types
+#category Language Reference
+
+=Introduction
+This article discusses primitive types in Ela. 
+
+=Booleans
+Booleans can be created using `true` and `false` literals: 
+>>t = true
+>>f = false
+Unlike many other languages booleans in Ela don't support explicit conversion to/from integer numbers. //br
+One can use prelude functions `not`, `==` and `<>` with booleans: 
+>>not true == false
+>>true == true
+>>true <> false
+The following prelude functions returns booleans as a result: `not` (logical negation), `==` (equality), `<>` (inequality), 
+`>` (greater), `>=` (greater or equal), `<` (lesser), `<=` (lesser or equal). 
+
+=Numeric types
+Ela has four numeric types - 32-bit integers, 64-bit integers, 32-bit floats and 64-bit floats. In the current 
+implementation all these types are mapped directly to .NET Framework types `System.Int32`, `System.Int64`, `System.Single` 
+and `System.Double`. All these types have their special literal syntax: 
+>>i = 42 //integer
+>>l = 42L //long
+>>f = 1.42 //float
+>>d = 1.42D //double
+Prelude defines multiple arithmetic functions such as `+` (addition), `-` (subtraction), `*` (multiplication), `/` (division), 
+`%` (remainder), `**` (power), `--` (unary negation). All these functions support implicit conversions between these types. 
+Once can also use bitwise operators from prelude with integer numbers: `&&&` (bitwise AND), `|||` (bitwise OR), `^^^` (bitwise XOR), 
+`<<<` (left shift), `>>>` (right shift) and `~~~` (bitwise not). 
+
+=Strings and Chars
+Strings in Ela are unicode sequences of characters. In the current implementation they do map directly to the .NET Framework data 
+type `System.String`. Chars are unicode characters. 
+>>s = "Hello, world!"
+>>c = 'C'
+Quoted string literals support C-style escape codes: 
+>>s = "Hello,\r\nworld!"
+Ela also supports a special literal for multiline strings: 
+>>s = <[ Multiline
+>>  string ]>
+Strings and chars can be compared using all standard prelude comparison operators. In order to concatenate strings one can use 
+`++` function from prelude. 
+
+=Unit
+Unit is a "replacement" for `null` in Ela. Many functional languages use a unit type instead of a `null`. Unit has 
+its own literal in Ela: 
+>>u = () //u now is unit
+Unlike `null` unit is an actual value. You can even apply functions to unit: 
+>>() == ()
+Unit is useful in cases where there is no other meaningful value that can be returned. 

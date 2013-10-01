@@ -1,0 +1,58 @@
+#file char.ela
+#title char
+#category Ela Standard Library
+This module contains functions and instances for a unicode character. 
+
+=Instances
+===Enum
+Implements `Enum` class for a unicode character, making it possible to generate char
+ranges.
+
+===Bounded
+Implements `Bounded` class for a unicode character.
+
+=Functions
+
+==Transformation
+#lower
+Transforms a given char to lowercase. This function requires a full qualification.
+
+#upper
+Transforms a given char to uppercase. This function requires a full qualification.
+
+==Checking
+#isLower
+Returns `true` if a given char is in lower case, otherwise returns `false`. 
+
+#isUpper
+Returns `true` if a given char is in upper case, otherwise returns `false`. 
+
+#isControl
+Returns `true` if a given char is a control char, otherwise returns `false`. 
+
+#isDigit
+Returns `true` if a given char is a digit, otherwise returns `false`. 
+
+#isLetter
+Returns `true` if a given char is a letter, otherwise returns `false`. 
+
+#isLetterOrDigit
+Returns `true` if a given char is a letter or digit, otherwise returns `false`. 
+
+#isNumber
+Returns `true` if a given char can be categorized as a number, otherwise returns `false`. 
+
+#isPunctuation
+Returns `true` if a given char is a punctuation char, otherwise returns `false`. 
+
+#isSurrogate
+Returns `true` if a given char has a surrogate code point, otherwise returns `false`. 
+
+#isSurrogatePair
+Returns `true` if given chars form a surrogate pair, otherwise returns `false`. 
+
+#isSymbol
+Returns `true` if a given char is a symbol character, otherwise returns `false`. 
+
+#isWhiteSpace
+Returns `true` if a given char is a white space character, otherwise returns `false`. 

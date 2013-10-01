@@ -1,0 +1,31 @@
+#file imperative.ela
+#title imperative
+#category Ela Standard Library
+This module contains functions that can be used to imitate imperative control structures. 
+
+=Functions
+
+#rec
+Takes a function for one argument and creates recursive function. 
+
+#rec2
+Takes a function for two arguments and creates recursive function. 
+
+#each f xs
+Applies a function `f` to each of the elements of `xs` list and discard its return value. 
+This function can be used to imitate an imperative foreach statement. 
+
+#loop f xs
+Loops through the given list until a function `f` applied to a list element returns `false`.
+
+#until p f xs
+Works like `each`by takes a predicate as a first argument. When applied to an element of a
+list `xs` a predicate should either return `true` or `false`. When a predicate returns true
+the cycle is terminated.
+
+#untili p f xs
+This function is similar to `until` but it feeds to a predicate not only an element but a
+sequential number of a processed element as well. For example, the code below prints out
+the first 100 numbers from a given list:
+>>open list imperative unsafe.console
+>>untili (\i _ -> i > 100) printn [1..]

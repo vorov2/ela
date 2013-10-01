@@ -1,0 +1,458 @@
+#file prelude.ela
+#title prelude
+#category Ela Standard Library
+Prelude module is an initialization script that contains definitions of standard types, classes, 
+instances, basic combinators and operators. Prelude script is always executed before any Ela 
+program unless you explicitly tell Ela not to do so. 
+
+=Standard types
+
+==Basic types
+
+#Int
+A 32-bit signed integer number type.
+>>42
+
+#Long
+A 64-bit signed integer number type.
+>>42L
+
+#Single
+A 32-bit signed floating point number type.
+>>12.2
+
+#Double
+A 64-bit signed floating point number type.
+>>24.4
+
+#Bool
+A boolean type which can be created using two literal forms - `true` or `false`.
+>>true false
+
+#not b
+Performs a logical negation of its operand. 
+>>>not (12 > 3)
+
+#&& a b
+Logical AND operator.
+
+#|| a b
+Logical OR operator.
+
+#Char
+A single unicode character.
+>>'a'
+
+#String
+An immutable indexed array of unicode characters.
+>>"Hello, world!"
+Strings in Ela are immutable indexed arrays, however, they do provide an instance for the `Seq`
+class and can be treated like lists in some cases.//br
+Applying a `head` to a string is equivalent to a substring that eliminates the first character:
+>>>tail "Bar"
+A function `head` always returns a first character:
+>>>head "Bar"
+A empty string is considered to be a nil string:
+>>>isnil ""
+You can also deconstruct strings using list and head/tail patterns.
+
+#Unit
+This type has a single immutable instance and is used to represent a value that can be discarded.
+>>()
+
+#Object
+An object type.
+
+==Lists
+
+#List
+An immutable single linked list.
+>>[1,2,3,4,5]
+
+#:: e xs
+List construction operator. This operator is right associative. In order to construct a list a 
+rightmost part of an expression should always be a list. 
+>>>1 :: 2 :: []
+This function is lazy on its both arguments. It doesn't force a left argument and if a right 
+argument is a thunk than a lazy list is constructed.
+
+#map f xs
+Maps a functions `f` to all elements of `xs` list and constructs a new list. 
+
+#filter p xs
+Returns all elements from a list `xs` that satisfy `p` predicate. 
+
+#last xs
+Returns the last element of a given list: 
+>>>last [1,2,3]
+This function throws a `Failure` if its argument is an empty list. 
+
+#init xs
+Returns a list without the last element: 
+>>>init [1,2,3]
+This function throws a `Failure` if its argument is an empty list. 
+
+#foldl f z xs
+Function `foldl`, applied to a binary operator, a starting value (typically the left-identity of 
+the operator), and a list, reduces the list using the binary operator, from left to right. This 
+is a strict function. 
+
+#foldr f z xs
+Function `foldr`, applied to a binary operator, a starting value (typically the left-identity of 
+the operator), and a list, reduces the list using the binary operator, from right to left. This 
+is a strict function. 
+
+#reverse xs
+Reverses a given list:
+>>>reverse [1,2,3]
+
+==Tuples
+
+#Tuple
+An immutable indexed array of elements of any type.
+>>(1, 'c', "Hello", true)
+
+#=>
+Constructs a pair:
+>>>12 => 24
+
+#swap x
+Swaps first and second elements in a tuple. This function will only work with a tuple of two 
+elements: 
+>>>swap (1,2)
+
+#swap3 x
+Swaps first and second elements in a tuple. This function will only work with a tuple of element 
+elements: 
+>>>swap3 (1,2,3)
+
+#fst x
+Returns a first element in a tuple. This function will only work with a tuple of two elements: 
+>>>fst (1,2)
+
+#snd x
+Returns a second element in a tuple. This function will only work with a tuple of two elements: 
+>>>snd (1,2)
+
+#fst3 x
+Returns a first element in a tuple. This function will only work with a tuple of three elements: 
+>>>fst3 (1,2,3)
+
+#snd3 x
+Returns a second element in a tuple. This function will only work with a tuple of three elements: 
+>>>snd3 (1,2,3)
+
+#dup x
+Duplicates an element.
+>>>dup 12
+
+==Records
+
+#Record
+A tuple with named elements.
+>>{x=1, foo="Foo"}
+Records in Ela are associative arrays. Elements in records are always ordered. That is the reason,
+why in many cases records can be treated in the same way as tuples.
+
+==Modules
+
+#Module
+Used to represent an Ela module.//br
+Modules in Ela are first class objects. They can be passed to functions as ordinary values. As soon
+as modules provides an instance for the `Name` class, you can access members of a module using a
+_dot notation_ or using `getField` function from `Name` class:
+>>//This module defines a public name 'x'
+>>open foo
+>>
+>>getIt fld obj = getField fld obj
+>>getIt "x" {x=1}
+>>getIt "x" foo
+You can also check if a particular binding exists in a given module using `isField` function:
+>>"x" `isField` foo
+Modules also can be tested for equality using standard operators `==` and `<>` from `Eq` class. As soon
+as modules in Ela are singletons, comparison of modules is a relatively fast operation and doesn't
+traverse the whole module structure, but instead checks an internal module ID.
+
+==Functions
+
+#Fun
+A function.
+>>\x -> \y -> x + y
+
+#>>
+Forward function composition operator. This function is defined like so:
+>>(>>) f g x = g (f x)
+
+#<<
+Backward function composition operator. This function is defined like so:
+>>(<<) f g x = f (g x)
+
+#flip fn
+Flips first two arguments in a function. A trivial implementation of this function is defined 
+like so:
+>>flip f x y = f y x
+
+#curry
+Converts an uncurried function to a curried function. It works with functions for two arguments:
+>>>curry fst 2 3
+
+#uncurry
+Converts an curried function to a uncurried function. It works with functions for two arguments: 
+>>>uncurry (%) (5,4)
+
+#curry3
+Converts an uncurried function to a curried function. It works with functions for three arguments: 
+>>>curry3 fst3 1 2 3
+
+#uncurry3
+Converts an curried function to a uncurried function. It works with functions for three arguments: 
+>>>uncurry3 (\x y z -> x + y + z) (5,4,3)
+
+#|> e f
+A redundant low priority application operator also known as _forward pipe_. It has a normal 
+order and left association. This function implementation is generated by a compiler.
+
+#<| f x
+A redundant low priority application operator also known as _backward pipe_. This operator is 
+right associative and has applicative order. This function implementation is generated by a compiler.
+
+#$ f x
+This function is an alias for `<|` function - it is an application operator with applicative order.
+Unlike `<|`, however, is left associative.
+
+==String builder
+
+#StringBuilder
+This type implements an immutable string builder that can be used for string concatenation instead of
+`++` operator (which might cause severe performance degradation on long strings).//br
+This type has a single `+>` constructor which is left associative and can be used to concatenate strings
+instead of `++` operator:
+>>>"First" +> "Second" +> "Third"
+The result of application of `+>` to two arguments is not a string, but an instance of `StringBuilder` type.
+In order to convert a string builder to a string, one can use a standard `toString` function.
+
+#+> a b
+Concatenates two string using `StringBuilder`.
+
+==Ordering
+
+#Ordering
+This type can be used by comparison functions to specify if two values are equal (represented through `EQ` 
+case), one value is lesser than another (represented through `LT` case) or one value is greater than another 
+(represented through `GT` case).//br
+A typical example of a function that returns a value of type `Ordering` is `compare`.
+
+#maxValue
+Returns `x` if `x` is greater or equal to `y`, otherwise returns y. 
+
+#minValue
+Returns `x` if `x` is lesser or equal to `y`, otherwise returns `y`. 
+
+=Standard classes
+
+==Basic classes
+
+#Eq
+Defines two basic comparison functions - equal `==` and not equal `<>`. Implementation of equality 
+functions is fully dependent from a particular instance however normally these functions would 
+test for structural, not reference equality.
+>>>[1,2,3] == [1,2,3]
+Minimum definition: `(==)` or `(<>)`.
+
+#Ord
+Defines four comparison functions including: greater `>`, lesser `<`, greater or equal `>=`, 
+lesser or equal `<=` and `compare`.//br
+Function `compare` compares two given values and returns `EQ` if they are equal, `LT` if first 
+argument is lesser than the second argument and `GT` if first argument is greater than the second 
+argument:
+>>>compare 12 34
+Minimum definition: `compare` (or other functions, except `compare`).
+
+#Bit
+Defines bit manipulation functions including: bitwise AND `&&&`, bitwise OR `|||`, bitwise 
+XOR `^^^`, bitwise negation `~~~`, left shift `<<<` and right shift `>>>`.
+
+#Enum
+This class defines operations on sequentially ordered types.//br
+Functions `succ` and `pred` can be used to obtain a successor and a predecessor 
+of a given value. An implementation of `Enum` for integers has the same effect as addition 
+and subtraction:
+>>>succ 12 == 12 + 1
+When you implement these functions for your own data type, the following equation should
+hold:
+>>x = succ (pred x)
+This is not the case for floating point numbers - and that is the reason, why they don't
+provide instances for `Enum` class.//br
+Functions `enumFrom` and `enumFromTo` are used to generate ranges. A range in the form
+`[n,n'..]` is only a syntax sugar for `enumFrom n n'`, and a range in the form `[n,n'..m]`
+is a syntax sugar for `enumFromTo m n n'`. An implementation of `enumFrom` should always
+generate a lazy infinite list, and implementation of `enumFromTo` should generate a strict
+finite list.//br
+When a second element in the range is not specified, it is calculated automatically using 
+`succ` function, e.g. a range in the form `[1..10]` is equivalent to `enumFromTo 10 (succ 1) 1`.//br
+The names of functions `succ`, `enumFrom` and `enumFromTo` are significant as their applications
+are directly generated by Ela compiler. Do not change the names of these functions if you alter
+prelude.
+
+#Seq
+Defines three functions that can be used to deconstruct a given sequence as a linked list. 
+A function `head` returns a head element of a sequence, a function `tail` strips a head and 
+returns the rest part of a sequence and a function `isNil` tests if a given sequence is nil.
+>>>tail [1,2,3]
+If an instance of this class is implemented for a particular type, than it is possible to 
+deconstruct this type using head/tail pattern, e.g.:
+>>match xs with
+>>      x::xs = ...
+>>      [] = ...
+
+#Len
+Defines a function `length` that can be implemented by objects for which there is a notion
+of measurable length. An example of such object is a linked list or tuple:
+>>>length (1,2,3)
+
+#Ix
+Defines a function `getValue` that maps a given index to a value. This class should be 
+implemented by containers which have a strict order of elements, such as lists or tuples.
+>>>getValue 1 [1,2,3]
+Instance of this class (along with an instance of `Len` class) allows to pattern match a
+value using tuple pattern, e.g.:
+>>match tup with
+>>      (x,y,z) = ...
+
+#: x y
+Provides a version of `getValue` function from `Ix` class that accepts arguments in a reverse order:
+>>>[1,2,3] : 2
+
+#Name
+This class provides an abstraction for a container which elements can be accessed by name.
+A function `getField` maps a given name to a value, and a function `isField` checks if a
+given name is recognized by a container. A typical example of a container that implements
+such an abstraction is a record.
+>>>getField "y" {x=1,y=2,z=3}
+Instance of this class allows to pattern match a value using record pattern, e.g.:
+>>match rec with
+>>      {x=xx,y=yy} = ...
+
+#Cat
+An operator `++` concatenates two entities and produces a new entity that includes elements from 
+both entities:
+>>>"First" ++ "Second"
+
+#Show
+A function `show` formats a given value to a string:
+>>>show [1,2,3]
+
+#Bounded
+This class defines two functions `maxBound` and `minBound` that accept an argument and return a
+maximum and a minimum possible value for this argument.
+>>>maxBound ::: Single
+
+#Read
+This class defines a single function `read` that accepts a string and returns a value of a specific
+type (this function is overloaded by its return type). It can be used to parse a string to any other
+value. Prelude already includes instances of this class for `Int`, `Long`, `Single`, `Double`, `Char`,
+`String`, `Bool`, `List`, `Tuple`, `Record` and `Ordering`.
+
+#gread x
+A generic implementation of a `read` function that can determine which type to return by itself. This
+function works for all prelude data types, except `Module`, `Fun`, `StringBuilder` and `Ordering`.
+
+==Numeric classes
+
+#Additive
+Defines functions of a commutative group, including addition `+`, subtraction `-` and negation
+`negate`.
+>>>2 + 2
+This is the most basic class for all numeric types. Also other types, such as `Tuple`,
+may provide implementations for this class as well.
+
+#Ring
+Defines functions of a (not necessarily commutative) ring, including multiplication `*` and
+power `**`.
+
+#Field
+Defines a function from a commutative division ring. Instances of this class should implement
+real division. 
+
+#Modulo
+Defines a modulus function (`mod`) and a remainder function (`rem).
+
+#% x y
+An alias for a remainder (`rem`) function from `Modulo` class:
+>>>12.2 % 3.0
+
+==Type conversion classes
+
+#ListLike
+Defines a `toList` function that can be used to convert list like data structures to a 
+linked list.
+
+#IntLike
+Defines a `toInt` type cast function.
+
+#LongLike
+Defines a `toLong` type cast function.
+
+#SingleLike
+Defines a `toSingle` type cast function.
+
+#DoubleLike
+Defines a `toDouble` type cast function.
+
+#BoolLike
+Defines a `toBool` type cast function.
+
+#CharLike
+Defines a `toChar` type cast function.
+
+#StringLike
+Defines a `toString` type cast function.
+
+#TupleLike
+Defines a `toTuple` type cast function.
+
+#RecordLike
+Defines a `toRecord` type cast function.
+
+=Basic combinators and functions
+
+#force x
+Forces a given expression if this is a thunk. Otherwise works as an identity function:
+>>>force 42
+This function forces thunks recursively. This function is generated by a compiler.
+
+#seq x y
+A sequencing operator. This operator evaluate given expressions strictly from left to right. Also if its first
+operand is a thunk, this thunk is evaluated.
+
+#id
+An identity function (I combinator from SKI calculus): 
+>>>id 42
+
+#const
+Constant function (K combinator from SKI calculus). 
+
+#sub
+Substitution function (S combinator from SKI calculus).
+
+#fix
+Fix point combinator: 
+>>factabs fact 0 = 1
+>>factabs fact x = x * fact (x - 1)
+>>res = (fix factabs) 5
+
+#on
+A combinator that applies a function given as its first argument to result of application of a 
+second argument to a third 
+and of a second argument to a forth argument: 
+>>(*) `on` f = \x y -> f x * f y
+
+#until
+Function application like so: `until p f` yields the result of applying `f` until `p` holds: 
+>>until (<0) (-1) 10
+
+#even
+Returns `true` if the specified number is even, otherwise returns `false`. 
+
+#odd
+Returns `true` if the specified number is odd, otherwise returns `false`. 

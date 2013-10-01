@@ -1,0 +1,48 @@
+//Here we use console output for testing purposes
+//Module console contains implementations of basic console functions such as
+//writen (write line), write (write), readn (read line)
+open console number
+
+//Ela has all the basic arithmetic operators
+_ = writen <| show (2 + 2)
+_ = writen <| show (2 * 4 - 3)
+_ = writen <| show (12 / 3) //This is real division, it is not truncated
+
+//Functions in Ela are curried and are called without braces
+//Here we calculate the length of a list (from 1 to 10) by
+//calling standard length function
+len = length [1..10]
+
+//Unlike many imperative languages Ela doesn't guarantee an order in which
+//function arguments are evaluated. If you require a strict order (e.g. you
+//want to write imperative code) you can use a sequencing function `seq` which
+//is somewhat similar to ';' operator in C-style languages.
+_ = writen "First" `seq` writen "Second" `seq` writen "Third"
+
+//Ela supports both strict and non-strict evaluation, however by default is
+//strict. In order to use non-strict evaluation you should mark a partical
+//section of code using '&' operator.
+
+//Why bad? This is impure function, that does console IO.
+badFunction x = writen ("Hello from thunk:" ++ show x) `seq` x 
+
+x = & badFunction (2+2) //Nothing is calculated here
+_ = writen <| show (x*3) //If you comment this line, you will see nothing in console
+
+//Functions can also be called using pipe operators. Sometimes it makes code more
+//visual. By the way you won't see "Hello from thunk" the second time. The result
+//of calculation is memoized.
+_ = writen <| "Backward pipe: " ++ show (x*3)
+_ = "Forward pipe: " ++ show (x*3) |> writen
+
+//Ela also has forward and backward function composition operators
+//This is also a good example of partial operator application using left/right sections.
+fun1 = ("Backward composition: "++) << show << (*3)
+fun2 = (*3) >> show >> ("Forward composition: "++)
+_ = writen (fun1 x)
+_ = writen (fun2 x)
+
+//By the way all Ela operators are written in Ela, you can always define your own
+//operators if you don't like any of these.
+f <~> x = f x //We want to call functions using weird <~> operator
+_ = writen <~> "It works!"

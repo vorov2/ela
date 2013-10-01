@@ -1,0 +1,37 @@
+#file queue.ela
+#title collections.queue
+#category Ela Standard Library
+This module contains an implementation of an immutable queue.
+
+=Queue
+
+#Queue
+An immutable queue that implements FIFO (first-in-first-out) container. This implementation of
+queue is based on a linked list and uses two linked lists for internal data representation.//br
+This data type doesn't have any public constructors.//br
+Queue provides an instance for `Seq` class and can be treated as a linked list in many cases and
+even deconstructed using list and head/tail pattern. Also queues can be indexed. In order to 
+construct queues from linked lists (and vice versa) one can functions `toList` and `fromList` from
+`ListLike` class that is implemented by `Queue`.
+
+==Construction
+
+#empty
+This is a constant that returns an empty queue. This constant requires a qualified access, e.g. `queue.empty`.
+
+==Main functions
+
+#enqueue e qu
+Appends an elements to the beggining of a given queue and returns a new queue:
+>>>qu = fromList [1..10] ::: Queue
+>>>enqueue 22 qu
+
+#dequeue qu
+Removes a first element from a queue and returns a new queue:
+>>>qu' = fromList ['a','b','c'] ::: Queue
+>>>dequeue qu'
+
+#peek qu
+Returns a value from the beggining of a queue without removing it:
+>>>sq = fromList ["foo","bar"] ::: Queue
+>>>peek sq

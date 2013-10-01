@@ -1,0 +1,85 @@
+#title What's new? (Ela Platform 2012.8)
+
+=Elide changes
+This version of Elide contains several minor changes and bug fixes. For more information please refer to
+the Elide change log.
+
+=Ela changes
+Platform 2012.8 comes with a new version of Ela (0.11.2). The most important changes in this version are
+support for overloading by return type and polymorphic constants.
+
+==Overloading by return type
+Now function signature in class definitions always includes a return type, e.g. an old definition like so:
+>>class Field a where
+>>  (/) a->a
+would have to be written as
+>>class Field a where
+>>  (/) a->a->_
+When a placeholder symbol is used as a return type, the behavior of such a function is exactly the same as 
+it used to be. However, now it is possible to specify that a function is overloaded by its return type as
+well.
+>>>open core
+>>>
+>>>class Result a where
+>>>  success _->a
+>>>  failure _->a
+>>>
+>>>instance Result Maybe where
+>>>  success x = Some x
+>>>  failure _ = None
+Here we have a class `Result` that defines two single argument functions - `success` and `failure`. These 
+functions are overloaded by their return type. As long as Ela is a dynamic language, you have to specify
+an expected result explicitly, like so:
+>>>success 42 ::: Maybe
+An annotation like the one above is called a _context annotation_. A context annotation can context either
+a direct type name, an expression (which should be enclosed in parentheses) which type will be used as a 
+context.//br
+An important feature of context annotations is that they can be propagated through the function calls:
+>>>safeDiv x 0 = failure "Divide by zero."
+>>>safeDiv x y = success (x / y)
+>>>
+>>>(safeDiv 12 2 ::: Maybe, safeDiv 12 0 ::: Maybe)
+or using a different type:
+>>>instance Result Either where
+>>>  success x = Right x
+>>>  failure x = Left x
+>>>
+>>>(safeDiv 12 2 ::: Either, safeDiv 12 0 ::: Either)
+For more information about this type of overloading, please refer to the language reference (article _Classes_).
+
+==Polymoprhic constants
+In addition to overloading by return type Ela 0.11.2 also allows to use constants as class members. Such
+constants are called _polymorphic constants_. You can think about them as of nullary functions overloaded by
+return type:
+>>>class Empty a where
+>>>  empty a
+>>>
+>>>instance Empty List where
+>>>  empty = []
+Here we have defined an `Empty` class with a single constant `empty` which can be used to present an empty (or
+default) instance of a type. This class is implemented for `List` data type where an empty instance is presented
+by a nil list.//br
+Polymorphic constants are used exactly in the same way as functions:
+>>>empty ::: List
+For more information about polymoprhic constants, please refer to the language reference (article _Classes_).
+
+==Lazy patterns
+Ela 0.11.2 provides a support for lazy patterns. Lazy patterns are always irrefutable and have the same syntax as
+lazy literals:
+>>& (x,y) = someValue
+
+=Library changes
+A new version of standard library, shipped with this release, contains a number of various changes. Here is quick
+summary of them:
+* A new module `bench` (benchmarking suite) is added to standard library
+* Multiple bug fixes (default implementation of `Enum`, `Cat` instance for queues, standard `reverse` function, etc).
+* Lists now provide an instance for an `Ord` class
+* `StringBuilder` type is redesigned and is now easier to use and provides a better performance
+* A new data type `Or` (similar to `Either`, but for non-exclusive disjunction) is added to `core` module
+* New class `Default` with a single `default` constant is added to prelude
+* New class `Num` with constants `one` and `zero` is added to `number` module
+* Tuples now provide instances for classes `Field` and `Ring`
+* Type `Ordering` and related functions are moved from `core` module to prelude
+* Now `Ord` class contains an additional function `compare` that returns an instance of `Ordering` type
+* Now prelude defines complete, but mutually recursive default instances of classes `Eq` and `Ord`, so that a minimum definition for `Eq` is now `(==)` or `(<>)` and minimum definition for `Ord` is `compare`.
+For more information please refer to standard library change log.

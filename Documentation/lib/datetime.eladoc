@@ -1,0 +1,120 @@
+#file datetime.ela
+#title datetime
+#category Ela Standard Library
+This module contains implementation of a datetime data type, its instance and functions that operate with dates and time. 
+
+=DateTime
+
+#DateTime
+This type is used to represent date and time. An 64-bit integer is used for internal 
+representation.
+
+==Construction
+
+#fromTicks x
+Constructs a `DateTime` instance from a ticks component represented as 64-bit integer. This function
+requires a qualified access.
+
+#fromTuple x
+Constructs a datetime instance from a tuple that contains `DateTime` components as 32-bit integers. The
+mimimum number of elements in a tuple is three (year, month, day): 
+>>>fromTuple (2012,2,3)
+The maximum number of elements in a tuple is seven (year, month, day, hour, minute, second, millisecond):
+>>>fromTuple (2012,2,3,16,44,12,124)
+This function requires a qualified access.
+
+#now ()
+Returns the current date and time. This function requires a qualified access.
+
+#today ()
+Returns the current date. This function requires a qualified access.
+
+==Modification
+
+#addDates x y
+Adds one date to another.
+
+#addTicks ticks date
+Adds a specified number of ticks to a date. 
+
+#addMilliseconds ms date
+Adds a specified number of milliseconds to a date. 
+
+#addSeconds s date
+Adds a specified number of seconds to a date. 
+
+#addMinutes mn date
+Adds a specified number of minutes to a date. 
+
+#addHours h date
+Adds a specified number of hours to a date. 
+
+#addDays d date
+Adds a specified number of days to a date. 
+
+#addMonths m date
+Adds a specified number of months to a date.
+
+#addYears yr date
+Adds a specified number of years to a date. 
+
+==Extracting components
+
+#years x
+Returns a years component of a given date. 
+
+#months x
+Returns a months component of a given date. 
+
+#days x
+Returns a days component of a given date. 
+
+#hours x
+Returns a hours component of a given date. 
+
+#minutes x
+Returns a minutes component of a given date. 
+
+#seconds x
+Returns a seconds component of a given date. 
+
+#milliseconds x
+Returns a milliseconds component of a given date. 
+
+#ticks x
+Returns a ticks component of a given date. 
+
+#dayOfWeek x
+Returns a string that represents day of week for a given date. A string might one of 
+the following: `"Fri"` for Friday, `"Mon"` for Monday, `"Sat"` for Saturday, `"Sun"` for Sunday, 
+`"Thu"` for Thursday, `"Tue"` for Tuesday and `"Wed"` for Wednesday. 
+>>>dayOfWeek (parse "yyyy-MM-dd" "2012-01-01")
+
+#dayOfYear x
+Returns a day of year for a given date. 
+
+#date x
+Returns a date part (without time) of a given date. 
+
+==Parsing
+
+#parse fmt str
+Parsers a string str using a format fmt into a date and time instance. 
+>>>parse "yyyy-MM-dd" "2012-01-01"
+This function requires a qualified access.
+
+==Diff
+
+#diff x y
+Calculates a difference between dates x and y. A difference is returned as a records with the 
+following structure: 
+>>{ ticks, milliseconds, second, minutes, hours, days }.
+
+#diffSeconds fmt x
+Calculates a difference in seconds between dates `x` and `y`. 
+
+#diffMilliseconds fmt x
+Calculates a difference in milliseconds between dates `x` and `y`. 
+
+#diffTicks fmt x
+Calculates a difference in ticks between dates `x` and `y`. 

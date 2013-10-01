@@ -1,0 +1,11 @@
+#file random.ela
+#title random
+#category Ela Standard Library
+This module contains an implementation of a pseudo-random number generator. 
+
+=Functions
+
+#rnd
+A randomize function. It returns a pseudo random number which is equal or greater to `min` and 
+equal or lesser than `max`. This is actually a pure function as it will always return the same 
+value for the same seed.

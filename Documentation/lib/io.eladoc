@@ -1,0 +1,45 @@
+#file io.ela
+#title io
+#category Ela Standard Library
+Module IO contains an implementation of IO monad and several IO related functions implemented
+in monadic style. This module is in an experimental state.
+
+=IO
+
+#IO
+This type is used to represent input and output operations. An `IO` type doesn't provide any open
+constructors. You can operate with it using helper functions `mkIO` and `execIO`.
+Type `IO` is a monad and provides instances for classes `Functor`, `Union`, `Pointed` and `Failure`.
+For convinience this type also provides an instance for class `Show`, however applying function `show`
+to an instance of this type always returns an empty string.
+
+#mkIO a
+Constructs an IO action from a given argument.
+
+#execIO a
+Executes a given IO action.
+
+=Console IO
+
+#putStr a
+This action writes a given string to a standard output.
+
+#putStrLn a
+This action writes a given string and a new line to a standard output.
+
+#readStr
+This action reads a string from a standard output.
+
+#readAny
+This action reads a string from a standard output and converts it to a specified type using `gread` function.
+>>do
+>>  putStrLn "What is your height?"
+>>  x <- readAny
+>>  putStrLn "What is your weight?"
+>>  y <- readAny
+>>  let rec = x / y
+>>  putStr (
+>>    if rec > 2.25 then "You're too thin!"
+>>    else if rec < 2 then "You're too heavy!"
+>>    else "You're OK...")
+>>  putStr x

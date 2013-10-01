@@ -1,0 +1,29 @@
+#title What's new? (Ela Platform 2013.2)
+
+=Ela changes
+Platform 2013.2 is mostly a stabilization release which also includes several important new features. 
+Platform 2013.2 is shipped with a new version of Ela that includes a refactored support of `do` notation 
+(first introduced in a previous release). Also `do` notation in Ela now allows to use `let` bindings:
+>>do
+>>  putStrLn "What is your height?"
+>>  x <- readAny
+>>  putStrLn "What is your weight?"
+>>  y <- readAny
+>>  let rec = x / y
+>>  putStr (
+>>    if rec > 2.25 then "You're too thin!"
+>>    else if rec < 2 then "You're too heavy!"
+>>    else "You're OK...")
+>>  putStr x
+Also a new version of Ela shipped with this platform includes a fix for a serious bug that caused Ela
+runtime to crush when an overloaded Ela function is beign called from external code (e.g. .NET assembly)
+
+=Documentation changes
+Documentation library is updated with information about new modules and old modules changes. Also language
+reference is updated in the part about monads.
+
+=Library changes
+Standard library in Platform 2013.2 contains several changes an additions. Here is an overview of the most important changes:
+  * A module `io` was renamed to`file` and moved (along with `cell` and `console` modules) to the "unsafe" namespace. These modules are now recommended for testing and debugging purposes only. In order to reference them now once should write `open unsafe.console` instead of just `open console`. However if you still want to reference them by a shorter path you can include "unsafe" directory in linker lookup list.
+  * A module `read` along with its single `readStr` function is now decomissioned. Instead one should use `Read` type class from prelude that defines a single `read` function. Also a generic function `gread` similar to decomissioned `readStr` function is available in prelude.
+  * A new module `io` is introduced. This module contains an implementation of `IO` monad and console IO actions (`readStr`, `putStr`, `putStrLn`, etc.) that can be used in monadic contexts.

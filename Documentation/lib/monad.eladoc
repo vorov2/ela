@@ -1,0 +1,111 @@
+#file monad.ela
+#title monad
+#category Ela Standard Library
+This module contains implementations of some monadic classes, common instances for these classes and useful
+generic functions.
+
+=Classes
+
+==Functor
+
+#Functor
+`Functor` is a class that defines a single `fmap` function. An `fmap` function is a generalized version of `map`,
+which is provided for a linked list in `prelude` modules. Therefore an instance of a `Functor` class for a list
+is simply written like so:
+>>instance Functor List where
+>>  fmap = map
+Once defined an instance like the one above we can be sure that `fmap` behavior for a linked list is exactly the
+same as behavior of a regular `map` function:
+>>>fmap (*2) [1..5]
+and
+>>>map (*2) [1..5]
+You can, of course, define instances for other types that can be mapped over. All instances of `Functor` should
+satisfy the following law:
+>>fmap id == id
+>>fmap (f << g) == fmap f << fmap g
+This module defines instances of `Functor` for types `Fun`, `List`, `Maybe`, `Either`, `Or` and for a `Tuple`. 
+This module also provides a generic default instance of `Functor`.
+
+==Union
+
+#Union
+`Union` class defines a single `join` function. This class can be seen as a generalization of a `concat` function
+on lists. Therefore an instance of `Union` class for a list can be defined like so:
+>>instance Union List where
+>>  join = list.concat
+A instance of `Union` class can be provided for all types that can act as a container of containers; it takes a
+container of containers and turns it into a single container. A simple example for this is a `Maybe` type:
+>>>join <| Some (Some 12)
+This module defines instances of `Union` for types `List`, `Maybe`, `Either` and `Tuple`. This module also 
+provides a generic default instance of `Union`.
+
+==Pointed
+
+#Pointed
+A `Pointed` class defines a single `point` function. This function is similar in behavior to `return` function
+from `Monad` class in Haskell. It takes a single argument and injects it into a monadic type. This function is
+overloaded by its return value:
+>>>point 42 ::: List
+Instances of `Pointed` for most of the type are very straightforward as soon as they do nothing more that a type
+constructor. For example, an instance of `Pointed` for a `Maybe` type can be implemented like so:
+>>instance Pointed Maybe where
+>>  point = Some
+This modules defines instance of `Pointed` for types `List`, `Maybe`, `Either` and `Tuple`. This module also
+provides a generic default instance of `Pointed`.
+
+==Copointed
+
+#Copointed
+A `Copointed` class is an opposite to `Pointed`. It defines a single `extract` function that takes a monadic type 
+and extracts a value from it:
+>>>extract [42]
+This modules defines instance of `Copointed` for types `List`, `Maybe`, `Either` and `Tuple`. This module also
+provides a generic default instance of `Copointed`.
+
+==Failure
+
+#Failure
+A `Failure` class defines a function `failure` and can be used for those types that have a notion of failure.
+This module defines instances of `Functor` for types `List`, `Maybe`, `Either`, `Or` and for a `Tuple`. This module
+also provides a generic default instance of `Functor`. A default generic instance of `Failure` is implemented like so:
+>>instance Failure where
+>>  failure = undefined
+
+=Functions
+
+#<$ v cont
+This function is not a part of `Functor` definition but can be defined in terms of `fmap` like so:
+>>(<$) = fmap << const
+This function replaces all locations in the with the same value like so:
+>>>2 <$ [1..5]
+
+#return
+The `return` function is simply an alias for `point` function made for convinience:
+>>return = point
+
+#>>=
+A "bind" function that sequentially compose two actions, passing any value produces by the first as an argument to the
+second. This function is defined in terms of `fmap` and `join`:
+>>xs >>= f = join (fmap f xs)
+
+#>>-
+Sequentially compose two actions, discarding any value produced by the first, like sequencing operators (such as the semicolon) 
+in imperative languages. This function is define through `>>=` like so:
+>>xs >>- ys = xs >>= (\_ -> ys)
+
+#guard
+A boolean guard function that can be used in monadic expressions, specifically in `do` notation. This function is
+defined as follows:
+>>guard true = return ()
+>>guard false = default
+It should be called in a context of a type that provides instances for class `Default` (defined in Prelude) and 
+`Pointed` (defined in this module, `return` is just an alias for function `point`).//br
+For example, this code filters out all events from a given list (using `do` notation):
+>>>open monad
+>>>
+>>>evens xs = do
+>>>  x <- xs
+>>>  guard (even x)
+>>>  return x
+>>>
+>>>evens [1..10] ::: List

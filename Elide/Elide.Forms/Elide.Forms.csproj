@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{99415DC5-9DE6-449E-8F55-D676AB900A04}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Elide.Forms</RootNamespace>
+    <AssemblyName>Elide.Forms</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveToolbar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Bitmaps.cs" />
+    <Compile Include="BufferedGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BufferedTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ColorPicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DefaultComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DefaultItem.cs" />
+    <Compile Include="DocumentContainer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocumentItem.cs" />
+    <Compile Include="DocumentMenuRenderer.cs" />
+    <Compile Include="FlatPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FlexListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FontHelper.cs" />
+    <Compile Include="FontPicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Fonts.cs" />
+    <Compile Include="GroupListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="HostControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Images\_NS.cs" />
+    <Compile Include="IntPicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListGroup.cs" />
+    <Compile Include="ListItem.cs" />
+    <Compile Include="MenuRenderer.cs" />
+    <Compile Include="ObjectEventArgs.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ToolWindow.resx">
+      <DependentUpon>ToolWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="SingleBorderPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SplitContainerEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SplitContainerExtensions.cs" />
+    <Compile Include="State\StateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="State\StateItemAttribute.cs" />
+    <Compile Include="State\StateUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SwitchBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SwitchBarEventArgs.cs" />
+    <Compile Include="SwitchBarItem.cs" />
+    <Compile Include="ToolMenuRenderer.cs" />
+    <Compile Include="ToolWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolWindow.designer.cs">
+      <DependentUpon>ToolWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserBrushes.cs" />
+    <Compile Include="UserColors.cs" />
+    <Compile Include="UserPens.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\ArrowDownGray.bmp" />
+    <EmbeddedResource Include="Images\Arrow.bmp" />
+    <EmbeddedResource Include="Images\ArrowGray.bmp" />
+    <EmbeddedResource Include="Images\Bounds.bmp" />
+    <EmbeddedResource Include="Images\Check.bmp" />
+    <EmbeddedResource Include="Images\Console.bmp" />
+    <EmbeddedResource Include="Images\Corner.bmp" />
+    <EmbeddedResource Include="Images\CornerDisabled.bmp" />
+    <EmbeddedResource Include="Images\Error.bmp" />
+    <EmbeddedResource Include="Images\Message.bmp" />
+    <EmbeddedResource Include="Images\Plus.bmp" />
+    <EmbeddedResource Include="Images\Warning.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Elide.Common\Elide.Common.csproj">
+      <Project>{A5363A1F-8DD1-4F6F-A631-EB6864BB1224}</Project>
+      <Name>Elide.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Core\Elide.Core.csproj">
+      <Project>{134691C3-4CFB-4D1B-AA75-D34587CA0B69}</Project>
+      <Name>Elide.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Meta\Elide.Meta.csproj">
+      <Project>{958A8279-AAC7-49E0-961E-C24FDB663B45}</Project>
+      <Name>Elide.Meta</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

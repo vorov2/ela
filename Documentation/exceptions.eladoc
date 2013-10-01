@@ -1,0 +1,24 @@
+#title Exceptions
+#category Language Reference
+
+=Introduction
+This article discusses exception handling in Ela. 
+
+=Exceptions in Ela
+Ela provides a support for so called resumable exceptions that can be raised using `fail` statement and handled
+using `try/with` expression.
+
+=Handling Exceptions
+Ela provides a support for structured exception handling in the same way as C-style language. A `try/with` expression 
+is used to handle exceptions: 
+>>try 2 `div` 0 with
+>>    _ = 0
+This expression has effectively the same syntax as `match` expression and support pattern matching with multiple clauses is well. 
+If an expression, that follows `try` keyword, doesn't fail, `try/with` returns a value of this expression. If it fails, than an exception 
+is matched against patterns following `with` keyword. 
+
+=Generating Exceptions
+In order to generate exceptions one can use a `fail` statement. It has the following syntax: 
+>>"fail" expr
+An example of using this statement:
+>>fail "myfunc: Nil list!"

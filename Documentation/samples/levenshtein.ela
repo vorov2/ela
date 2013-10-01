@@ -1,0 +1,10 @@
+//We use functions foldl, scanl, minimum, toInt, length, last and zip3
+//declared in list module and prelude
+open list
+
+levenshtein s1 s2 = last <| foldl transform [0 .. length s1] s2  
+            where transform (n::ns')@ns c = scanl calc (n+1) <| zip3 s1 ns ns'
+                        where calc z (c', x, y) = minimum [y+1, z+1, x + toInt (c' <> c)]
+
+//The result is (3,8)
+(levenshtein "kitten" "sitting", levenshtein "rosettacode" "raisethysword")

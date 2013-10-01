@@ -1,0 +1,54 @@
+#title Lazy Evaluation
+#category Language Reference
+
+=Introduction
+This article discusses thunks and writing non-strict code in Ela. 
+
+=Lazy Evaluation
+Ela by default is a strict language (like, for example, C#), but it does provide an extensive support for 
+lazy evaluation. However, unlike lazy functional languages, non-strict evaluation in Ela is always explicit - one 
+should mark a particular section of code as thunk to enable laziness. //br
+This is done using built-in syntax like so: 
+>>x = & 2+2
+An evaluation of an expression with a leading ampersand is deferred. Also such an expression 
+is evaluated just once (and after that its value is memoized). //br
+An expression, which evaluation is deferred, is called a _thunk_. Thunks are calculated only when their value 
+is actually needed. For example, standard prelude function `+` (addition) is strict - therefore if you apply 
+this function to a thunk, a thunk will be immediately evaluated.//br
+However, one can write a function with a non-strict semantics. For example, a simple tuple construction function, 
+defined like so: 
+>>x => y = (x,y)
+is non-strict, as soon as it doesn't evaluate its arguments. If you pass thunks to this function, it will yield 
+a tuple with thunks. 
+
+=Lazy Lists
+Some standard prelude functions are also non-strict. For example, list construction function `::` is non-strict. 
+It doesn't evaluate its arguments, including the tail of a list. If you pass a thunk as a list tail, it will 
+construct a lazy list: 
+>>xs = 1::2::[] //strict list
+>>xs' = 1::(& 2::[]) //lazy list
+Concatenation operator `++` is also lazy by its second argument. When used with lists, it can construct lazy lists 
+as well as strict lists. //br
+A lazy list in the example above is not very useful, however one can easily writen a function that generates an 
+infinite list like so: 
+>>>open list
+>>>
+>>>inf x = & x :: inf (x+1)
+>>>take 10 <| inf 0
+A function `take` is defined in `core` module and takes first 10 elements from a list. A lazy list is evaluated on demand only. 
+In example above we have taken first 10 elements from this list - and only ten elements are evaluated. //br
+One can define other lazy functions in a similar manner. For example, this how a lazy `map` function (which takes a function and a 
+list and maps this functions to the elements of a list) can be defined: 
+>>>map _ [] = []
+>>>map f (x::xs) = f x :: (& map f xs)
+And now we can safely map our infinite list using this function: 
+>>>xs = map (*2) (inf 0)
+>>>take 10 <| xs
+
+=Forcing Evaluation
+One can force an evaluation of a thunk using prelude `force` function like so: 
+>>>t = & 2+2
+>>>force t
+This function always forces thunks recursively:
+>>>force (& 2 + (& 2+2))
+Also thunks are automatically forced when used in sequence expressions (created using built-in `$` operator). 

@@ -1,0 +1,43 @@
+fromLiteral {eq} =
+  let rec' = {lang="Ela", dev="Basil"} in
+    eq (length rec') 2
+  `seq` eq (rec':0) "Ela"
+  `seq` eq (rec':1) "Basil"
+  `seq` eq rec'.lang "Ela" 
+  `seq` eq rec'.dev "Basil"
+  `seq` eq (getField "lang" rec') "Ela"
+  `seq` eq (getField "dev" rec') "Basil"
+    
+fromLiteral2 {eq} = 
+    eq (getField "font-color" rec') "red"
+  `seq` eq (getField "text-decoration" rec') "none"
+  where rec' = {"font-color"="red","text-decoration"="none"}
+
+lightRec {eq} = 
+  eq {x,y} {x=1,y=2}
+  where x = 1
+        y = 2
+
+concat {eq} =
+  eq r3 {x=1,y=2,z=3}
+  where r1 = {x=1,y=2}
+        r2 = {z=3}
+        r3 = r1++r2
+
+recordAsTuple {eq} =
+    eq x 1
+  `seq` eq y 2
+  `seq` eq z 3
+  where r = {x=1,y=2,z=3}
+        (x,y,z) = r
+
+equals {eq,neq} =
+    eq r1 r2
+  `seq` neq r1 r3
+  where r1 = {x=1,y="word",z='c'}
+        r2 = {x=1,y="word",z='c'}
+        r3 = {x=1,y="WORD",z='C'}
+
+typeCheck {eqt} =
+  let rec' = {x=0} in
+  eqt (rec' is Record)

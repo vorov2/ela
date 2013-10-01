@@ -1,0 +1,155 @@
+
+
+equals {eq,eqt,eqf} =
+    eqt (2 == 2)
+  `seq` eqt (12L == 12)
+  `seq` eqt true
+  `seq` eqf false 
+  `seq` eq "first" "first" 
+  `seq` eq 'f' 'f'
+  `seq` eq (1,2) (1,2)
+
+notEquals {neq} =
+    neq 2 3 
+  `seq` neq 12L 13
+  `seq` neq true false
+  `seq` neq false true
+  `seq` neq "first" "second" 
+  `seq` neq 'f' 'F'
+  `seq` neq (2,3) (2,4)
+
+notEquals2 {eqt,eqf} =
+    eqt (3 <> 4)
+  `seq` eqf (3 <> 3)
+  `seq` eqt (13L <> 12)
+  `seq` eqf (13L <> 13L)
+  `seq` eqt (true <> false)
+  `seq` eqf (true <> true)
+  `seq` eqt ("first" <> "second") 
+  `seq` eqf ("first" <> "first") 
+  `seq` eqt ('F' <> 'f')
+  `seq` eqf ('F' <> 'F')
+  `seq` eqt ((2,3) <> (2,4))
+  `seq` eqf ((2,3) <> (2,3))
+
+compare {eqt} =
+    eqt (12.3 - 12.3 < .001)
+  `seq` eqt (146.23d - 146.23d < .001d)
+  `seq` eqt (24 > 12)
+  `seq` eqt (125L > 124)
+  `seq` eqt (123.23 < 150.0)
+  `seq` eqt (12 >= 12)
+  `seq` eqt (45 <= 46)
+  `seq` eqt (45 <= 45)
+
+compare2 {eqt,eqf} =
+    eqt ("ABC" > "abc")
+  `seq` eqf ("abc" > "ABC")
+  `seq` eqf ("EFG" <= "efg")
+  `seq` eqt ("EFG" >= "efg")
+  `seq` eqt ('a' > 'A')
+  `seq` eqf ('A' > 'a')
+  `seq` eqf ('e' <= 'E')
+  `seq` eqt ('e' >= 'E')
+    
+simpleMath {eq,neq,gt,lt} =
+    eq (2 + 2) 4 
+  `seq` eq (2 - 2) 0 
+  `seq` lt (12.4 - .4 - 12.0) .001
+  `seq` eq (23 + 112) 135 
+  `seq` eq (2 * 2) 4 
+  `seq` gt (12.0 * 65.3) 771.0
+  `seq` eq (24 / 2) 12 
+  `seq` neq (25 / 2) 12 
+  `seq` gt (25f / 2.0) 12.0 
+  `seq` eq (25 % 2) 1 
+  `seq` eq (23.456 % 12.2) 11.256
+  `seq` eq (24 % 2) 0
+  `seq` eq (3 ** 2) 9
+
+concat {eq} =
+    eq ("1" ++ "&" ++ "2") "1&2"
+  `seq` eq (toString 'A' ++ toString 'B' ++ toString 'C') "ABC"
+  `seq` eq ('A' ++ 'B' ++ 'C') "ABC"
+    
+charConcat {eq} =
+    eq ('1' ++ '2') "12"
+  `seq` eq ('a' ++ 'b') "ab"
+  `seq` eq ("abc" ++ 'd') "abcd"
+  `seq` eq ('0' ++ "123") "0123"
+
+priorities {eq} =
+    eq (2 + 2 * 3) 8 
+  `seq` eq (14 / 2 + 4 * 6) 31 
+  `seq` eq (2 + 6 / 3) 4 
+  `seq` eq (1 + 12 - 4 / 2 + 144 * 24 / 12) 299
+
+boolOperators {eqt,eqf} =
+    (eqt <| not (2 <> 2))
+  `seq` (eqf <| not (2 == 2))
+  `seq` (eqt <| not ("First" == "first"))
+  `seq` (eqt <| not ('A' == 'a'))
+
+boolOperators2 {eqt,eqf} =
+    eqf (2 == 2 && 3 <> 3) 
+  `seq` eqt (2 <> 2 || 44 == 44) 
+  `seq` eqt (124 > 123 && 3 == 3 && true) 
+  `seq` eqt (1 > 2 && 2 < 1 || 1 == 1)
+
+pipeOperators {eq} =
+  let fun1 x y = x + y
+      fun2 x = x * 2
+      fun3 x = x - 2 
+   in
+    eq (fun1 2 2 |> fun2 |> fun3) 6 
+  `seq` eq (fun3 <| fun2 <| fun1 2 2) 6
+
+compositionOperators {eq} =
+  let fun1 x = x + 2
+      fun2 x = x * 2
+      fun3 x = x - 2
+      comp1 = fun1 >> fun2 >> fun3
+      comp2 = fun3 << fun2 << fun1 
+   in eq (comp1 2) 6 `seq` eq (comp2 2) 6
+
+bitwiseOperators {eq} =
+  let v = 2 ||| (12 <<< 8) 
+  in eq v 3074
+  `seq` eq (v &&& 255) 2
+  `seq` eq (v >>> 8) 12
+
+bitwiseOperators2 {eq} = 
+  let v = 0x02 ||| 0x04
+  in eq v 6
+  `seq` eq (v ^^^ 0x04) 2
+
+cast {eq} = 
+    eq (toInt 123.2) 123
+  `seq` eq (toInt 'A') 65
+  `seq` eq (toSingle 12.2D) 12.2
+
+bitNot {eq} =
+    eq (~~~2) -3
+  `seq` eq (~~~124) -125
+  `seq` eq (~~~ -3) 2
+
+unaryMinus {eq} =
+    eq -3 (0 - 3)
+  `seq` eq -256 (0 - 256)
+  `seq` eq -2.2 (0 - 2.2)
+  `seq` eq -45L (0 - 45L)
+  `seq` eq -42.42D (0 - 42.42D)
+
+succPred {eq} =
+    eq (succ 1) 2
+  `seq` eq (succ 'A') 'B'
+  `seq` eq (succ (1,)) (2,)
+  `seq` eq (pred 1) 0
+  `seq` eq (pred 'B') 'A'
+  `seq` eq (pred (1,)) (0,)
+
+chainBinding {eq} =
+  eq q 5
+  where x = 2
+        (y,z) = (1,2)
+        q = x+y+z

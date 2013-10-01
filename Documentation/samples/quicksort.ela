@@ -1,0 +1,6 @@
+//The well known quick sort implementation in functional style
+quickSort [] = []
+quickSort (x::xs) = quickSort [ y \\ y <- xs | y < x ] 
+                    ++ [x] ++ quickSort [ y \\ y <- xs | y >= x]
+
+quickSort [6,3,8,7,2,10,1,4,0,5,9] //Prints [0,1,2,3,4,5,6,7,8,9,10]

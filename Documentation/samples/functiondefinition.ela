@@ -1,0 +1,44 @@
+//Here we use console output for testing purposes
+//Module console contains implementations of basic console functions such as
+//writen (write line), write (write), readn (read line)
+open console core number
+
+//Definition of a simple named function
+div1 x y = x `div` y
+
+//Print the result of function application
+_ = writen ("div1: " ++ show (div1 12 3))
+
+//The same function using anonymous function syntax
+div2 = \x y -> x `div` y
+
+//Print, the result is the same
+_ = writen ("div2: " ++ show (div2 12 3))
+
+//The same function using explicit nested lambdas
+div3 = \x -> \y -> x `div` y
+
+//Print, the result is the same
+_ = writen ("div3: " ++ show (div2 12 3))
+
+//Implementation of a 'safe' division function that
+//doesn't fail if the divider is zero. This function is 
+//implemented using pattern matching. This function also
+//uses variants to 'wrap' results.
+div4 x 0 = None //The divider is zero, just return None
+div4 x y = Some (x `div` y)
+
+_ = writen ("div4: " ++ show (div4 12 0)) //Division by zero
+_ = writen ("div4: " ++ show (div4 12 3)) //OK
+
+//And this is how we can unpack the result from a Some|None variant
+(Some res) = div4 12 3
+_ = writen ("div4: " ++ show res)
+
+//You can define custom operators in the same way as functions.
+//Here is an example of our safe division implemented as operator.
+x /. 0 = None
+x /. y = Some (x `div` y)
+
+_ = writen ("(/.): " ++ show (12 /. 0)) //Prints None
+_ = writen ("(/.): " ++ show (12 /. 4)) //Prints Some 3

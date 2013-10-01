@@ -1,0 +1,91 @@
+#title Pattern Matching
+#category Language Reference
+
+=Introduction
+This article discusses pattern matching in Ela and lists all available patterns. 
+
+=Pattern Matching Constructs
+==Match Expression
+The main language construct for pattern matching is `match` expression. It has the following syntax: 
+>>"match" expr "with"
+>>        pattern [ "|" guard ] = expr
+Match expression can have one or more entries. An entry consists of a pattern, an optional 
+boolean guard and expression that is evaluated if an entry is successfully matched. Here is an example of a 
+simple `match` expression: 
+>>match [1,2,3] with
+>>      x::[] = Some x
+>>      x::xs = Some xs
+>>      []    = None
+All `match` entries should be indented after the `match` keyword. The order of pattern is significant as soon as 
+patterns are always processed in order. For example, if we change the order of patterns in the example above like so: 
+>>match [1,2,3] with
+>>      x::xs = Some xs
+>>      x::[] = Some x
+>>      []    = None
+the second pattern `x::[]` would be unreachable because pattern `x::xs` is more generic and is tested earlier. In other words 
+a pattern `x::xs` matches a single element list and multiple element list as well, but pattern `x::[]`
+only matches a single element list. //br
+You can also use guards in `match` entries in the same manner as in bindings. Here is an example of a guarded entry: 
+>>match [1,2,3] with
+>>      x::[] | x > 0 = Some x
+>>            | else  = None
+>>      x::xs = Some xs
+Also it is possible to use `where` bindings to declare names that are scoped to a particular match entry: 
+>>match [1,2,3] with
+>>      x::[] | gtz  = Some x
+>>            | else = None
+>>            where gtz = x > 0
+>>      x::xs = Some xs
+If none of the patterns match, than a `MatchFailed` exception is raised. This exception can be handled in Ela code, however 
+if you wish to prevent generation of this exception you can add a so called "default" to clause to a match expression. //br
+For example, the match expression above is non-exhaustive - it will fail for an empty list. Adding a default clause like so: 
+>>match [1,2,3] with
+>>      x::[] | gtz  = Some x
+>>            | else = None
+>>            where gtz = x > 0
+>>      x::xs = Some xs
+>>      _     = Error
+will prevent generation of an exception. //br
+Default clause should be always the very last entry as soon as it matches any value. Usually a wildcard `_` pattern is used 
+in default clause. This pattern matches any value and disregards this value. However if you need this value, you can a 
+use _name_ pattern instead (it will also match any value and additionally bind this value to a given name). 
+
+==Binding Patterns
+You can also use pattern matching in global and local bindings. Basically these bindings are always defined using pattern 
+matching with name pattern as a trivial case: 
+>>xs = [1..10]
+It is possible however to use any patterns and guards in bindings as well: 
+>>(x::xs) = [1..10]
+>>(Some x) = Some 42
+
+==Functions
+One can use pattern matching in function definition - specifically in the parameter list like so: 
+>>tail (x::xs) = xs
+In such a case patterns are separated by spaces and one pattern matches exactly one argument. When matching inside an argument list 
+all patterns, except of name and wildcard pattern, should be enclosed in parenthesis. 
+
+==Exception Handling
+A construct used for exception handling - `try` expression - has effectively the same syntax as match expression with `try`
+keyword instead of `match`. The major difference is that it doesn't match a given expression but executes it and if (and only if) 
+this expression fails matches an exception object. 
+>>try 2 / 0 with
+>>    m = m
+
+=Patterns
+All patterns can be divided in two groups - irrefutable patterns that always match (such as name pattern that always does the 
+binding even if the value is unit) and refutable patterns that may not match. Patterns can be nested at any level. //br
+Ela supports the following patterns: 
+|*Pattern*  |*Grammar*              |*Example*                |*Description*
+|Name       |`ident`                |`x`                      |Irrefutable pattern, binds a value to a name. 
+|As         |`pattern@name`         |`(x::xs)@list`           |Irrefutable pattern, binds an expression to a name. 
+|Wildcard   |`_`                    |`_`                      |Irrefutable pattern, always matches and disregards a value. 
+|Group      |`( pattern )`          |`(x::xs)`                |Grouping pattern, used to group patterns. 
+|Unit       |`()`                   |`()`                     |Refutable pattern, matches unit. 
+|Literal    |`literal`              |`"string"`               |Refutable pattern, matches a given literal. Numeric literal, string, chars and booleans are supported. 
+|Tuple      |`(pattern{,pattern})`  |`(x,1,(x::xs))`          |Refutable pattern, matches tuple. 
+|Record     |`{pattern{,pattern}}`  |`{x,y,z} or {x'=x,y=y'}` |Refutable pattern, matches a record and binds its fields to names. If names are not specified it creates bindings with tde same names as record fields. 
+|List       |`[pattern{,pattern}]`  |`[1,2,x]`                |Refutable pattern, matches a linked list of a specified lengtd. 
+|Head/Tail  |`pattern{::pattern}`   |`x::(1,2)::xs`           |Refutable pattern, matches a linked list. Unlike list pattern, it doesn't test a list length and if the last pattern is a name this name gets bound a list tail. 
+|Constructor |`Constructor pattern` |`Some x`                 |Refutable pattern, matches an instance of an algebraic type. 
+|Lazy pattern |`& pattern`          |`& (x,y)`                |Irrefutable pattern, matches a value in a lazy manner.
+|Bang pattern |`! ident`            |`!x`                     |Irrefutable pattern, forces evaluation of a value and binds it to a name. 

@@ -1,0 +1,103 @@
+/*
+  Module tuple
+  Created in 2012 by Basil Voronkov
+*/
+open thunk
+import lang
+
+/* Instances */
+instance Additive Tuple where 
+  (+) = join (+)
+  (-) = join (-)
+  negate x = zero (length x) - x
+
+instance Ring Tuple where
+  (*)  = join (*)
+  (**) = join (**)
+
+instance Field Tuple where
+  (/) = join (/)
+
+instance Enum Tuple where 
+  succ = map succ
+  pred = map pred
+  enumFrom fst snd = gen fst (snd-fst)
+    where gen e s = & e :: gen (e+s) s
+  enumFromTo max fst snd = gen [] max fst (snd-fst)
+    where 
+        p | snd > fst = (>)
+          | else = (<)
+        gen xs max e s 
+            | p e max = reverse xs
+            | else = gen (e::xs) max (e+s) s
+
+instance ListLike Tuple where
+  toList = foldr (flip(::)) []
+  fromList xs = lang.asTuple ys
+    where ys | lazyList xs = forceOnlyList xs
+             | else = xs
+
+/* Functions */
+map # qualified
+map f tup = lang.asTuple <| foldr (\x y -> f y :: x) [] tup
+
+foldl # qualified
+foldl f z xs = walk z 0
+  where len = length xs
+        walk e n | n == len = e
+                 | else = walk (e `f` xs:n) (n+1)
+
+foldl1 # qualified
+foldl1 f xs = walk (xs:0) 1
+  where len = length xs
+        walk e n | n == len = e
+                 | else = walk (e `f` xs:n) (n+1)
+
+foldr # qualified
+foldr f z xs = walk z (len - 1)
+  where len = length xs
+        walk e n | n < 0 = e
+                 | else = walk (e `f` xs:n) (n - 1)
+
+foldr1 # qualified
+foldr1 f xs = walk (xs:0) (len - 1)
+  where len = length xs
+        walk e 0 = e
+        walk e n = walk (e `f` xs:n) (n - 1)
+
+concat # qualified
+concat = foldl1 (++)
+
+join # qualified
+join f (x,) (a,) = (f x a,)
+join f (x,y) (a,b) = (f x a,f y b)
+join f (x,y,z) (a,b,c) = (f x a,f y b,f z c)
+join f t1 t2 
+  | len <> length t2 = fail "tuple.join: Tuples should be of the same length." 
+  | else = fromList (fold 0) ::: Tuple
+  where len = length t1
+        fold n | n == len = []
+               | else = (t1:n `f` t2:n) :: fold (n+1)
+
+any # qualified
+any f t = m 0
+  where len = length t
+        m n | n == len = false
+            | f (t:n) = true
+            | else = m (n+1)
+
+all # qualified
+all f t = m 0
+  where len = length t
+        m n | n == len = true
+            | f (t:n) = m (n+1)
+            | else = false
+
+zero # private
+zero 1 = (0,)
+zero 2 = (0,0)
+zero 3 = (0,0,0)
+zero n = fromList (gen [] n) ::: Tuple
+  where 
+    gen ys 0 = ys
+    gen ys n = gen (0::ys) (n - 1)

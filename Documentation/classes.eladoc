@@ -1,0 +1,195 @@
+#title Classes
+#category Language Reference
+
+=Introduction
+A concept of _classes_ in Ela is similar to the concept of _typeclasses_ in Haskell.//br
+A _class_ in Ela is a class of operations and can be seen as an abstraction over types. In fact, most of standard functions
+and operators from prelude are members of classes. However, classes in Ela do not directly correspond to classes in object
+oriented languages. Class in Ela is a set of global functions which perform similar operations (such as comparison 
+operations).//br
+Major difference between regular functions and class functions is that run-time environment allows for a class function to
+have several implementations. A required "overload" is determined upon a _run-time type_ (which is important
+to understand for those who are familiar with _typeclasses_ concept in Haskell as long as this is the major difference).
+
+=Classes and Interfaces
+Classes in Ela can be compared with interfaces in object oriented languages (such as C#) as they do share with interfaces a
+number of peculiarities. A class (as well as an interface) doesn't provide an implementation of its members. Also a single type can
+implement instances for several classes. //br
+However unlike object oriented languages, where you have to implement all interfaces at the point when you define your type, and 
+you cannot implement interfaces for the types that are already defined, declaration of a type and declaration of a class instance 
+in Ela may not be done at the same time. For example, you can easily write instances for built-in Ela types.//br
+Another important difference is that unlike interfaces classes are used to define _global_ bindings. A class member in Ela is 
+effectively a global function that is not different from other functions - it is curried and is a first class value:
+>>>class Foo a where 
+>>>  foo _->a->_
+>>>
+>>>foo
+Dispatch rules are also different. Ela provides a support for only single parameter classes, however, this parameter can appear 
+at any place in a function signature.//br
+In the example above we have defined a function `foo`, that accepts any value as its first argument and a specific value (that
+can be specified through an instance) as its second argument. Now we can define an instance of this class like so:
+>>>instance Foo Int where 
+>>>  foo _ a = a
+Here we effectively ignore the first argument of a `foo` function. This function is overloaded only by its second argument:
+>>>foo "some value" 42
+Class member signature is used to provide overload rules for a function. For example, if we define a class `Foo`
+like so:
+>>class Foo a where
+>>  foo a->a->_
+an application of `foo` to string and integer would fail.//br
+Classes in Ela do support dispatch by return type (through contexts, see a section below). Therefore it is possible to use classes
+to define both functions an polymorphic constants. For example, the folowing code defines a class with polymorphic constant:
+>>class Default a where
+>>  default a
+
+=Classes
+A class in Ela is declared using `class` declaration that has the following syntax:
+>>"class" ClassName param "where"
+>>   (ident|operator) signature
+>>  {(ident|operator) signature}
+A name of a class shoudl always start with a capital letter.//br
+A `where` clause is used to specify members for a class. A class should have at least one member. Class members can be either
+functions or regular constants.//br
+As it was mentioned in introduction, class members are just ordinary global bindings and comply to the rules of bindings in Ela. 
+Such as the head symbol can be either a valid Ela identifier or an operator symbol. You can also define class members using 
+prefix, postfix and infix form. However, using a pattern instead of a binding head is not allowed and will result in compile 
+time error (but it is perfectly valid to use pattern inside function argument list).//br
+A `param` clause should contain a valid Ela identifier. It is used for substitution in function signature. Any valid identifier can be 
+used here, however, it is recommended to use a name `a` as a type parameter.//br
+A `signature` clause represents a required class member signature. This signature is used to specify overloading rules for a function.
+It has the following syntax:
+>(_|param) { "->" (_|param) }
+A underscore character denotes _value of any type_, when a `param` should be an identifier from the `param` clause. As long as 
+class in Ela is instantiated for one specific type, a `param` entry is used to specify occurences of this type in a function 
+signature.//br
+A signature should define at least one argument. Also a function signature should have at least one occurence of `param` entry 
+(multiple occurences are OK as well). Therefore, a signature `a` is valid, as well as `a->_` and `a->_->_`, but a signature 
+`_` is not valid, and a signature `_->_` is not valid as well. A signature `a` means a polymorphic constant, a signature `a->_` 
+means a function with one argument, and a signature `a->_->_` means a function with two arguments, where the first argument is 
+of our target type.//br
+Here is an example of a custom class declaration:
+>>>class Car a where
+>>>  drive _->a->_
+Here we define a `Car` class with one function `drive`. A `drive` function expects a target type as its second argument.
+
+=Instances
+Instances are used to implement a class for a particular type. An instance declaration has the following syntax:
+>>"instance" ClassName TypeName where
+>>   binding
+>>  {binding}
+A name of an instance is composed of a class name and a type name. A `where` clause is used to specify implementations of class 
+functions. This clause should contain regular Ela bindings. Also Ela compiler controls that an instance provides implementations 
+for all functions of a class. If this is not the case, than a compile time error is generated, unless there is a default instance
+for this class (see below for more details).//br
+Let's implement an instance for a class `Car` from a previous section. //br
+A `Car` class defines a `drive` function, that can be used to accellerate our car to a specific speed. However, all cars have certain 
+speed limits, and, if a limit is reached, than this function would return a `SpeedLimit` variant.//br
+Taking that, we can first write a "test drive" function for a car like so:
+>>>//This type will be used to present vehicle speed
+>>>type Speed = Speed a | SpeedLimit
+>>>
+>>>testDrive n car = 
+>>>   match drive n car with
+>>>         Speed x = x :: testDrive (n+1) car
+>>>         SpeedLimit = []
+This function pushes a given car to its limits and generates a list with our accelleration history - up to the moment when a speed 
+limit is reached.//br
+Now we can define a custom type `SteamCar`, which cannot go faster than 10 miles an hour:
+>>>type SteamCar = SteamCar
+And here is an instance for this type:
+>>>instance Car SteamCar where
+>>>  drive s _ | s < 10 = Speed s
+>>>            | else = SpeedLimit
+Now we can test drive our new car like so:
+>>>testDrive 0 SteamCar
+However ten miles an hour is not really fast, so we might wish to implement a faster car like so:
+>>>type ElectroCar = ElectroCar
+>>>
+>>>instance Car ElectroCar where
+>>>  drive s _ | s < 15 = Speed s
+>>>            | else = SpeedLimit
+And test drive it as we did before:
+>>>testDrive 0 ElectroCar
+Instances can be defined for user types and for built-in Ela types as well. However, it is an error to have two instances of the 
+same class for the same type - even in different modules.
+
+=Contexts
+So far we have only discussed class functions that are overloaded by their arguments. However, Ela also supports overloading by
+return type. It is even possible to use constants as class members.//br
+As soon as Ela is a dynamic language, its approach to overloading by return type is quite different from static languages. Let's
+take an example:
+>>>class Empty a where
+>>>  empty a
+>>>
+>>>instance Empty Int where
+>>>  empty = 0
+Here we have a class `Empty` that defines a single member - a constant `empty`. This constant should be evaluated to an empty
+(or default) instance of a type. We have also implemented this class for a 32-bit integer, where this constant evaluates to 0.//br
+A constant `empty` is called a _polymorphic constant_. In order to dispatch such a constant one should specify an explicit
+context, e.g.:
+>>>empty ::: Int
+A syntax `exp ::: context` is used to specify a context. A context can be specified for a constant or for a function 
+application.//br
+It is quite similar to the type annotation, but is pretty different from it in many aspects. First, a context can be specified
+using a type name (short or qualified with a module alias) or can be extracted from a value. For example, this code is 
+equivalent to the code sample above:
+>>>x = 42
+>>>empty ::: (x)
+In order to extract a context from a value, one should enclose this value in parentheses; otherwise, it will be recognized as a
+type name. Second, if a context is specified for a function application, this context is propagated inside this function - in
+other words it is passed to this function as an implicit parameter.//br
+Let's take another example:
+>>>open core
+>>>
+>>>class Pointed a where
+>>>  return _->a
+>>>
+>>>instance Pointed Maybe where
+>>>  return x = Some x
+>>>
+>>>instance Pointed Either where
+>>>  return x = Left x
+Here we have declared a `Pointed` class with a single `return` function. This function is overloaded by its return type. We 
+also have instances for types `Maybe` and `Either` from `core` module. This is how these instances work:
+>>>return 12 ::: Maybe
+and
+>>>return 12 ::: Either
+But as soon as contexts can be propagated inside functions, it is not always required to specify them explicitly:
+>>>getSomeValue x = return x
+>>>getSomeValue 12 ::: Maybe
+Here we have defined `getSomeValue` function that simply calls `return` function. You can see that an application of `return`
+function is not annotated. But as long as we annotate an application of `getSomeValue` with a context, it is a perfectly
+valid code, and `return` function is dispatched using type `Maybe`.//br
+A single context annotation can be propagated inside an unlimited number of functions. For example, we can transform our
+previous code sample like so:
+>>>calcAndGet f x = getSomeValue (f x)
+>>>calcAndGet (*2) 12 ::: Maybe
+
+=Default Instances
+Ela also allows to declare default instances. A default instance is an instance without a type specification. For example, this
+is how we can define a default instance for a `Car` class:
+>>instance Car where
+>>  drive _ _ = SpeedLimit
+A default instance can have implementations for all of the class function or just for some of them. Implementations of functions
+from a default instance will be used, when a specific instance doesn't provide implementations for these functions. If a default
+instance defines all functions from a class, than it is valid to create specific instance with an empty body like so:
+>>instance Car BrokenCar
+Alternatively, one can use a `deriving` clause and specify instances in a type declaration directly:
+>>type BrokenCar = BrokenCar
+>>  deriving Car
+A `deriving` clause can be used to specify any number of instances.
+
+=Name Conflicts
+As with custom types, class names are not unique. It is not allowed to define two classes of the same name in a single module - 
+however, they can perfectly coexist in different modules. Because of that, it is allowed to prefix a class name with 
+a module alias:
+>>open cars //We have cars implementations in this module
+>>open carClass //We have a Car class in this module
+>>
+>>instance carClass.Car cars.SteamCar
+>>  where drive _ s = ...
+
+=Reflection
+It is possible to query which instances are supported by a given value using `is` expression:
+>>x is Eq Num Car
+Class names can be prefixed with module aliases.

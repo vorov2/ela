@@ -1,0 +1,28 @@
+<samples>
+  <folder name="Basic" description="Basic code samples that shows Ela syntax and its main peculiarities.">
+    <sample file="helloworld.ela" name="Hello, World!" description="A mandatory 'Hello, world!' program in Ela." />
+    <sample file="variables.ela" name="Variables" description="How to declare global and local variables in Ela." />
+    <sample file="operators.ela" name="Operators" description="Basic introduction to standard operations in Ela." />
+    <sample file="tuples.ela" name="Tuples" description="This file contains samples that illustrate how to work with tuples in Ela." />
+    <sample file="lists.ela" name="Lists" description="Linked lists are a fundamental data sturcture in Ela. This sample explains how to work with lists." />
+    <sample file="functionfefinition.ela" name="Function Definition" description="This sample explains how to define functions in Ela." />
+    <sample file="exceptions.ela" name="Exceptions" description="An example of structured exception handling in Ela." />
+  </folder>
+  <folder name="Imperative" description="This folder contains imperative code samples in Ela.">
+    <sample file="guessnumber.ela" name="Guess Number (Console IO)" description="Guess the number game that demonstrates imperative code in Ela that involves console input/output and user interaction." />
+    <sample file="foroperator.ela" name="For Operator" description="An implementation of 'for' operator in Ela using higher-order function." />
+    <sample file="hq9p.ela" name="HQ9+" description="An implementation of HQ9+ interpreter in Ela." />
+    <sample file="iterator.ela" name="Iterator Pattern" description="An implementation of an interator pattern (the one that is commonly used by imperative languages) in Ela." />
+  </folder>
+  <folder name="Non-strict evaluation" description="This folder contains samples that demonstrate non-strict evalation.">
+    <sample file="ycombinator.ela" name="Y Combinator" description="Implementation of lazy Y combinator in Ela which is used to compute factorials and Fibonacci numbers implemented as stateless (with no recursion) functions."></sample>
+    <sample file="infinitefilter.ela" name="Filtering infinite list" description="Filtering an infinite list in Ela using non-strict filter' function." />
+  </folder>
+  <folder name="Misc" description="Misc samples">
+    <sample file="amb.ela" name="Amb operator" description="An example of Amb operator implementation. The Amb operator takes a number of words as input and concatenates them so that each subsequent word starts with the letter that ends a previous word." />
+    <sample file="levenshtein.ela" name="Levenshtein Distance" description="In information theory and computer science, the Levenshtein distance is a metric for measuring the amount of difference between two sequences (i.e. an edit distance). This code sample calculates the difference between two strings." />
+    <sample file="quicksort.ela" name="Quick Sort" description="An implementation of quick sort algorythm in Ela." />
+    <sample file="prototype.ela" name="Prototype OOP" description="This code sample demonstrates how prototype based OOP through delegation can be simulated in a functional manner." />
+    <sample file="linq.ela" name="LINQ" description="This code sample contains implementation of Linq-style lazy functions." />
+  </folder>
+</samples>

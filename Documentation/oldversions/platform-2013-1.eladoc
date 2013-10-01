@@ -1,0 +1,40 @@
+#title What's new? (Ela Platform 2013.1)
+
+=Ela changes
+Platform 2013.1 provides an experimental support for monadic programming - both on the language and on the library level. 
+In order to simplify monadic programming Ela was extended with a new syntactic construct - a `do` notation. Ela uses the same syntax
+for `do` notation as Haskell:
+>>do
+>>  x <- thing1
+>>  y <- func1 x
+>>  thing2
+>>  z <- func2 y
+>>  return z
+The `do` expression is automatically desugared into chain of applications of functions `>>=` and `>>-` (both of them are defined in
+`monad` module). For example, an example above is desugared like so:
+>>thing1 >>= 
+>>  \x -> func1 x >>= 
+>>  \y -> thing2 >>= 
+>>  \_ -> func2 y >>= 
+>>  \z -> return z
+The `do` expression can bind to any function `>>=` and `>>-` available in scope. It is completely legal to provide your implementations
+and not to use module `monad`.
+This implementation is experimental. Also currently Ela doesn't support full pattern matching in the left hand of "binding" expression, e.g.
+in expression `x <- y` an `x` part can only be an irrefutable pattern.
+
+=Documentation changes
+This release includes several important correction to the Ela documentation, especially to Ela language reference. Documentation
+is updated according to the latest language changes.
+
+=Library changes
+A most importand change to the standard library is an addition of `monad` module that contains monadic classes and their instances.
+Ela design of monads is different that the one used by Haskell and is closer to the category theory. Ela provides the following 
+classes - `Functor` (that defines a single `fmap` function which is a generalization over `map`), `Union` (which defines a single
+`join` function which is a generalization over `concat`), `Pointed` (with a `point` function equivalent to the `return` function
+from Haskell), `Copointed` and `Failure` (with a single function of the same name). The minimum requirement for a monad is to provide
+instances for classes `Functor`, `Union` and `Pointed`.//br
+Module `monad` already provides instances for some common Ela types including lists, `Maybe`, etc. Also this module provides default
+instances for most of its classes so you can use deriving mechanism to create your own instances.
+Module `monad` additionally defines functions `>>=` and `>>-` which are used to desugar `do` notation, added to Ela language. Also
+module `monad` provide a `return` function (which is an alias for `point` function of `Pointed` class and can be used whenever it
+appears to be more "visual"). 

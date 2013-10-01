@@ -1,0 +1,138 @@
+#title User Types
+#category Language Reference
+
+=Introduction
+Ela provides a support for user defined types. All user types in Ela are in fact algebraic types, however, it is
+possible to declare a type with just a single constructor. Also one can specify visibility level attributes on a type
+and on constructor level, which allows to create abstract types where all constructors are hidden and all operations
+with the type are done through regular functions.//br
+Ela supports both regular algebraic types (declared using `type` keyword) and open algebraic types (declared using
+`opentype` keyword). When a new type is introduced using `opentype` declaration, it is possible to extend this type
+with new constructors. More details on that are provided in a separate section.
+
+
+=User Types
+==Type Declaration
+In order to declare a new type one can use a `type` declaration. It has the following formal definition:
+>>"type" Name "=" [ "|" ] cons { "|" cons }
+>>cons = ( Name { arg } | arg op arg | op arg | arg op ) [ "#" attr { attr } ]
+>>arg = "!" name | name | "(" Type name ")" | "(" Type "!" name ")"
+Type names should always start with a capital letter. Constructor names should either start with a capital letter or
+should be combined from operator symbols.//br
+Let's look at some examples of a type definition:
+>>type Maybe = None | Some a
+>>type Complex = a :+ b
+As it was mentioned above, it is possible to declare a type with just a single product:
+>>type Any = Any a
+Constructors in type declarations are separated by a semicolon character. A semicolon character is also allowed before
+the first constructor and may be used there in case when it might improve readability:
+>>type Color =
+>>  | Red
+>>  | Green
+>>  | Blue
+A type can have an unlimited number of constructors. Each constructor can have an unlimited number of parameters 
+(however, parameters are not required, as you can see from a definition of `Maybe` type above). Parameter names shouldn't
+start with a capital letter, but, besides this, there are no limitations. You can use any names you like. For example,
+the following declarations are equivalent:
+>>type Complex1 = a :+ a
+>>type Complex2 = a :+ b
+However, parameter names are not wasted during compilation, but instead are preserved as metadata and can be queried at
+run-time (using functions, provided with standard `generic` module).//br
+It is possible to specify attributes - both on the type and the constructor level. For example, the following declaration:
+>>type Foo # private
+>>type Foo = Foo | Bar
+creates a type `Foo` with two constructors, but a type itself and its both constructors are not visible outside of a module.
+However, the following declaration:
+>>type Foo = 
+>>  | Foo # private 
+>>  | Bar # private
+creates a public type `Foo` with two private constructors. //br
+It is allowed to use all standard attributes (see below for details). Attributes on the type level are always inherited
+by constructors, e.g. it is not possible to declare a non-private constructor in a private type, however, a private constructor
+in a public type is a completely legal scenario.
+
+==Type Constructors
+Type constructors are in fact regular global bindings. For example, having a type declaration like so:
+>>type Maybe = None | Some a
+we can use both `None` and `Some` as any other regular name bindings declared at top level. `None` here is a constant, and
+`Some` is a one-argument function, that is no different from any other functions in Ela, is curried and is a first-class
+value.//br
+In order to create instances of `Maybe` type, you can write code like so:
+>>x = None
+>>y = Some 42
+As it was mentioned above, constructors with arguments are just functions and can be used in all cases where functions can
+be used:
+>>>open core list
+>>>
+>>>map Some [1..10]
+Constructors can also be qualified by a module alias (and even declared with `qualified` attribute) just like any other 
+regular bindings:
+>>open core
+>>x = core.Some 42
+
+==Constraints and Strict Constructors
+Ela also allows to specify type constaints for constructor arguments. A type constraint is always enclosed in parentheses
+and is presented as a juxtaposition of a type name (optionally qualified with a module alias) and a parameter name:
+>>type Circle = Circle (Double a)
+When a type constraint is specified invocation of a constructor would fail if a parameter is of different type. //br
+A single constructor can mix parameters with and without type constraints, e.g.:
+>>type Person = Person (String name) (Double age) info
+Type checking in constructors is done in a conservative manner - it never evaluates arguments if these arguments are
+thunks; therefore, the following code would work without errors:
+>>c = Circle (& "string")
+If this is not a desired behavior, you can mark a constructor parameter as strict, using a so called _bang_ pattern:
+>>type Circle = Circle (Double !a)
+Now `Circle` constructor will always evaluate its argument.//br
+It is also possible to use bang patterns without type constraints, e.g.:
+>>type Complex = !a :+ !b
+
+==Open Types
+Types, declared using `type` definition, are closed, which means that this type cannot be extended with new constructors.
+This is no always a desired behavior. That is why Ela provides a way to create open types. Open types are declared using
+`opentype` construct which syntax is completely equivalent to the `type` constructor, except of a different keyword:
+>>opentype Product = Cellphone | Laptop | Display
+Types, declared using `opentype` has only one difference from types, declared using `type` construct - one can extend
+a definition of an `opentyp` by new constructors even from a different module. This done using `data` construct like so:
+>>data Product = TV | Smartphone
+Again, syntax for `data` declaration is almost the same as for `type` declaration. However, in data declaration you can
+optionally prefix a name of a type with a module alias like so:
+>>data alias.Product = TV | Smartphone
+Also `data` declaration is not used to introduce new types, but rather to extend existing types, therefore, it is an error
+to reference undeclared types inside `data` declaration.
+
+=Deconstruction
+Types are constructed using constructors. In order to deconstruct a type instance, one can use pattern matching:
+>>>s = Some 42
+>>>(Some xx) = s
+>>>xx
+
+=Name Conflicts
+Type names should be unique within the same module. However, two different modules can define types with the same name,
+and this is completely legal. In fact types in Ela are not identified by their names, but by their unique IDs which are 
+generated during link phase. As a result, one can easily declare a type that has the same name as one of Ela built-in types:
+>>type Int = Int a
+Constructors for types are just regular Ela bindings, therefore, shadowing rules for them are exactly the same as for other 
+bindings. Types can be prefixed with modules aliases as well (it might be useful when type checking or inside `data`
+declarations).
+
+=Deriving
+A type can provide instances for existing classes. However, because of reflective abilities of Ela, it is not always required
+to manually implement these instances for each custom type. For example, module `generic` constains complete default
+instances for many of the standard classes. An instance can be generated by a compiler based on the default instance if
+you leave a body of an instance empty like so:
+>>instance Show Foo
+However, this is not always convinient, and that is the reason why Ela provides additional syntax to specify automatically
+generated instances for your type - a `deriving` clause:
+>>type Foo = Foo
+>>  deriving Eq Show
+You can specify an unlimited number of classes in the `deriving` clause. You can use `deriving` clause in `type`, `opentype` 
+and `data` declarations.
+
+=Reflection
+It is possible to check a type of a value using `is` expression like so:
+>>bar 42 is Foo
+As long as type names are not unique, it is allowed to use module aliases in such patterns, e.g.:
+>>open foobarModule@fb
+>>bar 42 is fb.Foo
+
+

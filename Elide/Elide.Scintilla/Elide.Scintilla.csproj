@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6A4F4A56-BCFF-4492-AE87-02FBCF43089E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Elide.Scintilla</RootNamespace>
+    <AssemblyName>Elide.Scintilla</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BasicScintillaControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Bitmaps.cs" />
+    <Compile Include="BookmarkEventArgs.cs" />
+    <Compile Include="FoldingManager.cs" />
+    <Compile Include="FoldNeededEventArgs.cs" />
+    <Compile Include="Images\_NS.cs" />
+    <Compile Include="Indicator.cs" />
+    <Compile Include="Internal\DocumentRef.cs" />
+    <Compile Include="Internal\EditorRef.cs" />
+    <Compile Include="Internal\InternalCharRange.cs" />
+    <Compile Include="Internal\InternalTextRange.cs" />
+    <Compile Include="Internal\NativeConstants.cs" />
+    <Compile Include="Internal\NativeMethods.cs" />
+    <Compile Include="Internal\NotifyHeader.cs" />
+    <Compile Include="Internal\Sci.cs" />
+    <Compile Include="Internal\SciColor.cs" />
+    <Compile Include="Internal\ScintillaMethods.cs" />
+    <Compile Include="Internal\ScNotification.cs" />
+    <Compile Include="Internal\TextToFind.cs" />
+    <Compile Include="KeyboardManager.cs" />
+    <Compile Include="LinkClickedEventArgs.cs" />
+    <Compile Include="ObjectModel\CaretStyle.cs" />
+    <Compile Include="ObjectModel\CaretWidth.cs" />
+    <Compile Include="ObjectModel\CursorType.cs" />
+    <Compile Include="ObjectModel\DwellEventArgs.cs" />
+    <Compile Include="ObjectModel\FoldRegion.cs" />
+    <Compile Include="ObjectModel\IndentMode.cs" />
+    <Compile Include="ObjectModel\IndicatorStyle.cs" />
+    <Compile Include="ObjectModel\Line.cs" />
+    <Compile Include="ObjectModel\LineEndings.cs" />
+    <Compile Include="ObjectModel\Pixmap.cs" />
+    <Compile Include="ObjectModel\SciCommand.cs" />
+    <Compile Include="ObjectModel\SciDocument.cs" />
+    <Compile Include="ObjectModel\SciKey.cs" />
+    <Compile Include="ObjectModel\SciModifier.cs" />
+    <Compile Include="ObjectModel\SciSelectionMode.cs" />
+    <Compile Include="ObjectModel\SearchFlags.cs" />
+    <Compile Include="ObjectModel\SearchResult.cs" />
+    <Compile Include="ObjectModel\Selection.cs" />
+    <Compile Include="ObjectModel\SelectionFlags.cs" />
+    <Compile Include="ObjectModel\VirtualSpaceMode.cs" />
+    <Compile Include="ObjectModel\WordWrapMode.cs" />
+    <Compile Include="Printing\FooterInformation.cs" />
+    <Compile Include="Printing\HeaderInformation.cs" />
+    <Compile Include="Printing\InformationType.cs" />
+    <Compile Include="Printing\PageInformation.cs" />
+    <Compile Include="Printing\PageInformationBorder.cs" />
+    <Compile Include="Printing\PrintColorMode.cs" />
+    <Compile Include="Printing\PrintRectangle.cs" />
+    <Compile Include="Printing\RangeToFormat.cs" />
+    <Compile Include="Printing\ScintillaPageSettings.cs" />
+    <Compile Include="Printing\ScintillaPrintDocument.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScintillaControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SearchManager.cs" />
+    <Compile Include="StandardIndicators.cs" />
+    <Compile Include="StandardStyles.cs" />
+    <Compile Include="Style.cs" />
+    <Compile Include="StyledToken.cs" />
+    <Compile Include="StyleNeededEventArgs.cs" />
+    <Compile Include="TextStyle.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Arrow.bmp" />
+    <EmbeddedResource Include="Images\Bookmark.bmp" />
+    <EmbeddedResource Include="Images\Vline.bmp" />
+    <EmbeddedResource Include="Images\BoxPlus.bmp" />
+    <EmbeddedResource Include="Images\Corner.bmp" />
+    <EmbeddedResource Include="Images\BoxMinus.bmp" />
+    <EmbeddedResource Include="Images\BoxMinusConnected.bmp" />
+    <EmbeddedResource Include="Images\BoxPlusConnected.bmp" />
+    <EmbeddedResource Include="Images\Tcorner.bmp" />
+    <Content Include="SciLexer.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Elide.Meta\Elide.Meta.csproj">
+      <Project>{958A8279-AAC7-49E0-961E-C24FDB663B45}</Project>
+      <Name>Elide.Meta</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

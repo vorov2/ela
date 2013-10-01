@@ -1,0 +1,100 @@
+/* 
+    Ela Prelude module
+    Created in 2011 by Basil Voronkov
+*/
+
+/* Arithmetic operators */
+let +  = __internal add
+let -  = __internal subtract
+let *  = __internal multiply
+let /  = __internal divide
+let %  = __internal remainder
+let ** = __internal power
+let -- = __internal negate
+
+/* Bounds */
+let min = __internal min
+let max = __internal max
+
+/* Bitwise operators */
+let &&& = __internal bitwiseand
+let ||| = __internal bitwiseor
+let ^^^ = __internal bitwisexor
+let ~~~ = __internal bitwisenot
+let >>> = __internal shiftright
+let <<< = __internal shiftleft
+
+/* Equality and comparison */
+let == = __internal equal
+let <> = __internal notequal
+let <  = __internal lesser
+let >  = __internal greater
+let >= = __internal greaterequal
+let <= = __internal lesserequal
+
+/* Boolean operators */
+let not = __internal not
+
+/* Reference equality */
+let ===     = __internal isref
+let !== x y = not (x === y)
+
+/* Construction and concatenation */
+let :: = __internal cons
+let ++ = __internal concat
+
+/* Function related operators and functions */
+let >> = __internal compforward
+let << = __internal compbackward
+let flip = __internal flip
+let curry f x y = f (x, y)
+let uncurry f (x, y) = f x y
+let curry3 f x y z = f (x, y, z)
+let uncurry3 f (x, y, z) = f x y z
+
+/* Enumerable */
+let succ = __internal succ
+let pred = __internal pred
+
+/* List functions */
+let !! x y = x.[y]
+let nil   = __internal nil
+let isNil = __internal isnil
+let head  = __internal head
+let tail  = __internal tail
+let length = __internal length
+
+/* Tuple functions */
+let => x y = (x, y)
+let swap (x, y) = (y, x)
+let swap3 (x, y, z) = (y, x, z)
+let fst = __internal fst
+let snd = __internal snd
+let fst3 = __internal fst3
+let snd3 = __internal snd3
+
+/* Show */
+let showf = __internal showf
+let show  = showf ""
+
+/* Complex behaviors */
+let clone = __internal clone
+let type = __internal type
+let force = __internal force
+
+/* Variants */
+let tag   = __internal gettag
+let untag = __internal untag
+
+/* Combinators */
+let id x = x//I
+let const x _ = x//K
+let sub x y z = x z (y z)//S
+let fix f = f (& fix f)
+let on cmb f x y = f x `cmb` f y
+
+/* Misc */
+let rec f x = f x $ rec f
+let rec2 f x y = f x y $ rec2 f
+let until p f x | p x  = x  | else = until p f (f x)
+let compare x y | x == y = `EQ | x <= y = `LT | else   = `GT

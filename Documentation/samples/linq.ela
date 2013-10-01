@@ -1,0 +1,31 @@
+//Ela standard library has similar functions, but these are lazy functions
+//implemented in C# Linq style.
+
+where' _ [] = []
+where' f (x::xs) 
+  | f x  = & x :: where' f xs
+  | else = where' f xs
+
+select _ [] = []
+select f (x::xs) = & f x :: select f xs
+
+selectMany _ [] = []
+selectMany f (x::xs) = & f x ++ selectMany f xs
+
+take n xs = take' n 0 xs 
+  where take' _ _ [] = []
+        take' max n (x::xs) 
+          | n == max = []
+          | else = x :: take' max (n+1) xs
+
+//And here we have an infinite 'list of lists' generator
+genList n = & [n..(n+10)] :: genList (n+11)
+
+//And now some testing
+genList 1 
+  |> selectMany id //Flatten the list
+  |> where' even //Select only evens
+  |> where' (>20) //Select only numbers greater than 20
+  |> select show //Make a project
+  |> select ("item "++) //Make a projection
+  |> take 100 //We don't really need the whole infinite list, first 100 elements will be enough

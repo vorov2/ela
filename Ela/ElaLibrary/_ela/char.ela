@@ -1,0 +1,37 @@
+/* 
+  Module char
+  Created in 2012 by Basil Voronkov
+*/
+import libChar#elalib@ch
+open list
+
+instance Enum Char where
+  succ a = toChar (toInt a + 1)
+  pred a = toChar (toInt a - 1)
+  enumFrom fst snd = map' toChar [(toInt fst),(toInt snd)..]
+  enumFromTo max fst snd = map toChar [(toInt fst),(toInt snd)..(toInt max)]
+
+instance Bounded Char where
+  maxBound = '\x65535'
+  minBound = '\0'
+
+lower # qualified
+lower c = ch.lower (force c)
+
+upper # qualified
+upper c = ch.upper (force c)
+
+isUpper c = ch.isUpper (force c)
+isLower c = ch.isLower (force c)
+
+isControl c = ch.isControl (force c)
+isDigit c = ch.isDigit (force c)
+isLetter c = ch.isLetter (force c)
+isNumber c = ch.isNumber (force c)
+isPunctuation c = ch.isPunctuation (force c)
+isSeparator c = ch.isSeparator (force c)
+isSymbol c = ch.isSymbol (force c)
+isWhiteSpace c = ch.isWhiteSpace (force c)
+
+isSurrogate c = ch.isSurrogate (force c)
+isSurrogatePair x y = ch.isSurrogatePair (force x) (force y)

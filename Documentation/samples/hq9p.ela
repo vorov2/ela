@@ -1,0 +1,25 @@
+open console imperative char cell
+ 
+//Implementation of HQ9+ interpreter
+eval src = eval' src
+      where eval' [] = ()
+            eval' (x::xs) | be 'H' = h() `seq` eval' xs
+                          | be 'Q' = q() `seq` eval' xs
+                          | be '9' = n() `seq` eval' xs
+                          | be '+' = p() `seq` eval' xs
+                          | else = fail ("Unrecognized " ++ x)
+                          where rf = ref 0
+                                be c = upper x == c
+                                h () = writen "Hello, world!"
+                                q () = writen src
+                                p () = rf.+
+                                n () = bottles [99,98..1]
+                                  where bottles [] = ()
+                                        bottles (x::xs) = rec write 
+                                          (show x) " bottles of beer of the wall\r\n"
+                                          (show x) " bottles of beer\r\n"
+                                          "Take one down, pass it around\r\n"
+                                          `seq` bottles xs
+
+//Let's evaluate the main program in HQ9+ 
+eval "HQ9+"

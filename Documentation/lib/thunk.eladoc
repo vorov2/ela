@@ -1,0 +1,42 @@
+#file thunk.ela
+#title thunk
+This module contains useful functions that operate with thunks. 
+
+=Classes
+
+#Lazy
+All data types, such as lists, that can be lazy (and, potentially, infinite), should provide an
+instance for this class. A function `lazy` should return `true` if this particular value represents
+a lazily evaluated data structure. A function `showLazy` should safely present a value of a lazy
+data structure without completely evaluating it.
+
+=Functions
+
+#evaled x
+Tests if a given value is a thunk that is not yet evaluated. 
+>>>evaled (& 2+2)
+It is safe to apply this function to a value of any type. For values that are already calculated 
+it will always return `true`:
+>>>t = (& 2+2)
+>>>_ = force t
+>>>evaled t
+
+#forceAll t
+Recursively forces a given value. For example, if a given value is a list of thunks all thunks in 
+a list will be forced. 
+
+#forceRecord t
+Recursively forces a given record, including all its elements. 
+
+#forceTuple t
+Recursively forces a given tuple, including all its elements.
+
+#forceList t
+Recursively forces a given list, including all list elements.
+
+#forceOnlyList t
+Forces a given but doesn't force calculation of its elements.
+
+#lazyList t
+Tests if a given list is a lazy list. This function only tests if a list itself is lazy, it will 
+return `false` for a strict list which elements are thunks.

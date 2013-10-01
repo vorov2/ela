@@ -1,0 +1,10 @@
+open console
+
+//This function takes a function and a number of iterations
+//It then calls a provided function on each iteration
+for act n | n > 0 = act (show n) `seq` for act (n - 1)
+          | else  = ()
+
+//In this example we print numbers from 10 to 1 to console using
+//writen function from console module
+for writen 10

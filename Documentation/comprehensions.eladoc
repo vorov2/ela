@@ -1,0 +1,27 @@
+#title Comprehensions
+#category Language Reference
+
+=Introduction
+This article discusses comprehensions in Ela. 
+
+=Overview
+Ela supports list comprehensions in Haskell style (with slightly different syntax). Comprehensions can be used to 
+produce both strict and lazy lists. 
+
+=Strict Comprehensions
+Comprehension consists of three parts - a value to select, an expression that actually fetches a value and an optional 
+condition (_guard clause_). Let's say that we have a range `[1..10]` and we need to select all even integers from it, 
+multiply each element by two and compile a new list with the result: 
+>>>[x * 2 \\ x <- [1..10] | x % 2 == 0]
+Guard clause is not mandatory and can be omitted: 
+>>>[x * 2 \\ x <- [1..10]]
+You can generate a list based on several inputs like so: 
+>>>[x * y \\ x <- [10,9..1], y <- [1..10] | x % 2 == 0 && x > 5]
+Guards can be attached to each selector in comprehension. You can also use pattern matching in selectors and reference names 
+declared in preceding selectors: 
+>>>[x * y \\ x <- [10,9..1] | x % 2 == 0, y <- [x..10] | y > 5]
+
+=Lazy Comprehensions
+Comprehensions can be used to generate lazy lists. In this case a comprehension should start with an ampresand character `&`: 
+>>[& x \\ x <- [1..]]
+Lazy comprehensions support the same features as strict comprehensions. 

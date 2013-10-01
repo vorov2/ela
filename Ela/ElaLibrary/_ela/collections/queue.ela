@@ -1,0 +1,55 @@
+/* 
+  Module queue
+  Created in 2012 by Basil Voronkov
+*/
+open list generic
+
+/* Types */
+type Queue = Queue a b # private
+
+/* Instances */
+instance Default Queue where
+  default = empty
+
+instance Show Queue where 
+  show q = "queue" ++ show (toList q)
+
+instance Cat Queue where 
+  q1 ++ q2 = fromList (toList q1 ++ toList q2) ::: Queue
+
+instance Eq Queue where 
+  (Queue a b) == (Queue c d) = a == b && c == d
+
+instance Seq Queue where 
+  head = peek
+  tail = dequeue
+  isnil (Queue [] []) = true
+  isnil _ = false
+
+instance Len Queue where 
+  length (Queue f b) = length f + length b
+
+instance Ix Queue where
+  getValue i q = i `getValue` toList q
+
+instance ListLike Queue where
+  toList (Queue f b) = f ++ reverse b
+  fromList xs = Queue (reverse xs) []
+
+/* Functions */
+empty # qualified
+empty = Queue [] []
+
+enqueue e (Queue f b) = enq f b
+  where enq [] b = Queue [e] b
+        enq f b  = Queue f (e::b)
+
+dequeue (Queue f b) = deq f b
+  where deq [] [] = fail "queue.dequeue: Empty queue."
+        deq (_::[]) [] = empty
+        deq (_::[]) ys = Queue (reverse ys) []
+        deq xs ys = Queue (tail xs) ys
+
+peek (Queue f b) = peek' f b
+  where peek' [] [] = fail "queue.peek: Empty queue."
+        peek' (x::_) _ = x

@@ -1,0 +1,16 @@
+#title Tuples
+#category Language Reference
+
+=Introduction
+This article discusses a tuple type which is widely used in Ela. 
+
+=Overview
+Tuple is a grouped sequence of values. Tuples can be useful in cases when you need a simple join of several 
+values (such as to return several values from a function). Tuples can be created using special literal syntax: 
+>>t = (1,2,3)
+Note that `,` is not an operator in Ela but syntax. However, one can easily write a function that constructs tuples like so: 
+>>>x => y = (x,y)
+>>>1 => 2
+A function `=>` is in fact already automatically imported from prelude and available for your use.//br
+Tuples are always compared using structured equality. Tuples are immutable as all Ela data structures - there 
+is no way to add or to change an element of a tuple. 

@@ -1,0 +1,25 @@
+#title Ranges
+#category Language Reference
+
+=Introduction
+This article discusses ranges in Ela. 
+
+=Overview
+Ranges in Ela are arithmetic sequences that can be used to generate lists. You only have to specify a first 
+element, a last element, and (optionally) a second element that will be used to calculate stepping. 
+
+=Strict Ranges
+Ranges are created using special literal syntax: 
+>>"[" first[,step]..[last] "]"
+Here is an example of a simple range: 
+>>[1..10]
+You can specify an optional step in a range: 
+>>[1,3..10]
+If the first element of a range is lesser than the last element of a range, a step is mandatory: 
+>>[10,9..1]
+
+=Non-strict Ranges
+It is possible to construct non-strict ranges (such as infinite lists). In this case the last element in range should be omitted: 
+>>[1..]
+>>[1,8..]
+>>[100,98..]

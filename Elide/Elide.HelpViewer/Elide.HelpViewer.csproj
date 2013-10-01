@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{22E54B84-8D7F-497D-BB28-03DC3DF3A734}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Elide.HelpViewer</RootNamespace>
+    <AssemblyName>Elide.HelpViewer</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>true</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>true</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="HelpDocument.cs" />
+    <Compile Include="HelpEditor.cs" />
+    <Compile Include="HelpView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HelpView.Designer.cs">
+      <DependentUpon>HelpView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Images\_NS.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HelpView.resx">
+      <DependentUpon>HelpView.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Icon.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Elide.CodeEditor\Elide.CodeEditor.csproj">
+      <Project>{A7A5BEBC-536C-42A2-8FE2-31483B088F8A}</Project>
+      <Name>Elide.CodeEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Common\Elide.Common.csproj">
+      <Project>{A5363A1F-8DD1-4F6F-A631-EB6864BB1224}</Project>
+      <Name>Elide.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Core\Elide.Core.csproj">
+      <Project>{134691C3-4CFB-4D1B-AA75-D34587CA0B69}</Project>
+      <Name>Elide.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Environment\Elide.Environment.csproj">
+      <Project>{8226ABEC-FC5B-4A9E-87BD-53DBC7CC6F72}</Project>
+      <Name>Elide.Environment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Forms\Elide.Forms.csproj">
+      <Project>{99415DC5-9DE6-449E-8F55-D676AB900A04}</Project>
+      <Name>Elide.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Main\Elide.Main.csproj">
+      <Project>{B49AC677-1154-4F7B-8B57-9AE3CE20F615}</Project>
+      <Name>Elide.Main</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Meta\Elide.Meta.csproj">
+      <Project>{958A8279-AAC7-49E0-961E-C24FDB663B45}</Project>
+      <Name>Elide.Meta</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Scintilla\Elide.Scintilla.csproj">
+      <Project>{6A4F4A56-BCFF-4492-AE87-02FBCF43089E}</Project>
+      <Name>Elide.Scintilla</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

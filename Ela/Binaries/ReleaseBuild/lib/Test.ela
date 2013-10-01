@@ -1,0 +1,54 @@
+let inline ^^ x y = x:string ++ y:string
+
+let assert =
+    {
+        eq  = op' "eq"  (==),
+        neq = op' "neq" (<>),
+        gt  = op' "gt"  (>),
+        lt  = op' "lt"  (<),
+        gte = op' "gte" (>=),
+        lte = op' "lte" (<=),
+        eqt = op' "eqt" (==) true,
+        eqf = op' "eqf" (==) false
+    }
+    where op' m op x y | op x y = ()
+                       | else   = raise AssertFailed (m)
+
+let funData fun = (funName fun, fun)
+                  where funName f = t.module.name ++ "." ++ t.name
+                                    where t = type f 
+    
+let regFun fun lst = fd :: lst
+                     where fd = funData fun 
+
+let regFuns mod lst = each' funData (\x -> x is ?fun) vals
+                      where vals = [ v.value \\ v <- (type mod).globals ]
+                         et each' f p x::xs | p x  = f x :: each' f p xs
+                                            | else = each' f p xs
+                            each' _ _ []           = lst
+
+let run lst = (res, failed)
+        where exec (n, f) = try (f assert $ n, true, "") with 
+                                 `AssertFailed m = (n, false, ": Assert failed: " ++ m)
+                                 `             m = (n, false, ": Error occured: " ++ m)
+           et run' x::xs = exec x :: run' xs
+              run' []    = []
+           et count f i x::xs | f x  = count f (i + 1) xs
+                              | else = count f i xs
+              count f i []           = i
+           et res = run' lst
+           et failed = count (\(_,y,_) -> not y) 0 res
+              
+let fmt prf (tests, failed) =
+        out "Test session started" 
+            (all' tests 1)
+            "Test session finished"
+            ("Executed tests: " ^^ (length tests))
+            ("Successful tests: " ^^ (length tests - failed))
+            ("Failed tests: " ^^ failed)
+        where out v = prf v $ out
+           et tag' true  = "Success "
+              tag' false = "FAILED "
+           et fmt' i (n, r, m) = i ^^ ". " ^^ n ^^ ": " ^^ (tag' r) ^^ " " ^^ m
+           et all' x::xs i = prf <| fmt' i x $ all' xs (i + 1)
+              all' [] i    = ""
