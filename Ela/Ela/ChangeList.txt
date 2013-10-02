@@ -1,3 +1,4 @@
+0.12.3:Release:Release of Ela 0.12.3.0.
 0.12.2.10:Change:Implementation of do-notation is refactored, simplified and optimized.
 0.12.2.9:Fix:Do-notation execution order bug (Issue #65).
 0.12.2.8:New:Pattern matching is do-notation is now supported (Issue #51).

@@ -1,3 +1,4 @@
+0.1.10.0:Release:Release of 0.1.10.0.
 0.1.9.3:Change:Implementation of 'Failure' class is changed for List and Maybe.
 0.1.9.2:Fix:A bug in a signature of 'failure' method in Failure class is fixed; signature is changed from 'failure a->_' to 'failure _->a'.
 0.1.9.1:New:Functions 'until' and 'untili' added to the 'imperative' module.
