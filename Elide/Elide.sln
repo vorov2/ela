@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elide", "Elide\Elide.csproj", "{57414936-4D32-4E68-8132-1EE201AFC41C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elide.Core", "Elide.Core\Elide.Core.csproj", "{134691C3-4CFB-4D1B-AA75-D34587CA0B69}"
@@ -44,6 +44,75 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elide.HelpViewer", "Elide.HelpViewer\Elide.HelpViewer.csproj", "{22E54B84-8D7F-497D-BB28-03DC3DF3A734}"
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 22
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs26
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Elide\\Elide.csproj
+		SccProjectName1 = Elide
+		SccLocalPath1 = Elide
+		SccProjectUniqueName2 = Elide.Core\\Elide.Core.csproj
+		SccProjectName2 = Elide.Core
+		SccLocalPath2 = Elide.Core
+		SccProjectUniqueName3 = Elide.Main\\Elide.Main.csproj
+		SccProjectName3 = Elide.Main
+		SccLocalPath3 = Elide.Main
+		SccProjectUniqueName4 = Elide.Common\\Elide.Common.csproj
+		SccProjectName4 = Elide.Common
+		SccLocalPath4 = Elide.Common
+		SccProjectUniqueName5 = Elide.Environment\\Elide.Environment.csproj
+		SccProjectName5 = Elide.Environment
+		SccLocalPath5 = Elide.Environment
+		SccProjectUniqueName6 = Elide.Forms\\Elide.Forms.csproj
+		SccProjectName6 = Elide.Forms
+		SccLocalPath6 = Elide.Forms
+		SccProjectUniqueName7 = Elide.Workbench\\Elide.Workbench.csproj
+		SccProjectName7 = Elide.Workbench
+		SccLocalPath7 = Elide.Workbench
+		SccProjectUniqueName8 = Elide.Scintilla\\Elide.Scintilla.csproj
+		SccProjectName8 = Elide.Scintilla
+		SccLocalPath8 = Elide.Scintilla
+		SccProjectUniqueName9 = Elide.TextEditor\\Elide.TextEditor.csproj
+		SccProjectName9 = Elide.TextEditor
+		SccLocalPath9 = Elide.TextEditor
+		SccProjectUniqueName10 = Elide.PlainText\\Elide.PlainText.csproj
+		SccProjectName10 = Elide.PlainText
+		SccLocalPath10 = Elide.PlainText
+		SccProjectUniqueName11 = Elide.Configuration\\Elide.Configuration.csproj
+		SccProjectName11 = Elide.Configuration
+		SccLocalPath11 = Elide.Configuration
+		SccProjectUniqueName12 = Elide.ElaObject\\Elide.ElaObject.csproj
+		SccProjectName12 = Elide.ElaObject
+		SccLocalPath12 = Elide.ElaObject
+		SccProjectUniqueName13 = Elide.EilCode\\Elide.EilCode.csproj
+		SccProjectName13 = Elide.EilCode
+		SccLocalPath13 = Elide.EilCode
+		SccProjectUniqueName14 = Elide.ElaCode\\Elide.ElaCode.csproj
+		SccProjectName14 = Elide.ElaCode
+		SccLocalPath14 = Elide.ElaCode
+		SccProjectUniqueName15 = Elide.CodeEditor\\Elide.CodeEditor.csproj
+		SccProjectName15 = Elide.CodeEditor
+		SccLocalPath15 = Elide.CodeEditor
+		SccProjectUniqueName16 = Elide.CodeWorkbench\\Elide.CodeWorkbench.csproj
+		SccProjectName16 = Elide.CodeWorkbench
+		SccLocalPath16 = Elide.CodeWorkbench
+		SccProjectUniqueName17 = Elide.Console\\Elide.Console.csproj
+		SccProjectName17 = Elide.Console
+		SccLocalPath17 = Elide.Console
+		SccProjectUniqueName18 = Elide.TextWorkbench\\Elide.TextWorkbench.csproj
+		SccProjectName18 = Elide.TextWorkbench
+		SccLocalPath18 = Elide.TextWorkbench
+		SccProjectUniqueName19 = Elide.WelcomePage\\Elide.WelcomePage.csproj
+		SccProjectName19 = Elide.WelcomePage
+		SccLocalPath19 = Elide.WelcomePage
+		SccProjectUniqueName20 = Elide.Meta\\Elide.Meta.csproj
+		SccProjectName20 = Elide.Meta
+		SccLocalPath20 = Elide.Meta
+		SccProjectUniqueName21 = Elide.HelpViewer\\Elide.HelpViewer.csproj
+		SccProjectName21 = Elide.HelpViewer
+		SccLocalPath21 = Elide.HelpViewer
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
