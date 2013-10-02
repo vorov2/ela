@@ -1,0 +1,8 @@
+﻿//Operations with tuples
+x = (1,2)
+y = (3,4)
+
+z = x + y //z is (4,6)
+
+//Outputs: (2,2)
+z / (2,3) 

@@ -1,0 +1,178 @@
+﻿html,body {
+  margin:0px 0px 0px 0px;
+  width:100%;
+  height:100%;
+  font-family:Segoe UI,Verdana,Arial;
+  font-size:10px;
+}
+
+pre {
+  font-family:Consolas,Courier New;
+  font-size:10pt;
+  margin-top:5px;
+  padding:5px 5px 5px 5px;
+  border:solid 1px darkgray;
+  background-image:url(cell.bmp);
+  overflow:hidden;
+}
+
+a.menuItem {
+  color:Black;
+  text-decoration:none;
+}
+
+table.root {
+  width:100%;
+  height:100%;
+}
+
+table.centre {
+  width:100%;
+  height:100%;
+  border-collapse:collapse;  
+  background-image:url(bg.bmp);
+  background-repeat:no-repeat;  
+}
+
+table.mainText {
+  width:100%;
+  height:100%;
+  border-collapse:collapse;
+}
+
+td {
+  font-family:Segoe UI,Verdana,Arial;
+  font-size:12pt;
+}
+
+div.txt,div.newsBody,a.dl {
+  font-family:Segoe UI,Verdana,Arial;
+  font-size:10pt;
+}
+
+td.root {
+  width:800px;
+  vertical-align:top;
+  border-left:solid 3px black;
+  border-right:solid 3px black;
+}
+
+td.margin {
+  background-color:gray;
+}
+
+td.banner {
+  height:70px;
+  padding-left:10px;
+  padding-top:10px;
+  padding-bottom:10px;
+  vertical-align:top;
+}
+
+td.main {
+  padding:10px 20px 10px 20px;
+  vertical-align:top;
+}
+
+td.firstCol {
+  width:48%;
+  vertical-align:top;
+}
+
+td.secondCol {
+  width:48%;
+  vertical-align:top;
+}
+
+td.mid {
+  width:4%;
+}
+
+div.par {
+  padding-top:10px;
+}
+
+div.menuItem,div.menuItemSel {
+  text-align:left;
+  font-size:12pt;
+  font-weight:bold;
+  padding-top:3px;
+  padding-bottom:3px;
+  cursor:pointer;
+  font-family:Arial Narrow,Verdana,Arial;
+  letter-spacing:1px;
+  padding-left:10px;
+  padding-right:10px;
+  margin:0px 0px 0px 0px;
+}
+
+div.menuItemSel
+{
+    background-color: #E5E5E5;
+}
+
+a.dl {
+  color:#3366FF;
+  text-decoration:underline;
+  font-weight:normal;
+}
+
+div.bullet {
+  font-size:10pt;
+  font-weight:bold;
+  font-family:Verdana;
+  color:Gray;
+  margin-bottom:6px;
+}
+
+div.date {
+  font-size:10pt;
+  text-align:right;
+  color:Gray;
+  font-style:italic;
+  margin-top:3px;
+}
+
+div.title {
+  letter-spacing:1px;
+  font-family:Arial Narrow,Verdana,Arial;
+  font-size:14pt;
+  font-weight:bold;
+  color:gray;
+}
+
+/*Ela lexer*/
+.lexer_Identifier,.lexer_Default,.lexer_Operator {
+
+}
+
+.lexer_Operator {
+  color:#9900CC;
+  font-weight:bold;
+}
+
+.lexer_Keyword {
+  color:blue;
+}
+
+.lexer_Variant {
+  color:navy;
+  font-weight:bold;
+}
+
+.lexer_Literal {
+  color:teal;
+  font-weight:bold;
+}
+
+.lexer_MultilineComment,.lexer_Comment {
+  color:green;
+}
+
+.lexer_String,.lexer_Char {
+  color:brown;
+}
+
+.lexer_Number {
+  color:red;
+}

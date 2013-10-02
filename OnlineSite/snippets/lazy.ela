@@ -1,0 +1,8 @@
+﻿//Infinite list (implicit laziness)
+a = 1 :: a
+
+//Lazy map, explicit laziness
+map' _ [] = []
+map' f (x::xs) = & f x :: map' f xs
+
+take 10 <| map' (*2) a

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<news>
+    <item title="Ela Platform 2013.3 is out" date="2013-10-02">
+        <![CDATA[Ela Platform 2013.3 contains many important bug fixes in Ela and Elide, Ela intergrated environment.
+        This version of platform also introduces a new version of Ela that allows to use pattern matching in do-notation.]]>
+    </item>
+    
+    <item title="New project hosting platform" date="2013-10-02">
+        <![CDATA[Google Code used to be a primary project hosting for Ela project. However, Google is currently
+        deprecating its download services, which is a pretty serious issue for projects that require to publish
+        binary releases from time to time. As a result Ela project is now moving to CodePlex: <a target="_blank" href="https://ela.codeplex.com/">ela.codeplex.com</a>.]]>
+    </item>
+
+    <item title="Ela Platform 2013.2 is out" date="2013-04-16">
+        <![CDATA[Ela Platform 2013.2 includes a new version of Ela with a refactored and improved 'do' 
+        notation (which now supports 'let' bindings in Haskell style). Also this version of Platform comes 
+        with a new release of standard library which contains several new additions including an IO monad.]]>
+    </item>
+
+    <item title="Ela Platform 2013.1 is out" date="2013-02-13">
+        <![CDATA[Ela Platform 2013.1 comes with a new version of Ela (0.12.1) and an updated library.
+        This is an experimental release that provides a support for monadic programming in Ela including
+        monadic classes in standard library and a Haskell style 'do' notation.]]>
+    </item>
+
+    <item title="Ela Platform 2012.9 is out" date="2012-09-03">
+        <![CDATA[Ela Platform 2012.9 comes with a new major version of Ela (0.12) that provides a better
+        support for implicit laziness, negative numeric literals, pattern matching validation for overlapping,
+        bang patterns, type constraints for parameters of algebraic types constructors and more. This version
+        of platform also features a significant update to the standard library.]]>
+    </item>
+
+    <item title="A new version of the book: Ela, dynamic functional language" date="2012-08-28">
+        <![CDATA[A new version (0.6) of the book <i>Ela, dynamic functional language</i> is available. This book
+        describes an upcoming version of Ela (0.12) and has a lot of corrections and amendments. This version
+        of a book also contains new chapters about algebraic types and type classes.]]>
+    </item>
+    <item title="Ela Platform 2012.8 is out" date="2012-08-14">
+            <![CDATA[
+        Ela Platform 2012.8 includes a new version of Ela (0.11.2), which introduces a major new feature -
+        overloading by return type. Also Ela Platform 2012.8 features a significant update to Ela standard
+        library with new classes, functions and modules.
+        ]]>
+    </item>
+
+</news>

@@ -1,0 +1,8 @@
+﻿//Class and instance declaration
+class Pointed a where
+  point _->a //Overloaded by return type
+
+instance Pointed List where
+  point x = [x] //Instance for a linked list
+  
+point 42 ::: List //Outputs: [42]

@@ -1,0 +1,8 @@
+﻿//Algebraic type
+type Option = None | Some a
+  deriving Eq Ord Show 
+  
+xs = map Some [1..10] //Constructor is a function
+x = head xs //x is Some 1
+(Some y) = x //Pattern match x
+x == None //Returns false
