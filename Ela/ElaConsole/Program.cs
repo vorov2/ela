@@ -34,7 +34,7 @@ namespace ElaConsole
         private static int Main(string[] args) 
 		{
             if (!ReadOptions(args))
-				return R_ERR;
+			    return R_ERR;
 
             if (opt.ShowVersion)
             {
