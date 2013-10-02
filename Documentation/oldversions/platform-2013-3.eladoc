@@ -1,0 +1,35 @@
+#title What's new? (Ela Platform 2013.3)
+
+=Overview
+Platform 2013.3 contains many important bug fixes in Ela and Elide, Ela intergrated environment. This version of
+platform also introduces a new version of Ela that allows to use pattern matching in do-notation.
+
+
+=Ela changes
+Platform 2013.3 comes with Ela 0.12.3 that has many fixes in do-nitation (such as incorrect compilation of do-notation
+with a single expression, a possibility of incorrect sequencing of actions in do-notation), etc. Ela 0.12.3 contains other
+important bug fixes, which are listed in Ela log file.//br
+The major changes in this release of Ela are refactoring of contexts (that allow to overload functions and constant by
+return type) and an ability to pattern match in do-notation. For example:
+>>open monad core io
+>>
+>>res s = do
+>>  (x::_) <- Some s
+>>  return x
+>>res "Hello" ::: Maybe
+If we pass an empty string to a `res` function, a pattern match `(x::_)` would fail. In this case it would call a `failure`
+function which is a member of `Failure` class:
+>>class Failure a where
+>>  failure _->a
+A type `Maybe` implements this class like so:
+>>instance Failure Maybe where
+>>  failure _ = None
+As a result that function would fetch `None` instead of an error.
+
+=Elide changes
+Elide contains a couple of bug fixes, such as an EIL code editor crush and a settings dialog crush. It also contains
+several minor tweaks and enhancements. Also code samples directory is updated according to the language changes.
+
+=Standard library
+Standard library contains a couple of minor tweaks and changes.The major change is a new implementation of `Failure` class
+from `monad` module and rehashed instances of this class for standard types.
