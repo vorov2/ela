@@ -46,10 +46,10 @@
     
     <div class="txt" style="margin-top:20px">
       <div class="title">Source Code</div>                  
-      Ela source code is available under GPL v2 license. You can browse in online or connect to an SVN
+      Ela source code is available under GPL v2 license. You can browse in online or connect to an TFS
       repository using a client of your choice (anonymous access is allowed).
       <div>
-        <a class="dl" target="_blank" href="http://code.google.com/p/elalang/source/checkout">SVN repository</a>
+        <a class="dl" target="_blank" href="https://ela.codeplex.com/SourceControl/latest">TFS repository</a>
       </div>
     </div>
     </div>
