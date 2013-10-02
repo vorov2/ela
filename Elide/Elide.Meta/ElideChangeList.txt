@@ -1,4 +1,5 @@
-﻿0.1.9.5:Fix:Elide, crush after font change in settings (Issue #59).
+﻿0.1.9.6:Fix:Debug output from EIL and Ela lexers that could accidentally write to console is removed.
+0.1.9.5:Fix:Elide, crush after font change in settings (Issue #59).
 0.1.9.4:Change:EIL code editor syntax highlighting is changed according to EIL instruction set changes.
 0.1.9.3:Change:Behavior of output view (bottom area) is enhanced. Now when switching between outputs the height of the area is preserved and doesn't change to what was previously memorized by the workbench.
 0.1.9.2:Fix:EIL code editor syntax highlighting corrected (now correctly deals with char tokens and single quote characters).

@@ -117,7 +117,7 @@ internal sealed class Errors {
 			default: s = "error " + n; break;
 		}
 		
-		Console.WriteLine(s + "; line=" + line + ";col=" + col);
+		//Console.WriteLine(s + "; line=" + line + ";col=" + col);
 		p.ErrorCount++;
 		//ErrorList.Add(new ElaError(s, ElaErrorType.Parser_SyntaxError, new ElaLinePragma(line, col)));
 	}
