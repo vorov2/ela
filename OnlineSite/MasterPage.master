@@ -1,0 +1,134 @@
+﻿<%@ Master Language="C#" %>
+<%@ Import Namespace="System.Configuration" %>
+<script runat="server">
+
+</script>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title><asp:ContentPlaceHolder id="Title" runat="server"></asp:ContentPlaceHolder></title>
+    <link type="text/css" rel="Stylesheet" href="includes/Main.css" />
+</head>
+<body>
+    <form id="MainForm" runat="server">
+     <table class="root" cellpadding="0" cellspacing="0">
+      <tr>
+        <td class="margin">&nbsp;</td>
+        <td class="root">
+          <table class="centre" cellpadding="0" cellspacing="0">
+            <tr>
+              <td class="banner">
+                 <table cellpadding="0" cellspacing="0" style="width:100%;height:auto">
+                    <tr>
+                        <td style="width:10px;padding-left:10px">
+                            <img alt="Ela, dynamic functional language" src="includes/handbanner.png"/>
+                        </td>
+                        <td style="vertical-align:top;padding-left:10px;font-family:Arial Narrow,Arial">
+                            <div style="color:Gray;font-weight:bold;letter-spacing:1px;font-size:22pt">Ela</div>
+                            <div style="font-size:14pt;font-weight:bold">dynamic functional language</div>
+                        </td>
+                        <td style="width:140px;vertical-align:top;padding-top:5px;padding-right:10px;">
+                            <table cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="text-align:center;font-size:11pt;font-weight:bold;font-family:Arial Narrow,Arial">Ela Platform <%=ConfigurationManager.AppSettings["lastRelease"]%></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="<%=ConfigurationManager.AppSettings["lastReleaseUrl"]%>" target="_blank" style="text-decoration:none">
+                                            <div style="cursor:pointer;background-color:royalblue;color:white;width:130px;height:30px;text-align:center;font-weight:bold;font-size:14pt;">
+                                                Download
+                                            </div>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                     </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+                <td style="text-align:center;height:10px">
+                    <img src="includes\line.png" />
+                </td>
+            </tr>
+            <!--tr>
+              <td style="font-family:Arial,Verdana;font-size:10pt;height:20px;background-color:black;color:white;font-weight:bold;text-align:right;padding-right:10px">
+                <%=DateTime.Now.ToString("MMMM yyyy", new System.Globalization.CultureInfo("en-US").DateTimeFormat) %>
+              </td>
+            </tr-->
+            <tr>
+              <td class="main">
+                <div style="background-color:white;margin-left:10px;font-size:10pt;width:160px;float:right;border:solid 5px gray;padding:5px 0px 5px 0px">
+                    <a href="default.aspx" class="menuItem"><div id="home" class="menuItem">Home</div></a>
+                    <a href="about.aspx" class="menuItem"><div id="about" class="menuItem">About</div></a>
+                    <a href="news.aspx" class="menuItem"><div id="news" class="menuItem">News</div></a>
+                    <a href="community.aspx" class="menuItem"><div id="community" class="menuItem">Community</div></a>
+                    <a href="http://elalang.net/docs" target="_blank" class="menuItem"><div id="docs" class="menuItem">Documentation</div></a>
+                    <a href="https://ela.codeplex.com/releases/" target="_blank" class="menuItem"><div id="downloads" class="menuItem">Downloads</div></a>
+                </div>                
+                 <asp:ContentPlaceHolder id="MainArea" runat="server">
+        
+                </asp:ContentPlaceHolder>          
+                <script language="javascript" type="text/javascript">
+                    if (selPage != undefined)
+                        document.getElementById(selPage).className="menuItemSel";
+                </script>      
+              </td>              
+            </tr>
+            <tr>
+                <td style="vertical-align:bottom;font-size:8pt;color:gray">
+                    <div style="text-align:center;width:100%;margin-top:10px;margin-bottom:0px">
+                        <img align="middle" src="includes\line.png" />
+                    </div>
+                    
+                    <table cellpadding="0" cellspacing="0" style="width:100%">
+                        <tr>
+                            <td style="width:10px;padding-left:20px;">
+                                <!-- Rating@Mail.ru counter -->
+                                <script language="javascript"><!--
+                                var a='';a+=';r='+escape(document.referrer);js=10;//--></script>
+                                <script language="javascript1.1"><!--
+                                a+=';j='+navigator.javaEnabled();js=11;//--></script>
+                                <script language="javascript1.2"><!--
+                                s=screen;a+=';s='+s.width+'*'+s.height;
+                                a+=';d='+(s.colorDepth?s.colorDepth:s.pixelDepth);js=12;//--></script>
+                                <script language="javascript1.3"><!--
+                                js=13;//--></script><script language="javascript" type="text/javascript"><!--
+                                document.write('<a href="http://top.mail.ru/jump?from=2242821" target="_top">'+
+                                '<img src="http://d9.c3.b2.a2.top.mail.ru/counter?id=2242821;t=83;js='+js+
+                                a+';rand='+Math.random()+'" alt="Рейтинг@Mail.ru" border="0" '+
+                                'height="18" width="88"><\/a>');if(11<js)document.write('<'+'!-- ');//--></script>
+                                <noscript><a target="_top" href="http://top.mail.ru/jump?from=2242821">
+                                <img src="http://d9.c3.b2.a2.top.mail.ru/counter?js=na;id=2242821;t=83" 
+                                height="18" width="88" border="0" alt="Рейтинг@Mail.ru"></a></noscript>
+                                <script language="javascript" type="text/javascript"><!--
+                                if(11<js)document.write('--'+'>');//--></script>
+                                <!-- //Rating@Mail.ru counter -->
+                            </td>
+                            <td>
+                                <div style="font-size:8pt;padding-right:30px;text-align:right;padding-bottom:4px">
+                                    <script language="javascript">
+                                    function openMailTo() {
+                                      var amp = "@";
+                                      document.location.href = "mailto:" + "basil" + amp + "voronkov" + "." + "name" +
+                                        "?subject=Inquiry about Ela";
+                                    }
+                                    </script>
+                                    <a href="javascript:openMailTo()" style="text-decoration:underline;color:gray">Contact language developers</a>&nbsp;&nbsp;Copyright <%=DateTime.Now.ToString("yyyy") %>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+          </table>
+        </td>
+        <td class="margin">&nbsp;</td>
+      </tr>
+    </table>
+    
+    
+    </form>
+</body>
+</html>

@@ -1,0 +1,8 @@
+﻿open list //opening a standard module
+
+rec = { x = 42 } //a record
+
+{x} = rec //pattern matching record
+{concat,concatMap} = list //pattern matching module
+
+_ = id list //passing module as a function argument

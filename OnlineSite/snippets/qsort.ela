@@ -1,0 +1,8 @@
+﻿//Quick sort
+quickSort [] = []
+quickSort (x::xs) = 
+    quickSort [ y \\ y <- xs | y < x ] 
+    ++ [x] ++ quickSort [ y \\ y <- xs | y >= x]
+    
+//Outputs: [1,2,3,4,5]
+quickSort [3,1,5,2,4]

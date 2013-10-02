@@ -1,0 +1,8 @@
+﻿//Factorial
+//Tail recursive version
+fact = fact' 1L 
+  where fact' acc 0 = acc
+        fact' acc n = fact' (n * acc) (n - 1)
+
+//Outputs: 2432902008176640000
+fact 20 

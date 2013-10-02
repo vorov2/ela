@@ -1,0 +1,8 @@
+﻿//Lazy fix point combinator
+fix' f = f (& fix' f)
+
+factabs fact 0 = 1
+factabs fact x = x * fact (x - 1)
+
+//Outputs: 120
+(fix' factabs) 5

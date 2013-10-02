@@ -1,0 +1,8 @@
+﻿concat [] = [] //Recursive function
+concat (x::xs) = x ++ concat xs
+
+concat = foldr (++) [] //The same, through foldr
+
+//The same function defined using lambda
+concat = \xs -> if isnil xs then [] 
+    else head xs ++ concat (tail xs)
