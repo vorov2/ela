@@ -644,7 +644,7 @@ internal sealed class Errors {
 			case 60: s = "\"LazyCall\" expected"; break;
 			case 61: s = "\"Call\" expected"; break;
 			case 62: s = "\"Callt\" expected"; break;
-			case 63: s = "\"Calld\" expected"; break;
+			case 63: s = "\"Ctx\" expected"; break;
 			case 64: s = "\"Throw\" expected"; break;
 			case 65: s = "\"Rethrow\" expected"; break;
 			case 66: s = "\"Force\" expected"; break;

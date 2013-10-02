@@ -373,7 +373,7 @@ internal sealed class Scanner {
 			case "LazyCall": t.kind = 60; break;
 			case "Call": t.kind = 61; break;
 			case "Callt": t.kind = 62; break;
-			case "Calld": t.kind = 63; break;
+			case "Ctx": t.kind = 63; break;
 			case "Throw": t.kind = 64; break;
 			case "Rethrow": t.kind = 65; break;
 			case "Force": t.kind = 66; break;
