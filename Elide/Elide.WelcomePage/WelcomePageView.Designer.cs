@@ -37,6 +37,7 @@
             this.codeSamples = new System.Windows.Forms.LinkLabel();
             this.newFile = new System.Windows.Forms.LinkLabel();
             this.linkLayout2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.whatsNewLink = new System.Windows.Forms.LinkLabel();
             this.docLink = new System.Windows.Forms.LinkLabel();
             this.codeSamplesLink = new System.Windows.Forms.LinkLabel();
             this.book = new System.Windows.Forms.LinkLabel();
@@ -49,7 +50,7 @@
             this.groupLink = new System.Windows.Forms.LinkLabel();
             this.onlineConsoleLink = new System.Windows.Forms.LinkLabel();
             this.resourcesLabel = new System.Windows.Forms.Label();
-            this.whatsNewLink = new System.Windows.Forms.LinkLabel();
+            this.repLink = new System.Windows.Forms.LinkLabel();
             this.panel.SuspendLayout();
             this.linkLayout1.SuspendLayout();
             this.linkLayout2.SuspendLayout();
@@ -159,6 +160,19 @@
             this.linkLayout2.Size = new System.Drawing.Size(200, 257);
             this.linkLayout2.TabIndex = 6;
             // 
+            // whatsNewLink
+            // 
+            this.whatsNewLink.AutoSize = true;
+            this.whatsNewLink.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.whatsNewLink.Location = new System.Drawing.Point(3, 0);
+            this.whatsNewLink.Name = "whatsNewLink";
+            this.whatsNewLink.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.whatsNewLink.Size = new System.Drawing.Size(147, 18);
+            this.whatsNewLink.TabIndex = 4;
+            this.whatsNewLink.TabStop = true;
+            this.whatsNewLink.Text = "What\'s new in this release?";
+            this.whatsNewLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.whatsNewLink_LinkClicked);
+            // 
             // docLink
             // 
             this.docLink.AutoSize = true;
@@ -228,6 +242,7 @@
             // 
             this.linkLayout3.Controls.Add(this.linkLabel1);
             this.linkLayout3.Controls.Add(this.homepageLink);
+            this.linkLayout3.Controls.Add(this.repLink);
             this.linkLayout3.Controls.Add(this.rosettaLink);
             this.linkLayout3.Controls.Add(this.ohlohLink);
             this.linkLayout3.Controls.Add(this.groupLink);
@@ -240,14 +255,15 @@
             // homepageLink
             // 
             this.homepageLink.AutoSize = true;
+            this.linkLayout3.SetFlowBreak(this.homepageLink, true);
             this.homepageLink.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.homepageLink.Location = new System.Drawing.Point(3, 18);
             this.homepageLink.Name = "homepageLink";
             this.homepageLink.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.homepageLink.Size = new System.Drawing.Size(106, 18);
+            this.homepageLink.Size = new System.Drawing.Size(81, 18);
             this.homepageLink.TabIndex = 2;
             this.homepageLink.TabStop = true;
-            this.homepageLink.Text = "Ela at Google Code";
+            this.homepageLink.Text = "Ela Homepage";
             this.homepageLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.homepageLink_LinkClicked);
             // 
             // rosettaLink
@@ -255,7 +271,7 @@
             this.rosettaLink.AutoSize = true;
             this.linkLayout3.SetFlowBreak(this.rosettaLink, true);
             this.rosettaLink.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.rosettaLink.Location = new System.Drawing.Point(3, 36);
+            this.rosettaLink.Location = new System.Drawing.Point(3, 54);
             this.rosettaLink.Name = "rosettaLink";
             this.rosettaLink.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.rosettaLink.Size = new System.Drawing.Size(153, 18);
@@ -269,7 +285,7 @@
             this.ohlohLink.AutoSize = true;
             this.linkLayout3.SetFlowBreak(this.ohlohLink, true);
             this.ohlohLink.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.ohlohLink.Location = new System.Drawing.Point(3, 54);
+            this.ohlohLink.Location = new System.Drawing.Point(3, 72);
             this.ohlohLink.Name = "ohlohLink";
             this.ohlohLink.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.ohlohLink.Size = new System.Drawing.Size(71, 18);
@@ -283,7 +299,7 @@
             this.groupLink.AutoSize = true;
             this.linkLayout3.SetFlowBreak(this.groupLink, true);
             this.groupLink.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.groupLink.Location = new System.Drawing.Point(3, 72);
+            this.groupLink.Location = new System.Drawing.Point(3, 90);
             this.groupLink.Name = "groupLink";
             this.groupLink.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.groupLink.Size = new System.Drawing.Size(114, 18);
@@ -296,7 +312,7 @@
             // 
             this.onlineConsoleLink.AutoSize = true;
             this.onlineConsoleLink.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.onlineConsoleLink.Location = new System.Drawing.Point(3, 90);
+            this.onlineConsoleLink.Location = new System.Drawing.Point(3, 108);
             this.onlineConsoleLink.Name = "onlineConsoleLink";
             this.onlineConsoleLink.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.onlineConsoleLink.Size = new System.Drawing.Size(143, 18);
@@ -316,18 +332,18 @@
             this.resourcesLabel.TabIndex = 7;
             this.resourcesLabel.Text = "Useful resources";
             // 
-            // whatsNewLink
+            // repLink
             // 
-            this.whatsNewLink.AutoSize = true;
-            this.whatsNewLink.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.whatsNewLink.Location = new System.Drawing.Point(3, 0);
-            this.whatsNewLink.Name = "whatsNewLink";
-            this.whatsNewLink.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.whatsNewLink.Size = new System.Drawing.Size(147, 18);
-            this.whatsNewLink.TabIndex = 4;
-            this.whatsNewLink.TabStop = true;
-            this.whatsNewLink.Text = "What\'s new in this release?";
-            this.whatsNewLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.whatsNewLink_LinkClicked);
+            this.repLink.AutoSize = true;
+            this.repLink.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.repLink.Location = new System.Drawing.Point(3, 36);
+            this.repLink.Name = "repLink";
+            this.repLink.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.repLink.Size = new System.Drawing.Size(85, 18);
+            this.repLink.TabIndex = 5;
+            this.repLink.TabStop = true;
+            this.repLink.Text = "Ela at CodePlex";
+            this.repLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.repLink_LinkClicked);
             // 
             // WelcomePageView
             // 
@@ -383,5 +399,6 @@
         private System.Windows.Forms.LinkLabel onlineConsoleLink;
         private System.Windows.Forms.Label resourcesLabel;
         private System.Windows.Forms.LinkLabel whatsNewLink;
+        private System.Windows.Forms.LinkLabel repLink;
     }
 }
