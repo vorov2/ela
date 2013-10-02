@@ -2,8 +2,7 @@
 #category Language Reference
 
 =Introduction
-This article provides an overview of monadic programming in Ela. _This article discusses functionality which is still
-in an experimental state and is incomplete._
+This article provides an overview of monadic programming in Ela.
 
 =Overview
 Ela like other functional languages does provide a natural support for monadic programming through lambda. However,
@@ -58,7 +57,7 @@ is a member of `Monad` class), but is defined through `fmap` and `join` like so:
 >>xs >>= f = join (fmap f xs)
 And `return`, as it was already mentioned, is simply an alias for `point`.
 
-=Do notation
+=Do-notation
 A so called `do` notation is a special syntax that was added to Ela to simplify writing monadic code. Heavy usage of
 "bind" operator can lead to a pretty unreadable code; the `do` notation can help to remove the clutter.//br
 A `do` notation is a special type of an expression that can be used in all the contexts where expression is valid. It 
@@ -88,3 +87,21 @@ It is also possible to use `let` bindings in `do` notation in the following way:
 >>    else "You're OK...")
 >>  putStr x
 The example above is written using `IO` monad and console IO actions available in `io` module.
+
+=Pattern matching in do-notation
+It is possible to pattern match in bindings in do-notation as in regular bindings. For example, consider the following function:
+>>>res s = do
+>>>  (x::_) <- Some s
+>>>  return x
+We can call it like so:
+>>>res "Hello" ::: Maybe
+We can, hovewer, provide an empty string as an argument as well:
+>>>res "" ::: Maybe
+When we pass an empty string to a `res` function, a pattern match `(x::_)` fails. But instead of raising an exception it calls a `failure`
+function which is a member of `Failure` class:
+>>class Failure a where
+>>  failure _->a
+A type `Maybe` implements this class like so:
+>>instance Failure Maybe where
+>>  failure _ = None
+As a result a function `res` above returns `None` instead of an error.
