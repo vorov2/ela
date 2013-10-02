@@ -88,6 +88,11 @@ namespace Elide.WelcomePage
             OpenLink("http://elalang.net");
         }
 
+        private void repLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            OpenLink("http://ela.codeplex.com");
+        }
+
         private void rosettaLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             OpenLink("http://rosettacode.org/wiki/Ela");
