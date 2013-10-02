@@ -116,6 +116,7 @@
     <Compile Include="General\IOModule.cs" />
     <Compile Include="General\RecordModule.cs" />
     <Compile Include="General\ReflectModule.cs" />
+    <Compile Include="General\XmlModule.cs" />
     <Compile Include="Modules.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
@@ -187,7 +188,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir)Binaries\vgen.exe" "$(ProjectDir)LibChangeList.txt" "$(ProjectDir)Properties\VersionInfo.cs"</PostBuildEvent>
+    <PostBuildEvent>"$(SolutionDir)Binaries\vgen.exe" "$(ProjectDir)LibChangeList.txt" "$(ProjectDir)Properties\VersionInfo.cs"
+xcopy ..\bin\elalib.dll C:\ela-platform\lib\elalib.dll /y</PostBuildEvent>
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
