@@ -51,6 +51,7 @@ namespace Ela
                 case "and": return ElaBuiltinKind.LogicalAnd;
                 case "or": return ElaBuiltinKind.LogicalOr;
                 case "seq": return ElaBuiltinKind.Seq;
+                case "fail": return ElaBuiltinKind.Fail;
 
                 /* infrastructure */
                 case "genmaxbound": return ElaBuiltinKind.GenMaxBound;

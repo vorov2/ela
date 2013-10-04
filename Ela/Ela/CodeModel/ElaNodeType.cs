@@ -50,8 +50,6 @@ namespace Ela.CodeModel
 
 		Equation,
 
-		Raise,
-
 		EquationSet,
 
 		Match,

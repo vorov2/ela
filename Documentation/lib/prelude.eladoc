@@ -416,6 +416,10 @@ Defines a `toRecord` type cast function.
 
 =Basic combinators and functions
 
+#fail x
+Raises an exception with the specified details:
+>>fail "An unexpected error occured!"
+
 #force x
 Forces a given expression if this is a thunk. Otherwise works as an identity function:
 >>>force 42

@@ -387,11 +387,6 @@ namespace Ela.Compilation
 
                         return true;
                     }
-                case ElaNodeType.Raise:
-                    {
-                        var r = (ElaRaise)exp;
-                        return CanCompileStrict(r.Expression, locals);
-                    }
                 case ElaNodeType.Range:
                     {
                         var r = (ElaRange)exp;
@@ -565,11 +560,6 @@ namespace Ela.Compilation
                                 return true;
 
                         return false;
-                    }
-                case ElaNodeType.Raise:
-                    {
-                        var r = (ElaRaise)exp;
-                        return IsRecursive(r.Expression, addr, arr);
                     }
                 case ElaNodeType.Range:
                     {
