@@ -255,14 +255,6 @@ namespace Ela.Compilation
                         CompileConditionalOperator(s, map, hints);
                     }
                     break;
-                case ElaNodeType.Raise:
-                    {
-                        var s = (ElaRaise)exp;
-                        CompileExpression(s.Expression, map, Hints.None, s);
-                        AddLinePragma(s);
-                        cw.Emit(Op.Throw);
-                    }
-                    break;
                 case ElaNodeType.Primitive:
                     {
                         var p = (ElaPrimitive)exp;

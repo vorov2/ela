@@ -100,11 +100,9 @@ TOKENS
 	IFS = "if".
 	ELSE = "else".
 	THEN = "then".
-	RAISE = "raise".
 	TRY = "try".
 	TRUE = "true".
 	FALSE = "false".
-	FAIL = "fail".
 	WHERE = "where".
 	INSTANCE = "instance".
 	TYPE = "type".
@@ -929,7 +927,6 @@ PRODUCTIONS
 			| LazyExpr<out exp>			
 			| Builtin<out exp>	
 			| LambdaExpr<out exp>
-			| FailExpr<out exp>
 			| MatchExpr<out exp>
 			| TryExpr<out exp>
 			| DoBlock<out exp>
@@ -990,19 +987,7 @@ PRODUCTIONS
 				exp = lazy;
 			.)
 		).
-		
-	FailExpr<out ElaExpression exp> = 
-		FAIL
-		(. 
-			var r = new ElaRaise(t);
-			exp = r;
-			var cexp = default(ElaExpression); 
-		.)		
-		Expr<out cexp>
-		(. 
-			r.Expression = cexp; 
-		.).	
-		
+
 	ComprehensionExpr<ElaExpression sel, out ElaComprehension exp> =
 		(. 	
 			var it = default(ElaGenerator); 

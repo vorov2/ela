@@ -282,7 +282,6 @@
     <Compile Include="CodeModel\ElaTupleLiteral.cs" />
     <Compile Include="CodeModel\ElaPlaceholder.cs" />
     <Compile Include="CodeModel\ElaPrimitive.cs" />
-    <Compile Include="CodeModel\ElaRaise.cs" />
     <Compile Include="CodeModel\ElaEquation.cs" />
     <Compile Include="CodeModel\ElaVariableFlags.cs" />
     <Compile Include="CodeModel\ElaNameReference.cs" />

@@ -148,12 +148,10 @@ namespace Ela.Parsing
 				case Parser._WITH: return ElaParserError.ExpectedKeywordWith;
 				case Parser._IFS: return ElaParserError.ExpectedKeywordIf;
 				case Parser._ELSE: return ElaParserError.ExpectedKeywordElse;
-				case Parser._THEN: return ElaParserError.ExpectedKeywordThen;				
-				case Parser._RAISE: return ElaParserError.ExpectedKeywordRaise;
+				case Parser._THEN: return ElaParserError.ExpectedKeywordThen;			
 				case Parser._TRY: return ElaParserError.ExpectedKeywordTry;
 				case Parser._TRUE: return ElaParserError.ExpectedBooleanToken;
-				case Parser._FALSE: return ElaParserError.ExpectedBooleanToken;				
-				case Parser._FAIL: return ElaParserError.ExpectedKeywordFail;
+				case Parser._FALSE: return ElaParserError.ExpectedBooleanToken;
 				case Parser._WHERE: return ElaParserError.ExpectedKeywordWhere;
 				case Parser._COMPO: return ElaParserError.ExpectedComprehensionSlash;
                 case Parser._INSTANCE: return ElaParserError.ExpectedKeywordInstance;

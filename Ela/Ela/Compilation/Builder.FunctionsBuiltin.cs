@@ -40,6 +40,9 @@ namespace Ela.Compilation
         {
             switch (kind)
             {
+                case ElaBuiltinKind.Fail:
+                    cw.Emit(Op.Throw);
+                    break;
                 case ElaBuiltinKind.Seq:
                     cw.Emit(Op.Force);
                     cw.Emit(Op.Pop);

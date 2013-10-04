@@ -15,6 +15,7 @@ namespace Ela.CodeModel
         Negate,
         BitwiseNot,
         Show,
+        Fail,
                 
         Api1,
         Api2,
