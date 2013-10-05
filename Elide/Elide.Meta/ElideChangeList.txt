@@ -1,4 +1,8 @@
-﻿0.1.10.2:Change:Symbol finder is updated according to the language changes ('fail' is now a regular function).
+﻿0.1.10.6:New:New functions 'Send selection to Interactive' and 'Send current module to Interactive' are added.
+0.1.10.5:New:A new view 'Interactive' is added (that integrated Ela Interactive Console in Elide). This view comes with settings for highlighting and general view settings integrated with Elide options.
+0.1.10.4:Change:Now 'Run' function in Ela code editor executes just a selected if any or the whole module if nothing is selected.
+0.1.10.3:Fix:'Eval selected' bug in Ela code editor (Issue #1147).
+0.1.10.2:Change:Symbol finder is updated according to the language changes ('fail' is now a regular function).
 0.1.10.1:Change:Links to useful resources, etc. in Help menu and on Welcome page are corrected according to the project hosting changes.
 0.1.10.0:Release:Release of Elide 0.1.10.0.
 0.1.9.6:Fix:Debug output from EIL and Ela lexers that could accidentally write to console is removed.

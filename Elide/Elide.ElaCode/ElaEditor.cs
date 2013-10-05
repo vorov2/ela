@@ -10,6 +10,7 @@ using Elide.ElaCode.Lexer;
 using Elide.Environment;
 using Elide.Forms;
 using Elide.Scintilla;
+using Elide.ElaCode.Views;
 
 namespace Elide.ElaCode
 {
@@ -99,7 +100,10 @@ namespace Elide.ElaCode
                   .Menu("&Build")
                       .Item("Run", "F5", ElaFuns.Run, () => sci.GetTextLength() > 0 && !rs.IsRunning())
                       .Item("Stop Execution", () => rs.AbortExecution(), rs.IsRunning)
-                      .Item("Eval Selected", "Ctrl+F5", ElaFuns.RunSelected, sci.HasSelections)
+                      .Separator()
+                      .Item("Eval Selected", "Ctrl+F5", ElaFuns.RunSelected)
+                      .Item("Send Selection to Interactive", "Ctrl+F6", App.GetService<IInteractiveService>().EvaluateSelected)
+                      .Item("Send Current Module to Interactive", "Ctrl+F7", App.GetService<IInteractiveService>().EvaluateCurrentModule)
                       .Separator()
                       .Item("Generate EIL", ElaFuns.GenerateEil)
                       .Item("Make Object File", ElaFuns.MakeObjectFile)
@@ -124,10 +128,13 @@ namespace Elide.ElaCode
         {
             var sci = GetScintilla();
             builder
-                .Item("Run", ElaFuns.Run, () => sci.GetTextLength() > 0)
-                .Item("Eval Selected", ElaFuns.RunSelected, sci.HasSelections)
+                .Item("Run", "F5", ElaFuns.Run, () => sci.GetTextLength() > 0)
+                .Item("Eval Selected", "Ctrl+F5", ElaFuns.RunSelected)
+                .Item("Send Selection to Interactive", "Ctrl+F6", App.GetService<IInteractiveService>().EvaluateSelected)
+                .Item("Send Current Module to Interactive", "Ctrl+F7", App.GetService<IInteractiveService>().EvaluateCurrentModule)
                 .Separator()
-                .Item("Find Symbol", ElaFuns.FindSymbol, () => sci.GetTextLength() > 0)
+                .Item("Find Symbol", "Alt+F12", ElaFuns.FindSymbol, () => sci.GetTextLength() > 0)
+                .Item("&Autocomplete", "Ctrl+Space", ElaFuns.Autocomplete)
                 .Menu("Outlining")
                     .Item("Toggle Outlining Expansion", "Ctrl+M", () => sci.ToggleFold(sci.CurrentLine))
                     .Item("Collapse to Definitions", sci.CollapseAllFold)

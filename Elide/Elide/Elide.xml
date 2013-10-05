@@ -61,8 +61,7 @@
         <add key="AutocompleteService" interface="Elide.CodeEditor.IAutocompleteService,Elide.CodeEditor" type="Elide.CodeWorkbench.AutocompleteService,Elide.CodeWorkbench" />
         <add key="OutlinerSerivce" interface="Elide.CodeEditor.IOutlinerService,Elide.CodeEditor" type="Elide.CodeWorkbench.OutlinerService,Elide.CodeWorkbench" />
         <add key="SymbolSearchService" interface="Elide.CodeEditor.ISymbolSearchService,Elide.CodeEditor" type="Elide.CodeWorkbench.SymbolSearchService,Elide.CodeWorkbench" />
-      
-        
+        <add key="InteractiveService" interface="Elide.ElaCode.Views.IInteractiveService,Elide.ElaCode" type="Elide.ElaCode.Views.InteractiveService,Elide.ElaCode" />
     </services>
 
     <configs>
