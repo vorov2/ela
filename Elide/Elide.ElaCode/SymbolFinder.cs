@@ -291,14 +291,6 @@ namespace Elide.ElaCode
                     break;
                 case ElaNodeType.Primitive:
                     break;
-                case ElaNodeType.Raise:
-                    {
-                        var r = (ElaRaise)expr;
-
-                        if (r.Expression != null)
-                            FindName(name, doc, r.Expression, syms);
-                    }
-                    break;
                 case ElaNodeType.Range:
                     {
                         var r = (ElaRange)expr;

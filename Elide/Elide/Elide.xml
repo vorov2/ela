@@ -72,7 +72,8 @@
         <add key="FileExplorerConfig" type="Elide.Workbench.Configuration.FileExplorerConfig,Elide.Workbench" category="Views" displayName="File Explorer" widget="Elide.Workbench.Configuration.FileExplorerConfigPage,Elide.Workbench" position="0" />
         <add key="OutputConfig" type="Elide.Workbench.Configuration.OutputConfig,Elide.Workbench" category="Views" displayName="Output" widget="Elide.Workbench.Configuration.OutputConfigPage,Elide.Workbench" position="10" />
         <add key="ConsoleConfig" type="Elide.Console.Configuration.ConsoleConfig,Elide.Console" category="Views" displayName="Console" widget="Elide.Console.Configuration.ConsoleConfigPage,Elide.Console" position="20" />
-        
+        <add key="InteractiveConfig" type="Elide.ElaCode.Configuration.InteractiveConfig,Elide.ElaCode" category="Views" displayName="Interactive" widget="Elide.ElaCode.Configuration.InteractiveConfigPage,Elide.ElaCode" position="30" />
+      
         <add key="TextEditorsConfig" type="Elide.TextEditor.Configuration.TextEditorsConfig,Elide.TextEditor" category="Editors" displayName="Text Editor (All)" widget="Elide.TextWorkbench.Configuration.TextEditorConfigPage,Elide.TextWorkbench" position="0"/>
         <add key="PlainTextConfig" type="Elide.PlainText.Configuration.PlainTextConfig,Elide.PlainText" category="Editors" displayName="Plain Text Editor" widget="Elide.PlainText.Configuration.PlainTextConfigPage,Elide.PlainText" position="10" />
         <add key="ElaObjectConfig" type="Elide.ElaObject.Configuration.ElaObjectConfig,Elide.ElaObject" category="Editors" displayName="Ela Object Editor" widget="Elide.ElaObject.Configuration.ObjectFilePage,Elide.ElaObject" position="100" />
@@ -81,6 +82,7 @@
         <add key="ElaCompilerConfig" type="Elide.ElaCode.Configuration.CompilerConfig,Elide.ElaCode" category="Ela" displayName="Compiler Settings" widget="Elide.ElaCode.Configuration.CompilerConfigPage,Elide.ElaCode" position="0" />
         <add key="ElaLinkerConfig" type="Elide.ElaCode.Configuration.LinkerConfig,Elide.ElaCode" category="Ela" displayName="Linker Settings" widget="Elide.ElaCode.Configuration.LinkerConfigPage,Elide.ElaCode" position="10" />
         <add key="EilGeneratorConfig" type="Elide.ElaCode.Configuration.EilGeneratorConfig,Elide.ElaCode" category="Ela" displayName="EIL Generator" widget="Elide.ElaCode.Configuration.EilGeneratorConfigPage,Elide.ElaCode" position="20" />
+        
     </configs>
 
     <styles>
@@ -130,6 +132,15 @@
             <add key="Default" font="Consolas" size="8" fore="Black" back="White" bold="false" italic="false" underline="false" />
             <add key="Style1" display="Header" bold="true" />
         </add>
+        <add key="Interactive" display="Interactive">
+            <add key="Default" font="Consolas" size="8" fore="Black" back="White" bold="false" italic="false" underline="false" />
+            <add key="Style1" display="Header" bold="true" />
+            <add key="Style5" display="Prompt" bold="true" fore="Gray" />
+            <add key="Style6" display="Code" fore="Blue"/>
+            <add key="Style2" display="Error" fore="Red" />
+            <add key="Style3" display="Warning" fore="Olive" />
+            <add key="Style4" display="Hint" fore="Green" />            
+        </add>
     </styles>
 
     <editors>
@@ -162,6 +173,8 @@
         <add key="Outline" title="Outline" shortcut="Ctrl+Alt+U" type="Elide.CodeWorkbench.Views.OutlineView,Elide.CodeWorkbench" />
         <add key="Documentation" title="Documentation Library" type="Elide.CodeWorkbench.Documentation.DocumentationView,Elide.CodeWorkbench" kind="Help" />
         <add key="CodeSamples" title="Code Samples" type="Elide.CodeWorkbench.CodeSamples.CodeSamplesView,Elide.CodeWorkbench" kind="Help" />
+
+        <add key="ElaInteractive" title="Interactive" shortcut="Ctrl+Alt+I" type="Elide.ElaCode.Views.InteractiveView,Elide.ElaCode" kind="Output" />
     </views>
 
     <builders>

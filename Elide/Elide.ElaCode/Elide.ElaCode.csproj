@@ -101,6 +101,13 @@
     <Compile Include="Configuration\CompilerConfigPage.Designer.cs">
       <DependentUpon>CompilerConfigPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\InteractiveConfig.cs" />
+    <Compile Include="Configuration\InteractiveConfigPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\InteractiveConfigPage.Designer.cs">
+      <DependentUpon>InteractiveConfigPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configuration\EilGeneratorConfig.cs" />
     <Compile Include="Configuration\ElaEditorConfigPage.cs">
       <SubType>UserControl</SubType>
@@ -146,6 +153,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SymbolFinder.cs" />
     <Compile Include="TaskProvider.cs" />
+    <Compile Include="Views\InteractiveControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\InteractiveTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\InteractiveView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Elide.CodeEditor\Elide.CodeEditor.csproj">
@@ -155,6 +169,10 @@
     <ProjectReference Include="..\Elide.Common\Elide.Common.csproj">
       <Project>{A5363A1F-8DD1-4F6F-A631-EB6864BB1224}</Project>
       <Name>Elide.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elide.Console\Elide.Console.csproj">
+      <Project>{a88113e0-c3f6-45eb-8aef-231cad048e03}</Project>
+      <Name>Elide.Console</Name>
     </ProjectReference>
     <ProjectReference Include="..\Elide.Core\Elide.Core.csproj">
       <Project>{134691C3-4CFB-4D1B-AA75-D34587CA0B69}</Project>
@@ -193,6 +211,10 @@
     <EmbeddedResource Include="Configuration\CompilerConfigPage.resx">
       <DependentUpon>CompilerConfigPage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\InteractiveConfigPage.resx">
+      <DependentUpon>InteractiveConfigPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Configuration\ElaEditorConfigPage.resx">
       <DependentUpon>ElaEditorConfigPage.cs</DependentUpon>
     </EmbeddedResource>
@@ -203,6 +225,9 @@
     <EmbeddedResource Include="Images\Function.bmp" />
     <EmbeddedResource Include="Configuration\EilGeneratorConfigPage.resx">
       <DependentUpon>EilGeneratorConfigPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\InteractiveControl.resx">
+      <DependentUpon>InteractiveControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +260,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

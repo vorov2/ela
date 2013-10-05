@@ -24,7 +24,7 @@ namespace Elide.Console
         {
             _control = new ConsoleControl();
             _control.App = App;
-            _control.Cout.GetScintilla().ReadOnly = true;
+            _control.Cout.ReadOnly = true;
 
             var srv = App.GetService<IStylesConfigService>();
             srv.EnumerateStyleItems("Console").UpdateStyles(_control.Cout.GetScintilla());
@@ -35,7 +35,7 @@ namespace Elide.Console
 
         public override void Activate()
         {
-            ConControl.Cout.GetScintilla().Select();
+            ConControl.Cout.Activate();
         }
 
         private void ConfigUpdated(object sender, ConfigEventArg e)
