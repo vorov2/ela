@@ -44,7 +44,7 @@ namespace Elide.Console
             sci.StyleNeeded += Lex;
         }
 
-        private void Lex(object sender, StyleNeededEventArgs e)
+        protected virtual void Lex(object sender, StyleNeededEventArgs e)
         {
             if (!Styling)
                 return;
@@ -57,8 +57,13 @@ namespace Elide.Console
 
         private void BuildMenu()
         {
-            var builder = App.GetService<IMenuService>().CreateMenuBuilder<ContextMenuStrip>();            
-            sci.ContextMenuStrip = builder
+            var builder = App.GetService<IMenuService>().CreateMenuBuilder<ContextMenuStrip>();
+            sci.ContextMenuStrip = BuildMenu(builder);
+        }
+
+        protected virtual ContextMenuStrip BuildMenu(IMenuBuilder<ContextMenuStrip> builder)
+        {
+            return builder
                 .Item("Cut", "Ctrl+X", Cut, sci.HasSelections)
                 .Item("Copy", "Ctrl+C", sci.Copy, sci.HasSelections)
                 .Item("Paste", "Ctrl+V", Paste, sci.CanPaste)
@@ -70,13 +75,13 @@ namespace Elide.Console
                 .Finish();
         }
 
-        private void Search()
+        protected void Search()
         {
             var dlg = new ConsoleSearchForm { Sci = sci, App = App };
             dlg.ShowDialog((IWin32Window)App.GetService<IEnvironmentService>().GetMainWindow());
         }
 
-        private void Cut()
+        protected void Cut()
         {
             var sel = sci.GetSelection();
             var sl = sci.GetLineFromPosition(sel.Start);
@@ -87,7 +92,7 @@ namespace Elide.Console
                 sci.Cut();
         }
 
-        private void Paste()
+        protected void Paste()
         {
             var cl = sci.GetColumnFromPosition(sci.CurrentPosition);
             var sl = sci.GetLineFromPosition(sci.CurrentPosition);
@@ -98,7 +103,7 @@ namespace Elide.Console
             sci.Paste();
         }
 
-        private void SmartClear()
+        protected void SmartClear()
         {
             if (sci.ReadOnly)
             {
@@ -189,13 +194,19 @@ namespace Elide.Console
                 && sci.GetColumnFromPosition(sci.CurrentPosition) >= lastLen;
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
+            if (InputDisabled)
+                return;
+
             sci.SetText(String.Empty);
         }
 
         public void Print(string text)
         {
+            if (InputDisabled)
+                return;
+                        
             AppendText(text);
             sci.CaretPosition = sci.GetTextLength();
             lastLen = sci.GetLine(sci.CurrentLine).Text.Trim('\0').Length;
@@ -203,17 +214,32 @@ namespace Elide.Console
 
         public void PrintHeader(string header)
         {
+            if (InputDisabled)
+                return;
+
             PrintLine(header);
             PrintLine();
         }
 
         public void PrintLine()
         {
+            if (InputDisabled)
+                return;
+
             PrintLine(String.Empty);
+        }
+        
+        public void ScrollToCaret()
+        {
+            if (!InputDisabled)
+                GetScintilla().ScrollToCaret();
         }
 
         public void PrintLine(string text)
         {
+            if (InputDisabled)
+                return;
+
             AppendText(text);
             sci.Keyboard.ExecuteCommand(SciCommand.NewLine);
             sci.CaretPosition = sci.GetTextLength();
@@ -251,9 +277,25 @@ namespace Elide.Console
             return sci.GetLine(line).Text.Substring(lastLen);
         }
 
-        internal ScintillaControl GetScintilla()
+        protected int GetLastLength()
+        {
+            return lastLen;
+        }
+
+        public ScintillaControl GetScintilla()
         {
             return sci;
+        }
+
+        public void Activate()
+        {
+            sci.Select();
+        }
+
+        public bool ReadOnly
+        {
+            get { return sci.ReadOnly; }
+            set { sci.ReadOnly = value; }
         }
         
         public event EventHandler<SubmitEventArgs> Submit;
@@ -276,7 +318,7 @@ namespace Elide.Console
             }
         }
 
-        internal HistoryList<String> History
+        public HistoryList<String> History
         {
             get { return history; }
             set { history = value; }
@@ -306,7 +348,7 @@ namespace Elide.Console
         }
 
         private IApp _app;
-        internal IApp App
+        public IApp App
         {
             get { return _app; }
             set
@@ -317,5 +359,7 @@ namespace Elide.Console
                     BuildMenu();
             }
         }
+
+        public bool InputDisabled { get; set; }
     }
 }
