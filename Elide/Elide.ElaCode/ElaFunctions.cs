@@ -26,8 +26,13 @@ namespace Elide.ElaCode
 
         public void Run()
         {
+            var src = sci.Text;
+
+            if (sci.HasSelections())
+                src = src + "\r\n_=()\r\n" + sci.GetSelection().Text;
+
             var asm = app.GetService<ICodeBuilderService>().
-                RunBuilder<CompiledAssembly>(sci.Text, app.Document(), BuildOptions.Output | BuildOptions.ErrorList);
+                RunBuilder<CompiledAssembly>(src, app.Document(), BuildOptions.Output | BuildOptions.ErrorList);
 
             if (asm != null)
                 app.GetService<ICodeRunnerService>().
@@ -38,8 +43,8 @@ namespace Elide.ElaCode
         {
             Func<String,CompiledAssembly> fun = s => app.GetService<ICodeBuilderService>().
                  RunBuilder<CompiledAssembly>(s, app.Document(), BuildOptions.Output | BuildOptions.TipError, ElaCodeBuilder.NoDebug, ElaCodeBuilder.NoWarnings);
-            var sel = sci.GetSelection().Text;
-            var src = sci.Text + "\r\nlet _=()\r\n" + sel;            
+            var sel = sci.HasSelections() ? sci.GetSelection().Text : sci.GetLine(sci.CurrentLine).Text;
+            var src = sci.Text + "\r\n_=()\r\n" + sel;            
             var asm = fun(src);
 
             if (asm == null)

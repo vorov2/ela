@@ -51,9 +51,17 @@ namespace Elide.ElaCode.Views
 
         private void SessionReset(object sender, EventArgs e)
         {
+            ResetSession();
+        }
+
+        internal void ResetSession()
+        {
             link = null;
-            vm.Dispose();
-            vm = null;
+            if (vm != null)
+            {
+                vm.Dispose();
+                vm = null;
+            }
             lastOffset = 0;
         }
 
@@ -77,6 +85,16 @@ namespace Elide.ElaCode.Views
 
         private void Submit(object sender, SubmitEventArgs e)
         {
+            RunCode(e.Text);
+        }
+
+        internal void PrintLine()
+        {
+            Con.PrintLine();
+        }
+        
+        internal bool RunCode(string code, bool fastFail = false, bool onlyErrors = false)
+        {
             if (link == null)
             {
                 var bo = new BuildOptionsManager(App);
@@ -84,43 +102,51 @@ namespace Elide.ElaCode.Views
                     bo.CreateCompilerOptions());
             }
 
-            link.SetSource(e.Text.Trim('\0'));
+            link.SetSource(code.Trim('\0'));
             var lr = link.Build();
+
+            if (!lr.Success && fastFail)
+                return false;
 
             foreach (var m in lr.Messages)
             {
-                var tag = m.Type == Ela.MessageType.Error ? "``!!!" :
-                    m.Type == Ela.MessageType.Warning ? "``|||" :
-                    "``???";
-                Con.PrintLine(String.Format("{0}{1} ({2},{3}): {4} ELA{5}: {6}", tag, m.File.Name, m.Line, m.Column, m.Type, m.Code, m.Message));
+                if (m.Type == Ela.MessageType.Error || !onlyErrors)
+                {
+                    var tag = m.Type == Ela.MessageType.Error ? "``!!!" :
+                        m.Type == Ela.MessageType.Warning ? "``|||" :
+                        "``???";
+                    Con.PrintLine(String.Format("{0}{1} ({2},{3}): {4} ELA{5}: {6}", tag, m.File.Name, m.Line, m.Column, m.Type, m.Code, m.Message));
+                }
             }
 
             if (lr.Success)
             {
-                var th = new Thread(() => ExecuteInput(lr));
+                var th = new Thread(() => ExecuteInput(lr.Assembly));
                 Con.SetExecControl(th);
-                App.GetService<IStatusBarService>().SetStatusString(StatusType.Information, "Executing code from Interactive...");
+                App.GetService<IStatusBarService>().SetStatusString(StatusType.Information, "Executing code in Interactive...");
                 th.Start();
+                return true;
             }
             else
             {
                 Con.PrintLine();
                 Con.Print(Con.Prompt + ">");
                 Con.ScrollToCaret();
+                return false;
             }
         }
 
-        private void ExecuteInput(LinkerResult lr)
+        private void ExecuteInput(CodeAssembly asm)
         {
             if (vm == null)
-                vm = new ElaMachine(lr.Assembly);
+                vm = new ElaMachine(asm);
             else
             {
                 vm.RefreshState();
                 vm.Recover();
             }
 
-            var mod = lr.Assembly.GetRootModule();
+            var mod = asm.GetRootModule();
             var os = lastOffset;
             lastOffset = mod.Ops.Count;
 
