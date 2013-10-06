@@ -46,6 +46,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -55,6 +56,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -188,8 +190,10 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir)Binaries\vgen.exe" "$(ProjectDir)LibChangeList.txt" "$(ProjectDir)Properties\VersionInfo.cs"
-xcopy ..\bin\elalib.dll C:\ela-platform\lib\elalib.dll /y</PostBuildEvent>
+    <PostBuildEvent>cd $(SolutionDir)
+"..\Dependencies\vgen.exe" "$(ProjectDir)LibChangeList.txt" "$(ProjectDir)Properties\VersionInfo.cs"
+cd "..\Build"
+make NOBUILD FAST</PostBuildEvent>
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
