@@ -208,7 +208,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir)Binaries\vgen.exe" "$(ProjectDir)ConsoleChangeList.txt" "$(ProjectDir)Properties\VersionInfo.cs"</PostBuildEvent>
+    <PostBuildEvent>cd $(SolutionDir)
+"..\Dependencies\vgen.exe" "$(ProjectDir)ConsoleChangeList.txt" "$(ProjectDir)Properties\VersionInfo.cs"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
