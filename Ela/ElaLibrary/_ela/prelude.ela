@@ -656,3 +656,4 @@ eqTuples tup1 tup2
       | n < len - 1 = if e then fold (n+1) else false
       | else = e
       where e = tup1:n == tup2:n
+
