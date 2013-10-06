@@ -454,7 +454,9 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir)Binaries\Coco.exe" -N "$(ProjectDir)Parsing\Ela.atg"
-"$(SolutionDir)Binaries\vgen.exe" "$(ProjectDir)ChangeList.txt" "$(ProjectDir)Properties\VersionInfo.cs"</PostBuildEvent>
+    <PostBuildEvent>cd $(SolutionDir)
+"..\Dependencies\Coco.exe" -N "$(ProjectDir)Parsing\Ela.atg"
+"..\Dependencies\vgen.exe" "$(ProjectDir)ChangeList.txt" "$(ProjectDir)Properties\VersionInfo.cs"
+xcopy $(TargetPath) "..\Dependencies\" /y</PostBuildEvent>
   </PropertyGroup>
 </Project>
