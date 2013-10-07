@@ -12,7 +12,7 @@ namespace Elide.Forms
         {
             defaultItem = new DefaultItem();
             DropDownStyle = ComboBoxStyle.DropDownList;
-            DropDownHeight = 500;
+            DropDownHeight = Dpi.ScaleY(500);
             DrawMode = DrawMode.OwnerDrawVariable;
             Font = Fonts.ControlText;
         }

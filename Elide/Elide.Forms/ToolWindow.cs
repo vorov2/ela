@@ -22,18 +22,18 @@ namespace Elide.Forms
 				{
 					var g = e.Graphics;
                     g.DrawLine(UserPens.Border, 0, 0, 0, panel.ClientSize.Height);
-                    g.DrawLine(UserPens.Border, 0, panel.ClientSize.Height - 1, panel.ClientSize.Width, panel.ClientSize.Height - 1);
-                    g.DrawLine(UserPens.Border, panel.ClientSize.Width - 1, 0, panel.ClientSize.Width - 1, panel.ClientSize.Height);
+                    g.DrawLine(UserPens.Border, 0, panel.ClientSize.Height - Dpi.ScaleY(1), panel.ClientSize.Width, panel.ClientSize.Height - Dpi.ScaleY(1));
+                    g.DrawLine(UserPens.Border, panel.ClientSize.Width - Dpi.ScaleX(1), 0, panel.ClientSize.Width - Dpi.ScaleX(1), panel.ClientSize.Height);
 				};
             switchBar.SelectedIndexChanged += SwitchBarSelectedIndexChanged;
             switchBar.CloseRequested += SwitchBarCloseRequested;
-            panel.SetPadding(new Padding(1, 5, 1, 2));
+            panel.SetPadding(new Padding(Dpi.ScaleX(1), Dpi.ScaleY(5), Dpi.ScaleX(1), Dpi.ScaleX(2)));
 		}
 
         protected override void OnPaint(PaintEventArgs e)
 		{
 			var g = e.Graphics;
-			g.DrawRectangle(Pens.DarkGray, 0, switchBar.Height, ClientRectangle.Width - 1, ClientRectangle.Height - switchBar.Height - 1);
+			g.DrawRectangle(Pens.DarkGray, 0, switchBar.Height, ClientRectangle.Width - Dpi.ScaleX(1), ClientRectangle.Height - switchBar.Height - Dpi.ScaleY(1));
 		}
         
 		private void SwitchBarSelectedIndexChanged(object sender, SwitchBarEventArgs e)

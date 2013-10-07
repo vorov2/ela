@@ -107,6 +107,7 @@
     <Compile Include="ColorPicker.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Dpi.cs" />
     <Compile Include="DefaultComboBox.cs">
       <SubType>Component</SubType>
     </Compile>

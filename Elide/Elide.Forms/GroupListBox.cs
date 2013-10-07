@@ -50,7 +50,7 @@ namespace Elide.Forms
             if (IsItemVisible(e.Index))
             {
                 e.ItemWidth = ClientSize.Width;
-                e.ItemHeight = 18;
+                e.ItemHeight = Dpi.ScaleY(18);
             }
             else
                 e.ItemHeight = 0;
@@ -122,8 +122,7 @@ namespace Elide.Forms
             if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
             {
                 brush = UserBrushes.HighlightText;
-                e.Graphics.FillRectangle(UserBrushes.Selection,
-                    new Rectangle(e.Bounds.X, e.Bounds.Y + 0, e.Bounds.Width, e.Bounds.Height - 0));
+                e.Graphics.FillRectangle(UserBrushes.Selection, e.Bounds);
             }
             else
             {
@@ -132,7 +131,7 @@ namespace Elide.Forms
             }
 
             var captionSize = e.Graphics.MeasureString(caption, Font);
-            e.Graphics.DrawString(caption, e.Font, brush, e.Bounds.X + 15, e.Bounds.Y + (e.Bounds.Height - captionSize.Height) / 2);
+            e.Graphics.DrawString(caption, e.Font, brush, e.Bounds.X + Dpi.ScaleX(15), e.Bounds.Y + (e.Bounds.Height - captionSize.Height) / 2);
         }
 
         private void DrawHeader(ListGroup group, DrawItemEventArgs e)
@@ -143,13 +142,13 @@ namespace Elide.Forms
             using (var font = new Font(e.Font, FontStyle.Bold))
             {
                 if (group.Expanded)
-                    e.Graphics.DrawImage(Bitmaps.Load("ArrowDownGray"), e.Bounds.X + 5, e.Bounds.Y + 7);
+                    e.Graphics.DrawImage(Bitmaps.Load("ArrowDownGray"), e.Bounds.X + Dpi.ScaleX(5), e.Bounds.Y + Dpi.ScaleY(7));
                 else
-                    e.Graphics.DrawImage(Bitmaps.Load("ArrowGray"), e.Bounds.X + 7, e.Bounds.Y + 5);
+                    e.Graphics.DrawImage(Bitmaps.Load("ArrowGray"), e.Bounds.X + Dpi.ScaleX(7), e.Bounds.Y + Dpi.ScaleY(5));
 
                 var captionSize = e.Graphics.MeasureString(caption, font);
                 e.Graphics.DrawString(caption, font, SystemBrushes.ControlText,
-                    e.Bounds.X + 14, e.Bounds.Y + (e.Bounds.Height - captionSize.Height) / 2);
+                    e.Bounds.X + Dpi.ScaleX(14), e.Bounds.Y + (e.Bounds.Height - captionSize.Height) / 2);
             }
         }
 

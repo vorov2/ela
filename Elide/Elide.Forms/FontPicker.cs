@@ -14,7 +14,7 @@ namespace Elide.Forms
         {
             defaultItem = new DefaultItem();
             DropDownStyle = ComboBoxStyle.DropDownList;
-            DropDownHeight = 500;
+            DropDownHeight = Dpi.ScaleY(500);
             DrawMode = DrawMode.OwnerDrawVariable;
             Font = Fonts.ControlText;
         }
@@ -44,7 +44,7 @@ namespace Elide.Forms
 
         protected override void OnMeasureItem(System.Windows.Forms.MeasureItemEventArgs e)
         {
-            e.ItemHeight = 16;
+            e.ItemHeight = Dpi.ScaleY(16);
         }
 
         protected override void OnDrawItem(System.Windows.Forms.DrawItemEventArgs e)

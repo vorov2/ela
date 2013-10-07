@@ -7,6 +7,7 @@ using Elide.Environment;
 using Elide.Forms.State;
 using Elide.Scintilla.ObjectModel;
 using Elide.TextEditor;
+using Elide.Forms;
 
 namespace Elide.TextWorkbench.Dialogs
 {
@@ -17,8 +18,9 @@ namespace Elide.TextWorkbench.Dialogs
         public SearchDialog()
         {
             InitializeComponent();
+            SetStyle(ControlStyles.FixedHeight, true);
         }
-
+        
         private void replaceTextCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             replaceAll.Enabled = replace.Enabled = replaceTextCombo.Enabled = replaceTextCheckBox.Checked;

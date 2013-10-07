@@ -136,8 +136,8 @@
             this.selColorCombo.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.selColorCombo.FormattingEnabled = true;
             this.selColorCombo.IntegralHeight = false;
-            this.selColorCombo.ItemHeight = 15;
             this.selColorCombo.Location = new System.Drawing.Point(159, 110);
+            this.selColorCombo.MinimumSize = new System.Drawing.Size(10, 0);
             this.selColorCombo.Name = "selColorCombo";
             this.selColorCombo.SelectedColor = null;
             this.selColorCombo.Size = new System.Drawing.Size(129, 21);
@@ -163,8 +163,8 @@
             this.selBackgroundCombo.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.selBackgroundCombo.FormattingEnabled = true;
             this.selBackgroundCombo.IntegralHeight = false;
-            this.selBackgroundCombo.ItemHeight = 15;
             this.selBackgroundCombo.Location = new System.Drawing.Point(15, 110);
+            this.selBackgroundCombo.MinimumSize = new System.Drawing.Size(10, 0);
             this.selBackgroundCombo.Name = "selBackgroundCombo";
             this.selBackgroundCombo.SelectedColor = null;
             this.selBackgroundCombo.Size = new System.Drawing.Size(129, 21);
@@ -193,8 +193,10 @@
             this.selBackgroundLabel.TabIndex = 39;
             this.selBackgroundLabel.Text = "Sele&ction background:";
             // 
-            // ConsoleConfigPage
+            // InteractiveConfigPage
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.selStylingLabel);
             this.Controls.Add(this.selTransparencyCombo);
             this.Controls.Add(this.selTransparencyLabel);
@@ -208,7 +210,7 @@
             this.Controls.Add(this.caretStyleLabel);
             this.Controls.Add(this.caretStyleCombo);
             this.Controls.Add(this.caretSettingsLabel);
-            this.Name = "ConsoleConfigPage";
+            this.Name = "InteractiveConfigPage";
             this.Size = new System.Drawing.Size(492, 334);
             this.Load += new System.EventHandler(this.WorkspaceConfigPage_Load);
             this.ResumeLayout(false);

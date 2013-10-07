@@ -170,7 +170,6 @@ namespace Elide.Workbench
             this.Controls.Add(this.mainSplit);
             this.Controls.Add(this.topBorderPanel);
             this.Controls.Add(this.mainMenu);
-            this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.MainMenuStrip = this.mainMenu;
             this.MinimumSize = new System.Drawing.Size(500, 200);
             this.Name = "MainForm";

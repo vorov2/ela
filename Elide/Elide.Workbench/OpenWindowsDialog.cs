@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using Elide.Core;
+using Elide.Environment;
 
-namespace Elide.Environment
+namespace Elide.Workbench
 {
     public partial class OpenWindowsDialog : Form
     {

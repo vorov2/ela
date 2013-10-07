@@ -141,7 +141,7 @@
             this.macroLabel.Size = new System.Drawing.Size(446, 30);
             this.macroLabel.TabIndex = 10;
             this.macroLabel.Text = "You can use the following macros: %elide% (Elide install directory), %ela% (Ela i" +
-                "nstall directory), %root% (Ela Platform install directory).";
+    "nstall directory), %root% (Ela Platform install directory).";
             // 
             // lookup
             // 
@@ -205,6 +205,8 @@
             // 
             // LinkerConfigPage
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lookup);
             this.Controls.Add(this.skipCheck);
             this.Controls.Add(this.warnAsError);

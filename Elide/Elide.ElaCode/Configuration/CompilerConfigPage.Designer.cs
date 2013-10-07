@@ -136,10 +136,12 @@
             this.label1.Size = new System.Drawing.Size(449, 32);
             this.label1.TabIndex = 14;
             this.label1.Text = "You can specify an alternate implementation of prelude module. Only the module na" +
-                "me is needed. Module will be linked using standard linker settings.";
+    "me is needed. Module will be linked using standard linker settings.";
             // 
             // CompilerConfigPage
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.optimize);
             this.Controls.Add(this.hints);

@@ -213,6 +213,8 @@
             // 
             // WorkbenchConfigPage
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.showWelcome);
             this.Controls.Add(this.welcomePageLabel);
             this.Controls.Add(this.autosaveCombo);

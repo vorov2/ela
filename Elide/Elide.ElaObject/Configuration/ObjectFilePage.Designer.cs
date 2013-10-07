@@ -109,7 +109,7 @@
             this.formatLabel.Size = new System.Drawing.Size(448, 31);
             this.formatLabel.TabIndex = 5;
             this.formatLabel.Text = "Use the following macros in format string: %name% (module name), %version% (objec" +
-                "t file version), %ela% (Ela compiler version), %date% (date stamp).";
+    "t file version), %ela% (Ela compiler version), %date% (date stamp).";
             // 
             // label1
             // 
@@ -188,6 +188,7 @@
             // ObjectFilePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.limitTextBox);
             this.Controls.Add(this.limit);
             this.Controls.Add(this.frameOpcodes);
@@ -201,6 +202,7 @@
             this.Controls.Add(this.expand);
             this.Controls.Add(this.settingsLabel);
             this.Name = "ObjectFilePage";
+            this.Size = new System.Drawing.Size(481, 394);
             this.Load += new System.EventHandler(this.ObjectFilePage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);

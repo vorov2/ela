@@ -14,7 +14,7 @@ namespace Elide.Forms
 
         protected override void OnMeasureItem(System.Windows.Forms.MeasureItemEventArgs e)
         {
-            e.ItemHeight = ItemHeight;
+            e.ItemHeight = Dpi.ScaleY(ItemHeight);
         }
 
         protected override void OnDrawItem(System.Windows.Forms.DrawItemEventArgs e)

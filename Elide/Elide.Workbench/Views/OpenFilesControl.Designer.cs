@@ -30,7 +30,7 @@ namespace Elide.Workbench.Views
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.treeView = new BufferedTreeView();
+            this.treeView = new Elide.Forms.BufferedTreeView();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
@@ -39,7 +39,6 @@ namespace Elide.Workbench.Views
             this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.treeView.ItemHeight = 18;
             this.treeView.Location = new System.Drawing.Point(0, 0);
             this.treeView.Name = "treeView";
             this.treeView.ShowLines = false;

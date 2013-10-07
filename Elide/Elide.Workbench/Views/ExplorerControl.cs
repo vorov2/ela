@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Elide.Forms.State;
+using Elide.Forms;
 
 namespace Elide.Workbench.Views
 {
@@ -11,6 +12,12 @@ namespace Elide.Workbench.Views
         {
             InitializeComponent();
             FilteredFolders = new Dictionary<String,String>();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            treeView.ItemHeight = Dpi.ScaleY(18);
+            base.OnLoad(e);
         }
         
         public void Refresh(bool force)

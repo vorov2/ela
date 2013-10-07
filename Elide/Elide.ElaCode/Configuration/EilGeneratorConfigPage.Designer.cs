@@ -69,6 +69,8 @@
             // 
             // EilGeneratorConfigPage
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.debug);
             this.Controls.Add(this.offsets);
             this.Controls.Add(this.optionsLabel);
