@@ -1,4 +1,4 @@
-﻿namespace Elide.Environment
+﻿namespace Elide.Workbench
 {
     partial class OpenWindowsDialog
     {
@@ -106,7 +106,7 @@
             // 
             // OpenWindowsDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.accept;
             this.ClientSize = new System.Drawing.Size(414, 293);
@@ -115,7 +115,6 @@
             this.Controls.Add(this.save);
             this.Controls.Add(this.activate);
             this.Controls.Add(this.windowsListPanel);
-            this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

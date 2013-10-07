@@ -63,8 +63,8 @@
             // 
             // findTextCombo
             // 
-            this.findTextCombo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.findTextCombo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.findTextCombo.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.findTextCombo.FormattingEnabled = true;
             this.findTextCombo.Location = new System.Drawing.Point(9, 26);
@@ -74,8 +74,8 @@
             // 
             // replaceTextCombo
             // 
-            this.replaceTextCombo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.replaceTextCombo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.replaceTextCombo.Enabled = false;
             this.replaceTextCombo.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.replaceTextCombo.FormattingEnabled = true;
@@ -273,7 +273,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.HiddenCloseButton;
-            this.ClientSize = new System.Drawing.Size(380, 293);
+            this.ClientSize = new System.Drawing.Size(380, 291);
             this.Controls.Add(this.HiddenCloseButton);
             this.Controls.Add(this.replaceAll);
             this.Controls.Add(this.replace);
@@ -285,11 +285,8 @@
             this.Controls.Add(this.replaceTextCombo);
             this.Controls.Add(this.findTextCombo);
             this.Controls.Add(this.findTextLabel);
-            this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.KeyPreview = true;
-            this.MaximumSize = new System.Drawing.Size(1200, 327);
-            this.MinimumSize = new System.Drawing.Size(396, 327);
             this.Name = "SearchDialog";
             this.ShowInTaskbar = false;
             this.Text = "Find and Replace";

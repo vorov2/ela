@@ -15,17 +15,17 @@ namespace Elide.Forms
     
         protected override void Initialize(ToolStrip toolStrip)
         {
-            toolStrip.Padding = new Padding(0, 0, 0, 5);
-            toolStrip.Width = Width;
-            toolStrip.Height = toolStrip.Items.Count * HEIGHT + 5;
+            toolStrip.Padding = new Padding(0, 0, 0, Dpi.ScaleY(5));
+            toolStrip.Width = Dpi.ScaleX(Width);
+            toolStrip.Height = Dpi.ScaleY(toolStrip.Items.Count * HEIGHT + 5);
             toolStrip.AutoSize = false;
         }
         
         protected override void InitializeItem(ToolStripItem item)
         {
             item.AutoSize = false;
-            item.Height = HEIGHT;
-            item.Width = Width;
+            item.Height = Dpi.ScaleY(HEIGHT);
+            item.Width = Dpi.ScaleX(Width);
         }
         
         protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
@@ -33,7 +33,7 @@ namespace Elide.Forms
             if (e.Item.Selected)
             {
                 var g = e.Graphics;
-                var rect = new Rectangle(1, 1, e.Item.Bounds.Width - 2, e.Item.Bounds.Height);
+                var rect = new Rectangle(Dpi.ScaleX(1), Dpi.ScaleY(1), e.Item.Bounds.Width - Dpi.ScaleX(2), e.Item.Bounds.Height);
                 g.FillRectangle(UserBrushes.Selection, rect);
             }
         }
@@ -46,7 +46,7 @@ namespace Elide.Forms
             if (e.Item.Selected)
                 color = UserColors.HighlightText;
 
-            e.TextRectangle = new Rectangle(15, e.TextRectangle.Y, Width - 18, 16);
+            e.TextRectangle = new Rectangle(Dpi.ScaleX(15), e.TextRectangle.Y, Width - Dpi.ScaleX(18), Dpi.ScaleY(16));
             TextRenderer.DrawText(e.Graphics, e.Text, Fonts.Menu, e.TextRectangle, color, TextFormatFlags.Left | TextFormatFlags.EndEllipsis);
         }
         

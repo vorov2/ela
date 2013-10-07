@@ -25,8 +25,8 @@ namespace Elide.Forms
         {
             dropDown.Renderer = new MenuRenderer();
             var size = MeasureDropDown(dropDown);
-            dropDown.Width = size.Width;
-            dropDown.Height = size.Height + 5;
+            dropDown.Width = Dpi.ScaleX(size.Width);
+            dropDown.Height = Dpi.ScaleY(size.Height + 5);
         }
 
         private static Size InternalMeasureDropDown(ToolStripItemCollection items, bool root)
@@ -41,7 +41,8 @@ namespace Elide.Forms
                 it.Font = Fonts.Menu;
                 it.AutoSize = false;
                 var sep = it is ToolStripSeparator;
-                it.Height = sep ? SEPAHEIGHT : ITEMHEIGHT;
+                var itHeight = sep ? SEPAHEIGHT : ITEMHEIGHT;
+                it.Height = Dpi.ScaleY(itHeight);
 
                 var sc = String.Empty;
 
@@ -56,7 +57,7 @@ namespace Elide.Forms
                 if ((mi != null && !root && mi.DropDownItems.Count > 0) || cm)
                     width += 30;
 
-                it.Width = width;
+                it.Width = Dpi.ScaleX(width);
 
                 if (width > maxWidth)
                     maxWidth = width;
@@ -65,16 +66,16 @@ namespace Elide.Forms
                 {
                     mi.DropDown.AutoSize = false;
                     var size = InternalMeasureDropDown(mi.DropDownItems, false);
-                    mi.DropDown.Height = size.Height + 5;
-                    mi.DropDown.Width = size.Width;
+                    mi.DropDown.Height = Dpi.ScaleY(size.Height + 5);
+                    mi.DropDown.Width = Dpi.ScaleX(size.Width);
                 }
 
-                height += it.Height;
+                height += itHeight;
             }
 
             if (!root || cm)
                 foreach (ToolStripItem it in items)
-                    it.Width = maxWidth;
+                    it.Width = Dpi.ScaleX(maxWidth);
 
             return new Size(maxWidth, height);
         }
@@ -82,7 +83,7 @@ namespace Elide.Forms
         protected override void Initialize(ToolStrip toolStrip)
         {
             toolStrip.AutoSize = false;
-            toolStrip.Height = MENUHEIGHT;
+            toolStrip.Height = Dpi.ScaleY(MENUHEIGHT);
             InitializeSubMenus(toolStrip.Items, true);
         }
 
@@ -95,12 +96,12 @@ namespace Elide.Forms
         {
             if (e.Item.Selected)
             {
-                var rect = new Rectangle(1, 1, e.Item.Bounds.Width - 2, e.Item.Bounds.Height);
+                var rect = new Rectangle(Dpi.ScaleX(1), Dpi.ScaleY(1), e.Item.Bounds.Width - Dpi.ScaleX(2), e.Item.Bounds.Height);
                 e.Graphics.FillRectangle(UserBrushes.Selection, rect);
             }
             else if (e.Item is ToolStripMenuItem && ((ToolStripMenuItem)e.Item).DropDown.Visible)
             {
-                var rect = new Rectangle(1, 1, e.Item.Bounds.Width - 2, e.Item.Bounds.Height);
+                var rect = new Rectangle(Dpi.ScaleX(1), Dpi.ScaleY(1), e.Item.Bounds.Width - Dpi.ScaleX(2), e.Item.Bounds.Height);
                 e.Graphics.FillRectangle(UserBrushes.Selection, rect);
             }
         }
@@ -111,24 +112,25 @@ namespace Elide.Forms
             g.FillRectangle(UserBrushes.Menu, e.AffectedBounds);
 
             if (!(e.ToolStrip is MenuStrip))
-                g.DrawRectangle(UserPens.Border, new Rectangle(0, 0, e.AffectedBounds.Width - 1, e.AffectedBounds.Height - 1));
+                g.DrawRectangle(UserPens.Border, new Rectangle(0, 0, 
+                    e.AffectedBounds.Width - Dpi.ScaleX(1), e.AffectedBounds.Height - Dpi.ScaleY(1)));
         }
 
         protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
         {
-            e.Graphics.DrawLine(UserPens.Border, 0, 3, e.Item.Bounds.Width, 3);
+            e.Graphics.DrawLine(UserPens.Border, 0, Dpi.ScaleY(1), e.Item.Bounds.Width, Dpi.ScaleY(1));
         }
 
         protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
         {
             using (var bmp = Bitmaps.Load("Arrow"))
-                e.Graphics.DrawImage(bmp, new Point(e.Item.Bounds.Width - 10, e.ArrowRectangle.Y + 7));
+                e.Graphics.DrawImage(bmp, new Point(e.Item.Bounds.Width - Dpi.ScaleX(10), e.ArrowRectangle.Y + Dpi.ScaleY(7)));
         }
 
         protected override void OnRenderItemCheck(ToolStripItemImageRenderEventArgs e)
         {
             using (var bmp = Bitmaps.Load("Check"))
-                e.Graphics.DrawImage(bmp, new Point(e.ImageRectangle.X + 1, e.ImageRectangle.Y + 5));
+                e.Graphics.DrawImage(bmp, new Point(e.ImageRectangle.X + Dpi.ScaleX(1), e.ImageRectangle.Y + Dpi.ScaleY(5)));
         }
 
         protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
@@ -136,13 +138,13 @@ namespace Elide.Forms
             var g = e.Graphics;
             var cm = e.ToolStrip is ContextMenuStrip;
 
-            var x = IsTopLevel(e.Item) && !cm ? 0 : 15;
-            var y = IsTopLevel(e.Item) && !cm ? 1 : e.TextRectangle.Y;
+            var x = IsTopLevel(e.Item) && !cm ? Dpi.ScaleX(0) : Dpi.ScaleX(15);
+            var y = IsTopLevel(e.Item) && !cm ? Dpi.ScaleX(1) : e.TextRectangle.Y;
 
             if (e.Item.Text != e.Text)
-                x = e.ToolStrip.Width - TextRenderer.MeasureText(e.Text, e.TextFont).Width - 2;
+                x = e.ToolStrip.Width - TextRenderer.MeasureText(e.Text, e.TextFont).Width - Dpi.ScaleX(2);
 
-            e.TextRectangle = new Rectangle(x, y, e.Item.Width - x, 16);
+            e.TextRectangle = new Rectangle(x, y, e.Item.Width - x, Dpi.ScaleY(16));
             var flag = IsTopLevel(e.Item) && !cm ? TextFormatFlags.Top | TextFormatFlags.HorizontalCenter : TextFormatFlags.Default;
             var color = !e.Item.Enabled ? UserColors.Disabled :
                 (e.Item.Selected || e.Item.Pressed ? UserColors.HighlightText : UserColors.Text);

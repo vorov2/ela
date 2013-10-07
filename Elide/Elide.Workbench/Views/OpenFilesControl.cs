@@ -18,6 +18,12 @@ namespace Elide.Workbench.Views
             FlaggedDocuments = new List<String>();
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            treeView.ItemHeight = Dpi.ScaleY(18);
+            base.OnLoad(e);
+        }
+
         public TreeView TreeView
         {
             get { return treeView; }

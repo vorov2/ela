@@ -202,8 +202,8 @@ namespace Elide.TextWorkbench.Configuration
             this.selBackgroundCombo.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.selBackgroundCombo.FormattingEnabled = true;
             this.selBackgroundCombo.IntegralHeight = false;
-            this.selBackgroundCombo.ItemHeight = 15;
             this.selBackgroundCombo.Location = new System.Drawing.Point(12, 150);
+            this.selBackgroundCombo.MinimumSize = new System.Drawing.Size(10, 0);
             this.selBackgroundCombo.Name = "selBackgroundCombo";
             this.selBackgroundCombo.SelectedColor = null;
             this.selBackgroundCombo.Size = new System.Drawing.Size(129, 21);
@@ -369,8 +369,8 @@ namespace Elide.TextWorkbench.Configuration
             this.selColorCombo.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.selColorCombo.FormattingEnabled = true;
             this.selColorCombo.IntegralHeight = false;
-            this.selColorCombo.ItemHeight = 15;
             this.selColorCombo.Location = new System.Drawing.Point(156, 150);
+            this.selColorCombo.MinimumSize = new System.Drawing.Size(10, 0);
             this.selColorCombo.Name = "selColorCombo";
             this.selColorCombo.SelectedColor = null;
             this.selColorCombo.Size = new System.Drawing.Size(129, 21);
@@ -406,8 +406,8 @@ namespace Elide.TextWorkbench.Configuration
             this.caretLineColorCombo.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.caretLineColorCombo.FormattingEnabled = true;
             this.caretLineColorCombo.IntegralHeight = false;
-            this.caretLineColorCombo.ItemHeight = 15;
             this.caretLineColorCombo.Location = new System.Drawing.Point(12, 45);
+            this.caretLineColorCombo.MinimumSize = new System.Drawing.Size(10, 0);
             this.caretLineColorCombo.Name = "caretLineColorCombo";
             this.caretLineColorCombo.SelectedColor = null;
             this.caretLineColorCombo.Size = new System.Drawing.Size(129, 21);
@@ -547,7 +547,7 @@ namespace Elide.TextWorkbench.Configuration
             this.tabIndentsLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
             this.tabIndentsLabel.Location = new System.Drawing.Point(9, 13);
             this.tabIndentsLabel.Name = "tabIndentsLabel";
-            this.tabIndentsLabel.Size = new System.Drawing.Size(165, 13);
+            this.tabIndentsLabel.Size = new System.Drawing.Size(164, 13);
             this.tabIndentsLabel.TabIndex = 36;
             this.tabIndentsLabel.Text = "Tabs and indentation settings:";
             // 
@@ -807,8 +807,8 @@ namespace Elide.TextWorkbench.Configuration
             this.caretColorCombo.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.caretColorCombo.FormattingEnabled = true;
             this.caretColorCombo.IntegralHeight = false;
-            this.caretColorCombo.ItemHeight = 15;
             this.caretColorCombo.Location = new System.Drawing.Point(12, 133);
+            this.caretColorCombo.MinimumSize = new System.Drawing.Size(10, 0);
             this.caretColorCombo.Name = "caretColorCombo";
             this.caretColorCombo.SelectedColor = null;
             this.caretColorCombo.Size = new System.Drawing.Size(129, 21);

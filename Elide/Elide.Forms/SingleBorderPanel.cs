@@ -9,7 +9,7 @@ namespace Elide.Forms
         public SingleBorderPanel()
         {
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw, true);
-            base.Padding = new Padding(0, 1, 0, 0);
+            base.Padding = new Padding(0, Dpi.ScaleY(1), 0, 0);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -17,13 +17,13 @@ namespace Elide.Forms
             e.Graphics.DrawLine(UserPens.Border, new Point(0, 0), new Point(ClientSize.Width, 0));
 
             if (BottomBorder)
-                e.Graphics.DrawLine(UserPens.Border, new Point(0, ClientSize.Height - 1), new Point(ClientSize.Width, ClientSize.Height - 1));
+                e.Graphics.DrawLine(UserPens.Border, new Point(0, ClientSize.Height - Dpi.ScaleY(1)), new Point(ClientSize.Width, ClientSize.Height - Dpi.ScaleY(1)));
 
             if (LeftBorder)
-                e.Graphics.DrawLine(UserPens.Border, new Point(0, 0), new Point(0, ClientSize.Height - 1));
+                e.Graphics.DrawLine(UserPens.Border, new Point(0, 0), new Point(0, ClientSize.Height - Dpi.ScaleY(1)));
             
             if (RightBorder)
-                e.Graphics.DrawLine(UserPens.Border, new Point(ClientSize.Width - 1, 0), new Point(ClientSize.Width - 1, ClientSize.Height - 1));
+                e.Graphics.DrawLine(UserPens.Border, new Point(ClientSize.Width - Dpi.ScaleX(1), 0), new Point(ClientSize.Width - Dpi.ScaleX(1), ClientSize.Height - Dpi.ScaleY(1)));
 
             base.OnPaint(e);
         }

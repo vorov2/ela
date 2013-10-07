@@ -54,7 +54,6 @@ namespace Elide.Forms
         protected override void OnPaint(PaintEventArgs e)
         {
             var g = e.Graphics;
-            //g.SmoothingMode = SmoothingMode.HighQuality;
             g.FillRectangle(UserBrushes.Menu, ClientRectangle);
             var shift = 11;
 
@@ -67,22 +66,22 @@ namespace Elide.Forms
             }
 
             g.DrawLine(UserPens.Border, new Point(0, 0), new Point(ClientSize.Width, 0));            
-            g.DrawLine(UserPens.Border, new Point(shift, 0), new Point(shift, ClientSize.Height));
+            g.DrawLine(UserPens.Border, new Point(Dpi.ScaleX(shift), 0), new Point(Dpi.ScaleX(shift), ClientSize.Height));
 
             var extraShift = 10;
 
             if (HighlightStatusString)
             {
-                g.FillRectangle(UserBrushes.Window, new Rectangle(shift + 1, 1, ClientSize.Width - shift, ClientSize.Height));
+                g.FillRectangle(UserBrushes.Window, new Rectangle(Dpi.ScaleX(shift + 1), Dpi.ScaleY(1), ClientSize.Width - Dpi.ScaleX(shift), ClientSize.Height));
                 
                 if (StatusImage != null)
-                    g.DrawImage(StatusImage, shift + 10, 3);
+                    g.DrawImage(StatusImage, Dpi.ScaleX(shift + 10), Dpi.ScaleY(3));
 
                 extraShift += 15;
             }
 
             var c = HighlightStatusString ? UserColors.Text : UserColors.Disabled;
-            TextRenderer.DrawText(g, StatusString, Fonts.Text, new Rectangle(shift + extraShift, 3, ClientSize.Width - shift - 20, ClientSize.Height - 2),
+            TextRenderer.DrawText(g, StatusString, Fonts.Text, new Rectangle(Dpi.ScaleX(shift + extraShift), Dpi.ScaleY(3), ClientSize.Width - Dpi.ScaleX(shift - 20), ClientSize.Height - Dpi.ScaleY(2)),
                 c, TextFormatFlags.EndEllipsis);
         }
         
@@ -95,9 +94,9 @@ namespace Elide.Forms
             var width = TextRenderer.MeasureText(text, font).Width ;
 
             if (sel)
-                g.FillRectangle(UserBrushes.Selection, new Rectangle(pos - 5, 3, width + 10, 14));
+                g.FillRectangle(UserBrushes.Selection, new Rectangle(Dpi.ScaleX(pos - 5), Dpi.ScaleY(3), width + Dpi.ScaleX(10), Dpi.ScaleY(14)));
             
-            TextRenderer.DrawText(g, text, font, new Rectangle(pos, 3, width, ClientSize.Height), color, TextFormatFlags.Left);
+            TextRenderer.DrawText(g, text, font, new Rectangle(Dpi.ScaleX(pos), Dpi.ScaleY(3), width, ClientSize.Height), color, TextFormatFlags.Left);
             return width;
         }
 
@@ -140,13 +139,13 @@ namespace Elide.Forms
         
         protected override void OnResize(EventArgs e)
         {
-            Height = HEIGHT;
+            Height = Dpi.ScaleY(HEIGHT);
             base.OnResize(e);
         }
 
         private ToolbarItem GetSelected(int x)
         {
-            return items.FirstOrDefault(i => x >= i.Left && x <= i.Right);
+            return items.FirstOrDefault(i => x >= Dpi.ScaleX(i.Left) && x <= Dpi.ScaleY(i.Right));
         }
         
         public int SelectedIndex

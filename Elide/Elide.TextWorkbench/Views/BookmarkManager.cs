@@ -43,6 +43,7 @@ namespace Elide.TextWorkbench.Views
 			this.treeView.ShowLines = false;
 			this.treeView.BeforeExpand += TreeViewBeforeExpand;
             this.treeView.NodeMouseClick += NodeMouseClick;
+            this.treeView.ItemHeight = Dpi.ScaleY(18);
 			
 			var img = new ImageList();
 			img.ColorDepth = ColorDepth.Depth32Bit;

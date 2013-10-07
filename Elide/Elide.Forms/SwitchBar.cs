@@ -27,7 +27,6 @@ namespace Elide.Forms
         protected override void OnPaint(PaintEventArgs e)
         {
             var g = e.Graphics;
-            //g.SmoothingMode = SmoothingMode.HighQuality;            
             g.FillRectangle(UserBrushes.Window, ClientRectangle);
             var width = 0;
             var textColor = UserColors.Text;
@@ -39,32 +38,32 @@ namespace Elide.Forms
 
             if (hoverItem == 0 || contextMenu.Visible)
             {
-                g.FillRectangle(UserBrushes.Selection, new Rectangle(3, 4, 12 + width, 14));
+                g.FillRectangle(UserBrushes.Selection, new Rectangle(Dpi.ScaleX(3), Dpi.ScaleY(4), Dpi.ScaleX(12) + width, Dpi.ScaleY(14)));
                 textColor = UserColors.HighlightText;
                 corner = "CornerWhite";
             }
             else if (hoverItem == 1)
             {
-                g.FillRectangle(UserBrushes.Selection, new Rectangle(ClientSize.Width - 17, 4, 14, 14));
+                g.FillRectangle(UserBrushes.Selection, new Rectangle(ClientSize.Width - Dpi.ScaleX(17), Dpi.ScaleY(4), Dpi.ScaleX(14), Dpi.ScaleY(14)));
                 cross = "CrossWhite";
             }
 
             using (var bmp = Bitmaps.Load(corner))
-                g.DrawImage(bmp, 5, 9);
+                g.DrawImage(bmp, new Rectangle(Dpi.ScaleX(5), Dpi.ScaleY(9), Dpi.ScaleX(bmp.Width), Dpi.ScaleY(bmp.Height)));
                         
             using (var bmp = Bitmaps.Load(cross))
-                g.DrawImage(bmp, ClientSize.Width - 15, 7);
+                g.DrawImage(bmp, new Rectangle(ClientSize.Width - Dpi.ScaleX(15), Dpi.ScaleY(7), Dpi.ScaleX(bmp.Width), Dpi.ScaleY(bmp.Height)));
             
-            g.DrawRectangle(UserPens.Border, new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height));
+            g.DrawRectangle(UserPens.Border, new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - Dpi.ScaleX(1), ClientRectangle.Height));
             
             if (SelectedItem != null)
-                TextRenderer.DrawText(g, SelectedItem.Caption, Fonts.Caption, new Rectangle(14, 0, width + 20, ClientSize.Height), textColor,
+                TextRenderer.DrawText(g, SelectedItem.Caption, Fonts.Caption, new Rectangle(Dpi.ScaleX(14), 0, width + Dpi.ScaleY(20), ClientSize.Height), textColor,
                     TextFormatFlags.VerticalCenter | TextFormatFlags.Left | TextFormatFlags.EndEllipsis);
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            if (e.X > ClientSize.Width - 17)
+            if (e.X > ClientSize.Width - Dpi.ScaleX(17))
             {
                 if (hoverItem != 1)
                 {
@@ -72,7 +71,7 @@ namespace Elide.Forms
                     Refresh();
                 }
             }
-            else if (e.X <= 12 + currentWidth)
+            else if (e.X <= Dpi.ScaleX(12) + currentWidth)
             {
                 if (hoverItem != 0)
                 {
@@ -102,12 +101,12 @@ namespace Elide.Forms
         
 		protected override void OnMouseClick(MouseEventArgs e)
 		{
-            if (e.X > ClientSize.Width - 17)
+            if (e.X > ClientSize.Width - Dpi.ScaleX(17))
             {
                 OnCloseRequested(EventArgs.Empty);
                 return;
             }
-            else if (e.X <= 12 + currentWidth)
+            else if (e.X <= Dpi.ScaleX(12) + currentWidth)
             {
                 contextMenu.Items.Clear();
 
@@ -128,8 +127,8 @@ namespace Elide.Forms
                     }
                 }
 
-                contextMenu.Renderer = new DocumentMenuRenderer(ClientSize.Width - 20);
-                contextMenu.Show(this, 3, 18);
+                contextMenu.Renderer = new DocumentMenuRenderer(ClientSize.Width - Dpi.ScaleX(20));
+                contextMenu.Show(this, Dpi.ScaleX(3), Dpi.ScaleY(18));
             }
 		}
         		

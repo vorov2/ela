@@ -194,8 +194,8 @@
             this.selColorCombo.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.selColorCombo.FormattingEnabled = true;
             this.selColorCombo.IntegralHeight = false;
-            this.selColorCombo.ItemHeight = 15;
             this.selColorCombo.Location = new System.Drawing.Point(159, 207);
+            this.selColorCombo.MinimumSize = new System.Drawing.Size(10, 0);
             this.selColorCombo.Name = "selColorCombo";
             this.selColorCombo.SelectedColor = null;
             this.selColorCombo.Size = new System.Drawing.Size(129, 21);
@@ -221,8 +221,8 @@
             this.selBackgroundCombo.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.selBackgroundCombo.FormattingEnabled = true;
             this.selBackgroundCombo.IntegralHeight = false;
-            this.selBackgroundCombo.ItemHeight = 15;
             this.selBackgroundCombo.Location = new System.Drawing.Point(15, 207);
+            this.selBackgroundCombo.MinimumSize = new System.Drawing.Size(10, 0);
             this.selBackgroundCombo.Name = "selBackgroundCombo";
             this.selBackgroundCombo.SelectedColor = null;
             this.selBackgroundCombo.Size = new System.Drawing.Size(129, 21);
@@ -253,6 +253,8 @@
             // 
             // ConsoleConfigPage
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.selStylingLabel);
             this.Controls.Add(this.selTransparencyCombo);
             this.Controls.Add(this.selTransparencyLabel);

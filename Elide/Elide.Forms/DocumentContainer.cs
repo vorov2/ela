@@ -22,7 +22,7 @@ namespace Elide.Forms
             contextMenu = new ContextMenuStrip();
             ContextMenuStrip = contextMenu;
             contextMenu.Closed += (o,e) => { hoverItem = -1; Refresh(); };
-            SetPadding(1, HEIGHT + 1, 1, 1);
+            SetPadding(Dpi.ScaleX(1), Dpi.ScaleY(HEIGHT + 1), Dpi.ScaleX(1), Dpi.ScaleY(1));
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw, true);
             Application.Idle += Idle;
         }
@@ -71,22 +71,21 @@ namespace Elide.Forms
 
         private void PaintMain(Graphics g, bool fast = false)
         {
-            //g.SmoothingMode = SmoothingMode.HighQuality;
             var textColor = UserColors.Text;
             var corner = "Corner";
 
-            var rect = new Rectangle(0, 0, ClientSize.Width - 1, HEIGHT);
+            var rect = new Rectangle(0, 0, ClientSize.Width - Dpi.ScaleX(1), Dpi.ScaleY(HEIGHT));
 
             if (!fast)
             {
-                var fullRect = new Rectangle(0, 0, ClientSize.Width - 1, ClientSize.Height - 1);
+                var fullRect = new Rectangle(0, 0, ClientSize.Width - Dpi.ScaleX(1), ClientSize.Height - Dpi.ScaleY(1));
                 g.FillRectangle(UserBrushes.Window, rect);
                 g.DrawRectangle(UserPens.Border, rect);
                 g.DrawRectangle(UserPens.Border, fullRect);
             }
 
             var text = SelectedDocument != null ? SelectedDocument.Caption : String.Empty;
-            var captionRect = new Rectangle(15, 0, ClientSize.Width - LABELS_WIDTH, HEIGHT);
+            var captionRect = new Rectangle(Dpi.ScaleX(15), 0, ClientSize.Width - Dpi.ScaleY(LABELS_WIDTH), Dpi.ScaleY(HEIGHT));
             var flags = TextFormatFlags.Left | TextFormatFlags.PathEllipsis | TextFormatFlags.VerticalCenter;
             lastWidth = (Int32)g.MeasureString(text, Fonts.Header).Width;
 
@@ -97,40 +96,40 @@ namespace Elide.Forms
             {
                 textColor = UserColors.HighlightText;
                 corner = "CornerWhite";
-                g.FillRectangle(UserBrushes.Selection, new Rectangle(3, 4, 16 + lastWidth, 14));
+                g.FillRectangle(UserBrushes.Selection, new Rectangle(Dpi.ScaleX(3), Dpi.ScaleY(4), Dpi.ScaleX(16) + lastWidth, Dpi.ScaleY(14)));
             }
             else if (hoverItem == -1 && fast)
-                g.FillRectangle(UserBrushes.Window, new Rectangle(3, 4, 16 + lastWidth, 14));
+                g.FillRectangle(UserBrushes.Window, new Rectangle(Dpi.ScaleX(3), Dpi.ScaleY(4), Dpi.ScaleX(16) + lastWidth, Dpi.ScaleY(14)));
             
             TextRenderer.DrawText(g, text, Fonts.Header, captionRect, textColor, flags);
 
             if (Items.Count > 1)
             {
                 using (var bmp = Bitmaps.Load(corner))
-                    g.DrawImage(bmp, 5, 9);
+                    g.DrawImage(bmp, new Rectangle(Dpi.ScaleX(5), Dpi.ScaleY(9), Dpi.ScaleX(bmp.Width), Dpi.ScaleY(bmp.Height)));
             }
             else if (Items.Count == 1)
             {
                 using (var bmp = Bitmaps.Load("CornerDisabled"))
-                    g.DrawImage(bmp, 7, 7);
+                    g.DrawImage(bmp, new Rectangle(Dpi.ScaleX(7), Dpi.ScaleY(7), Dpi.ScaleX(bmp.Width), Dpi.ScaleY(bmp.Height)));
             }
 
             if (InfoBarVisible && !fast)
             {
-                TextRenderer.DrawText(g, Overtype ? "OVR" : "INS", Fonts.Header, new Rectangle(ClientSize.Width - 32, 0, 30, HEIGHT), UserColors.Text, flags);
-                TextRenderer.DrawText(g, Column.ToString(), Fonts.Menu, new Rectangle(ClientSize.Width - 68, 0, 25, HEIGHT), UserColors.Text, flags);
-                TextRenderer.DrawText(g, "Col", Fonts.Header, new Rectangle(ClientSize.Width - 90, 0, 25, 20), UserColors.Text, flags);
-                TextRenderer.DrawText(g, Line.ToString(), Fonts.Menu, new Rectangle(ClientSize.Width - 123, 0, 35, HEIGHT), UserColors.Text, flags);
-                TextRenderer.DrawText(g, "Line", Fonts.Header, new Rectangle(ClientSize.Width - 150, 0, 30, HEIGHT), UserColors.Text, flags);
+                TextRenderer.DrawText(g, Overtype ? "OVR" : "INS", Fonts.Header, new Rectangle(ClientSize.Width - Dpi.ScaleX(32), 0, Dpi.ScaleX(30), Dpi.ScaleY(HEIGHT)), UserColors.Text, flags);
+                TextRenderer.DrawText(g, Column.ToString(), Fonts.Menu, new Rectangle(ClientSize.Width - Dpi.ScaleX(68), 0, Dpi.ScaleX(25), Dpi.ScaleY(HEIGHT)), UserColors.Text, flags);
+                TextRenderer.DrawText(g, "Col", Fonts.Header, new Rectangle(ClientSize.Width - Dpi.ScaleX(90), 0, Dpi.ScaleX(25), Dpi.ScaleY(20)), UserColors.Text, flags);
+                TextRenderer.DrawText(g, Line.ToString(), Fonts.Menu, new Rectangle(ClientSize.Width - Dpi.ScaleX(123), 0, Dpi.ScaleX(35), Dpi.ScaleY(HEIGHT)), UserColors.Text, flags);
+                TextRenderer.DrawText(g, "Line", Fonts.Header, new Rectangle(ClientSize.Width - Dpi.ScaleX(150), 0, Dpi.ScaleX(30), Dpi.ScaleY(HEIGHT)), UserColors.Text, flags);
 
                 using (var bmp = Bitmaps.Load("Bounds"))
-                    g.DrawImage(bmp, ClientSize.Width - 167, 5);
+                    g.DrawImage(bmp, ClientSize.Width - Dpi.ScaleX(167), Dpi.ScaleY(5));
             }
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            if (Items.Count > 1 && e.X <= 16 + lastWidth)
+            if (Items.Count > 1 && e.X <= Dpi.ScaleX(16 + lastWidth))
             {
                 if (hoverItem != 0)
                 {
@@ -163,12 +162,12 @@ namespace Elide.Forms
 
         protected override void OnMouseClick(MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && e.X < 16 + lastWidth)
+            if (e.Button == MouseButtons.Left && e.X < Dpi.ScaleX(16 + lastWidth))
             {
                 GenerateMenu();
                 contextMenu.Font = Fonts.Menu;
-                contextMenu.Renderer = new DocumentMenuRenderer(ClientSize.Width - LABELS_WIDTH);
-                contextMenu.Show(this, new Point(3, HEIGHT - 2));
+                contextMenu.Renderer = new DocumentMenuRenderer(ClientSize.Width - Dpi.ScaleX(LABELS_WIDTH));
+                contextMenu.Show(this, new Point(Dpi.ScaleX(3), Dpi.ScaleY(HEIGHT - 2)));
             }
         }
 
@@ -176,7 +175,7 @@ namespace Elide.Forms
         {
             contextMenu.Items.Clear();
             var c = 0;
-            var max = ClientSize.Height - 50;
+            var max = ClientSize.Height - Dpi.ScaleY(50);
 
             for (var i = 0; i < Items.Count; i++)
             {

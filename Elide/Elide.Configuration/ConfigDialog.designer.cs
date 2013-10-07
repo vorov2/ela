@@ -72,7 +72,7 @@
             // 
             this.configList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.configList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.configList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.configList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.configList.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.configList.FormattingEnabled = true;
             this.configList.IntegralHeight = false;
@@ -103,7 +103,6 @@
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.accept);
             this.Controls.Add(this.panel);
-            this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

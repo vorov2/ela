@@ -12,9 +12,10 @@ namespace Elide.Forms
         {
             base.DropDownStyle = ComboBoxStyle.DropDownList;
             base.DropDownHeight = 320;
-            base.Height = 21;
+            base.Height = Dpi.ScaleY(21);
+            base.MinimumSize = new System.Drawing.Size(Dpi.ScaleX(10), Dpi.ScaleY(21));
             DrawMode = DrawMode.OwnerDrawVariable;
-            SetStyle(ControlStyles.ResizeRedraw | ControlStyles.AllPaintingInWmPaint |
+            SetStyle(ControlStyles.ResizeRedraw | ControlStyles.AllPaintingInWmPaint | 
                 ControlStyles.OptimizedDoubleBuffer, true);
         }
 
@@ -27,7 +28,7 @@ namespace Elide.Forms
         
         protected override void OnMeasureItem(System.Windows.Forms.MeasureItemEventArgs e)
         {
-            e.ItemHeight = 16;
+            e.ItemHeight = Dpi.ScaleY(16);
         }
         
         protected override void OnDrawItem(System.Windows.Forms.DrawItemEventArgs e)
@@ -35,7 +36,7 @@ namespace Elide.Forms
             if (e.Index == -1 || DesignMode)
                 return;
 
-            var colorRect = new Rectangle(e.Bounds.X + 2, e.Bounds.Y + 3, 12, 10);
+            var colorRect = new Rectangle(e.Bounds.X + Dpi.ScaleX(2), e.Bounds.Y + Dpi.ScaleY(3), Dpi.ScaleX(12), Dpi.ScaleY(10));
             var textBrush = Enabled ? UserBrushes.Text : UserBrushes.Disabled;
 
             if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
@@ -54,7 +55,7 @@ namespace Elide.Forms
                     e.Graphics.FillRectangle(colorBrush, colorRect);
 
                 e.Graphics.DrawRectangle(Enabled ? Pens.Black : Pens.Gray, colorRect);
-                e.Graphics.DrawString(itemValue, Font, textBrush, new Point(e.Bounds.X + 18, e.Bounds.Y));
+                e.Graphics.DrawString(itemValue, Font, textBrush, new Point(e.Bounds.X + Dpi.ScaleX(18), e.Bounds.Y));
             }
         }
 
@@ -100,6 +101,12 @@ namespace Elide.Forms
         public new int Height
         {
             get { return base.Height; }
+            set { }
+        }
+
+        public new Size MinimumSize
+        {
+            get { return base.MinimumSize; }
             set { }
         }
     }
