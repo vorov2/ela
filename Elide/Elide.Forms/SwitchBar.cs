@@ -13,6 +13,7 @@ namespace Elide.Forms
         private ContextMenuStrip contextMenu;
         private int hoverItem = -1;
 		private int selItem = -1;
+        private int currentWidth = 0;
 
         public SwitchBar()
 		{
@@ -20,50 +21,116 @@ namespace Elide.Forms
 				| ControlStyles.UserPaint | ControlStyles.ResizeRedraw, true);
 			_items = new List<SwitchBarItem>();
             contextMenu = new ContextMenuStrip();
+            contextMenu.Closed += (o, e) => { hoverItem = -1; Refresh(); };
 		}		       
 
         protected override void OnPaint(PaintEventArgs e)
         {
             var g = e.Graphics;
-            g.SmoothingMode = SmoothingMode.HighQuality;
-            
+            //g.SmoothingMode = SmoothingMode.HighQuality;            
             g.FillRectangle(UserBrushes.Window, ClientRectangle);
+            var width = 0;
+            var textColor = UserColors.Text;
+            var corner = "Corner";
+            var cross = "Cross";
+            
+            if (SelectedItem != null)
+                currentWidth = width = (Int32)g.MeasureString(SelectedItem.Caption, Fonts.Caption).Width;
 
-            g.DrawImage(Bitmaps.Load("Corner"), 5, 9);
+            if (hoverItem == 0 || contextMenu.Visible)
+            {
+                g.FillRectangle(UserBrushes.Selection, new Rectangle(3, 4, 12 + width, 14));
+                textColor = UserColors.HighlightText;
+                corner = "CornerWhite";
+            }
+            else if (hoverItem == 1)
+            {
+                g.FillRectangle(UserBrushes.Selection, new Rectangle(ClientSize.Width - 17, 4, 14, 14));
+                cross = "CrossWhite";
+            }
+
+            using (var bmp = Bitmaps.Load(corner))
+                g.DrawImage(bmp, 5, 9);
+                        
+            using (var bmp = Bitmaps.Load(cross))
+                g.DrawImage(bmp, ClientSize.Width - 15, 7);
+            
             g.DrawRectangle(UserPens.Border, new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height));
             
             if (SelectedItem != null)
-            {
-                var width = (Int32)g.MeasureString(SelectedItem.Caption, Fonts.Caption).Width + 20;
-
-                TextRenderer.DrawText(g, SelectedItem.Caption, Fonts.Caption, new Rectangle(14, 0, width, ClientSize.Height), UserColors.Text,
+                TextRenderer.DrawText(g, SelectedItem.Caption, Fonts.Caption, new Rectangle(14, 0, width + 20, ClientSize.Height), textColor,
                     TextFormatFlags.VerticalCenter | TextFormatFlags.Left | TextFormatFlags.EndEllipsis);
-            }
         }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            if (e.X > ClientSize.Width - 17)
+            {
+                if (hoverItem != 1)
+                {
+                    hoverItem = 1;
+                    Refresh();
+                }
+            }
+            else if (e.X <= 12 + currentWidth)
+            {
+                if (hoverItem != 0)
+                {
+                    hoverItem = 0;
+                    Refresh();
+                }
+            }
+            else if (hoverItem != -1)
+            {
+                hoverItem = -1;
+                Refresh();
+            }
+
+            base.OnMouseMove(e);
+        }
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            if (hoverItem != -1)
+            {
+                hoverItem = -1;
+                Refresh();
+            }
+
+            base.OnMouseLeave(e);
+        }        
         
 		protected override void OnMouseClick(MouseEventArgs e)
 		{
-            contextMenu.Items.Clear();
-
-            for (var i = 0; i < Items.Count; i++)
+            if (e.X > ClientSize.Width - 17)
             {
-                var it = Items[i];
-
-                if (it != SelectedItem)
-                {
-                    var mi = new ToolStripMenuItem { Text = it.Caption, Tag = it };
-                    mi.Click += (o, a) =>
-                    {
-                        var itm = (SwitchBarItem)((ToolStripMenuItem)o).Tag;
-                        SelectedIndex = Items.IndexOf(itm);
-                    };
-
-                    contextMenu.Items.Add(mi);
-                }
+                OnCloseRequested(EventArgs.Empty);
+                return;
             }
+            else if (e.X <= 12 + currentWidth)
+            {
+                contextMenu.Items.Clear();
 
-            contextMenu.Renderer = new DocumentMenuRenderer(ClientSize.Width - 20);
-            contextMenu.Show(this, 0, 20);
+                for (var i = 0; i < Items.Count; i++)
+                {
+                    var it = Items[i];
+
+                    if (it != SelectedItem)
+                    {
+                        var mi = new ToolStripMenuItem { Text = it.Caption, Tag = it };
+                        mi.Click += (o, a) =>
+                        {
+                            var itm = (SwitchBarItem)((ToolStripMenuItem)o).Tag;
+                            SelectedIndex = Items.IndexOf(itm);
+                        };
+
+                        contextMenu.Items.Add(mi);
+                    }
+                }
+
+                contextMenu.Renderer = new DocumentMenuRenderer(ClientSize.Width - 20);
+                contextMenu.Show(this, 3, 18);
+            }
 		}
         		
 		public event EventHandler<SwitchBarEventArgs> SelectedIndexChanged;
@@ -73,7 +140,16 @@ namespace Elide.Forms
 
 			if (h != null)
 				h(this, e);
-		}
+        }
+
+        public event EventHandler CloseRequested;
+        private void OnCloseRequested(EventArgs e)
+        {
+            var h = CloseRequested;
+
+            if (h != null)
+                h(this, e);
+        }
                 
 		private List<SwitchBarItem> _items;
 		public List<SwitchBarItem> Items
@@ -97,9 +173,6 @@ namespace Elide.Forms
 				if (selItem != value)
 				{
                     selItem = value;
-
-					if (hoverItem == value)
-						hoverItem = -1;
 
 					Refresh();
 					OnSelectedIndexChanged(new SwitchBarEventArgs(SelectedItem));

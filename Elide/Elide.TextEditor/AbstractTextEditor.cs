@@ -431,6 +431,11 @@ namespace Elide.TextEditor
             }
         }
 
+        string ITextEditor.GetText()
+        {
+            return sci.GetTextUnicode();
+        }
+
         void ITextEditor.SelectText(int start, int length)
         {
             sci.Select(start, length, SelectionFlags.MakeOnlySelection | SelectionFlags.ScrollToCaret);

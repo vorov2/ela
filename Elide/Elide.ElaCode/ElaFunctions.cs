@@ -1,15 +1,17 @@
 ﻿using System;
 using System.IO;
-using Ela.Linking;
 using Elide.CodeEditor;
 using Elide.CodeEditor.Infrastructure;
 using Elide.Core;
+using Elide.ElaCode.Configuration;
 using Elide.ElaCode.ObjectModel;
+using Elide.ElaCode.Views;
 using Elide.Environment;
 using Elide.Environment.Editors;
+using Elide.Environment.Views;
 using Elide.Scintilla;
 using Elide.TextEditor;
-using Elide.ElaCode.Configuration;
+using Ela.Linking;
 
 namespace Elide.ElaCode
 {
@@ -122,6 +124,29 @@ namespace Elide.ElaCode
         {
             var am = new AutocompleteManager(app, sci);
             am.DoComplete(position, app.Document() as CodeDocument);
+        }
+
+        public void EvaluateSelected()
+        {
+            var view = (InteractiveView)app.GetService<IViewService>().GetView("ElaInteractive");
+            view.ResetSession();
+            var sel = sci.HasSelections() ? sci.GetSelection().Text : sci.GetLine(sci.CurrentLine).Text;
+            var src = sci.Text + "\r\n_=()\r\n" + sel;
+            view.PrintLine();
+
+            if (!view.RunCode(src, fastFail: true, onlyErrors: true))
+                view.RunCode(sel, fastFail: false, onlyErrors: false);
+
+            app.GetService<IViewService>().OpenView("ElaInteractive");
+        }
+
+        public void EvaluateCurrentModule()
+        {
+            var view = (InteractiveView)app.GetService<IViewService>().GetView("ElaInteractive");
+            view.ResetSession();
+            view.PrintLine();
+            view.RunCode(sci.Text, fastFail: false, onlyErrors: false);
+            app.GetService<IViewService>().OpenView("ElaInteractive");
         }
 
         //TODO: not done

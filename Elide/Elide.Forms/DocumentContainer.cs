@@ -13,12 +13,15 @@ namespace Elide.Forms
         private const int LABELS_WIDTH = 200;
         private const int MAX_ITEMS = 30;
         private readonly ContextMenuStrip contextMenu;
+        private int hoverItem = -1;
+        private int lastWidth = 0;
         
         public DocumentContainer()
         {
             Items = new List<DocumentItem>();
             contextMenu = new ContextMenuStrip();
             ContextMenuStrip = contextMenu;
+            contextMenu.Closed += (o,e) => { hoverItem = -1; Refresh(); };
             SetPadding(1, HEIGHT + 1, 1, 1);
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw, true);
             Application.Idle += Idle;
@@ -63,23 +66,47 @@ namespace Elide.Forms
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            var g = e.Graphics;
-            g.SmoothingMode = SmoothingMode.HighQuality;
+            PaintMain(e.Graphics);
+        }
+
+        private void PaintMain(Graphics g, bool fast = false)
+        {
+            //g.SmoothingMode = SmoothingMode.HighQuality;
+            var textColor = UserColors.Text;
+            var corner = "Corner";
 
             var rect = new Rectangle(0, 0, ClientSize.Width - 1, HEIGHT);
-            var fullRect = new Rectangle(0, 0, ClientSize.Width - 1, ClientSize.Height - 1);
-            g.FillRectangle(UserBrushes.Window, rect);
-            g.DrawRectangle(UserPens.Border, rect);
-            g.DrawRectangle(UserPens.Border, fullRect);
+
+            if (!fast)
+            {
+                var fullRect = new Rectangle(0, 0, ClientSize.Width - 1, ClientSize.Height - 1);
+                g.FillRectangle(UserBrushes.Window, rect);
+                g.DrawRectangle(UserPens.Border, rect);
+                g.DrawRectangle(UserPens.Border, fullRect);
+            }
 
             var text = SelectedDocument != null ? SelectedDocument.Caption : String.Empty;
             var captionRect = new Rectangle(15, 0, ClientSize.Width - LABELS_WIDTH, HEIGHT);
             var flags = TextFormatFlags.Left | TextFormatFlags.PathEllipsis | TextFormatFlags.VerticalCenter;
-            TextRenderer.DrawText(g, text, Fonts.Header, captionRect, UserColors.Text, flags);
+            lastWidth = (Int32)g.MeasureString(text, Fonts.Header).Width;
+
+            if (lastWidth > captionRect.Width)
+                lastWidth = captionRect.Width;
+                        
+            if (hoverItem == 0 || contextMenu.Visible)
+            {
+                textColor = UserColors.HighlightText;
+                corner = "CornerWhite";
+                g.FillRectangle(UserBrushes.Selection, new Rectangle(3, 4, 16 + lastWidth, 14));
+            }
+            else if (hoverItem == -1 && fast)
+                g.FillRectangle(UserBrushes.Window, new Rectangle(3, 4, 16 + lastWidth, 14));
+            
+            TextRenderer.DrawText(g, text, Fonts.Header, captionRect, textColor, flags);
 
             if (Items.Count > 1)
             {
-                using (var bmp = Bitmaps.Load("Corner"))
+                using (var bmp = Bitmaps.Load(corner))
                     g.DrawImage(bmp, 5, 9);
             }
             else if (Items.Count == 1)
@@ -88,7 +115,7 @@ namespace Elide.Forms
                     g.DrawImage(bmp, 7, 7);
             }
 
-            if (InfoBarVisible)
+            if (InfoBarVisible && !fast)
             {
                 TextRenderer.DrawText(g, Overtype ? "OVR" : "INS", Fonts.Header, new Rectangle(ClientSize.Width - 32, 0, 30, HEIGHT), UserColors.Text, flags);
                 TextRenderer.DrawText(g, Column.ToString(), Fonts.Menu, new Rectangle(ClientSize.Width - 68, 0, 25, HEIGHT), UserColors.Text, flags);
@@ -101,14 +128,47 @@ namespace Elide.Forms
             }
         }
 
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            if (Items.Count > 1 && e.X <= 16 + lastWidth)
+            {
+                if (hoverItem != 0)
+                {
+                    hoverItem = 0;
+                    using (var g = CreateGraphics())
+                        PaintMain(g, fast: true);
+                }
+            }
+            else if (hoverItem != -1)
+            {
+                hoverItem = -1;
+                using (var g = CreateGraphics())
+                    PaintMain(g, fast: true);
+            }
+
+            base.OnMouseMove(e);
+        }
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            if (hoverItem != -1)
+            {
+                hoverItem = -1;
+                using (var g = CreateGraphics())
+                    PaintMain(g, fast: true);
+            }
+ 
+            base.OnMouseLeave(e);
+        }
+
         protected override void OnMouseClick(MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && e.X < ClientSize.Width - LABELS_WIDTH)
+            if (e.Button == MouseButtons.Left && e.X < 16 + lastWidth)
             {
                 GenerateMenu();
                 contextMenu.Font = Fonts.Menu;
                 contextMenu.Renderer = new DocumentMenuRenderer(ClientSize.Width - LABELS_WIDTH);
-                contextMenu.Show(this, new Point(0, HEIGHT));
+                contextMenu.Show(this, new Point(3, HEIGHT - 2));
             }
         }
 

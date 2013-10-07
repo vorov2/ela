@@ -84,5 +84,15 @@ namespace Elide.Workbench
             return WB.Form.ActiveToolbar.SelectedTag != null && ((ViewInfo)WB.Form.ActiveToolbar.SelectedTag).Key == key ||
                 (WB.Form.ToolWindow.SelectedIndex != -1 && ((ViewInfo)WB.Form.ToolWindow.Items[WB.Form.ToolWindow.SelectedIndex].Tag).Key == key);
         }
+
+        public override string GetActiveViewKey(ViewType type)
+        {
+            if ((type == ViewType.Output || type == ViewType.Default) && WB.Form.ActiveToolbar.SelectedTag != null)
+                return ((ViewInfo)WB.Form.ActiveToolbar.SelectedTag).Key;
+            else if (type == ViewType.Help && WB.Form.ToolWindow.SelectedIndex != -1)
+                return ((ViewInfo)WB.Form.ToolWindow.Items[WB.Form.ToolWindow.SelectedIndex].Tag).Key;
+
+            return null;
+        }
     }
 }

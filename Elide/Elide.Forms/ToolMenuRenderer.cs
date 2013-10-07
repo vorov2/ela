@@ -34,15 +34,20 @@ namespace Elide.Forms
             {
                 var g = e.Graphics;
                 var rect = new Rectangle(1, 1, e.Item.Bounds.Width - 2, e.Item.Bounds.Height);
-                g.FillRectangle(Brushes.LightGray, rect);
+                g.FillRectangle(UserBrushes.Selection, rect);
             }
         }
-        
+                
         protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
         {
             var g = e.Graphics;
+            var color = UserColors.Text;
+
+            if (e.Item.Selected)
+                color = UserColors.HighlightText;
+
             e.TextRectangle = new Rectangle(15, e.TextRectangle.Y, Width - 18, 16);
-            TextRenderer.DrawText(e.Graphics, e.Text, Fonts.Menu, e.TextRectangle, Color.Black, TextFormatFlags.Left | TextFormatFlags.EndEllipsis);
+            TextRenderer.DrawText(e.Graphics, e.Text, Fonts.Menu, e.TextRectangle, color, TextFormatFlags.Left | TextFormatFlags.EndEllipsis);
         }
         
         protected abstract int Width { get; }

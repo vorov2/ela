@@ -26,6 +26,7 @@ namespace Elide.Forms
                     g.DrawLine(UserPens.Border, panel.ClientSize.Width - 1, 0, panel.ClientSize.Width - 1, panel.ClientSize.Height);
 				};
             switchBar.SelectedIndexChanged += SwitchBarSelectedIndexChanged;
+            switchBar.CloseRequested += SwitchBarCloseRequested;
             panel.SetPadding(new Padding(1, 5, 1, 2));
 		}
 
@@ -39,6 +40,11 @@ namespace Elide.Forms
 		{
 			OnSelectedIndexChanged(e);
 		}
+
+        private void SwitchBarCloseRequested(object sender, EventArgs e)
+        {
+            OnCloseRequested(e);
+        }
         
 		public void AddHostedControl(Control control)
 		{
@@ -75,6 +81,15 @@ namespace Elide.Forms
 
 			if (h != null)
 				h(this, e);
-		}
+        }
+
+        public event EventHandler CloseRequested;
+        private void OnCloseRequested(EventArgs e)
+        {
+            var h = CloseRequested;
+
+            if (h != null)
+                h(this, e);
+        }
 	}
 }

@@ -26,6 +26,8 @@ namespace Elide.Environment.Views
 
         public abstract bool CloseView(string key);
 
+        public abstract string GetActiveViewKey(ViewType type);
+
         public IEnumerable<ExtInfo> EnumerateInfos(string section)
         {
             ValidateSection(section);
