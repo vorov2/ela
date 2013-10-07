@@ -164,6 +164,12 @@ A single context annotation can be propagated inside an unlimited number of func
 previous code sample like so:
 >>>calcAndGet f x = getSomeValue (f x)
 >>>calcAndGet (*2) 12 ::: Maybe
+It is also possible to specify a default context for a current function or for a whole top level, i.e.:
+>>open monad io
+>>::: IO //here we say that a default context for top level is IO monad
+>>_ = do putStrLn "Hello!"
+>>_ = do putStrLn "Bye!"
+A default context annotation can be overriden by a specific context annotation.
 
 =Default Instances
 Ela also allows to declare default instances. A default instance is an instance without a type specification. For example, this

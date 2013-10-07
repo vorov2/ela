@@ -887,10 +887,14 @@ PRODUCTIONS
 				.)					
 			}								
 		)
-		[
-		    ":::" 
+		[ ContextExpr<out exp, exp> ].
+
+	ContextExpr<out ElaExpression exp, ElaExpression tar> =
+		(. exp = null; .)
+		(
+			":::" 
 		    (. 
-		        var ctx = new ElaContext(t) { Expression = exp }; 
+		        var ctx = new ElaContext(t) { Expression = tar }; 
 		        var cexp2 = default(ElaExpression);
 		    .)
 		    AccessExpr<out cexp2>
@@ -898,7 +902,7 @@ PRODUCTIONS
                 ctx.Context = cexp2; 
                 exp = ctx;
             .)
-		].
+		).
 		
 	AccessExpr<out ElaExpression exp> =
 		Literal<out exp>
@@ -929,6 +933,7 @@ PRODUCTIONS
 			| MatchExpr<out exp>
 			| TryExpr<out exp>
 			| DoBlock<out exp>
+			| ContextExpr<out exp, null>
 		).
 	
 	TypeCheckExpr<ref ElaExpression pat> = 

@@ -1,17 +1,20 @@
-open console cell core
+open core monad io
+
+//Our output function
+write x = do putStr x ::: IO
 
 //An implementation of a function that creates an iterator for a given list
-iter xs = iter' (ref xs)
+iter xs = iter' xs
               where iter' c () = 
-                      match valueof c with
-                            x::xs = c := xs `seq` Some x
+                      match c with
+                            x::xs = Some (x,iter' xs)
                             []    = None
 
 //This is a 'foreach' function implementation that works with iterator defined above
 each f xs = for' (iter xs)
                 where for' it =
                         match it() with
-                              Some x = f x `seq` for' it
+                              Some (x,it) = f x `seq` for' it
                               _ = ()
 
 //Iterate through a list and write each element to console

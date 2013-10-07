@@ -1006,14 +1006,7 @@ internal sealed partial class Parser {
 			
 		}
 		if (la.kind == 59) {
-			Get();
-			var ctx = new ElaContext(t) { Expression = exp }; 
-			var cexp2 = default(ElaExpression);
-			
-			AccessExpr(out cexp2);
-			ctx.Context = cexp2; 
-			exp = ctx;
-			
+			ContextExpr(out exp, exp);
 		}
 	}
 
@@ -1041,6 +1034,18 @@ internal sealed partial class Parser {
 				exp = new ElaFieldReference(t) { FieldName = t.val, TargetObject = exp }; 
 			} else SynErr(91);
 		}
+	}
+
+	void ContextExpr(out ElaExpression exp, ElaExpression tar) {
+		exp = null; 
+		Expect(59);
+		var ctx = new ElaContext(t) { Expression = tar }; 
+		var cexp2 = default(ElaExpression);
+		
+		AccessExpr(out cexp2);
+		ctx.Context = cexp2; 
+		exp = ctx;
+		
 	}
 
 	void EmbExpr(out ElaExpression exp) {
@@ -1079,6 +1084,10 @@ internal sealed partial class Parser {
 		}
 		case 64: {
 			DoBlock(out exp);
+			break;
+		}
+		case 59: {
+			ContextExpr(out exp, null);
 			break;
 		}
 		default: SynErr(92); break;
@@ -1758,9 +1767,9 @@ internal sealed partial class Parser {
 		{T,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,T,x,x, x,T,x,x, T,T,x,x, x,x,T,x, x,T,x,x, x,T,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, T,x,x},
 		{x,x,x,T, T,T,T,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,T, T,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x},
 		{x,T,T,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,T,T, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x},
-		{x,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, x,T,x,x, x,T,x,x, x,T,x,x, T,x,x,T, x,x,T,T, T,x,x,x, x,x,x,x, x,x,T,T, T,x,x,x, x,T,T,x, T,T,x,x, T,x,x},
-		{x,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, x,T,x,x, x,T,x,x, x,T,x,x, x,x,x,T, x,x,T,T, T,x,x,x, x,x,x,x, x,x,T,T, T,x,x,x, x,T,T,x, T,T,x,x, T,x,x},
-		{T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, x,T,x,x, x,T,x,x, x,T,x,x, T,T,x,T, x,x,T,T, T,T,x,x, x,T,x,x, x,x,T,T, T,x,x,x, x,T,T,x, T,T,x,x, T,x,x},
+		{x,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, x,T,x,x, x,T,x,x, x,T,x,x, T,x,x,T, x,x,T,T, T,x,x,x, x,x,x,x, x,x,T,T, T,x,x,x, x,T,T,T, T,T,x,x, T,x,x},
+		{x,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, x,T,x,x, x,T,x,x, x,T,x,x, x,x,x,T, x,x,T,T, T,x,x,x, x,x,x,x, x,x,T,T, T,x,x,x, x,T,T,T, T,T,x,x, T,x,x},
+		{T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, x,T,x,x, x,T,x,x, x,T,x,x, T,T,x,T, x,x,T,T, T,T,x,x, x,T,x,x, x,x,T,T, T,x,x,x, x,T,T,T, T,T,x,x, T,x,x},
 		{x,T,T,T, T,T,T,T, T,T,T,T, T,T,T,x, T,T,T,T, x,T,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,T, T,x,x,x, x,x,x,x, x,x,T,T, T,x,x,x, x,T,T,x, x,x,x,x, x,x,x},
 		{x,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, x,T,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,T, T,x,x,x, x,x,x,x, x,x,T,T, T,x,x,x, x,T,T,x, x,x,x,x, x,x,x},
 		{x,T,T,T, T,T,T,T, T,T,T,T, T,T,T,x, x,T,T,T, x,T,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,T, T,x,x,x, x,x,x,x, x,x,T,T, T,x,x,x, x,T,T,x, x,x,x,x, x,x,x},
@@ -1777,7 +1786,7 @@ internal sealed partial class Parser {
 		{x,T,T,T, T,T,T,x, x,x,x,x, x,x,x,x, x,x,x,T, x,T,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,T, T,x,x,x, x,x,x,x, x,x,T,T, T,x,x,x, x,T,x,x, x,x,x,x, x,x,x},
 		{x,x,x,x, x,x,x,T, T,T,T,T, T,T,T,T, T,T,T,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x},
 		{x,T,x,x, x,x,x,T, T,T,T,T, T,T,T,T, T,T,T,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, T,x,x,x, x,x,x,x, x,x,x,x, x,x,x},
-		{x,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, x,T,x,x, x,T,x,x, x,T,x,x, T,T,x,T, x,x,T,T, T,x,T,T, T,T,T,T, x,x,T,T, T,x,x,x, x,T,T,x, T,T,x,x, T,x,x}
+		{x,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, x,T,x,x, x,T,x,x, x,T,x,x, T,T,x,T, x,x,T,T, T,x,T,T, T,T,T,T, x,x,T,T, T,x,x,x, x,T,T,T, T,T,x,x, T,x,x}
 
 	};
 } // end Parser

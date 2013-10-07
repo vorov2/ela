@@ -152,13 +152,24 @@ namespace Ela.Compilation
 
                         AddLinePragma(v);
 
-                        var a = AddVariable();
-                        cw.Emit(Op.Dup);
-                        cw.Emit(Op.Ctx);
-                        PopVar(a);
-                        var newMap = map.Clone(a);
+                        //This is only a possibility when '::: Expr' is a top level expression. In such a case it sets
+                        //a default context for the current call scope.
+                        if (v.Expression == null)
+                        {
+                            cw.Emit(Op.Ctx);
 
-                        CompileExpression(v.Expression, newMap, hints, v);
+                            if ((hints & Hints.Left) == Hints.Left)
+                                cw.Emit(Op.Pushunit);
+                        }
+                        else
+                        {
+                            var a = AddVariable();
+                            cw.Emit(Op.Dup);
+                            cw.Emit(Op.Ctx);
+                            PopVar(a);
+                            var newMap = map.Clone(a);
+                            CompileExpression(v.Expression, newMap, hints, v);
+                        }
                     }
                     break;
                 case ElaNodeType.Builtin:

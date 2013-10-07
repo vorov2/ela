@@ -1,25 +1,22 @@
-open console imperative char cell
+open char
  
 //Implementation of HQ9+ interpreter
-eval src = eval' src
-      where eval' [] = ()
-            eval' (x::xs) | be 'H' = h() `seq` eval' xs
-                          | be 'Q' = q() `seq` eval' xs
-                          | be '9' = n() `seq` eval' xs
-                          | be '+' = p() `seq` eval' xs
-                          | else = fail ("Unrecognized " ++ x)
-                          where rf = ref 0
-                                be c = upper x == c
-                                h () = writen "Hello, world!"
-                                q () = writen src
-                                p () = rf.+
-                                n () = bottles [99,98..1]
-                                  where bottles [] = ()
-                                        bottles (x::xs) = rec write 
-                                          (show x) " bottles of beer of the wall\r\n"
-                                          (show x) " bottles of beer\r\n"
-                                          "Take one down, pass it around\r\n"
-                                          `seq` bottles xs
-
+eval src = eval' src 0
+     where eval' [] a = []
+           eval' (x::xs) a | be 'H' = h :: eval' xs a
+                           | be 'Q' = q :: eval' xs a
+                           | be '9' = force n :: eval' xs a
+                           | be '+' = eval' xs (a+1)
+                           | else   = fail "Invalid instruction."
+                           where be c = char.upper x == c
+                                 h = "Hello, world!"
+                                 q  = src
+                                 n = (& bottles [99,98..1])
+                                     where bottles [] = ""
+                                           bottles (x::xs) = 
+                                             show x ++ " bottles of beer of the wall\r\n"
+                                             ++ show x ++ " bottles of beer\r\n"
+                                             ++ "Take one down, pass it around\r\n"
+                                             ++ bottles xs
 //Let's evaluate the main program in HQ9+ 
 eval "HQ9+"

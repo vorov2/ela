@@ -1,34 +1,34 @@
-//Here we use console output for testing purposes
-//Module console contains implementations of basic console functions such as
-//writen (write line), write (write), readn (read line)
-open console
+//Here we use console output for testing purposes.
+//Module 'io' implements console output using IO monad.
+open monad io
+::: IO //Input is a default context for all do-blocks used in this module.
 
 //Lists can be constructed using cons (::) operator. This operator is right associative
 //and the rightmost argument should be a list
 list1 = 1::2::3::[]
 
-_ = writen <| show list1 //A handy thing is that list is automatically serialized to string
+_ = do putStrLn <| show list1 //A handy thing is that list is automatically serialized to string
 
 //A more readable way to construct lists is to use a list literal
 list2 = [1,2,3]
 
-_ = writen <| show list2 //The result is the same
+_ = do putStrLn <| show list2 //The result is the same
 
 //Lists in Ela are immutable and are always compared using structured equality
 //We have constructed two different lists - list1 and list2 - however they have the same
 //elements and therefore they are equal.
-_ = writen ("The lists are equal? " ++ show (list1 == list2))
+_ = do putStrLn ("The lists are equal? " ++ show (list1 == list2))
 
 //One can construct lists using ranges
 list3 = [1..10]
 
-_ = writen <| show list3 //Here we have a list of integers from 1 to 10
+_ = do putStrLn <| show list3 //Here we have a list of integers from 1 to 10
 
 //If you specify a second element in range than a range will automatically
 //calculate the rest elements
 list4 = [1,3..10]
 
-_ = writen <| show list4 //Prints [1,3,5,7,9]
+_ = do putStrLn <| show list4 //Prints [1,3,5,7,9]
 
 //Lists are immutable, therefore you can't change lists in place. In order to add an
 //element to the head of the list you can use a (::) operator, in order to add an 
@@ -37,15 +37,15 @@ _ = writen <| show list4 //Prints [1,3,5,7,9]
 list5 = 0 :: list4  //Creates a new list
 list6 = list4 ++ [10] //Creates a new list
 
-_ = writen <| show list5 //Prints [0,1,3,5,7,9]
-_ = writen <| show list6 //Prints [1,3,5,7,9,10]
+_ = do putStrLn <| show list5 //Prints [0,1,3,5,7,9]
+_ = do putStrLn <| show list6 //Prints [1,3,5,7,9,10]
 
 //Lists can be deconstructed using pattern matching, head/tail pattern. Head is the first
 //element in a list, tail is the rest of the list without the first element.
 (x::xs) = list6
 
-_ = writen ("x=" ++ show x) //Prints x=1
-_ = writen ("xs=" ++ show xs) //Prints xs=[3,5,7,9,10]
+_ = do putStrLn ("x=" ++ show x) //Prints x=1
+_ = do putStrLn ("xs=" ++ show xs) //Prints xs=[3,5,7,9,10]
 
 //It is very easy to write functions that analyze lists using recursion with the help of 
 //head/tail pattern. Here we have a function that calculates a length of a given list.
@@ -53,7 +53,7 @@ listLength xs = len 0 xs
   where len n [] = n
         len n (x::xs) = len (n+1) xs
 
-_ = writen ("listLength=" ++ show (listLength xs)) //Prints listLength=5
+_ = do putStrLn ("listLength=" ++ show (listLength xs)) //Prints listLength=5
 
 //Of course there is a standard length function that you can use to measure the length of lists:
-_ = writen ("length=" ++ show (length xs)) //Prints length=5
+_ = do putStrLn ("length=" ++ show (length xs)) //Prints length=5
