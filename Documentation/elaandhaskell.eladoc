@@ -27,7 +27,8 @@ a "quick start" guide for those who are familiar with Haskell.
 - no variables, mutable data structures, etc. However Ela doesn't restrict and/or control side 
 effects in the code therefore mutation of state can be easily implemented on a library level. For 
 example, module `cell` adds a support for reference cells and module `console` provides a support 
-for classical C-style console input/output.//br
+for classical C-style console input/output. However, usage of these functions is discouraged; they
+should be only used for testing and debugging purposes. //br
 \*iii* Ela (as of 0.11) provides a support for single parameter type classes. However the implementation
 is quite different from Haskell as long as Ela is dynamically typed and the whole notion of type
 has a different (runtime) meaning in Ela.
@@ -104,7 +105,7 @@ Note that `:` is also a standard operator in Ela, however it is used as an index
 Haskell equivalent is `!!`).
 
 ==Algebraic data types
-Both languages support them, however, Ela additionally provides an ability to declared open algebraic data 
+Both languages support them, however, Ela additionally provides an ability to declare open algebraic data 
 types, which can be extended after declaration with additional constructors. Also syntax is different. //br
 Haskell: 
 >data Couple a = Foo a | Bar a
