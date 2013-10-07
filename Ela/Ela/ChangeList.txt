@@ -1,3 +1,5 @@
+0.12.3.4:Change:Do-notation could be needlessly transformed to thunks.
+0.12.3.3:New:Now Ela allows to specify a default context for current function (or top level).
 0.12.3.2:Fix:A bug fixed in Ela grammar definition, in record literal.
 0.12.3.1:Change:Now 'fail' is not a syntax, but a regular function from 'prelude'.
 0.12.3.0:Release:Release of Ela 0.12.3.0.

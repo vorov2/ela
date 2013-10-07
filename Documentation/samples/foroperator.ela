@@ -1,4 +1,9 @@
-open console
+//Here we use console output for testing purposes.
+//Module 'io' implements console output using IO monad.
+open monad io
+
+//Our output function
+writen x = do putStrLn x
 
 //This function takes a function and a number of iterations
 //It then calls a provided function on each iteration
@@ -7,4 +12,4 @@ for act n | n > 0 = act (show n) `seq` for act (n - 1)
 
 //In this example we print numbers from 10 to 1 to console using
 //writen function from console module
-for writen 10
+for writen 10 ::: IO

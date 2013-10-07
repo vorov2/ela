@@ -13,38 +13,43 @@ namespace Ela.Parsing
 
         private ElaExpression ValidateDoBlock(ElaExpression exp)
         {
-            if (exp.Type == ElaNodeType.Juxtaposition && ((ElaJuxtaposition)exp).Parameters[0] == null)
+            if (exp.Type == ElaNodeType.Juxtaposition)
             {
-                var ext = ((ElaJuxtaposition)exp).Parameters[1];
-                var ctx = default(ElaContext);
+                var juxta = (ElaJuxtaposition)exp;
 
-                if (ext.Type == ElaNodeType.Context)
+                if (juxta.Parameters[1].Type == ElaNodeType.Lambda && ((ElaLambda)juxta.Parameters[1]).Right == null)
                 {
-                    ctx = (ElaContext)ext;
-                    ext = ctx.Expression;
+                    var ext = juxta.Parameters[0];
+                    var ctx = default(ElaContext);
+
+                    if (ext.Type == ElaNodeType.Context)
+                    {
+                        ctx = (ElaContext)ext;
+                        ext = ctx.Expression;
+                    }
+
+                    var eqt = new ElaJuxtaposition { Spec = true };
+                    eqt.SetLinePragma(exp.Line, exp.Column);
+                    eqt.Target = new ElaNameReference(t) { Name = ">>=" };
+                    eqt.Parameters.Add(ext);
+
+                    var jux = new ElaJuxtaposition();
+                    jux.SetLinePragma(exp.Line, exp.Column);
+                    jux.Target = new ElaNameReference { Name = "point" };
+                    jux.Parameters.Add(new ElaUnitLiteral());
+                    eqt.Parameters.Add(new ElaLambda { Left = new ElaPlaceholder(), Right = jux });
+
+                    if (ctx != null)
+                    {
+                        ctx.Expression = eqt;
+                        exp = ctx;
+                    }
+                    else
+                        exp = eqt;
                 }
-
-                var eqt = new ElaJuxtaposition { Spec = true };
-                eqt.SetLinePragma(exp.Line, exp.Column);
-                eqt.Target = new ElaNameReference(t) { Name = ">>=" };
-                eqt.Parameters.Add(ext);
-
-                var jux = new ElaJuxtaposition();
-                jux.SetLinePragma(exp.Line, exp.Column);
-                jux.Target = new ElaNameReference { Name = "point" };
-                jux.Parameters.Add(new ElaUnitLiteral());
-                eqt.Parameters.Add(new ElaLambda { Left = new ElaPlaceholder(), Right = jux });
-
-                if (ctx != null)
-                {
-                    ctx.Expression = eqt;
-                    exp = ctx;
-                }
-                else
-                    exp = eqt;
             }
 
-            var root = exp;
+            var root = exp;        
 
             while (true)
             {
@@ -107,9 +112,9 @@ namespace Ela.Parsing
                     break;
             }
 
-            var ret = new ElaLazyLiteral { Expression = root };
-            ret.SetLinePragma(root.Line, root.Column);
-            return ret;
+            //var ret = new ElaLazyLiteral { Expression = root };
+            //ret.SetLinePragma(root.Line, root.Column);
+            return root;
         }
 
         private ElaExpression Reduce(ElaExpression exp, ElaExpression parent)

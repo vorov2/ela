@@ -23,8 +23,13 @@ namespace Ela.CodeModel
 
         internal override void ToString(StringBuilder sb, int indent)
         {
-            Expression.ToString(sb, 0);
-            sb.Append(" ::: ");
+            if (Expression != null)
+            {
+                Expression.ToString(sb, 0);
+                sb.Append(' ');
+            }
+
+            sb.Append("::: ");
 
             if (Context.Parens)
             {
