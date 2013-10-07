@@ -1,3 +1,4 @@
+0.12.3.2:Fix:A bug fixed in Ela grammar definition, in record literal.
 0.12.3.1:Change:Now 'fail' is not a syntax, but a regular function from 'prelude'.
 0.12.3.0:Release:Release of Ela 0.12.3.0.
 0.12.2.10:Change:Implementation of do-notation is refactored, simplified and optimized.

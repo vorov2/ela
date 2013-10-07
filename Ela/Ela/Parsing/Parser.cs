@@ -402,7 +402,6 @@ internal sealed partial class Parser {
 			if (fld.FieldValue == null)
 			fld.FieldValue = new ElaNameReference(t) { Name = t.val };
 			
-		} else if (la.kind == 20 || la.kind == 54) {
 		} else SynErr(72);
 	}
 
