@@ -106,7 +106,7 @@
             // 
             // OpenWindowsDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.accept;
             this.ClientSize = new System.Drawing.Size(414, 293);

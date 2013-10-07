@@ -100,6 +100,7 @@
             this.Controls.Add(this.label);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(379, 157);
             this.MinimizeBox = false;
             this.Name = "FindSymbolDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
