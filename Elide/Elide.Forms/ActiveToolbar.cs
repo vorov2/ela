@@ -75,7 +75,7 @@ namespace Elide.Forms
                 g.FillRectangle(UserBrushes.Window, new Rectangle(Dpi.ScaleX(shift + 1), Dpi.ScaleY(1), ClientSize.Width - Dpi.ScaleX(shift), ClientSize.Height));
                 
                 if (StatusImage != null)
-                    g.DrawImage(StatusImage, Dpi.ScaleX(shift + 10), Dpi.ScaleY(3));
+                    g.DrawImage(StatusImage, new Rectangle(Dpi.ScaleX(shift + 10), Dpi.ScaleY(4), Dpi.ScaleX(StatusImage.Width), Dpi.ScaleY(StatusImage.Height)));
 
                 extraShift += 15;
             }

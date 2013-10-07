@@ -16,6 +16,7 @@ namespace Elide.CodeWorkbench.CodeSamples
         {
             split.BackColor = UserColors.Border;
             split.SplitterWidth = 1;
+            treeView.ItemHeight = Dpi.ScaleY(18);
         }
 
         public TreeView TreeView
