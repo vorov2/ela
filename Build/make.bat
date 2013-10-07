@@ -2,12 +2,6 @@
 @echo Make release platform
 SET "ELAPATH=..\"
 
-if "%1"=="NOBUILD" (
-@echo.
-@echo 1. Skipping: Build Elide
-@echo.
-@echo 2. Skipping: Build Ela
-) else (
 @echo.
 @echo 1. Build Elide
 "C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\devenv.exe" "%ELAPATH%elide\elide.sln" /build Release
@@ -15,7 +9,6 @@ if "%1"=="NOBUILD" (
 @echo.
 @echo 2. Build Ela
 "C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\devenv.exe" "%ELAPATH%ela\ela.sln" /build Release
-)
 
 @echo.
 @echo 3. Prepare target directory
@@ -35,35 +28,17 @@ copy "%ELAPATH%ela\elaconsole\elac.exe.config" c:\ela-platform\ela\
 copy "%ELAPATH%ela\bin\elalib.dll" c:\ela-platform\lib\
 xcopy "%ELAPATH%ela\elalibrary\_ela\*.ela" c:\ela-platform\lib\ /E
 
-if "%2"=="FAST" (
-@echo. 
-@echo 5. Skipping: Copy Elide files
-) else (
 @echo. 
 @echo 5. Copy Elide files
 copy "%ELAPATH%elide\bin\*.dll" c:\ela-platform\elide\
 copy "%ELAPATH%elide\bin\elide.exe" c:\ela-platform\elide\
 copy "%ELAPATH%elide\bin\elide.xml" c:\ela-platform\elide\
-)
 
-IF "%2"=="FAST" (
-@echo. 
-@echo 6. Skipping: Generate documentation files
-) else (
 @echo. 
 @echo 6. Generate documentation files
 xcopy "%ELAPATH%documentation\_dir.xml" c:\ela-platform\docs\
 eladoc %ELAPATH%documentation\ c:\ela-platform\docs\
-)
 
-IF "%2"=="FAST" (
-@echo.
-@echo 7. Skipping: Copy code samples
-@echo.
-@echo 8. Skipping: Copy change log files
-@echo.
-@echo 9. Skipping: Clean
-) else (
 @echo.
 @echo 7. Copy code samples
 xcopy "%ELAPATH%documentation\samples\_dir.xml" c:\ela-platform\docs\samples\
@@ -80,14 +55,7 @@ copy "%ELAPATH%documentation\docschangelist.txt" c:\ela-platform\docs_log.txt
 @echo.
 @echo 9. Clean
 del c:\ela-platform\elide\ela.dll /Q
-)
 
-if "%2"=="FAST" (
-@echo.
-@echo 10. Skipping: Build version info
-@echo.
-@echo Make completed
-) else (
 @echo.
 @echo 10. Build version info
 set rn=2013.3
@@ -114,4 +82,3 @@ for /f "delims=" %%a in ('pver.exe c:\ela-platform\docs_log.txt') do @set docs_v
 @echo Make completed
 
 pause
-)
