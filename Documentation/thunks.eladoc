@@ -5,9 +5,13 @@
 This article discusses thunks and writing non-strict code in Ela. 
 
 =Lazy Evaluation
-Ela by default is a strict language (like, for example, C#), but it does provide an extensive support for 
-lazy evaluation. However, unlike lazy functional languages, non-strict evaluation in Ela is always explicit - one 
-should mark a particular section of code as thunk to enable laziness. //br
+Unlike many other programming languages, Ela combines strict and lazy evaluation. A compiler can rewrite order
+of your statements and defer evaluation of certain expressions. However,
+the main evaluation strategy for Ela is strict, and Ela prefers eager evaluation wherever possible, using
+laziness as a "fallback strategy". //br
+Of course, sometimes you might prefer a different behavior and enforce additional laziness of a program. In order
+to allow this Ela provies a support for explicit laziness. You can mark a particular section of code as thunk 
+in order to defer its evaluation. //br
 This is done using built-in syntax like so: 
 >>x = & 2+2
 An evaluation of an expression with a leading ampersand is deferred. Also such an expression 
