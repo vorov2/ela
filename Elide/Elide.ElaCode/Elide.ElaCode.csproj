@@ -155,11 +155,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SymbolFinder.cs" />
     <Compile Include="TaskProvider.cs" />
-    <Compile Include="Views\IInteractiveService.cs" />
     <Compile Include="Views\InteractiveControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\InteractiveService.cs" />
     <Compile Include="Views\InteractiveTextBox.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -8,6 +8,8 @@ namespace Elide.Environment.Views
     {
         bool IsViewActive(string key);
 
+        string GetActiveViewKey(ViewType type);
+
         IView GetView(string key);
 
         bool OpenView(string key);

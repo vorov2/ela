@@ -28,6 +28,8 @@ namespace Elide.TextEditor
 
         string GetContent(Document doc, int lineNumber);
 
+        string GetText();
+
         void SelectText(int start, int length);
 
         void SelectText(int line, int col, int length);

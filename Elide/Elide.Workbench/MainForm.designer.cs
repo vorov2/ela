@@ -29,6 +29,7 @@ namespace Elide.Workbench
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.mainSplit = new Elide.Forms.SplitContainerEx();
             this.toolDock = new Elide.Forms.SplitContainerEx();
@@ -86,10 +87,12 @@ namespace Elide.Workbench
             // toolDock.Panel1
             // 
             this.toolDock.Panel1.Controls.Add(this.documentContainer);
+            this.toolDock.Panel1MinSize = 300;
             // 
             // toolDock.Panel2
             // 
             this.toolDock.Panel2.Controls.Add(this.toolWindow);
+            this.toolDock.Panel2MinSize = 150;
             this.toolDock.Size = new System.Drawing.Size(947, 456);
             this.toolDock.SplitterDistance = 697;
             this.toolDock.TabIndex = 3;
@@ -131,6 +134,7 @@ namespace Elide.Workbench
             this.toolWindow.Size = new System.Drawing.Size(246, 456);
             this.toolWindow.TabIndex = 0;
             this.toolWindow.SelectedIndexChanged += new System.EventHandler<Elide.Forms.SwitchBarEventArgs>(this.toolWindow_SelectedIndexChanged);
+            this.toolWindow.CloseRequested += new System.EventHandler(this.toolWindow_CloseRequested);
             // 
             // outputsBar
             // 
@@ -168,7 +172,7 @@ namespace Elide.Workbench
             this.Controls.Add(this.mainMenu);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.MainMenuStrip = this.mainMenu;
-            this.MinimumSize = new System.Drawing.Size(400, 200);
+            this.MinimumSize = new System.Drawing.Size(500, 200);
             this.Name = "MainForm";
             this.Text = "Elide";
             this.Load += new System.EventHandler(this.MainForm_Load);

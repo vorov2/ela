@@ -1,4 +1,9 @@
-﻿0.1.10.6:New:New functions 'Send selection to Interactive' and 'Send current module to Interactive' are added.
+﻿0.1.10.11:Fix:Elide doesn't reload a document after user selects 'Yes' in a prompt dialog (Issue #1148).
+0.1.10.10:New:Now it is possible to close a right hand tool window using a button in a caption.
+0.1.10.9:Change:Visual appearance of menus and tool windows is updated; mouse over effect added.
+0.1.10.8:Change:Minor enhancements in internal tool window infrastructure.
+0.1.10.7:Change:Minor clean-ups in internal text editor infrastructure.
+0.1.10.6:New:New functions 'Send selection to Interactive' and 'Send current module to Interactive' are added.
 0.1.10.5:New:A new view 'Interactive' is added (that integrated Ela Interactive Console in Elide). This view comes with settings for highlighting and general view settings integrated with Elide options.
 0.1.10.4:Change:Now 'Run' function in Ela code editor executes just a selected if any or the whole module if nothing is selected.
 0.1.10.3:Fix:'Eval selected' bug in Ela code editor (Issue #1147).

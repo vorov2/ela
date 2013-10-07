@@ -75,7 +75,7 @@ namespace Elide.Workbench
                     res = MessageBox.Show(WB.Form, String.Format(text, args),
                         Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 });
-            return res == DialogResult.OK;
+            return res == DialogResult.Yes;
         }
 
         private void InitializeDialogs()

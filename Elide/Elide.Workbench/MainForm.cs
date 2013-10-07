@@ -277,6 +277,12 @@ namespace Elide.Workbench
             }
         }
 
+        private void toolWindow_CloseRequested(object sender, EventArgs e)
+        {
+            var svc = App.GetService<IViewService>();
+            App.CloseView(svc.GetActiveViewKey(ViewType.Help));
+        }
+
         private void MainForm_DragEnter(object sender, DragEventArgs e)
         {
             var files = e.Data.GetData("FileDrop") as string[];
