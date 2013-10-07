@@ -43,6 +43,12 @@ namespace Elide.CodeWorkbench.Views
             treeView.ImageList = imageList;
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            treeView.ItemHeight = Dpi.ScaleY(18);
+            base.OnLoad(e);
+        }
+
         public void Clear()
         {
             treeView.BeginUpdate();
