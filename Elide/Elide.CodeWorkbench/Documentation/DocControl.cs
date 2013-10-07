@@ -14,7 +14,7 @@ namespace Elide.CodeWorkbench.Documentation
 
         private void SamplesControl_Load(object sender, EventArgs e)
         {
-            
+            treeView.ItemHeight = Dpi.ScaleY(18);
         }
 
         public TreeView TreeView

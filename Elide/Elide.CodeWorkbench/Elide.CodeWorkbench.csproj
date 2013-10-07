@@ -109,11 +109,11 @@
     <Compile Include="Documentation\DocControl.Designer.cs">
       <DependentUpon>DocControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="FindSymbolDialog2.cs">
+    <Compile Include="FindSymbolDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FindSymbolDialog2.Designer.cs">
-      <DependentUpon>FindSymbolDialog2.cs</DependentUpon>
+    <Compile Include="FindSymbolDialog.Designer.cs">
+      <DependentUpon>FindSymbolDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Images\_NS.cs" />
     <Compile Include="OutlinerService.cs" />
@@ -192,8 +192,8 @@
     <EmbeddedResource Include="Documentation\DocControl.resx">
       <DependentUpon>DocControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FindSymbolDialog2.resx">
-      <DependentUpon>FindSymbolDialog2.cs</DependentUpon>
+    <EmbeddedResource Include="FindSymbolDialog.resx">
+      <DependentUpon>FindSymbolDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\OutlineControl.resx">
       <DependentUpon>OutlineControl.cs</DependentUpon>

@@ -30,8 +30,8 @@ namespace Elide.CodeWorkbench.CodeSamples
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.split = new SplitContainerEx();
-            this.treeView = new BufferedTreeView();
+            this.split = new Elide.Forms.SplitContainerEx();
+            this.treeView = new Elide.Forms.BufferedTreeView();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.desc = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.split)).BeginInit();
@@ -66,7 +66,6 @@ namespace Elide.CodeWorkbench.CodeSamples
             this.treeView.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.treeView.ImageIndex = 0;
             this.treeView.ImageList = this.imageList;
-            this.treeView.ItemHeight = 18;
             this.treeView.Location = new System.Drawing.Point(0, 0);
             this.treeView.Name = "treeView";
             this.treeView.SelectedImageIndex = 0;

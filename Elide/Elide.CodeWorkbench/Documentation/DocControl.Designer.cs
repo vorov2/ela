@@ -31,7 +31,7 @@ namespace Elide.CodeWorkbench.Documentation
         {
             this.components = new System.ComponentModel.Container();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
-            this.treeView = new BufferedTreeView();
+            this.treeView = new Elide.Forms.BufferedTreeView();
             this.SuspendLayout();
             // 
             // imageList
@@ -47,7 +47,6 @@ namespace Elide.CodeWorkbench.Documentation
             this.treeView.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.treeView.ImageIndex = 0;
             this.treeView.ImageList = this.imageList;
-            this.treeView.ItemHeight = 18;
             this.treeView.Location = new System.Drawing.Point(0, 0);
             this.treeView.Name = "treeView";
             this.treeView.SelectedImageIndex = 0;
@@ -55,12 +54,12 @@ namespace Elide.CodeWorkbench.Documentation
             this.treeView.Size = new System.Drawing.Size(613, 486);
             this.treeView.TabIndex = 1;
             // 
-            // SamplesControl
+            // DocControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.treeView);
-            this.Name = "SamplesControl";
+            this.Name = "DocControl";
             this.Size = new System.Drawing.Size(613, 486);
             this.Load += new System.EventHandler(this.SamplesControl_Load);
             this.ResumeLayout(false);

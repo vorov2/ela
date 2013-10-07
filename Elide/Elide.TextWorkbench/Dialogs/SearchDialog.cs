@@ -14,13 +14,13 @@ namespace Elide.TextWorkbench.Dialogs
     public partial class SearchDialog : StateForm
     {
         private const int MAXITEMS = 50;
-
+        
         public SearchDialog()
         {
             InitializeComponent();
             SetStyle(ControlStyles.FixedHeight, true);
         }
-        
+                
         private void replaceTextCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             replaceAll.Enabled = replace.Enabled = replaceTextCombo.Enabled = replaceTextCheckBox.Checked;
@@ -74,7 +74,7 @@ namespace Elide.TextWorkbench.Dialogs
             var doc = App.Document();
             srv.ReplaceAll(findTextCombo.Text, replaceTextCombo.Text, doc, GetFlags(), GetScope());
         }
-        
+
         private void SearchDialog_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Alt || e.Control || e.Shift)

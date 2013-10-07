@@ -285,7 +285,7 @@
             this.Controls.Add(this.replaceTextCombo);
             this.Controls.Add(this.findTextCombo);
             this.Controls.Add(this.findTextLabel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.KeyPreview = true;
             this.Name = "SearchDialog";
             this.ShowInTaskbar = false;

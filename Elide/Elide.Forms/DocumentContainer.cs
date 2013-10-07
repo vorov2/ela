@@ -123,7 +123,7 @@ namespace Elide.Forms
                 TextRenderer.DrawText(g, "Line", Fonts.Header, new Rectangle(ClientSize.Width - Dpi.ScaleX(150), 0, Dpi.ScaleX(30), Dpi.ScaleY(HEIGHT)), UserColors.Text, flags);
 
                 using (var bmp = Bitmaps.Load("Bounds"))
-                    g.DrawImage(bmp, ClientSize.Width - Dpi.ScaleX(167), Dpi.ScaleY(5));
+                    g.DrawImage(bmp, new Rectangle(ClientSize.Width - Dpi.ScaleX(167), Dpi.ScaleY(5), Dpi.ScaleX(bmp.Width), Dpi.ScaleY(bmp.Height)));
             }
         }
 
