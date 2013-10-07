@@ -457,8 +457,8 @@
     <PostBuildEvent>cd $(SolutionDir)
 "..\Dependencies\Coco.exe" -N "$(ProjectDir)Parsing\Ela.atg"
 "..\Dependencies\vgen.exe" "$(ProjectDir)ChangeList.txt" "$(ProjectDir)Properties\VersionInfo.cs"
-xcopy $(TargetPath) "..\Dependencies\" /y
+xcopy $(TargetPath) "..\Build\" /y
 cd "..\Build"
-make NOBUILD FAST</PostBuildEvent>
+make_ela</PostBuildEvent>
   </PropertyGroup>
 </Project>

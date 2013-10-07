@@ -193,7 +193,7 @@
     <PostBuildEvent>cd $(SolutionDir)
 "..\Dependencies\vgen.exe" "$(ProjectDir)LibChangeList.txt" "$(ProjectDir)Properties\VersionInfo.cs"
 cd "..\Build"
-make NOBUILD FAST</PostBuildEvent>
+make_elalib</PostBuildEvent>
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
