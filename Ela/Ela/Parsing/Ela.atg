@@ -276,7 +276,6 @@ PRODUCTIONS
 							fld.FieldValue = new ElaNameReference(t) { Name = t.val };
 					.)
 				)
-				|
 			)
 		).
 		
