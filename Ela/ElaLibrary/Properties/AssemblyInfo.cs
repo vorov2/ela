@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Ela Standard Library")]
-[assembly: AssemblyCopyright("Copyright Basil Voronkov © 2010-2011")]
+[assembly: AssemblyCopyright("Copyright © Basil Voronkov 2010-2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
