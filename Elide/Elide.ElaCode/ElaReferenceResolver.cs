@@ -8,6 +8,7 @@ using Elide.CodeEditor.Infrastructure;
 using Elide.Core;
 using Elide.ElaCode.ObjectModel;
 using Elide.Environment;
+using Ela;
 
 namespace Elide.ElaCode
 {
@@ -15,7 +16,7 @@ namespace Elide.ElaCode
     {
         public static ExtendedOption NoBuild = new ExtendedOption(0x02, true);
         private LinkerOptions opts;
-        private DirectoryInfo dir;
+        private string dir;
 
         public ElaReferenceResolver()
         {
@@ -28,7 +29,7 @@ namespace Elide.ElaCode
             var ret2 = default(FileInfo);
             sec = false;
 
-            var dirs = new List<DirectoryInfo>(opts.CodeBase.Directories);
+            var dirs = new List<String>(opts.CodeBase.Directories);
 
             if (opts.CodeBase.LookupStartupDirectory && dir != null)
                 dirs.Insert(0, dir);
@@ -63,9 +64,9 @@ namespace Elide.ElaCode
         }
 
 
-        private FileInfo GetFileInfo(DirectoryInfo d, string path, string name)
+        private FileInfo GetFileInfo(string d, string path, string name)
         {
-            var fi = new FileInfo(Path.Combine(Path.Combine(d.FullName, path), name));
+            var fi = new FileInfo(Path.Combine(Path.Combine(d, path), name));
             return fi.Exists ? fi : null;
         }
         
@@ -73,7 +74,7 @@ namespace Elide.ElaCode
         {
             var rf = (Reference)reference;
             var mod = rf.Module;
-            dir = rf.Unit.Document.FileInfo != null ? rf.Unit.Document.FileInfo.Directory : null;
+            dir = rf.Unit.Document.FileInfo != null ? rf.Unit.Document.FileInfo.Directory.FullName : null;
             opts = new BuildOptionsManager(App).CreateLinkerOptions();
             var frame = default(CodeFrame);
 
@@ -122,7 +123,7 @@ namespace Elide.ElaCode
 
         private CodeFrame ReadObjectFile(ModuleReference mod, FileInfo fi)
         {
-            var obj = new ObjectFileReader(fi);
+            var obj = new ObjectFileReader(new ModuleFileInfo(fi.FullName));
 
             try
             {

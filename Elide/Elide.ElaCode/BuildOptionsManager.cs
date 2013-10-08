@@ -25,7 +25,7 @@ namespace Elide.ElaCode
             var opt = new LinkerOptions();
             var svc = app.GetService<IPathService>();
 
-            c.Directories.ForEach(d => opt.CodeBase.Directories.Add(new DirectoryInfo(svc.ResolvePathMacros(d))));
+            c.Directories.ForEach(d => opt.CodeBase.Directories.Add(svc.ResolvePathMacros(d)));
             opt.CodeBase.LookupStartupDirectory = c.LookupStartupDirectory;
             opt.ForceRecompile = c.ForceRecompile;
             opt.NoWarnings = c.NoWarnings;
