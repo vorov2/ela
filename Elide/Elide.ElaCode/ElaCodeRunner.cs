@@ -6,6 +6,7 @@ using Elide.Core;
 using Elide.ElaCode.ObjectModel;
 using Elide.Environment;
 using System.Threading;
+using System.IO;
 
 namespace Elide.ElaCode
 {
@@ -32,11 +33,12 @@ namespace Elide.ElaCode
                 {
                     var mu = (CompiledUnit)asm.MainUnit;
                     var doc = default(Document);
+                    var efi = new FileInfo(ex.Error.File.FullName);
 
-                    if (!ex.Error.File.Exists)
+                    if (!efi.Exists)
                         doc = mu.Document;
-                    else if (!ex.Error.File.HasExtension("elaobj"))
-                        doc = new VirtualDocument(ex.Error.File);
+                    else if (!efi.HasExtension("elaobj"))
+                        doc = new VirtualDocument(efi);
 
                     throw new CodeException(doc, ex.Error.Line, ex);
                 }

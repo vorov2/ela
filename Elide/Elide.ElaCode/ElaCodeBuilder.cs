@@ -58,9 +58,9 @@ namespace Elide.ElaCode
             logger.WriteBuildOptions("Compiler options: {0}", copt);
             logger.WriteBuildOptions("Linker options: {0}", lopt);
             logger.WriteBuildOptions("Module lookup directories:");
-            lopt.CodeBase.Directories.ForEach(d => logger.WriteBuildOptions(d.FullName));
+            lopt.CodeBase.Directories.ForEach(d => logger.WriteBuildOptions(d));
 
-            var lnk = new ElaIncrementalLinker(lopt, copt, doc.FileInfo == null ? new FileInfo(doc.Title) : doc.FileInfo);
+            var lnk = new ElaIncrementalLinker(lopt, copt, doc.FileInfo == null ? new ModuleFileInfo(doc.Title) : new ModuleFileInfo(doc.FileInfo.FullName));
             lnk.ModuleResolve += (o, e) =>
             {
                 //TBD
@@ -72,7 +72,7 @@ namespace Elide.ElaCode
                 new MessageItem(
                     m.Type == MessageType.Error ? MessageItemType.Error : (m.Type == MessageType.Warning ? MessageItemType.Warning : MessageItemType.Information),
                     String.Format("ELA{0}: {1}", m.Code, m.Message),
-                    m.File == null || !m.File.Exists ? doc : new VirtualDocument(m.File),
+                    m.File == null || !new FileInfo(m.File.FullName).Exists ? doc : new VirtualDocument(new FileInfo(m.File.FullName)),
                     m.Line,
                     m.Column) { 
                     Tag = m.Code 

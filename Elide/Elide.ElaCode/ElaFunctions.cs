@@ -12,6 +12,7 @@ using Elide.Environment.Views;
 using Elide.Scintilla;
 using Elide.TextEditor;
 using Ela.Linking;
+using Ela;
 
 namespace Elide.ElaCode
 {
@@ -77,7 +78,7 @@ namespace Elide.ElaCode
 
                 if (fi != null)
                 {
-                    var wr = new ObjectFileWriter(fi);
+                    var wr = new ObjectFileWriter(new ModuleFileInfo(fi.FullName));
                     wr.Write(asm.Assembly.GetRootModule());
                 }
             }

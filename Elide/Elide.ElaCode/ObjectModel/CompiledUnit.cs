@@ -7,6 +7,7 @@ using Ela.Debug;
 using Elide.CodeEditor;
 using Elide.CodeEditor.Infrastructure;
 using Elide.Environment;
+using System.IO;
 
 namespace Elide.ElaCode.ObjectModel
 {
@@ -86,7 +87,7 @@ namespace Elide.ElaCode.ObjectModel
 
         public string Name
         {
-            get { return CodeFrame.File.ShortName(); }
+            get { return new FileInfo(CodeFrame.File.Name).ShortName(); }
         }
 
         public IEnumerable<CodeName> Globals { get; private set; }

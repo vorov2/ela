@@ -4,6 +4,7 @@ using System.Linq;
 using Ela.Linking;
 using Elide.CodeEditor.Infrastructure;
 using Elide.Environment;
+using System.IO;
 
 namespace Elide.ElaCode.ObjectModel
 {
@@ -14,7 +15,7 @@ namespace Elide.ElaCode.ObjectModel
             Assembly = asm;
             Units = Assembly.EnumerateModules()
                 .Select(n => Assembly.GetModule(Assembly.GetModuleHandle(n)))
-                .Select(m => new CompiledUnit(new VirtualDocument(m.File), m))
+                .Select(m => new CompiledUnit(new VirtualDocument(new FileInfo(m.File.FullName)), m))
                 .ToList();
             var root = Assembly.GetRootModule();
             MainUnit = new CompiledUnit(rootDoc, root);
