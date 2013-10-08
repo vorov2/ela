@@ -78,7 +78,7 @@ namespace Elide.ElaCode
 
                 if (fi != null)
                 {
-                    var wr = new ObjectFileWriter(new ModuleFileInfo(fi.FullName));
+                    var wr = new ObjectFileWriter(fi.ToModuleFileInfo());
                     wr.Write(asm.Assembly.GetRootModule());
                 }
             }
