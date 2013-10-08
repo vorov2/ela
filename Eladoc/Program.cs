@@ -14,6 +14,7 @@ using System.Web;
 using Ela.Runtime.ObjectModel;
 using System.Reflection;
 using System.Diagnostics;
+using Ela;
 
 namespace Eladoc
 {
@@ -91,7 +92,7 @@ namespace Eladoc
             var lopt = new LinkerOptions();
             var copt = new CompilerOptions { Prelude = "prelude" };
             ConfigurationManager.AppSettings["refs"].Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
-                .ToList().ForEach(s => lopt.CodeBase.Directories.Add(new DirectoryInfo(s)));
+                .ToList().ForEach(s => lopt.CodeBase.Directories.Add(s));
 
             if (!String.IsNullOrEmpty(doc.File) && doc.File.Trim(' ').Length != 0)
             {
@@ -101,7 +102,7 @@ namespace Eladoc
                 {
                     foreach (var d in lopt.CodeBase.Directories)
                     {
-                        elaFile = new FileInfo(Path.Combine(d.FullName, doc.File));
+                        elaFile = new FileInfo(Path.Combine(d, doc.File));
 
                         if (elaFile.Exists)
                             break;
@@ -117,8 +118,8 @@ namespace Eladoc
                     return -1;
                 }
 
-                lopt.CodeBase.Directories.Add(elaFile.Directory);
-                var lnk = new ElaIncrementalLinker(lopt, copt, elaFile);
+                lopt.CodeBase.Directories.Add(elaFile.Directory.FullName);
+                var lnk = new ElaIncrementalLinker(lopt, copt, new ModuleFileInfo(elaFile.FullName));
                 var lres = lnk.Build();
 
                 if (!lres.Success)
