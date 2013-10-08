@@ -60,7 +60,7 @@ namespace Elide.ElaCode
             logger.WriteBuildOptions("Module lookup directories:");
             lopt.CodeBase.Directories.ForEach(d => logger.WriteBuildOptions(d));
 
-            var lnk = new ElaIncrementalLinker(lopt, copt, doc.FileInfo == null ? new ModuleFileInfo(doc.Title) : new ModuleFileInfo(doc.FileInfo.FullName));
+            var lnk = new ElaIncrementalLinker(lopt, copt, doc.FileInfo == null ? new ModuleFileInfo(doc.Title) : doc.FileInfo.ToModuleFileInfo());
             lnk.ModuleResolve += (o, e) =>
             {
                 //TBD

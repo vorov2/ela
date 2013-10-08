@@ -145,6 +145,7 @@
     <Compile Include="Configuration\EilGeneratorConfigPage.Designer.cs">
       <DependentUpon>EilGeneratorConfigPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModuleFileInfoExtensions.cs" />
     <Compile Include="ObjectModel\CompiledAssembly.cs" />
     <Compile Include="ObjectModel\CompiledUnit.cs" />
     <Compile Include="ObjectModel\Reference.cs" />

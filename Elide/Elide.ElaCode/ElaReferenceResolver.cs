@@ -123,7 +123,7 @@ namespace Elide.ElaCode
 
         private CodeFrame ReadObjectFile(ModuleReference mod, FileInfo fi)
         {
-            var obj = new ObjectFileReader(new ModuleFileInfo(fi.FullName));
+            var obj = new ObjectFileReader(fi.ToModuleFileInfo());
 
             try
             {
