@@ -22,7 +22,7 @@ namespace Elide.Forms
             contextMenu = new ContextMenuStrip();
             ContextMenuStrip = contextMenu;
             contextMenu.Closed += (o,e) => { hoverItem = -1; Refresh(); };
-            SetPadding(Dpi.ScaleX(1), Dpi.ScaleY(HEIGHT + 1), Dpi.ScaleX(1), Dpi.ScaleY(1));
+            SetPadding(1, HEIGHT + 1, 1, 1);
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw, true);
             Application.Idle += Idle;
         }
@@ -91,7 +91,7 @@ namespace Elide.Forms
 
             if (lastWidth > captionRect.Width)
                 lastWidth = captionRect.Width;
-                        
+
             if (hoverItem == 0 || contextMenu.Visible)
             {
                 textColor = UserColors.HighlightText;
@@ -100,7 +100,7 @@ namespace Elide.Forms
             }
             else if (hoverItem == -1 && fast)
                 g.FillRectangle(UserBrushes.Window, new Rectangle(Dpi.ScaleX(3), Dpi.ScaleY(4), Dpi.ScaleX(16) + lastWidth, Dpi.ScaleY(14)));
-            
+
             TextRenderer.DrawText(g, text, Fonts.Header, captionRect, textColor, flags);
 
             if (Items.Count > 1)
@@ -129,7 +129,7 @@ namespace Elide.Forms
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            if (Items.Count > 1 && e.X <= Dpi.ScaleX(16 + lastWidth))
+            if (Items.Count > 1 && e.X <= Dpi.ScaleX(16) + lastWidth)
             {
                 if (hoverItem != 0)
                 {
@@ -162,7 +162,7 @@ namespace Elide.Forms
 
         protected override void OnMouseClick(MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && e.X < Dpi.ScaleX(16 + lastWidth))
+            if (e.Button == MouseButtons.Left && e.X < Dpi.ScaleX(16) + lastWidth)
             {
                 GenerateMenu();
                 contextMenu.Font = Fonts.Menu;

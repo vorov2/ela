@@ -25,8 +25,8 @@ namespace Elide.Forms
         {
             dropDown.Renderer = new MenuRenderer();
             var size = MeasureDropDown(dropDown);
-            dropDown.Width = Dpi.ScaleX(size.Width);
-            dropDown.Height = Dpi.ScaleY(size.Height + 5);
+            dropDown.Width = size.Width;
+            dropDown.Height = size.Height + Dpi.ScaleY(5);
         }
 
         private static Size InternalMeasureDropDown(ToolStripItemCollection items, bool root)
@@ -41,23 +41,21 @@ namespace Elide.Forms
                 it.Font = Fonts.Menu;
                 it.AutoSize = false;
                 var sep = it is ToolStripSeparator;
-                var itHeight = sep ? SEPAHEIGHT : ITEMHEIGHT;
-                it.Height = Dpi.ScaleY(itHeight);
+                it.Height = Dpi.ScaleY(sep ? SEPAHEIGHT : ITEMHEIGHT);
 
                 var sc = String.Empty;
-
                 var mi = it as ToolStripMenuItem;
 
                 if (mi != null && mi.ShortcutKeys != Keys.None)
                     sc = conv.ConvertToString(mi.ShortcutKeys) + "     ";
 
-                var width = sep ? 10 : TextRenderer.MeasureText(it.Text + sc, it.Font).Width +
-                    (IsTopLevel(it) && !cm ? 10 : 20);
+                var width = sep ? Dpi.ScaleX(10) : TextRenderer.MeasureText(it.Text + sc, it.Font).Width +
+                    Dpi.ScaleX(IsTopLevel(it) && !cm ? 10 : 20);
 
                 if ((mi != null && !root && mi.DropDownItems.Count > 0) || cm)
-                    width += 30;
-
-                it.Width = Dpi.ScaleX(width);
+                    width += Dpi.ScaleX(30);
+                
+                it.Width = width;
 
                 if (width > maxWidth)
                     maxWidth = width;
@@ -66,16 +64,16 @@ namespace Elide.Forms
                 {
                     mi.DropDown.AutoSize = false;
                     var size = InternalMeasureDropDown(mi.DropDownItems, false);
-                    mi.DropDown.Height = Dpi.ScaleY(size.Height + 5);
-                    mi.DropDown.Width = Dpi.ScaleX(size.Width);
+                    mi.DropDown.Height = size.Height + Dpi.ScaleY(5);
+                    mi.DropDown.Width = size.Width;
                 }
 
-                height += itHeight;
+                height += it.Height;
             }
 
             if (!root || cm)
                 foreach (ToolStripItem it in items)
-                    it.Width = Dpi.ScaleX(maxWidth);
+                    it.Width = maxWidth;
 
             return new Size(maxWidth, height);
         }
@@ -124,13 +122,15 @@ namespace Elide.Forms
         protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
         {
             using (var bmp = Bitmaps.Load("Arrow"))
-                e.Graphics.DrawImage(bmp, new Point(e.Item.Bounds.Width - Dpi.ScaleX(10), e.ArrowRectangle.Y + Dpi.ScaleY(7)));
+                e.Graphics.DrawImage(bmp, new Rectangle(e.Item.Bounds.Width - Dpi.ScaleX(10), 
+                    e.ArrowRectangle.Y + Dpi.ScaleY(7), Dpi.ScaleX(bmp.Width), Dpi.ScaleY(bmp.Height)));
         }
 
         protected override void OnRenderItemCheck(ToolStripItemImageRenderEventArgs e)
         {
             using (var bmp = Bitmaps.Load("Check"))
-                e.Graphics.DrawImage(bmp, new Point(e.ImageRectangle.X + Dpi.ScaleX(1), e.ImageRectangle.Y + Dpi.ScaleY(5)));
+                e.Graphics.DrawImage(bmp, new Rectangle(e.ImageRectangle.X + Dpi.ScaleX(1), 
+                    e.ImageRectangle.Y + Dpi.ScaleY(5), Dpi.ScaleX(bmp.Width), Dpi.ScaleY(bmp.Height)));
         }
 
         protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
@@ -138,11 +138,12 @@ namespace Elide.Forms
             var g = e.Graphics;
             var cm = e.ToolStrip is ContextMenuStrip;
 
-            var x = IsTopLevel(e.Item) && !cm ? Dpi.ScaleX(0) : Dpi.ScaleX(15);
+            var x = IsTopLevel(e.Item) && !cm ? Dpi.ScaleX(2) : Dpi.ScaleX(15);
             var y = IsTopLevel(e.Item) && !cm ? Dpi.ScaleX(1) : e.TextRectangle.Y;
+            var tsize = TextRenderer.MeasureText(e.Text, e.TextFont);
 
             if (e.Item.Text != e.Text)
-                x = e.ToolStrip.Width - TextRenderer.MeasureText(e.Text, e.TextFont).Width - Dpi.ScaleX(2);
+                x = e.ToolStrip.Width - tsize.Width - Dpi.ScaleX(2);
 
             e.TextRectangle = new Rectangle(x, y, e.Item.Width - x, Dpi.ScaleY(16));
             var flag = IsTopLevel(e.Item) && !cm ? TextFormatFlags.Top | TextFormatFlags.HorizontalCenter : TextFormatFlags.Default;

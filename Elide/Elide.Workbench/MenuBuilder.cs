@@ -110,7 +110,7 @@ namespace Elide.Workbench
                     addAct(newBuilder);
                     newBuilder.Finish();
                     var size = MenuRenderer.MeasureDropDown(mi.DropDown);
-                    mi.DropDown.Height = size.Height + 5;
+                    mi.DropDown.Height = size.Height + Dpi.ScaleY(5);
                     mi.DropDown.Width = size.Width;
                 };
             }

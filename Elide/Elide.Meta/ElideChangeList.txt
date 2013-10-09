@@ -1,4 +1,5 @@
-﻿0.1.10.12:Fix:Ela code samples are updated according to language changes.
+﻿0.1.10.13:Change:Better support for High DPI screens (Issue #1151).
+0.1.10.12:Fix:Ela code samples are updated according to language changes.
 0.1.10.11:Fix:Elide doesn't reload a document after user selects 'Yes' in a prompt dialog (Issue #1148).
 0.1.10.10:New:Now it is possible to close a right hand tool window using a button in a caption.
 0.1.10.9:Change:Visual appearance of menus and tool windows is updated; mouse over effect added.
