@@ -16,7 +16,7 @@ namespace Elide.Forms
         protected override void Initialize(ToolStrip toolStrip)
         {
             toolStrip.Padding = new Padding(0, 0, 0, Dpi.ScaleY(5));
-            toolStrip.Width = Dpi.ScaleX(Width);
+            toolStrip.Width = Width;
             toolStrip.Height = Dpi.ScaleY(toolStrip.Items.Count * HEIGHT + 5);
             toolStrip.AutoSize = false;
         }
@@ -25,7 +25,7 @@ namespace Elide.Forms
         {
             item.AutoSize = false;
             item.Height = Dpi.ScaleY(HEIGHT);
-            item.Width = Dpi.ScaleX(Width);
+            item.Width = Width;
         }
         
         protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)

@@ -37,14 +37,17 @@ namespace Elide.Forms.State
 
                 if (stat != null)
                 {
-                    var w = (Int32)stat["Width"];
-                    var h = (Int32)stat["Height"];
+                    if (SaveBounds)
+                    {
+                        var w = (Int32)stat["Width"];
+                        var h = (Int32)stat["Height"];
 
-                    if (w > MinimumSize.Width)
-                        Width = w;
+                        if (w > MinimumSize.Width)
+                            Width = w;
 
-                    if (h > MinimumSize.Height)
-                        Height = h;
+                        if (h > MinimumSize.Height)
+                            Height = h;
+                    }
 
                     var x = (Int32)stat["X"];
                     var y = (Int32)stat["Y"];
@@ -65,8 +68,13 @@ namespace Elide.Forms.State
         private void SaveState()
         {
             var dict = new Dictionary<String,Object>();
-            dict.Add("Width", Width);
-            dict.Add("Height", Height);
+
+            if (SaveBounds)
+            {
+                dict.Add("Width", Width);
+                dict.Add("Height", Height);
+            }
+
             dict.Add("X", Location.X);
             dict.Add("Y", Location.Y);
 
@@ -83,6 +91,11 @@ namespace Elide.Forms.State
         protected virtual string StateFileName
         {
             get { return GetType().FullName; }
+        }
+
+        protected virtual bool SaveBounds
+        {
+            get { return true; }
         }
     }
 }

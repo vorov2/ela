@@ -32,7 +32,7 @@ namespace Elide.Forms
             var textColor = UserColors.Text;
             var corner = "Corner";
             var cross = "Cross";
-            
+
             if (SelectedItem != null)
                 currentWidth = width = (Int32)g.MeasureString(SelectedItem.Caption, Fonts.Caption).Width;
 
@@ -50,12 +50,12 @@ namespace Elide.Forms
 
             using (var bmp = Bitmaps.Load(corner))
                 g.DrawImage(bmp, new Rectangle(Dpi.ScaleX(5), Dpi.ScaleY(9), Dpi.ScaleX(bmp.Width), Dpi.ScaleY(bmp.Height)));
-                        
+
             using (var bmp = Bitmaps.Load(cross))
                 g.DrawImage(bmp, new Rectangle(ClientSize.Width - Dpi.ScaleX(15), Dpi.ScaleY(7), Dpi.ScaleX(bmp.Width), Dpi.ScaleY(bmp.Height)));
-            
+
             g.DrawRectangle(UserPens.Border, new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - Dpi.ScaleX(1), ClientRectangle.Height));
-            
+
             if (SelectedItem != null)
                 TextRenderer.DrawText(g, SelectedItem.Caption, Fonts.Caption, new Rectangle(Dpi.ScaleX(14), 0, width + Dpi.ScaleY(20), ClientSize.Height), textColor,
                     TextFormatFlags.VerticalCenter | TextFormatFlags.Left | TextFormatFlags.EndEllipsis);

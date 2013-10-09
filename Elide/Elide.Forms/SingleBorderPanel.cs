@@ -21,7 +21,7 @@ namespace Elide.Forms
 
             if (LeftBorder)
                 e.Graphics.DrawLine(UserPens.Border, new Point(0, 0), new Point(0, ClientSize.Height - Dpi.ScaleY(1)));
-            
+
             if (RightBorder)
                 e.Graphics.DrawLine(UserPens.Border, new Point(ClientSize.Width - Dpi.ScaleX(1), 0), new Point(ClientSize.Width - Dpi.ScaleX(1), ClientSize.Height - Dpi.ScaleY(1)));
 

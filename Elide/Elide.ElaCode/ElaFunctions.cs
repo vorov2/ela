@@ -129,6 +129,7 @@ namespace Elide.ElaCode
 
         public void EvaluateSelected()
         {
+            app.GetService<IViewService>().OpenView("ElaInteractive"); 
             var view = (InteractiveView)app.GetService<IViewService>().GetView("ElaInteractive");
             view.ResetSession();
             var sel = sci.HasSelections() ? sci.GetSelection().Text : sci.GetLine(sci.CurrentLine).Text;
@@ -137,17 +138,15 @@ namespace Elide.ElaCode
 
             if (!view.RunCode(src, fastFail: true, onlyErrors: true))
                 view.RunCode(sel, fastFail: false, onlyErrors: false);
-
-            app.GetService<IViewService>().OpenView("ElaInteractive");
         }
 
         public void EvaluateCurrentModule()
         {
+            app.GetService<IViewService>().OpenView("ElaInteractive");
             var view = (InteractiveView)app.GetService<IViewService>().GetView("ElaInteractive");
             view.ResetSession();
             view.PrintLine();
             view.RunCode(sci.Text, fastFail: false, onlyErrors: false);
-            app.GetService<IViewService>().OpenView("ElaInteractive");
         }
 
         //TODO: not done

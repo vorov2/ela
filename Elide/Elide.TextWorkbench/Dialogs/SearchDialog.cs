@@ -184,6 +184,11 @@ namespace Elide.TextWorkbench.Dialogs
             get { return regex.Checked; }
             set { regex.Checked = value; }
         }
+
+        protected override bool SaveBounds
+        {
+            get { return false; }
+        }
         #endregion
     }
 }

@@ -22,8 +22,9 @@ namespace Elide.Workbench
         public MainForm()
         {
             InitializeComponent();
-            _outputPanelSize = 200;
-            _toolPanelSize = 300;
+            _outputPanelSize = Dpi.ScaleY(200);
+            _toolPanelSize = Dpi.ScaleX(300);
+            mainSplit.Panel2MinSize = Dpi.ScaleY(20);
         }
 
         internal void Initialize(IApp app)
@@ -240,7 +241,7 @@ namespace Elide.Workbench
             }
             else
             {
-                if (mainSplit.Panel2.Height > 50) //50 - minimum panel size (with buttons).
+                if (mainSplit.Panel2.Height > Dpi.ScaleY(50)) //50 - minimum panel size (with buttons).
                     _outputPanelSize = mainSplit.Panel2.Height;
                 
                 mainSplit.SetPanel2Size(_outputPanelSize);

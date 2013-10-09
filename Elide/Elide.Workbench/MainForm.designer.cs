@@ -72,7 +72,7 @@ namespace Elide.Workbench
             // mainSplit.Panel2
             // 
             this.mainSplit.Panel2.Controls.Add(this.outputsBar);
-            this.mainSplit.Panel2MinSize = 19;
+            this.mainSplit.Panel2MinSize = 20;
             this.mainSplit.Size = new System.Drawing.Size(947, 604);
             this.mainSplit.SplitterDistance = 456;
             this.mainSplit.TabIndex = 2;
@@ -141,6 +141,7 @@ namespace Elide.Workbench
             this.outputsBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.outputsBar.HighlightStatusString = false;
             this.outputsBar.Location = new System.Drawing.Point(0, 0);
+            this.outputsBar.MinimumSize = new System.Drawing.Size(20, 20);
             this.outputsBar.Name = "outputsBar";
             this.outputsBar.SelectedIndex = -1;
             this.outputsBar.Size = new System.Drawing.Size(947, 20);
