@@ -119,7 +119,7 @@ namespace Ela.Compilation
 
 		public Scope GlobalScope { get; internal set; }
 
-		public FileInfo File { get; set; }
+        public ModuleFileInfo File { get; set; }
         
         internal FastList<MemoryLayout> Layouts { get; private set; }
 

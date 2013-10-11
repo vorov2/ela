@@ -6,14 +6,14 @@ namespace Ela.Linking
 {
 	public sealed class ObjectFileWriter : ObjectFile
 	{
-		public ObjectFileWriter(FileInfo file) : base(file)
+		public ObjectFileWriter(ModuleFileInfo file) : base(file)
 		{
 
 		}
 		
         public void Write(CodeFrame frame)
 		{
-			using (var bw = new BinaryWriter(File.OpenWrite()))
+			using (var bw = new BinaryWriter(new FileInfo(File.FullName).OpenWrite()))
 				Write(frame, bw);
 		}
         

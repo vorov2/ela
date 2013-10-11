@@ -23,11 +23,10 @@ namespace Ela
 
 		private string GetFileName()
 		{
-			return File == null ? String.Empty :
-				File == null ? "<memory>" : File.FullName;
+			return File == null ? "<memory>" : File.ToString();
 		}
 
-		public FileInfo File { get; internal set; }
+		public ModuleFileInfo File { get; internal set; }
 
 		public MessageType Type { get; private set; }
 		
