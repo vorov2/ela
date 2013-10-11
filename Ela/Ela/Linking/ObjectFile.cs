@@ -7,12 +7,12 @@ namespace Ela.Linking
 	{
 		private const int VERSION = 26;
 
-		protected ObjectFile(FileInfo file)
+		protected ObjectFile(ModuleFileInfo file)
 		{
 			File = file;
 		}
 
-		public FileInfo File { get; private set; }
+        public ModuleFileInfo File { get; private set; }
 
 		public int Version { get { return VERSION; } }
 	}

@@ -9,7 +9,7 @@ namespace Ela.Linking
 	public sealed class ElaIncrementalLinker : ElaIncrementalLinker<ElaParser,ElaCompiler>
 	{
 		#region Construction
-		public ElaIncrementalLinker(LinkerOptions linkerOptions, CompilerOptions compOptions, FileInfo file) :
+		public ElaIncrementalLinker(LinkerOptions linkerOptions, CompilerOptions compOptions, ModuleFileInfo file) :
 			base(linkerOptions, compOptions, file)
 		{
 
@@ -31,7 +31,7 @@ namespace Ela.Linking
 		private string source;
 		private Dictionary<String,ExportVars> exportMap = new Dictionary<String,ExportVars>();
 		
-		public ElaIncrementalLinker(LinkerOptions linkerOptions, CompilerOptions compOptions, FileInfo file) :
+		public ElaIncrementalLinker(LinkerOptions linkerOptions, CompilerOptions compOptions, ModuleFileInfo file) :
 			base(linkerOptions, compOptions, file)
 		{
 
@@ -75,7 +75,7 @@ namespace Ela.Linking
 		}
 
 
-        protected override ExportVars CreateExportVars(FileInfo fi)
+        protected override ExportVars CreateExportVars(ModuleFileInfo fi)
         {
             var vars = default(ExportVars);
             var key = fi == null ? MemoryFile : fi.ToString();

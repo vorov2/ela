@@ -22,6 +22,11 @@ namespace Ela.Parsing
 			return InternalParse(source);
 		}
 
+        public ParserResult Parse(ModuleFileInfo file)
+        {
+            return Parse(new FileInfo(file.FullName));
+        }
+
 
 		public ParserResult Parse(FileInfo file)
 		{

@@ -10,14 +10,14 @@ namespace Ela.Linking
 		#region Construction
 		public CodeBase()
 		{
-			Directories = new List<DirectoryInfo>();
+			Directories = new List<String>();
 			LookupStartupDirectory = true;
 		}
         #endregion
 
 
 		#region Properties
-		public List<DirectoryInfo> Directories { get; private set; }
+		public List<String> Directories { get; private set; }
 
 		public bool LookupStartupDirectory { get; set; }
 		#endregion

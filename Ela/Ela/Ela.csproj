@@ -158,6 +158,27 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseRT|AnyCPU'">
+    <OutputPath>..\..\..\ElaCrossPlatform\</OutputPath>
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseRT|x86'">
+    <OutputPath>bin\x86\ReleaseRT\</OutputPath>
+    <Optimize>true</Optimize>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseRT|x64'">
+    <OutputPath>bin\x64\ReleaseRT\</OutputPath>
+    <Optimize>true</Optimize>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -209,6 +230,7 @@
     <Compile Include="Debug\SymTables.cs" />
     <Compile Include="Debug\VarSym.cs" />
     <Compile Include="Linking\LangModule.cs" />
+    <Compile Include="ModuleFileInfo.cs" />
     <Compile Include="Runtime\CallStack.cs" />
     <Compile Include="Runtime\Classes\UnitInstance.cs" />
     <Compile Include="Runtime\ObjectModel\ElaConstant.cs" />

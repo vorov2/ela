@@ -9,14 +9,14 @@ namespace Ela.Linking
 {
 	public sealed class ObjectFileReader : ObjectFile
 	{
-		public ObjectFileReader(FileInfo file) : base(file)
+		public ObjectFileReader(ModuleFileInfo file) : base(file)
 		{
 
 		}
 
 		public CodeFrame Read()
 		{
-			using (var bw = new BinaryReader(File.OpenRead()))
+			using (var bw = new BinaryReader(new FileInfo(File.FullName).OpenRead()))
 				return Read(bw);
 		}
         

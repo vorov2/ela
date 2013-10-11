@@ -11,7 +11,7 @@ namespace Ela.Runtime
 	{
 		private const string EXC_FORMAT = "{0}\r\n{1}";
 
-		internal ElaCodeException(string message, ElaRuntimeError error, FileInfo file, int line, int col,
+		internal ElaCodeException(string message, ElaRuntimeError error, ModuleFileInfo file, int line, int col,
 			IEnumerable<CallFrame> callStack, ElaError errObj, Exception innerException)
             : base(message, innerException)
 		{

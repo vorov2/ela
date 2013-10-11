@@ -18,7 +18,7 @@ namespace Ela.Compilation
 		
 		internal static string GetError(ElaCompilerError error, params object[] args)
 		{
-			return String.Format(errors.GetString(error.ToString()), args);
+            return String.Format(errors.GetString(error.ToString()), args);
 		}
 
 

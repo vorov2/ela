@@ -2129,12 +2129,7 @@ namespace Ela.Runtime
             var fi = cs.File;
 
             if (fi != null && StringComparer.OrdinalIgnoreCase.Equals(fi.Extension, ".elaobj"))
-            {
-                var nfi = new FileInfo(fi.FullName.Replace(fi.Extension, ".ela"));
-
-                if (nfi.Exists)
-                    fi = nfi;
-            }
+                fi = new ModuleFileInfo(fi.FullName.Replace(fi.Extension, ".ela"));
 
             return new ElaCodeException(err.Message.Replace("\0", ""), err.Code, fi, cs.Line, cs.Column, cs, err, ex);
         }

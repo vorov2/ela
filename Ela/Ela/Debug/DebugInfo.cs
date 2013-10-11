@@ -41,7 +41,7 @@ namespace Ela.Debug
 
 
 		#region Properties
-		internal FileInfo File { get; set; }
+		internal ModuleFileInfo File { get; set; }
 
 		internal FastList<ScopeSym> Scopes { get; private set; }
 

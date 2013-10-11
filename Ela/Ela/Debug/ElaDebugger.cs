@@ -21,7 +21,7 @@ namespace Ela.Debug
 		
 
 		#region Methods
-		public CallStack BuildCallStack(int currentOffset, CodeFrame errModule, FileInfo moduleFile, Stack<StackPoint> callChain)
+		public CallStack BuildCallStack(int currentOffset, CodeFrame errModule, ModuleFileInfo moduleFile, Stack<StackPoint> callChain)
 		{
 			var syms = new DebugReader(errModule.Symbols);
 			var frames = new List<CallFrame>();

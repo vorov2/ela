@@ -141,7 +141,7 @@ namespace ElaConsole
 			{
                 var copt = CreateLinkerOptions();
                 copt.ForceRecompile = true;
-				var el = new ElaLinker(copt, CreateCompilerOptions(), new FileInfo(opt.FileName));
+				var el = new ElaLinker(copt, CreateCompilerOptions(), new ModuleFileInfo(opt.FileName));
 				var res = el.Build();
 				helper.PrintErrors(res.Messages);
 
@@ -186,7 +186,7 @@ namespace ElaConsole
 				}
 			}
 
-			var obj = new ObjectFileWriter(fi);
+			var obj = new ObjectFileWriter(new ModuleFileInfo(fi.FullName));
 
 			try
 			{
@@ -303,7 +303,7 @@ namespace ElaConsole
 			try 
 			{
 				linker = new ElaIncrementalLinker(CreateLinkerOptions(), CreateCompilerOptions(),
-					new FileInfo(fileName));
+					new ModuleFileInfo(fileName));
 				
 				if (opt.Arguments.Count > 0)
                     CompileArguments(linker);
@@ -453,9 +453,9 @@ namespace ElaConsole
 			linkOpt.CodeBase.LookupStartupDirectory = !opt.IgnoreStartupDirectory;
 
 			foreach (var s in opt.ReferencePaths)
-				linkOpt.CodeBase.Directories.Add(new DirectoryInfo(s));
+				linkOpt.CodeBase.Directories.Add(s);
 
-            linkOpt.CodeBase.Directories.Add(new DirectoryInfo(Environment.CurrentDirectory));
+            linkOpt.CodeBase.Directories.Add(Environment.CurrentDirectory);
 			return linkOpt;
 		}
 
