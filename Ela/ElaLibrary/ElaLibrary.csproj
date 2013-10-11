@@ -163,6 +163,7 @@
     <None Include="_ela\peano.ela" />
     <None Include="_ela\random.ela" />
     <None Include="_ela\tuple.ela" />
+    <None Include="_ela\xml.ela" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

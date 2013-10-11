@@ -2,7 +2,7 @@
   Module io
   Created in 2013 by Basil Voronkov
 */
-open monad unsafe.console 
+open monad unsafe.console unsafe.file libIO#elalib@unsafeIO
 
 //Type and instances
 type IO = IO a # private
@@ -36,3 +36,20 @@ putStrLn s = putStr (s ++ "\r\n")
 readStr = mkIO (\_ -> readn ())
 
 readAny = mkIO (\_ -> gread $ readn())
+
+//File IO
+type FileMode = AppendMode | CreateMode | OpenMode | TruncateMode
+type FileAccessMode = ReadMode | WriteMode | ReadWriteMode
+type FileStream = FileStream a # private
+
+openFile fn mode acc = mkIO (\_ -> FileStream $ unsafeIO.openFile fn ms as)
+  where ms = consName mode
+        as = consName acc
+
+readFile fn mode = openFile fn mode ReadMode
+
+writeFile fn mode = openFile fn mode WriteMode
+
+closeFile (FileStream f) = mkIO (\_-> unsafeIO.closeFile f)
+
+writeStr str (FileStream f) = mkIO (\_ -> unsafeIO.writeString str f)
