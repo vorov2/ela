@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ExpectedBooleanToken" xml:space="preserve">
+    <value>Invalid boolean syntax.</value>
+  </data>
+  <data name="ExpectedCharToken" xml:space="preserve">
+    <value>Invalid char syntax.</value>
+  </data>
+  <data name="ExpectedCurlyBrace" xml:space="preserve">
+    <value>Invalid record literal. A curly brace '{{' or '}}' is expected.</value>
+  </data>
+  <data name="ExpectedEof" xml:space="preserve">
+    <value>End of file missing.</value>
+  </data>
+  <data name="ExpectedIdentifierToken" xml:space="preserve">
+    <value>Invalid identifier syntax. Probably identifier contains an invalid character.</value>
+  </data>
+  <data name="ExpectedIntToken" xml:space="preserve">
+    <value>Invalid integer syntax.</value>
+  </data>
+  <data name="ExpectedKeywordAsAmp" xml:space="preserve">
+    <value>Expected 'as' operator, e.g. 'expr@name'.</value>
+  </data>
+  <data name="ExpectedKeywordElse" xml:space="preserve">
+    <value>A conditional expression (if/else) is missing a required 'else' clause.</value>
+  </data>
+  <data name="ExpectedKeywordIf" xml:space="preserve">
+    <value>Expected keyword 'if'.</value>
+  </data>
+  <data name="ExpectedKeywordIn" xml:space="preserve">
+    <value>Invalid binding syntax. All non-global bindings through 'let/in' should have a required 'in' clause.</value>
+  </data>
+  <data name="ExpectedIsOperator" xml:space="preserve">
+    <value>Expected keyword 'is'.</value>
+  </data>
+  <data name="ExpectedKeywordLet" xml:space="preserve">
+    <value>Expected keyword 'let'.</value>
+  </data>
+  <data name="ExpectedKeywordMatch" xml:space="preserve">
+    <value>Expected keyword 'match'.</value>
+  </data>
+  <data name="ExpectedKeywordOpen" xml:space="preserve">
+    <value>Expected keyword 'open'.</value>
+  </data>
+  <data name="ExpectedKeywordRaise" xml:space="preserve">
+    <value>Expected keyword 'raise'.</value>
+  </data>
+  <data name="ExpectedKeywordTry" xml:space="preserve">
+    <value>Expected keyword 'try'.</value>
+  </data>
+  <data name="ExpectedKeywordWith" xml:space="preserve">
+    <value>Expected keyword 'with'.</value>
+  </data>
+  <data name="ExpectedArrow" xml:space="preserve">
+    <value>An operator '-&gt;' that is required to separate lambda parameters from its body is missing.</value>
+  </data>
+  <data name="ExpectedOperatorToken" xml:space="preserve">
+    <value>A name for an operator is invalid. It should be a unique combination of the following allowed symbols: '!%&amp;*+-.:/&lt;=&gt;?@^|~'.</value>
+  </data>
+  <data name="ExpectedRealToken" xml:space="preserve">
+    <value>Invalid floating point number syntax.</value>
+  </data>
+  <data name="ExpectedStringToken" xml:space="preserve">
+    <value>Invalid string syntax.</value>
+  </data>
+  <data name="ExpectedToken" xml:space="preserve">
+    <value>Invalid syntax. Expected: {0}.</value>
+  </data>
+  <data name="InvalidEscapeCode" xml:space="preserve">
+    <value>Invalid escape sequence in a string at position '{0}'.</value>
+  </data>
+  <data name="InvalidExpression" xml:space="preserve">
+    <value>Invalid expression.</value>
+  </data>
+  <data name="InvalidFunctionDeclaration" xml:space="preserve">
+    <value>Invalid function declaration, function name '{0}' is invalid.</value>
+  </data>
+  <data name="InvalidIntegerSyntax" xml:space="preserve">
+    <value>Invalid syntax of integer literal.</value>
+  </data>
+  <data name="InvalidLiteral" xml:space="preserve">
+    <value>Invalid syntax for a literal expression.</value>
+  </data>
+  <data name="InvalidLiteralPattern" xml:space="preserve">
+    <value>Invalid primitive literal pattern syntax.</value>
+  </data>
+  <data name="InvalidPrimitive" xml:space="preserve">
+    <value>Invalid syntax for Ela primitive type literal.</value>
+  </data>
+  <data name="InvalidProduction" xml:space="preserve">
+    <value>Invalid syntax for production '{0}'.</value>
+  </data>
+  <data name="InvalidRealSyntax" xml:space="preserve">
+    <value>Invalid syntax of real literal.</value>
+  </data>
+  <data name="InvalidRoot" xml:space="preserve">
+    <value>Invalid syntax.</value>
+  </data>
+  <data name="InvalidSyntax" xml:space="preserve">
+    <value>Invalid syntax.</value>
+  </data>
+  <data name="InvalidTry" xml:space="preserve">
+    <value>Invalid syntax for the 'try' expression.</value>
+  </data>
+  <data name="ExpectedLambda" xml:space="preserve">
+    <value>Expected lambda operator '\'.</value>
+  </data>
+  <data name="ExpectedDot" xml:space="preserve">
+    <value>A member access operator '.' is expected.</value>
+  </data>
+  <data name="ExpectedKeywordFail" xml:space="preserve">
+    <value>Expected keyword 'fail'.</value>
+  </data>
+  <data name="ExpectedKeywordThen" xml:space="preserve">
+    <value>Invalid syntax of a conditional (if/else) expression. A required 'then' clause is missing.</value>
+  </data>
+  <data name="ExpectedKeywordWhere" xml:space="preserve">
+    <value>Expected keyword 'where'.</value>
+  </data>
+  <data name="ExpectedSquareBrace" xml:space="preserve">
+    <value>Invalid list literal, a brace '[' or ']' is missing.</value>
+  </data>
+  <data name="InvalidApplication" xml:space="preserve">
+    <value>Invalid function application syntax.</value>
+  </data>
+  <data name="InvalidBinding" xml:space="preserve">
+    <value>Invalid name binding syntax.</value>
+  </data>
+  <data name="InvalidComp" xml:space="preserve">
+    <value>Invalid function composition.</value>
+  </data>
+  <data name="InvalidComprehension" xml:space="preserve">
+    <value>Invalid comprehension syntax.</value>
+  </data>
+  <data name="InvalidConsPattern" xml:space="preserve">
+    <value>Invalid head/tail (e.g. 'x::xs') pattern syntax.</value>
+  </data>
+  <data name="InvalidFail" xml:space="preserve">
+    <value>Invalid syntax for a 'fail' expression.</value>
+  </data>
+  <data name="InvalidGrouping" xml:space="preserve">
+    <value>Invalid grouping construct '( expr )'.</value>
+  </data>
+  <data name="InvalidGuard" xml:space="preserve">
+    <value>Invalid syntax for a guard expression. A guard should start rom a pipe '|' operator; several guards can be joined together using comma, e.g. '| foo, bar'.</value>
+  </data>
+  <data name="InvalidIf" xml:space="preserve">
+    <value>Invalid syntax for a conditional if/else expression.</value>
+  </data>
+  <data name="InvalidInclude" xml:space="preserve">
+    <value>Invalid module open directive.</value>
+  </data>
+  <data name="InvalidInfix" xml:space="preserve">
+    <value>Invalid infix function application syntax.</value>
+  </data>
+  <data name="InvalidLambda" xml:space="preserve">
+    <value>Invalid lambda declaration.</value>
+  </data>
+  <data name="InvalidLazy" xml:space="preserve">
+    <value>Invalid thunk literal syntax.</value>
+  </data>
+  <data name="InvalidList" xml:space="preserve">
+    <value>Invalid syntax for a list literal.</value>
+  </data>
+  <data name="InvalidMatch" xml:space="preserve">
+    <value>Invalid syntax for a match expression.</value>
+  </data>
+  <data name="InvalidMemberAccess" xml:space="preserve">
+    <value>Invalid member access syntax.</value>
+  </data>
+  <data name="InvalidParamList" xml:space="preserve">
+    <value>Invalid syntax for list or array literal.</value>
+  </data>
+  <data name="InvalidRange" xml:space="preserve">
+    <value>Invalid range declaration syntax.</value>
+  </data>
+  <data name="InvalidRecord" xml:space="preserve">
+    <value>Invalid record declaration syntax.</value>
+  </data>
+  <data name="InvalidSimpleExpression" xml:space="preserve">
+    <value>Invalid syntax for an expression.</value>
+  </data>
+  <data name="InvalidTuple" xml:space="preserve">
+    <value>Invalid tuple literal.</value>
+  </data>
+  <data name="InvalidVariableReference" xml:space="preserve">
+    <value>Invalid syntax for a variable reference.</value>
+  </data>
+  <data name="InvalidVariant" xml:space="preserve">
+    <value>Invalid syntax for a variant literal. A variant should start with a tag (e.g. `Some) optionally followed by a correct expression.</value>
+  </data>
+  <data name="InvalidWhereBinding" xml:space="preserve">
+    <value>Invalid name binding in 'where' clause.</value>
+  </data>
+  <data name="ComprehensionOpInvalidOperand" xml:space="preserve">
+    <value>Invalid right operand for the comprehension '@@' operator.</value>
+  </data>
+  <data name="ExpectedComprehensionSlash" xml:space="preserve">
+    <value>Expected operator '\\'.</value>
+  </data>
+  <data name="TabNotAllowed" xml:space="preserve">
+    <value>Tab character is not allowed. Use spaces for indentation.</value>
+  </data>
+  <data name="IncorrectIndentation" xml:space="preserve">
+    <value>Syntax error. Possibly indentation is incorrect. Try to indent or outdent token.</value>
+  </data>
+  <data name="InvalidSyntaxUnexpectedSymbol" xml:space="preserve">
+    <value>Invalid syntax. Unexpected symbol '{0}'.</value>
+  </data>
+  <data name="InvalidIndentationUnexpectedSymbol" xml:space="preserve">
+    <value>Unexpected symbol '{0}'. Probably indentation is incorrect.</value>
+  </data>
+  <data name="InvalidOperation" xml:space="preserve">
+    <value>Invalid syntax for an operation.</value>
+  </data>
+  <data name="InvalidOperator" xml:space="preserve">
+    <value>Invalid operator.</value>
+  </data>
+  <data name="InvalidFunctionSignature" xml:space="preserve">
+    <value>Invalid function signature. A symbol '{0}' is unexpected.</value>
+  </data>
+  <data name="InvalidVariantLiteral" xml:space="preserve">
+    <value>Invalid variant literal.</value>
+  </data>
+  <data name="InvalidAttribute" xml:space="preserve">
+    <value>Invalid attribute declaration. A head symbol ({0}) is not valid.</value>
+  </data>
+  <data name="UnknownAttribute" xml:space="preserve">
+    <value>Unknown attribute {0}.</value>
+  </data>
+  <data name="InvalidAttributeWhere" xml:space="preserve">
+    <value>Invalid attribute declaration. A 'where' clause is not valid here.</value>
+  </data>
+  <data name="ExpectedKeywordClass" xml:space="preserve">
+    <value>Expected keyword 'class'.</value>
+  </data>
+  <data name="ExpectedKeywordInstance" xml:space="preserve">
+    <value>Expected keyword 'instance'.</value>
+  </data>
+  <data name="ExpectedKeywordType" xml:space="preserve">
+    <value>Expected keyword 'type'.</value>
+  </data>
+  <data name="InvalidAs" xml:space="preserve">
+    <value>Invalid syntax for 'as' pattern.</value>
+  </data>
+  <data name="InvalidClassInstance" xml:space="preserve">
+    <value>Invalid instance declaration.</value>
+  </data>
+  <data name="InvalidHeader" xml:space="preserve">
+    <value>Invalid binding header.</value>
+  </data>
+  <data name="InvalidNewType" xml:space="preserve">
+    <value>Invalid type declaration.</value>
+  </data>
+  <data name="InvalidTypeClass" xml:space="preserve">
+    <value>Invalid class declaration.</value>
+  </data>
+  <data name="InvalidTypeCheck" xml:space="preserve">
+    <value>Invalid syntax for a type check expression.</value>
+  </data>
+  <data name="ExpectedKeywordImport" xml:space="preserve">
+    <value>Expected keyword 'import'.</value>
+  </data>
+  <data name="ExpectedPipe" xml:space="preserve">
+    <value>A guard entry is invalid, probably a required 'else' guard is missing.</value>
+  </data>
+  <data name="ExpectedKeywordOpentype" xml:space="preserve">
+    <value>Expected keyword 'opentype'.</value>
+  </data>
+  <data name="InvalidDoBlock" xml:space="preserve">
+    <value>Invalid 'do' notation syntax.</value>
+  </data>
+  <data name="InvaliDoEnd" xml:space="preserve">
+    <value>Invalid 'do' block. A 'do' block should end with an expression.</value>
+  </data>
+</root>

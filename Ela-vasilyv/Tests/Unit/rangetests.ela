@@ -1,0 +1,48 @@
+simple {eq,eqt} =
+  let rng = [1..3] in
+    eq (length rng) 3
+  `seq` eqt <| (match rng with 1::2::3::[] = true; _ = false;;)
+    
+withStep {eq,eqt} =
+  let rng = [1,3..12] in
+    eq (length rng) 6
+  `seq` eqt <| (match rng with [1,3,5,7,9,11] = true; _ = false;;)
+
+withStep2 {eq,eqt} =
+  let rng = [5,4.. 0] in
+    eq (length rng) 6
+  `seq` (eqt <| (match rng with 5::4::3::xs = true; _ = false;;))
+  `seq` eq (rng:5) 0
+
+lazySimple {eqt,eqf} = 
+  let rng = [1..] in
+  (eqt <| (match rng with 1::2::3::xs = true; _ = false;;))
+  `seq` (eqf <| (match rng with 1::2::3::4::[] = true; _ = false;;))
+
+lazyStep {eqt,eqf} = 
+  let rng = [5,10..] in
+  (eqt <| (match rng with 5::10::15::xs = true; _ = false;;))
+  `seq` (eqf <| (match rng with 5::10::15::20::[] = true; _ = false;;))
+
+lazyStep2 {eq,eqt,eqf} = 
+  let rng = [10,5..] in
+  (eqt <| (match rng with 10::5::0::xs = true; _ = false;;))
+  `seq` (eqf <| (match rng with 10::5::0::_::[] = true; _ = false;;))
+  `seq` eqt ((rng:3) < 0)
+
+wrong {eq,eqt} =
+  let rng = [5,10..11] in
+    eq (length rng) 2
+  `seq` eqt <| (match rng with 5::10::[] = true; _ = false;;)
+
+tuples1 {eq} =
+    eq (length lst) 10
+  `seq` eq (lst:0) (1,10)
+  `seq` eq (lst:9) (10,19)
+  where lst = [(1,10)..(10,20)]
+
+tuples2 {eq} =
+    eq (length lst) 7
+  `seq` eq (lst:0) (10,20)
+  `seq` eq (lst:6) (190,1100)
+  where lst = [(10,20),(40, 200)..(200,1100)]

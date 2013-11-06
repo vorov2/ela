@@ -1,0 +1,659 @@
+/* 
+  Ela standard prelude module
+  Created in 2011-2012 by Basil Voronkov
+*/
+import lang
+
+/* Built-in types */
+type Int
+  deriving Eq Ord Show Additive Ring Field Modulo Bit
+
+type Long
+  deriving Eq Ord Show Additive Ring Field Modulo Bit
+
+type Single
+  deriving Eq Ord Show Additive Ring Field Modulo
+
+type Double
+  deriving Eq Ord Show Additive Ring Field Modulo
+
+type Bool
+  deriving Eq Show
+
+not  = __internal not
+
+(&&) = __internal and
+
+(||) = __internal or
+
+type Char
+  deriving Eq Ord Show Cat
+
+type String
+  deriving Eq Ord Show Cat Seq Len Ix
+
+type Record
+  deriving Len Ix Name Cat
+
+type Module
+  deriving Eq Show Name
+
+type Unit
+  deriving Eq Show
+
+type Object
+
+/* Function */
+type Fun
+  deriving Eq Show
+
+(>>) f g x = g (f x)
+
+(<<) f g x = f (g x)
+
+(|>) = __internal fpipe
+
+(<|) = __internal bpipe
+
+($) = (<|)
+
+flip f x y = f y x
+
+curry f x y = f (x, y)
+
+uncurry f (x, y) = f x y
+
+curry3 f x y z = f (x, y, z)
+
+uncurry3 f (x, y, z) = f x y z
+
+/* Tuple */
+type Tuple
+  deriving Len Ix Cat
+
+x => y = (x, y)
+
+swap (x, y) = (y, x)
+
+swap3 (x, y, z) = (y, x, z)
+
+fst (x,_) = x
+
+snd (_,y) = y
+
+fst3 (x,_,_) = x
+
+snd3 (_,y,_) = y
+
+dup x = (x,x)
+
+/* List */
+type List
+  deriving Seq
+
+(::) = __internal cons
+
+last (x::[]) = x
+last (_::xs) = last xs
+last []      = fail "prelude.last: Empty list."
+
+init (x::[])   = []
+init (x::xs)   = x :: init xs
+init []        = fail "prelude.init: Empty list."
+
+map f (x::xs) = f x :: map f xs
+map _ []      = []
+
+foldl f z (x::xs) = foldl f (f z x) xs
+foldl _ z [] = z
+
+foldr f z (x::xs) = f x (foldr f z xs)
+foldr _ z []      = z
+
+reverse xs 
+  | listLazy xs = rev [] xs
+  | else = revList xs
+  where rev ys [] = ys
+        rev ys (x::xs) = rev (x::ys) xs
+
+filter p (x::xs) 
+  | p x  = x :: filter p xs
+  | else = filter p xs
+filter _ [] = []
+
+revList # private
+revList = __internal api12
+
+/* String builder */
+type StringBuilder = SB sb s # private
+
+a +> b = SB (force a) (toString <| force b)
+
+instance StringLike StringBuilder where
+  toString sb = lang.asString sb
+  fromString s = SB "" (force s)
+
+instance Eq StringBuilder where
+  (SB a b) == (SB c d) = 
+    typeCode a == typeCode c && a == c && 
+    typeCode b == typeCode d && b == d
+  a <> b = not (a == b)
+
+instance Show StringBuilder where
+  show = show << toString
+
+/* Ordering */
+type Ordering = EQ | LT | GT
+
+instance IntLike Ordering where
+  toInt EQ = 0
+  toInt LT = 1
+  toInt GT = 2
+  fromInt 0 = EQ
+  fromInt 1 = LT
+  fromInt 2 = GT
+
+instance Eq Ordering where
+  EQ == EQ = true
+  LT == LT = true
+  GT == GT = true
+  _  == _  = false
+ 
+instance Ord Ordering where
+  compare EQ y = y
+  compare GT GT = EQ
+  compare GT _ = GT
+  compare LT LT = EQ
+  compare LT EQ = GT
+  compare LT GT = LT
+
+instance Show Ordering where
+  show EQ = "EQ"
+  show LT = "LT"
+  show GT = "GT"
+
+instance Enum Ordering where
+  succ EQ = LT
+  succ LT = GT
+  pred GT = LT
+  pred LT = EQ
+  enumFrom = enumFromTo GT
+  enumFromTo max fst snd = (map fromInt 
+    <| enumFromTo (toInt max) (toInt fst) (toInt snd)) ::: Ordering
+
+maxValue x y 
+  | x >= y = x 
+  | else   = y
+
+minValue x y 
+  | x <= y = x 
+  | else   = y
+
+/* Read */
+class Read a where
+  read _->a
+
+gread = lang.readLiteral
+
+instance Read Int Long Single Double Bool Char String List Tuple Record where
+  read = gread
+
+instance Read Ordering where
+  read "LT" = LT
+  read "GT" = GT
+  read "EQ" = EQ
+
+/* Default */
+class Default a where
+  default a
+
+instance Default Int where
+  default = 0
+
+instance Default Long where
+  default = 0L
+
+instance Default Single where
+  default = 0f
+
+instance Default Double where
+  default = 0d
+
+instance Default Bool where
+  default = false
+
+instance Default Char where
+  default = '\0'
+
+instance Default String where
+  default = ""
+
+instance Default List where
+  default = []
+
+instance Default Unit where
+  default = ()
+
+/* Eq */
+class Eq(Eq) a where 
+  (==) a->a->_
+  (<>) a->a->_
+
+instance Eq where
+  x == y = not (x <> y)
+  x <> y = not (x == y)
+
+instance Eq Tuple where 
+  (==) = eqTuples
+
+instance Eq Record where 
+  x == y = x `eqRecord` y
+
+instance Eq List where 
+  (==) = eqLists
+
+/* Ord */
+class Ord(Ord) a where
+  (>) a->a->_
+  (<) a->a->_
+  (>=) a->a->_
+  (<=) a->a->_
+  compare a->a->_
+  
+instance Ord where
+  x > y = compare x y == GT
+  x < y = compare x y == LT
+  x >= y = z == GT || z == EQ
+    where z = compare x y
+  x <= y = z == LT || z == EQ
+    where z = compare x y
+  compare x y 
+    | x == y = EQ 
+    | x < y  = LT 
+    | else   = GT
+
+instance Ord Tuple where 
+  compare tup1 tup2 
+    | length tup2 <> len = fail "Ord.compare: Tuples should be of the same length."
+    | else = fold 0
+    where 
+      len = length tup1
+      fold n 
+        | n < len = if tup1:n == tup2:n then fold (n+1) 
+                    else if tup1:n > tup2:n then GT
+                    else LT
+        | else = EQ
+
+instance Ord List where
+  compare (x::xs) (y::ys) 
+    | x == y = compare xs ys 
+    | x > y = GT
+    | else = LT
+  compare [] [] = EQ
+  compare [] _ = LT
+  compare _ [] = GT
+
+/* Numerical classes */
+class Additive(Additive) a where
+  (+) a->a->_
+  (-) a->a->_
+  negate a->_
+
+class Ring(Ring) a where
+  (*) a->a->_
+  (**) a->a->_
+
+class Field(Field) a where 
+  (/) a->a->_
+
+class Modulo(Modulo) a where
+  mod a->a->_
+  rem a->a->_
+
+(%) = rem
+
+/* Bit */
+class Bit(Bit) a where 
+  (&&&) a->a->_
+  (|||) a->a->_
+  (^^^) a->a->_
+  (~~~) a->_
+  (<<<) a->_->_
+  (>>>) a->_->_
+
+/* Enum */
+class Enum a where
+  succ a->_
+  pred a->_
+  enumFrom a->a->_
+  enumFromTo a->a->a->_
+
+instance Enum Int Long where
+  succ = (+ 1)
+  pred = (- 1)
+  enumFrom fst snd = genInf fst (snd-fst)
+    where genInf e step = e :: (& genInf (e+step) step)
+  enumFromTo max fst snd
+    | snd < fst = genLt [] fst (snd-fst)
+    | snd > fst = genGt [] fst (snd-fst)
+    | else = fail "Enum.enumFromTo: Invalid second element."
+    where genLt xs e step
+            | e < max = listReverse xs
+            | else = genLt (e::xs) (e+step) step
+          genGt xs e step
+            | e > max = listReverse xs
+            | else = genGt (e::xs) (e+step) step
+
+/* Bounded */
+class Bounded a where
+  maxBound a
+  minBound a
+
+instance Bounded Int where
+  maxBound = 0x7fffffff
+  minBound = -2147483648
+
+instance Bounded Long where
+  maxBound = 0x7fffffffffffffffL
+  minBound = -9223372036854775808L
+
+instance Bounded Single where
+  maxBound = 3.402823E+38f
+  minBound = -3.402823E+38f
+
+instance Bounded Double where
+  maxBound = 1.7976931348623157E+308D
+  minBound = -1.7976931348623157E+308D
+
+/* Seq */
+class Seq(Seq) a where
+  head a->_
+  tail a->_
+  isnil a->_
+
+/* Ix */
+class Ix(Ix) a where 
+  getValue _->a->_
+
+instance Ix List where
+  getValue n xs = get 0 xs
+    where get _ [] = fail "Ix.getValue: Index is out of range."
+          get i (x::xs) | i == n = x
+                        | else = get (i+1) xs
+
+(:) = __internal getvaluer
+
+/* Len */
+class Len(Len) a where
+  length a->_
+
+instance Len List where
+  length xs
+    | listLazy xs = len 0 xs
+    | else = listLength xs
+    where len n [] = n
+          len n (_::xs) = len (n+1) xs
+
+/* Name */
+class Name(Name) a where
+  getField _->a->_
+  isField _->a->_
+
+/* Cat */
+class Cat(Cat) a where
+  (++) a->_->_
+
+instance Cat List where 
+  xs ++ ys = cat xs ys
+    where cat (x::xs) ys = & x :: cat xs ys
+          cat [] ys = ys
+
+/* Show */
+class Show(Show) a where 
+  show a->_
+
+instance Show Tuple where 
+  show (x,) = "(" ++ show x ++ ",)"
+  show t = toString <| tos "(" 0
+    where len = length t - 1
+          tos sb n 
+            | n < len = tos (sbb +> ",") (n+1)
+            | else = sbb +> ")"
+            where sbb = sb +> show (t:n)
+
+instance Show List where 
+  show [] = "[]"
+  show xs = toString <| tos "[" xs
+    where tos sb (x::[]) = sb +> show x +> "]"
+          tos sb (x::xs) = tos (sb +> show x +> ",") xs
+
+instance Show Record where 
+  show t = toString <| tos "{" 0
+    where len = length t - 1
+          tos sb n 
+            | n < len = tos (sbb +> ",") (n+1)
+            | else = sbb +> "}"
+            where sbb = sb +> (lang.showRecordKey n t) +> "=" +> show (t:n)
+
+/* xLike */
+class IntLike a where
+  toInt a->_
+  fromInt _->a
+
+class LongLike a where
+  toLong a->_
+  fromLong _->a
+
+class SingleLike a where
+  toSingle a->_
+  fromSingle _->a
+
+class DoubleLike a where
+  toDouble a->_
+  fromDouble _->a
+
+class BoolLike a where
+  toBool a->_
+  fromBool _->a
+
+class CharLike a where
+  toChar a->_
+  fromChar _->a
+
+class StringLike a where
+  toString a->_
+  fromString _->a
+
+class ListLike a where
+  toList a->_
+  fromList _->a
+
+class TupleLike a where
+  toTuple a->_
+  fromTuple _->a
+
+class RecordLike a where
+  toRecord a->_
+  fromRecord _->a
+
+instance ListLike List where
+  toList = id
+  fromList = id
+
+instance TupleLike Tuple where
+  toTuple = id
+  fromTuple = id
+
+instance RecordLike Record where
+  toRecord = id
+  fromRecord = id
+
+instance IntLike Int where
+  toInt = id
+  fromInt = id
+
+instance IntLike Long where
+  toInt = lang.asInt
+  fromInt = lang.asLong
+
+instance IntLike Single where
+  toInt = lang.asInt
+  fromInt = lang.asSingle
+
+instance IntLike Double where
+  toInt = lang.asInt
+  fromInt = lang.asDouble
+
+instance IntLike Char where
+  toInt = lang.asInt
+  fromInt = lang.asChar
+
+instance IntLike Bool where
+  toInt = lang.asInt
+  fromInt = lang.asBool
+
+instance LongLike Long where
+  toLong = id
+  fromLong = id
+
+instance LongLike Int where
+  toLong = lang.asLong
+  fromLong = lang.asInt
+
+instance LongLike Single where
+  toLong = lang.asLong
+  fromLong = lang.asSingle
+
+instance LongLike Double where
+  toLong = lang.asLong
+  fromLong = lang.asDouble
+
+instance LongLike Char where
+  toLong = lang.asLong
+  fromLong = lang.asChar
+
+instance LongLike Bool where
+  toLong = lang.asLong
+  fromLong = lang.asBool
+
+instance SingleLike Single where
+  toSingle = id
+  fromSingle = id
+
+instance SingleLike Int where
+  toSingle = lang.asSingle
+  fromSingle = lang.asInt
+
+instance SingleLike Double where
+  toSingle = lang.asSingle
+  fromSingle = lang.asDouble
+
+instance SingleLike Long where
+  toSingle = lang.asSingle
+  fromSingle = lang.asLong
+
+instance DoubleLike Double where
+  toDouble = id
+  fromDouble = id
+
+instance DoubleLike Int where
+  toDouble = lang.asDouble
+  fromDouble = lang.asInt
+
+instance DoubleLike Single where
+  toDouble = lang.asDouble
+  fromDouble = lang.asSingle
+
+instance DoubleLike Long where
+  toDouble = lang.asDouble
+  fromDouble = lang.asLong
+
+instance CharLike Char where
+  toChar = id
+  fromChar = id
+
+instance CharLike Int where
+  toChar = lang.asChar
+  fromChar = lang.asChar
+
+instance BoolLike Bool where
+  toBool = id
+  fromBool = id
+  
+instance BoolLike Int where
+  toBool = lang.asBool
+  fromBool = lang.asInt
+
+instance BoolLike Long where
+  toBool = lang.asBool
+  fromBool = lang.asLong
+
+instance StringLike String where
+  toString = id
+  fromString = id
+
+instance StringLike Char where
+  toString = lang.asString
+  fromString = lang.asChar
+
+/* Misc */
+force = __internal force
+seq   = __internal seq
+fail  = __internal fail
+undefined = & fail "Undefined."
+
+/* Combinators */
+id x = x//I
+const x _ = x//K
+sub x y z = x z (y z)//S
+fix f = f (& fix f)
+on cmb f x y = f x `cmb` f y
+
+/* Misc */
+until p f x 
+  | p x  = x 
+  | else = until p f (f x)
+even x = x % 2 == 0
+odd x = x % 2 <> 0
+
+/* Privates */
+(!!) # private
+(!!) = __internal api106
+
+typeCode # private
+typeCode = __internal api5
+
+listLazy # private
+listLazy = __internal api10
+
+listLength # private
+listLength = __internal api11
+
+listReverse # private
+listReverse = __internal api12
+
+eqRecord # private
+eqRecord rec1 rec2 = len == length rec2 && eq 0
+  where len = length rec1
+        eq n | n < len = if n!!rec1 == n!!rec2 && rec1:n == rec2:n then eq (n+1) else false
+             | else = true
+
+eqLists # private
+eqLists (x::xs) (y::ys) 
+  | x == y = eqLists xs ys 
+  | else = false
+eqLists [] [] = true
+eqLists [] _ = false
+eqLists _ [] = false
+
+eqTuples # private 
+eqTuples tup1 tup2 
+  | length tup2 <> len = fail "prelude: Tuples should be of the same length."
+  | else = fold 0
+  where 
+    len = length tup1
+    fold n 
+      | n < len - 1 = if e then fold (n+1) else false
+      | else = e
+      where e = tup1:n == tup2:n
+

@@ -1,0 +1,178 @@
+partial1 {eq} =
+    eq (sum 2 3) 5
+  `seq` eq (sum2 3) 5
+  `seq` eq (sum3 2) 5
+  where sum x y = x + y
+        sum2 = sum 2
+        sum3 = sum 3
+
+partial2 {eq} =
+    eq (((fun 2) 3) 4) 20
+  `seq` eq (fun 2 3 4) 20
+  where fun x y = \z -> z * x + z * y
+    
+partial3 {eq} =
+  let f1 = fun 10 12
+      f3 = fun 6 8 9
+      f2 = fun 1
+  in
+    eq ((f1 1) 1) 24
+  `seq` eq (((f2 2) 3) 4) 10
+  `seq` eq (f3 7) 30
+  where fun x y z k = x + y + z + k
+
+partial4 {eq} =
+  eq (fun 2 2 4 2 1) 11
+  where fun x y | r > 10 = r
+                | else   = fun r
+                where r = x + y
+    
+closure1 {eq} = 
+  let x = 2 in
+  let fun () = eq x 2 in
+  fun ()
+
+flipped1 {eq} = 
+    eq (sub 3 2) 1
+  `seq` eq (flip sub 3 2) -1
+  where sub x y = x - y
+
+flipped2 {eq} = 
+    eq (sub 3 2 1) 0
+  `seq` eq (flip sub 3 2 -1) 0
+  where sub x y z = x - y - z
+
+flipped3 {eq} =  
+  let xs = [1, 2, 3] 
+      res = f xs 
+  in 
+    eq (res:0) 10
+  `seq` eq (res:1) 20
+  `seq` eq (res:2) 30
+  where fold' [] f = []
+        fold' (x::xs) f = f x :: fold' xs f
+        f = flip fold' (*10)
+
+partialOperators {eq} =
+    eq (add' 7 2) 9
+  `seq` eq (add2 3) 5
+  `seq` eq (sub 5 4) 1
+  `seq` eq (sub2 9) 7
+  `seq` eq (div 6 3) 2
+  `seq` eq (div2 2) 4
+  where add' = (+)
+        add2 = (+2)
+        sub = (-)
+        sub2 = (- 2)
+        div = (/)
+        div2 = (8/)
+
+partialOperators2 {eq} =
+    eq ((^^^5) 10) 5
+  `seq` eq ((5^^^) 10) -5
+  where (^^^) x y = x - y
+
+funcTok {eq} =
+    eq ((`sub` 8) 20) 12
+  `seq` eq ((sub 8) 20) -12
+  `seq` eq ((8 `sub`) 20) -12
+  where sub x y = x - y
+
+postfixOperators {eq} =
+    eq ((3-) 2) 1
+  `seq` eq ((10/) 2) 5
+  `seq` eq (12 ^^^) 24
+  where ^^^ x = x + x
+
+local1 {eq} = 
+  eq (sum 2 3) 10
+  where getFun z = let sum x y = x + y + z in sum
+        sum = getFun 5
+
+local2 {eq} = 
+  let sum x y = x + y + z
+  in eq (sum 2 3) 8
+     where z = 3
+        
+local3 {eq} = 
+    eq (add 3) 5
+  `seq` eq (div 6) 3
+  where y = 2
+        add x = x + y
+        div x = x / y
+
+local4 {eq} = 
+  let sum x y = x + y + z
+  in (& eq (sum 2 3) 8)
+  where z = 3
+
+infix1 {eq} =
+    eq (2 `add` 3) 5
+  `seq` eq (8 `sub` 9) -1
+  where add x y = x + y
+        sub x y = x - y
+
+infix2 {eq} =
+  let f = 7 `fun` 4
+  in eq (f 3) 0
+  where fun x y z = x - y -z
+
+postfix1 {eqt,eqf} =
+    eqt (2 `even`)
+  `seq` eqf (5 `even`)
+  `seq` eqt (3 `odd`)
+  `seq` eqf (10 `odd`)
+  where even x = x % 2 == 0
+        odd x = x % 2 <> 0
+
+postfix2 {eq} =
+  let add' = 2 `add`
+      sub' = 4 `sub`
+  in 
+    eq (add' 3) 5
+  `seq` eq (sub' 3) 1
+  where add x y = x + y
+        sub x y = x - y
+
+recursion1 {eq} =
+  eq (fact 20) 2432902008176640000L
+  where fact = f 1L
+          where f acc 0 = acc
+                f acc n = f (n * acc) (n - 1)
+
+recursion2 {eq} =  
+  eq (fib 24) 46368
+  where fib = fib' 0 1
+              where fib' a b 0 = a
+                    fib' a b n = fib' b (a + b) (n - 1)
+
+recursion3 {eq} =
+  let year_size = 365f
+      birthday' prob people | prob' < 0.5 = people + 1f
+                            | else        = birthday' prob' (people + incr)
+                             where prob' = (year_size - people) / year_size * prob
+                                   incr  = 1f
+  in eq (birthday' 1f 1f) 23f
+
+mutualRecur {eq} =
+  let mtake (x::xs) = x::(mskip xs); mtake [] = []
+      mskip (_::xs) = mtake xs; mskip [] = []
+  in    
+  let res = mtake [1,2,3,4] 
+  in eq (res:0) 1 `seq` eq (res:1) 3
+
+comparision {eq} =
+    eq fun1 fun2
+  `seq` eq (getFun ()) (getFun ())
+  where getFun () = \x y -> x + y
+        (fun1,fun2) = (getFun (),getFun ())
+
+operator1 {eq} =
+  eq (rec ?. "foo") "foo"
+  where x ?. y = getField y x
+        rec = { foo = "foo" }
+
+flipThunk {eq} = 
+  eq (f 2 10) 8
+  where sub x y = x-y
+        f = flip (& sub)

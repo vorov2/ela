@@ -1,0 +1,158 @@
+/* 
+  Module number
+  Created in 2012 by Basil Voronkov
+*/
+import libNumber#elalib@rl
+
+/* Classes */
+class Num a where
+  zero a
+  one a
+
+class Float a where 
+  inf a->_
+  nan a->_
+  posInf a->_
+  negInf a->_
+
+class Fractional a where
+  round a->_
+  truncate a->_
+  ceiling a->_
+  floor a->_
+
+class Integral a where
+  div a->a->_
+  quot a->a->_
+
+class Absolute a where
+  abs a->_
+  signum a->_
+
+class Transcendental a where
+  e a
+  pi a
+  exp a->_
+  log a->_
+  sqrt a->_
+  logBase a->_->_
+  sin a->_
+  tan a->_
+  cos a->_
+  asin a->_
+  atan a->_
+  acos a->_
+  sinh a->_
+  tanh a->_
+  cosh a->_
+  asinh a->_
+  atanh a->_
+  acosh a->_
+
+class Principal a where
+  gcd a->a->_
+  lcm a->a->_
+
+/* Instances */
+instance Num Int where
+  zero = 0
+  one = 1
+
+instance Num Long where
+  zero = 0L
+  one = 1L
+
+instance Num Single where
+  zero = 0f
+  one = 1f
+
+instance Num Double where
+  zero = 0d
+  one = 1d
+
+instance Float Single where
+  inf       = rl.infSingle
+  nan       = rl.nanSingle
+  posInf    = rl.posInfSingle
+  negInf    = rl.negInfSingle
+
+instance Float Double where
+  inf       = rl.infDouble
+  nan       = rl.nanDouble
+  posInf    = rl.posInfDouble
+  negInf    = rl.negInfDouble
+
+instance Fractional Single Double where
+  round     = rl.round
+  truncate  = rl.truncate
+  ceiling   = rl.ceiling
+  floor     = rl.floor
+
+instance Integral Int Long where
+  quot = __internal quot
+  div x y
+    | r < 0 && r*y <> x = r - 1
+    | else = r
+    where r = x `quot` y
+
+instance Absolute Int Long Single Double where
+  abs x 
+    | x >= 0 = x 
+    | else = negate x
+  signum x 
+    | x < 0 = negate one ::: (x)
+    | else = one ::: (x)
+
+instance Transcendental where
+  logBase x y = log y / log x
+  tan x       = sin x / cos x
+  tanh x      = sinh x / cosh x
+
+instance Transcendental Single where
+  e           = 2.718282f
+  pi          = 3.141593f
+  sqrt x      = x ** 0.5f
+  exp x       = rl.exp (force x)
+  cos x       = rl.cos (force x)
+  sin x       = rl.sin (force x)
+  log x       = rl.log (force x)
+  logBase x y = rl.logBase (force x) (force y)
+  tan x       = rl.tan (force x)
+  acos x      = rl.acos (force x)
+  asin x      = rl.asin (force x)
+  atan x      = rl.atan (force x)
+  cosh x      = rl.cosh (force x)
+  sinh x      = rl.sinh (force x)
+  tanh x      = rl.tanh (force x)
+  acosh x     = rl.acosh (force x)
+  asinh x     = rl.asinh (force x)
+  atanh x     = rl.atanh (force x)
+
+instance Transcendental Double where
+  e           = 2.7182818284590451D
+  pi          = 3.1415926535897931D
+  sqrt x      = x ** 0.5d
+  exp x       = rl.exp (force x)
+  cos x       = rl.cos (force x)
+  sin x       = rl.sin (force x)
+  log x       = rl.log (force x)
+  logBase x y = rl.logBase (force x) (force y)
+  tan x       = rl.tan (force x)
+  acos x      = rl.acos (force x)
+  asin x      = rl.asin (force x)
+  atan x      = rl.atan (force x)
+  cosh x      = rl.cosh (force x)
+  sinh x      = rl.sinh (force x)
+  tanh x      = rl.tanh (force x)
+  acosh x     = rl.acosh (force x)
+  asinh x     = rl.asinh (force x)
+  atanh x     = rl.atanh (force x)
+
+instance Principal Int Long Single Double where  
+  gcd 0 0 = fail "Principal.gcd: gcd 0 0 is undefined"
+  gcd x y = gcd' (abs x) (abs y)
+    where gcd' x 0 = x
+          gcd' x y = gcd' y (x % y)
+  lcm _ 0 = 0
+  lcm 0 _ = 0
+  lcm x y = abs ((x `quot` gcd x y) * y)

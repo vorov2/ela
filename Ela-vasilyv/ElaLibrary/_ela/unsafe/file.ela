@@ -1,0 +1,14 @@
+/* 
+  "Dirty" io module
+  Created in 2012 by Basil Voronkov
+*/
+import libIO#elalib@io
+
+readLines fun fl = io.readLines (force fun) (force fl)
+
+writeLines xs fl = io.truncateFile fl `seq` write (force xs)
+  where f = force fl
+        write (x::xs) = io.writeLine x f
+        write [] = ()
+
+writeText str fl = io.writeText (force str) (force fl)

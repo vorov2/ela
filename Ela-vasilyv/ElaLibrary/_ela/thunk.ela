@@ -1,0 +1,40 @@
+/* 
+  Module thunk
+  Created in 2012 by Basil Voronkov
+*/
+import libCore#elalib@core lang
+
+class Lazy a where
+  lazy a->_
+  showLazy a->_
+
+evaled = core.evaled
+
+lazyList xs = internalLazyList (force xs)
+
+forceAll x
+  | x is List = forceList (force x)
+  | x is Tuple = forceTuple x
+  | x is Record = forceRecord x
+  | evaled x = force x
+  | else = forceAll (force x)
+
+forceList (x::xs) = forceAll x :: forceList xs
+forceList [] = []
+
+forceOnlyList xs 
+  | lazyList xs = force xs 
+  | else = xs
+  where
+    force (x::xs) = x :: force xs
+    force [] = []
+
+forceRecord r = forceTuple r
+
+forceTuple tup = force 0
+  where len = length tup 
+        force i | i == len = tup
+                | else = forceAll (tup:i) `seq` force (i+1)
+
+internalLazyList # private
+internalLazyList = __internal api10

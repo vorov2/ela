@@ -1,0 +1,211 @@
+/*
+  Module espec
+  Created in 2012 by Basil Voronkov
+*/
+open reflect list string thunk generic
+
+/* Types */
+type EndOfTest # private
+type EndOfTest = EndOfTest
+
+type Word = When a | After a | Pred a | Given a | Fun a | Other | Test a
+
+type Result = Success | Failed a | Error a
+
+/* Words */
+test = test_sg []
+
+test_sg # private
+test_sg xs t EndOfTest = Test t :: reverse xs
+test_sg xs t When = test_apply t xs When
+test_sg xs t After = test_apply t xs After
+test_sg xs t (Pred pred) = test_pred t xs pred
+test_sg xs t Given = test_given t xs
+test_sg xs t err = fail (format "Unexpected word: {0}." (name err))
+  where 
+    name w 
+      | w is Fun = funName w
+      | else = word w
+      where 
+        word (Pred (n,_)) = n
+        word (Fun (n,_)) = n
+        word When = "when"
+        word After = "after"
+        word Other = "other"
+        word x = show x
+
+test_given # private
+test_given t xs x = test_sg (Given x :: xs) t
+
+test_apply # private
+test_apply t xs tit fn
+  | maxN == 0 = test_sg (tit (fn,[]) :: xs) t
+  | else = test_apply_for 1 [] fn
+  where args = funArgsCount fn - funAppliedArgsCount fn
+        maxN 
+          | args > 0 = args - 1 
+          | else = 0
+        test_apply_for n ys fn x 
+          | n < maxN = test_apply_for (n+1) (x::ys) fn
+          | else = test_sg (tit (fn,x::ys) :: xs) t
+
+test_pred # private
+test_pred t xs pred fn arg = test_sg (val::xs) t
+  where val = Pred (pred,fn,arg)
+
+should = Pred ("should", id)
+shouldn't = Pred ("shouldn't", not)
+be = Fun ("be", ==)
+lesser = Fun ("lesser", <)
+greater = Fun ("greater", >)
+lesserEqual = Fun ("lesserEqual", <=)
+greaterEqual = Fun ("greaterEqual", >=)
+contain = Fun ("contain", flip elem)
+when = When ()
+after = After ()
+given = Given ()
+
+/* Execution */
+exec # private
+exec z [] = z
+exec z (x::xs) = exec (eval z x) xs
+  where eval (_,lst) (Test n) = () => Test n :: lst
+        eval (_,lst) (Given x) = x => Given x :: lst
+        eval (x,lst) (When (fn,args)) = 
+            res => When (funName fn, args, res) :: lst
+            where res = evalFun fn (x :: reverse args)
+        eval (x,lst) (After (fn,args)) = 
+            res => After (funName fn, args, res) :: lst
+            where res = evalFun fn (reverse args ++ [x])
+        eval (x,lst) (Pred ((nm,pred),Fun (fnm,fn),arg)) = 
+            x => Pred (nm,fnm,arg,res) :: lst
+            where res = evalPred pred fn x arg
+        evalFun fn (x::xs) = evalFun (fn x) xs
+        evalFun fn _ = fn
+        evalPred p fn x y = try test p fn x y with e = Error e
+        test p fn x y | p (fn x y) = Success | else = Failed x
+
+execTests # private
+execTests (x::xs) = (reverse <| snd (exec init x)) :: execTests xs
+execTests [] = []
+
+run = reverse << execTests
+
+/* Registration */
+addTest fn xs = fn EndOfTest :: xs
+
+addTests mod xs = foldl (flip (::)) xs funs
+  where funs = map (\f -> f EndOfTest) <| 
+          filter (same test_sg) <| map (getField "value") <| moduleExportList mod
+
+init # private
+init = ((),[])
+
+same # private
+same f g
+  | (f is Fun) && (g is Fun) = 
+    funModule f == funModule g && funHandle f == funHandle g
+  | else = false
+
+/* Format result as string */
+stat # private
+stat f e [] = (f,e)
+stat f e (Pred (_,_,_,Failed)::xs) = stat (f+1) e xs
+stat f e (Pred (_,_,_,Error)::xs) = stat f (e+1) xs
+stat f e (_::xs) = stat f e xs
+
+report # private
+report formatter xs = (f, e, toString <| formatter "" f e xs)
+  where (f,e) = stat 0 0 xs
+
+report_stat # private
+report_stat sb _ _ [] = sb
+report_stat sb f e (x::xs) = report_stat (sb +> (item x) +> "\r\n") f e xs
+  where item (Test n) = format "\r\nTest \"{0}\" (failed {1}, errors {2}):" n f e
+        item (Given x) = format "  given {0}" (safeShow x)
+        item (Pred (nm,fnm,val,res)) = format "    {0} {1} {2} -> {3}" nm fnm (safeShow val) (result res)
+        item (When (fn,args,res)) = format "    when {0}{1} -> {2}" fn (itemDo args) (safeShow res)
+        item (After (fn,args,res)) = format "    after {0}{1} -> {2}" fn (itemDo args) (safeShow res)
+        itemDo [] = ""
+        itemDo (y::ys) = " " ++ (safeShow y) ++ itemDo ys
+        result Success = "success"
+        result (Error m) = "error: " ++ show m
+        result (Failed x) = format "failed (got {0})" (safeShow x)
+
+report_stathtm # private
+report_stathtm sb _ _ [] = sb
+report_stathtm sb f e (x::xs) = report_stathtm (sb +> (item x)) f e xs
+  where item (Test n) = format "<a name='{0}'></a><div class='{3}'>Test \"{0}\" (failed {1}, errors {2}):</div>" n f e
+                        (if f > 0 then "tste" else "tst")
+        item (Given x) = format "<div class='br2'><span class='key'>given</span> {0}</div>" (safeShow x)
+        item (Pred (nm,fnm,val,res)) = format "<div class='br4'><span class='key'>{0} {1}</span> {2}<span class='out'> -> {3}</span></div>" 
+                                       nm fnm (safeShow val) (result res)
+        item (When (fn,args,res)) = format "<div class='br4'><span class='key'>when</span> {0}{1}<span class='out'> -> {2}</span></div>" 
+                                    fn (itemDo args) (safeShow res)
+        item (After (fn,args,res)) = format "<div class='br4'><span class='key'>after</span> {0}{1}<span class='out'> -> {2}</span></div>" 
+                                     fn (itemDo args) (safeShow res)
+        itemDo [] = ""
+        itemDo (y::ys) = " " ++ (safeShow y) ++ itemDo ys
+        result Success = "<span class='ok'>success</span>"
+        result (Error m) = "<span class='err'>error: " ++ show m ++ "</span>"
+        result (Failed x) = format "<span class='err'>failed</span> (got {0})" (safeShow x)
+
+safeShow # private
+safeShow x 
+  | (x is Lazy) && lazy x = showLazy x
+  | not (evaled x) = "<thunk>"
+  | x is Fun = funName x
+  | else = show x
+
+formatGen # private
+formatGen formatter n fc str [] = (n,fc,toString <| str)
+formatGen formatter n fc str (x::xs) = formatGen formatter (n+1) failed (str+>r) xs
+  where (f,e,r) = report formatter x
+        failed 
+          | f + e > 0 = fc + 1 
+          | else = fc
+
+formatResult xs = 
+  format "Test session started.\r\n{0}\r\nTotal tests:{1} Failed: {2}" 
+            str n f
+  where (n,f,str) = formatGen report_stat 0 0 "" xs
+
+formatResultHtm xs = 
+  format <[
+      <html>
+        <head>
+          <title>Test session</title>
+          <style>
+            div.br2 {{ padding-left:15px; }}
+            div.br4 {{ padding-left:40px; }}
+            div.tst,div.tste {{ font-weight:bold; background-color:#CCFFCC; margin-top:10px; margin-bottom:5px; }}
+            div.tste {{ background-color:pink }}
+            span.ok {{ font-weight:bold; color:darkgreen; }}
+            span.err {{ font-weight:bold; color:red; }}
+            span.key {{ color:blue; }}
+            span.out {{ color:gray; }}
+            div.hdr {{ font-family:Arial,Verdana;color:gray;font-size:14pt;font-weight:bold;margin-bottom:15px }}
+            a.toc,a.toce,a.toc:visited,a.toce:visited {{ font-family:Arial,Verdana;font-size:8pt;color:darkgreen }}
+            a.toce,a.toce:visited {{ color:red; }}
+          </style>
+        </head>
+        <body style='font-family:Courier New;font-size:9pt'>
+          <div class='hdr'>Test session (Total: {1}, Failed: {2})</div>
+          {3}
+          {0}
+        </body>
+      </html>
+      ]>
+      str n (if f > 0 then format "<span class='err'>{0}</span>" f else f) (listTests "" xs)
+  where (n,f,str) = formatGen report_stathtm 0 0 "" xs
+        listTests sb ((Test x::xs)::ys) = listTests (sb +> 
+          format "<a class='{1}' href='#{0}'>{0}</a>|" x (if hasFailed xs then "toce" else "toc")) ys
+        listTests sb [] = toString <| sb
+        hasFailed (Pred (_,_,_,res) :: xs) 
+          | isFailed res = true
+          | else = hasFailed xs
+        hasFailed (x::xs) = hasFailed xs
+        hasFailed [] = false
+        isFailed (Failed _) = true
+        isFailed (Error _) = true
+        isFailed _ = false

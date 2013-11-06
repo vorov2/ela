@@ -1,0 +1,20 @@
+/*
+  Module console
+  Created in 2012 by Basil Voronkov
+*/
+import libCon#elalib@con string 
+open generic
+
+write x = con.write (force x)
+
+writen x = con.writen (force x)
+
+readn () = con.readn ()
+
+print = write << show
+
+printn = writen << show
+
+printf = string.formatfn write
+
+printfn = string.formatfn writen
