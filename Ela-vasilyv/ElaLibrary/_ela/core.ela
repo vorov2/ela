@@ -1,0 +1,91 @@
+/*
+  Module core
+  Created in 2012 by Basil Voronkov
+*/
+open generic
+
+/* Maybe */
+type Maybe = None | Some a
+  deriving Eq Ord Show Default
+
+instance ListLike Maybe where
+  fromList [] = None
+  fromList (x::[]) = Some x
+
+maybe n _ None = n
+maybe _ f (Some x) = f x
+
+isSome None = false
+isSome _    = true
+
+isNone None = true
+isNone _    = false
+
+fromSome (Some a) = a
+
+fromMaybe d None = d
+fromMaybe _ (Some x) = x
+
+catMaybes [] = []
+catMaybes (Some x :: xs) = x :: catMaybes xs
+catMaybes (None :: xs) = catMaybes xs
+
+mapMaybe f [] = []
+mapMaybe f (x::xs)
+  | isSome y = fromSome y :: mapMaybe f xs
+  | else = mapMaybe f xs
+  where y = f x
+
+/* Either */
+type Either = Left a | Right a
+  deriving Eq Ord Show
+
+either f _ (Left x) = f x
+either _ g (Right y) = g y
+
+isLeft (Left _) = true
+isLeft _ = false
+
+isRight (Right _) = true
+isRight _ = false
+
+lefts xs = [a \\ Left a <- xs]
+
+rights xs = [a \\ Right a <- xs]
+
+fromLeft (Left a) = a
+
+fromRight (Right a) = a
+
+partitionEithers xs = partition ([],[]) xs
+  where partition (ys1,ys2) (Left x::xs) = partition (x::ys1,ys2) xs
+        partition (ys1,ys2) (Right x::xs) = partition (ys1,x::ys2) xs
+        partition (ys1,ys2) [] = (reverse ys1,reverse ys2)
+
+/* Or */
+type Or = Fst a | Snd a | Both a b
+  deriving Eq Ord Show
+
+orElse f _ _ (Fst a) = f a
+orElse _ f _ (Snd a) = f a
+orElse _ _ f (Both a b) = f a b
+
+fromEither (Left a) = Fst a
+fromEither (Right a) = Snd a
+
+isFst (Fst _) = true
+isFst _ = false
+
+isSnd (Snd _) = true
+isSnd _ = false
+
+isBoth (Both _ _) = true
+isBoth _ = false
+
+fromFst (Fst a) = a
+
+fromSnd (Snd a) = a
+
+fromBoth1 (Both a _) = a
+
+fromBoth2 (Both _ a) = a

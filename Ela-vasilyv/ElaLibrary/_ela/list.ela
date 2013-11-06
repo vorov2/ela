@@ -1,0 +1,299 @@
+/* 
+  Module list
+  Created in 2011-2012 by Basil Voronkov
+*/
+open core thunk
+
+/* Instances */
+instance Lazy List where
+  lazy xs = lazyList xs
+  showLazy (x::_) = "[" ++ show x ++ "..]"
+
+/* Sorting */
+//Strict sort based on merge sort
+mergeBy # private
+mergeBy pred (x::xs) (y::ys) 
+  | pred x y = x :: mergeBy pred xs (y::ys)
+  | else = y :: mergeBy pred (x::xs) ys
+mergeBy pred xs [] = xs
+mergeBy pred [] ys = ys
+
+sortBy pred [] = []
+sortBy pred [x] = [x]
+sortBy pred xs = mergeBy pred (sortBy pred xs1) (sortBy pred xs2)
+  where (xs1,xs2) = splitHalf xs
+
+sort = sortBy (<=)
+
+//Lazy sort based on quick sort
+sort' x = qsort x []
+  where qsort [] y = y
+        qsort [x] y = x::y
+        qsort (x::xs) y = part xs [] [x] []  
+          where part [] l e g = qsort l (e ++ (& qsort g y))
+                part (z::zs) l e g | z > x = part zs l e (z::g) 
+                                   | z < x = part zs (z::l) e g 
+                                   | else  = part zs l (z::e) g
+
+/* Basic */
+map' f (x::xs) = f x :: (& map' f xs)
+map' _ []      = []
+
+foldl1 f (x::xs) = foldl f x xs
+foldl1 _ [] = fail "list.foldl1: Empty list."
+
+foldr1 f (x::xs) = foldr f x xs
+foldr1 _ [] = fail "list.foldr1: Empty list."
+
+foldl1' f (x::xs) = foldl' f x xs
+foldl1' _ [] = fail "list.foldl1': Empty list."
+
+foldr1' f (x::xs) = foldr' f x xs
+foldr1' _ [] = fail "list.foldr1': Empty list."
+
+fold f xs = foldr f [] xs
+
+foldl' f z (x::xs) = foldl' f ( f z x) xs
+foldl' _ z []      = z
+
+foldr' f z (x::xs) = f x (& foldr' f z xs)
+foldr' _ z []      = z
+    
+fold' f xs = foldr' f [] xs
+
+deleteBy p x (y::ys) 
+  | p x y  = ys
+  | else   = y :: deleteBy p x ys
+deleteBy _ _ [] = []
+
+delete = deleteBy (==)
+
+insertBy _   x [] = x::[]
+insertBy cmp x (y::ys')@ys = 
+  match cmp x y with
+        GT = y :: insertBy cmp x ys'
+        _  = x :: ys
+
+insert = insertBy compare
+
+nubBy eq xs = nubBy' xs []
+  where nubBy' [] _ = []
+        nubBy' (y::ys) xs | elemBy eq y xs = nubBy' ys xs
+                          | else = y :: nubBy' ys (y::xs)
+
+nub = nubBy (==)
+
+intersectBy eq xs ys =  [x \\ x <- xs | any (eq x) ys]
+
+intersect = intersectBy (==)
+
+count f = count' 0
+  where count' n (x::xs) 
+          | f x = count (n+1) xs 
+          | else = count n xs
+        count' n [] = n
+
+/* Special folds */
+any f (x::xs) 
+  | f x  = true
+  | else = any f xs
+any _ [] = false
+
+all f (x::xs) 
+  | f x  = all f xs
+  | else = false
+all _ [] = true
+
+sum xs = foldl (+) 0 xs
+
+product xs = foldl (*) 1 xs
+
+minimum xs = foldl1 minValue xs
+
+maximum xs = foldl1 maxValue xs
+
+concat (x::xs) = x ++ concat xs 
+concat []      = []
+
+concatMap f = concat << map f
+
+/* Building lists */
+scanl f q (x::xs) = q :: scanl f (f q x) xs
+scanl _ q []      = q :: []
+
+scanl1 f (x::xs) = scanl f x xs
+scanl1 _ []      = []
+
+scanr f q0 [] = q0::[]
+scanr f q0 (x::xs) = f x q :: qs
+  where (q::_)@qs = scanr f q0 xs
+
+scanr1 _ []      = []
+scanr1 _ [x]     = [x]
+scanr1 f (x::xs) = f x q :: qs
+  where (q::_)@qs = scanr1 f xs 
+
+repeat x = x :: (& repeat x)
+
+cycle (head::tail) = head :: (& cycle' tail)
+  where cycle' (x::xs) = x :: (& cycle' xs)
+        cycle' []      = head :: (& cycle' tail)
+
+iterate f x = x :: (& iterate f (f x))
+
+replicate n x = take n (repeat x)
+
+/* Sublists */
+take = take [] 
+  where
+    take ys 0 _       = reverse ys
+    take ys n (x::xs) = take (x::ys) (n - 1) xs
+    take ys _ []      = []
+
+takeWhile f (x::xs) 
+  | f x  = x :: takeWhile f xs
+  | else = []
+takeWhile f [] = []
+
+skip 0 xs      = xs
+skip n (_::xs) = skip (n - 1) xs
+skip _ []      = []
+
+drop 0 xs = xs
+drop _ [] = []
+drop n (_::xs) 
+  | n > 0 = drop (n - 1) xs
+  | else  = fail "list.drop: negative argument"
+
+dropWhile p [] = []
+dropWhile p (x::xs) 
+  | p x  = dropWhile p xs
+  | else = x::xs
+
+splitAt 0 xs = ([],xs)
+splitAt _ [] = ([],[])
+splitAt n (x::xs) | n > 0 = (x::xs',xs2')
+                  | else = fail "list.splitAt: negative argument"
+                  where (xs',xs2') = splitAt (n - 1) xs
+
+splitHalf xs = go xs xs 
+  where go (x::xs) (_::_::zs) = (x::us,vs) where (us,vs) = go xs zs
+        go xs _ = ([],xs)
+
+span p [] = ([],[])
+span p (x::xs')@xs 
+  | p x  = (x::ys, zs)
+  | else = ([],xs)
+  where (ys,zs) = span p xs'
+
+break p xs = span (not << p) xs
+
+groupBy eq (x::xs) = (x::ys) :: groupBy eq zs
+  where (ys,zs) = span (eq x) xs
+groupBy _  [] = []
+
+group = groupBy (==)
+
+stripPrefix [] ys = Some ys
+stripPrefix (x::xs) (y::ys)
+  | x == y = stripPrefix xs ys
+  | else = None
+stripPrefix _ _ = None
+
+inits (x::xs) = [[]] ++ map (x::) (inits xs)
+inits [] = [[]]
+
+tails (_::xs)@ys = ys :: tails xs
+tails [] =  [[]]
+
+/* Predicates */
+isPrefixOf (x::xs) (y::ys) = x == y && isPrefixOf xs ys
+isPrefixOf [] _ = true
+isPrefixOf _  [] = false
+
+isSuffixOf x y = reverse x `isPrefixOf` reverse y
+
+isInfixOf needle haystack = any (isPrefixOf needle) (tails haystack)
+
+/* Searching lists */
+elem x = any (==x)
+
+notElem x = all (<>x)
+
+elemBy _  _ [] = false
+elemBy eq y (x::xs) = y `eq` x || elemBy eq y xs
+
+filter' p (x::xs) 
+  | p x  = x :: (& filter' p xs)
+  | else = filter' p xs
+filter' _ [] = []
+
+find p xs 
+  | isnil fxs = None
+  | else = Some (head fxs)
+  where fxs = filter' p xs
+
+partition p xs = foldr (select p) ([],[]) xs
+
+select # private
+select p x (ts,fs) 
+  | p x = (x::ts,fs)
+  | else = (ts, x::fs)
+
+/* Indexing */
+findIndices p ls = loop 0 ls
+  where
+    loop _ [] = []
+    loop n (x::xs) 
+      | p x = n :: (& loop (n + 1) xs)
+      | else = loop (n + 1) xs
+
+findIndex p xs
+  | isnil fxs = None
+  | else = Some (head fxs)
+  where fxs = findIndices p xs
+
+elemIndex x = findIndex (x==)
+
+elemIndices x = findIndices (x==)
+
+/* Zips */
+zipWith z (x::xs) (y::ys) = z x y :: zipWith z xs ys
+zipWith _ _ _ = []
+
+zip = zipWith (\x y -> (x,y))
+
+zipWith3 z (a::as) (b::bs) (c::cs) =  z a b c :: zipWith3 z as bs cs
+zipWith3 _ _ _ _ = []
+
+zip3 =  zipWith3 (\x y z -> (x,y,z))
+
+unzip = foldr (\(a,b) (as,bs) -> (a::as,b::bs)) ([],[])
+
+unzip3 = foldr (\(a,b,c) (as,bs,cs) -> (a::as,b::bs,c::cs)) ([],[],[])
+
+/* List transformations */
+intersperse e (x::[]) = x :: intersperse e []
+intersperse e (x::xs) = x :: e :: intersperse e xs
+intersperse _ []      = []
+
+transpose ([]::xs)      = transpose xs
+transpose ((x::xs)::ys) = (x :: [h \\ (h::_) <- ys]) :: transpose (xs :: [t \\ (_::t) <- ys])
+transpose []            = []
+
+intercalate xs xss = concat (intersperse xs xss)
+
+nonEmptySubsequences (x::xs) = (x::[]) :: fold f (nonEmptySubsequences xs)
+  where f ys r = ys :: (x :: ys) :: r
+nonEmptySubsequences [] = []
+
+subsequences xs = [] :: nonEmptySubsequences xs 
+
+permutations []  = []
+permutations xs0 = xs0 :: perms xs0 []
+  where perms [] _ = []
+        perms (t::ts) is' = foldr interleave (perms ts (t::is')) (permutations is')
+          where interleave xs r    = zs where (_,zs) = interleave' id xs r 
+                interleave' _ [] r = (ts, r)
+                interleave' f (y::ys) r = (y::us, f (t::y::us) :: zs)
+                  where (us,zs) = interleave' (f << (y::)) ys r

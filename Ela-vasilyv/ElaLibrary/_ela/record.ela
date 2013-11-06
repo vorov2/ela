@@ -1,0 +1,23 @@
+/* 
+  Module record
+  Created in 2012 by Basil Voronkov
+*/
+import libRecord#elalib@r
+
+addFields fields rec = r.addFields (force fields) (force rec)
+addField fld val rec = r.addField (force fld) val (force rec)
+
+removeFields = collect r.removeFields []
+removeField fld rec = r.removeField (force fld) (force rec)
+
+changeField fld val rec = r.changeField (force fld) val (force rec)
+
+field = __internal api106
+
+fields rec  = r.fields (force rec)
+
+//This function is used to collect field names
+collect # private
+collect fn xs x
+  | x is String = collect fn (x::xs)
+  | else = fn xs x

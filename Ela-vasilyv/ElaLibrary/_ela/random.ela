@@ -1,0 +1,7 @@
+/* 
+  Module random
+  Created in 2011-2012 by Basil Voronkov
+*/
+import libCore#elalib@cm 
+
+rnd seed min max = cm.rnd (force seed) (force min) (force max)

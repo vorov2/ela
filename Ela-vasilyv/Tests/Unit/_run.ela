@@ -1,0 +1,23 @@
+open test unsafe.console 
+open basictests funtests rangetests listtests tupletests recordtests
+     comprehensiontests thunktests matchtests
+
+//Just to run all std lib modules
+import char datetime espec imperative io list
+     number record reflect string thunk
+     peano random tuple core generic
+     collections.alist collections.queue monad
+
+_ = [] 
+    |> regFuns basictests
+    |> regFuns funtests
+    |> regFuns rangetests
+    |> regFuns listtests
+    |> regFuns tupletests
+    |> regFuns recordtests
+    |> regFuns comprehensiontests
+    |> regFuns thunktests
+    |> regFuns matchtests
+    |> run
+    |> report (\_ -> true) writen
+    

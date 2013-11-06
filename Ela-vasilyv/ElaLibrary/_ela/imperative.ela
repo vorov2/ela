@@ -1,0 +1,27 @@
+/* 
+  Module imperative
+  Created in 2012 by Basil Voronkov
+*/
+
+rec f x = f x `seq` rec f
+
+rec2 f x y = f x y `seq` rec2 f
+
+each f (x::xs) = f x `seq` each f xs
+each _ []      = ()
+
+until p f (x::xs)
+  | p x = ()
+  | else = f x `seq` until p f xs
+until _ _ [] = ()
+
+untili = untili 0
+  where 
+    untili i p f (x::xs)
+      | p i x = ()
+      | else = f x `seq` untili (i+1) p f xs
+    until _ _ _ [] = ()
+
+loop f (x::xs) 
+  | f x = ()
+  | else = loop f xs
