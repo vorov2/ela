@@ -1088,7 +1088,10 @@ PRODUCTIONS
 		(. if (!skip) .) EndBlock.
 	
 	LetBinding<out ElaExpression exp> = 
-	    (. exp = null; .)
+	    (. 
+			exp = null; 
+			bindings.Push(null);
+		.)
 	    (
 	        SYNC LET 
 	        (. 
@@ -1098,7 +1101,11 @@ PRODUCTIONS
 	            exp = bid;
 	        .)
 		    BindingChain<out block> 
-		    IN Expr<out cexp>
+		    IN 
+			(.
+				bindings.Pop();
+			.)
+			Expr<out cexp>
 		    (.
 		        bid.Equations = block;
 		        bid.Expression = cexp;
