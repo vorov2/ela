@@ -1188,6 +1188,8 @@ internal sealed partial class Parser {
 
 	void LetBinding(out ElaExpression exp) {
 		exp = null; 
+		bindings.Push(null);
+		
 		while (!(la.kind == 0 || la.kind == 32)) {SynErr(97); Get();}
 		Expect(32);
 		var bid = new ElaLetBinding(t);
@@ -1197,6 +1199,8 @@ internal sealed partial class Parser {
 		
 		BindingChain(out block);
 		Expect(28);
+		bindings.Pop();
+		
 		Expr(out cexp);
 		bid.Equations = block;
 		bid.Expression = cexp;
