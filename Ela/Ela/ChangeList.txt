@@ -1,3 +1,5 @@
+0.12.4.0:Release:Release of Ela 0.12.4.0.
+0.12.3.6:Fix:A bug fixed with incorrect compilation of multiple binging inside let-in block (Issue #1174).
 0.12.3.5:Fix:A bug fixed with single expression do-block errorneously marked as invalid by compiler (Issue #1149).
 0.12.3.4:Change:Do-notation could be needlessly transformed to thunks.
 0.12.3.3:New:Now Ela allows to specify a default context for current function (or top level).
