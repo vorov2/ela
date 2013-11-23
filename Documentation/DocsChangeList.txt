@@ -1,3 +1,4 @@
+0.1.11.0:Release:Release of 0.1.11.0.
 0.1.10.4:Change:An article 'elaandhaskell' is corrected.
 0.1.10.3:Change:An article 'thunks' is updated and is now more accurate.
 0.1.10.2:Change:An article 'classes' is updated according to the language changes.

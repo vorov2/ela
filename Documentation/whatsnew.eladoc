@@ -1,9 +1,26 @@
 #title What's new? (Ela Platform 2013.4)
 
 =Overview
+This release of Ela Platform includes a new version of Elide and a critical fix to Ela compiler. Also there are several
+corrections in Ela documentation.
 
 =Ela changes
+Ela contains an important bug fix in compiler that addresses a problem with chained `let-in` declarations in the cases as
+follows:
+{{qsort []      = []
+qsort (x::xs) = let lessThan = section (<)
+                    notLessThan = section (>=)
+                    section pred = qsort [y \\ y<-xs | y `pred` x]
+                 in lessThan ++ [x] ++ notLessThan}}
+The code above used to generate a compilation error while beign completely correct. However, its full equivalent using `where`
+statement worked correctly:
+{{qsort (x::xs) = lessThan ++ [x] ++ notLessThan where
+                    lessThan    = section (<)
+                    notLessThan = section (>=)
+                    section pred = qsort [y \\ y<-xs | y `pred` x]}}
+Now this issue is addressed and both code samples work as expected.
 
 =Elide changes
-
-=Standard library
+Ela Platform 2013.4 comes with a new version of Elide that incorporates a lot of new features a changes. Elide offers several UI
+enhancements and bug fixes and cleaner interanls for the text editor infrastructure. The major changes are an integration of
+Ela Interactive environment which is now available as a tool window in Elide and a better support for High DPI screens.
