@@ -1420,10 +1420,18 @@ internal sealed partial class Parser {
 	void ImportName(out ElaImportedVariable imp) {
 		imp = new ElaImportedVariable(t); 
 		
-		Expect(1);
-		imp.Name = imp.LocalName = t.val; 
 		if (la.kind == 1) {
 			Get();
+		} else if (la.kind == 2) {
+			Get();
+		} else SynErr(105);
+		imp.Name = imp.LocalName = t.val; 
+		if (la.kind == 1 || la.kind == 2) {
+			if (la.kind == 1) {
+				Get();
+			} else {
+				Get();
+			}
 			if (imp.Name != "private")
 			   AddError(ElaParserError.UnknownAttribute, imp.Name);
 			
@@ -1433,7 +1441,11 @@ internal sealed partial class Parser {
 		}
 		if (la.kind == 55) {
 			Get();
-			Expect(1);
+			if (la.kind == 1) {
+				Get();
+			} else if (la.kind == 2) {
+				Get();
+			} else SynErr(106);
 			imp.Name = t.val; 
 		}
 	}
@@ -1473,10 +1485,10 @@ internal sealed partial class Parser {
 				Operators();
 			} else if (la.kind == 1) {
 				Get();
-			} else SynErr(105);
+			} else SynErr(107);
 			nm=t.val; 
 			Expect(53);
-		} else SynErr(106);
+		} else SynErr(108);
 		var count = 0;
 		var mask = 0;
 		
@@ -1484,7 +1496,7 @@ internal sealed partial class Parser {
 			Get();
 		} else if (la.kind == 51) {
 			Get();
-		} else SynErr(107);
+		} else SynErr(109);
 		BuildMask(ref count, ref mask, t.val, targ); 
 		while (la.kind == 24) {
 			Get();
@@ -1492,7 +1504,7 @@ internal sealed partial class Parser {
 				Get();
 			} else if (la.kind == 51) {
 				Get();
-			} else SynErr(108);
+			} else SynErr(110);
 			BuildMask(ref count, ref mask, t.val, targ); 
 		}
 		tc.Members.Add(new ElaClassMember(t) { Name = nm, Components = count, Mask = mask });
@@ -1510,7 +1522,7 @@ internal sealed partial class Parser {
 					Operators();
 				} else if (la.kind == 1) {
 					Get();
-				} else SynErr(109);
+				} else SynErr(111);
 				nm=t.val; 
 				Expect(53);
 			}
@@ -1521,7 +1533,7 @@ internal sealed partial class Parser {
 				Get();
 			} else if (la.kind == 51) {
 				Get();
-			} else SynErr(110);
+			} else SynErr(112);
 			BuildMask(ref count, ref mask, t.val, targ); 
 			while (la.kind == 24) {
 				Get();
@@ -1529,7 +1541,7 @@ internal sealed partial class Parser {
 					Get();
 				} else if (la.kind == 51) {
 					Get();
-				} else SynErr(111);
+				} else SynErr(113);
 				BuildMask(ref count, ref mask, t.val, targ); 
 			}
 			tc.Members.Add(new ElaClassMember(t) { Name = nm, Components = count, Mask = mask });
@@ -1551,7 +1563,7 @@ internal sealed partial class Parser {
 		} else if (la.kind == 47) {
 			Get();
 			opened=true; 
-		} else SynErr(112);
+		} else SynErr(114);
 		var nt = new ElaNewtype(t) { Extends=extends,Opened=opened }; 
 		if (la.kind == 1) {
 			Get();
@@ -1562,7 +1574,7 @@ internal sealed partial class Parser {
 		} else if (la.kind == 2) {
 			Get();
 			nt.Name = t.val; 
-		} else SynErr(113);
+		} else SynErr(115);
 		nt.And = Program.Types;
 		Program.Types = nt;
 		
@@ -1657,7 +1669,7 @@ internal sealed partial class Parser {
 		} else if (la.kind == 2) {
 			Get();
 			ci.TypeClassName=t.val; 
-		} else SynErr(114);
+		} else SynErr(116);
 		while (la.kind == 1 || la.kind == 2) {
 			if (ci.TypeName != null)
 			{
@@ -1729,7 +1741,7 @@ internal sealed partial class Parser {
 			}
 			
 			EndBlock();
-		} else SynErr(115);
+		} else SynErr(117);
 	}
 
 	void TopLevel() {
@@ -1744,7 +1756,7 @@ internal sealed partial class Parser {
 			NewType();
 		} else if (la.kind == 42) {
 			ClassInstance();
-		} else SynErr(116);
+		} else SynErr(118);
 		EndBlock();
 		if (StartOf(22)) {
 			TopLevel();
@@ -1913,18 +1925,20 @@ internal sealed class Errors {
 			case 102: s = "invalid IncludeStat"; break;
 			case 103: s = "invalid IncludeStatElement"; break;
 			case 104: s = "invalid Qualident"; break;
-			case 105: s = "invalid TypeClass"; break;
-			case 106: s = "invalid TypeClass"; break;
+			case 105: s = "invalid ImportName"; break;
+			case 106: s = "invalid ImportName"; break;
 			case 107: s = "invalid TypeClass"; break;
 			case 108: s = "invalid TypeClass"; break;
 			case 109: s = "invalid TypeClass"; break;
 			case 110: s = "invalid TypeClass"; break;
 			case 111: s = "invalid TypeClass"; break;
-			case 112: s = "invalid NewType"; break;
-			case 113: s = "invalid NewType"; break;
-			case 114: s = "invalid ClassInstance"; break;
-			case 115: s = "invalid DoBlockStmt"; break;
-			case 116: s = "invalid TopLevel"; break;
+			case 112: s = "invalid TypeClass"; break;
+			case 113: s = "invalid TypeClass"; break;
+			case 114: s = "invalid NewType"; break;
+			case 115: s = "invalid NewType"; break;
+			case 116: s = "invalid ClassInstance"; break;
+			case 117: s = "invalid DoBlockStmt"; break;
+			case 118: s = "invalid TopLevel"; break;
 
 			default: s = "error " + n; break;
 		}

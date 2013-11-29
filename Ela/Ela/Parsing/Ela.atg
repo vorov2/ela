@@ -1232,9 +1232,9 @@ PRODUCTIONS
 		    imp = new ElaImportedVariable(t); 
 		.)
 		(
-			ident (. imp.Name = imp.LocalName = t.val; .)
+			(ident|variantTok) (. imp.Name = imp.LocalName = t.val; .)
 			[ 
-			    ident 
+			    (ident|variantTok) 
 			    (. 
 			        if (imp.Name != "private")
 			            AddError(ElaParserError.UnknownAttribute, imp.Name);
@@ -1243,7 +1243,7 @@ PRODUCTIONS
 			        imp.Name = imp.LocalName = t.val; 
 			    .)
 			]
-			[ "=" ident (. imp.Name = t.val; .) ]
+			[ "=" (ident|variantTok) (. imp.Name = t.val; .) ]
 		).
 		
 	Qualident<. List<String> path .> = 
