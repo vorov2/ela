@@ -100,10 +100,10 @@
 			if (linker == null)
 			{
 				LinkerOptions lo = new LinkerOptions();
-				lo.CodeBase.Directories.Add(new System.IO.DirectoryInfo(@"D:\Hosting\7431445\html\bin"));
+				lo.CodeBase.Directories.Add(@"D:\Hosting\7431445\html\bin");
 				CompilerOptions co = new CompilerOptions();
 				co.Prelude = "Prelude";
-				linker = new ElaIncrementalLinker(lo, co, new FileInfo(@"D:\Hosting\7431445\html\bin\online"));
+				linker = new ElaIncrementalLinker(lo, co, new ModuleFileInfo(@"D:\Hosting\7431445\html\bin\online"));
 				linker.AddArgument("webOut", webOutDelegate);				
 				Session["Linker"] = linker;
 			}

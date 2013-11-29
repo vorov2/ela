@@ -225,10 +225,38 @@
 			var statCell = document.getElementById("labelCell");
 			statCell.innerHTML = "output";
 		}
+
+		function initCode() {
+			var p = getParameterByName("eval");
+			if (p != null && p != '') {
+        document.getElementById("console").value = p;
+				execEla();
+			}
+		}
+    
+    function getParameterByName(name)
+    {
+      name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+      var regexString = "[\\?&]" + name + "=([^&#]*)";
+      var regex = new RegExp(regexString);
+      var found = regex.exec(window.location.search);
+      if(found == null)
+        return "";
+      else
+        return decodeURIComponent(found[1].replace(/\+/g, " "));
+    }
+
+    
+    function copyCode() {
+      var cc = encodeURIComponent(document.getElementById('console').value);
+      var fullStr = "http://elalang.net/elac.aspx?eval="+cc;
+      window.clipboardData.setData('Text', fullStr);
+      alert('Copied to clipboard: '+ fullStr);
+    }
 		</script>
 	</head>
-	<body style="margin:0px 0px 0px 0px">
-		<table cellpadding="0" cellspacing="0" class="topTable">
+	<body style="margin:0px 0px 0px 0px" onload="initCode()">
+    <table cellpadding="0" cellspacing="0" class="topTable">
 			<tr>
 				<td class="marginCell" style="background-color:#E2E2E2;border-bottom:solid 1px darkgray">&nbsp;</td>
 				<td style="width:640px;vertical-align:top;padding-top:10px;height:10px;padding-bottom:10px;background-color:#E2E2E2;border-bottom:solid 1px darkgray">
@@ -259,6 +287,9 @@
 					<input id="reset" type="button" onclick="resetEla()" 
 						onmouseover="this.className='execButtonHover'" onmouseout="this.className='execButton'" 
 						class="execButton" value="reset"/>
+
+					<div style="padding-top:25px;"></div>
+					<input id="reset" type="button" onclick="copyCode()" onmouseover="this.className='execButtonHover'" onmouseout="this.className='execButton'" class="execButton" value="copy"/>
 				</td>
 			</tr>
 			
@@ -283,15 +314,7 @@
 				<td class="marginCell" style="padding-top:0px">&nbsp;</td>
 			</tr>
 			
-		</table>		
-		<script language="javascript">
-			var p = '<%=Request["eval"]%>';
-			
-			if (p != null && p != '') {
-				document.getElementById("console").value = p;
-				execEla();
-			}
-		</script>
+		</table>
 	</body>
 </html>
 <!--

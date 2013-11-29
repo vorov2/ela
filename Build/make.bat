@@ -58,7 +58,7 @@ del c:\ela-platform\elide\ela.dll /Q
 
 @echo.
 @echo 10. Build version info
-set rn=2013.3
+set rn=2013.4
 for /f "delims=" %%a in ('pver.exe c:\ela-platform\lib_log.txt') do @set lib_v=%%a 
 for /f "delims=" %%a in ('pver.exe c:\ela-platform\ela_log.txt') do @set ela_v=%%a
 for /f "delims=" %%a in ('pver.exe c:\ela-platform\elac_log.txt') do @set elac_v=%%a 
@@ -76,7 +76,7 @@ for /f "delims=" %%a in ('pver.exe c:\ela-platform\docs_log.txt') do @set docs_v
 @echo ^<tr^>^<td^>Ela Interactive Console (elac.exe)^</td^>^<td^>.NET 2.0+/Mono 2.6+^</td^>^<td^>%elac_v% ^</td^>^</tr^> >> c:\ela-platform\readme.htm
 @echo ^<tr^>^<td^>elide^</td^>^<td^>Ela Integrated Development Environment (elide.exe)^</td^>^<td^>.NET 4.0+ (Windows only)^</td^>^<td^>%elide_v% ^</td^>^</tr^> >> c:\ela-platform\readme.htm
 @echo ^<tr^>^<td^>lib^</td^>^<td^>Ela standard library^</td^>^<td^>.NET 2.0+/Mono 2.6+^</td^>^<td^>%lib_v% ^</td^>^</tr^> >> c:\ela-platform\readme.htm
-@echo ^</table^>^<p^>This is a binary release. Source code is available at ^<a href="http://code.google.com/p/elalang/"^>http://code.google.com/p/elalang/^</a^>.^</p^>^<p^>Platform generated at %DATE%.^</p^>^</body^>^</html^> >> c:\ela-platform\readme.htm
+@echo ^</table^>^<p^>This is a binary release. Source code is available at ^<a href="https://ela.codeplex.com/"^>https://ela.codeplex.com/^</a^>.^</p^>^<p^>Platform generated at %DATE%.^</p^>^</body^>^</html^> >> c:\ela-platform\readme.htm
 
 @echo.
 @echo Make completed
