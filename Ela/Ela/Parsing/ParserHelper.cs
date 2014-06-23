@@ -111,9 +111,18 @@ namespace Ela.Parsing
                 else
                     break;
             }
-
-            //var ret = new ElaLazyLiteral { Expression = root };
-            //ret.SetLinePragma(root.Line, root.Column);
+            
+            var tc = new ElaTry { Line = root.Line, Column = root.Column };
+            tc.Expression = root;
+            tc.Entries = new ElaEquationSet();
+            var teq1 = new ElaEquation { Line = root.Line, Column = root.Column };
+            teq1.Left = new ElaNameReference { Name = "$x03" };
+            var errExp2 = new ElaJuxtaposition();
+            errExp2.SetLinePragma(root.Line, root.Column);
+            errExp2.Target = new ElaNameReference { Name = "failure" };
+            errExp2.Parameters.Add(new ElaNameReference { Name = "$x03" });
+            teq1.Right = errExp2;
+            tc.Entries.Equations.Add(teq1);
             return root;
         }
 
@@ -125,22 +134,33 @@ namespace Ela.Parsing
                 return new ElaUnitLiteral();
             }
 
-            if (exp.Type == ElaNodeType.Juxtaposition)
+            var ne = exp;
+
+            while (ne.Type == ElaNodeType.Juxtaposition)
             {
-                var juxta = (ElaJuxtaposition)exp;
+                var juxta = (ElaJuxtaposition)ne;
 
                 if (juxta.Parameters[0] == null)
-                    return juxta.Parameters[1];
-                else if (juxta.Parameters.Count > 1 &&
-                    juxta.Parameters[1] != null &&
-                    juxta.Parameters[1].Type == ElaNodeType.Lambda &&
-                    ((ElaLambda)juxta.Parameters[1]).Right == null)
-                    return juxta.Parameters[0];
+                    ne = juxta.Parameters[1];
+                else if (juxta.Parameters.Count > 1 
+                    && juxta.Parameters[1] != null 
+                    && juxta.Parameters[1].Type == ElaNodeType.Lambda)
+                {
+                    var el = (ElaLambda)juxta.Parameters[1];
+
+                    if (el.Right == null) //Eliminate the whole right part in this case
+                        ne = juxta.Parameters[0];
+                    else //Otherwise we need more processing
+                    {
+                        el.Right = Reduce(el.Right, el);
+                        break;
+                    }
+                }
                 else
-                    return juxta;
+                    break;
             }
-            else
-                return exp;
+            
+            return ne;
         }
 
         private void ProcessDoBlock(ElaExpression cexp1, ElaExpression cexp2, ref ElaExpression rootExp)
@@ -336,7 +356,6 @@ namespace Ela.Parsing
 
             return fc;
 		}
-
 
 		private ElaExpression GetPrefixFun(ElaExpression funexp, ElaExpression par, bool flip)
 		{
