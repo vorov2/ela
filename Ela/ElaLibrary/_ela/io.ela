@@ -6,7 +6,9 @@ open monad generic unsafe.console unsafe.file libIO#elalib@unsafeIO
 
 //Type and instances
 type IO = IO a # private
-  deriving Failure
+
+instance Failure IO where
+  failure x = write ( "FAILURE: " ++ typeName x) `seq` putStr "Problem..."
 
 instance Pointed IO where
   point x = IO x
@@ -36,9 +38,9 @@ putStrLn s = putStr (s ++ "\r\n")
 readStr = mkIO (\_ -> readn ())
 
 readAny = mkIO (\_ -> gread $ readn())
-/*
+
 //File IO
-type FileMode = AppendMode | CreateMode | OpenMode | TruncateMode
+type FileMode = AppendMode | CreateMode | OpenMode | OpenCreateMode | TruncateMode
 type FileAccessMode = ReadMode | WriteMode | ReadWriteMode
 type FileStream = FileStream a # private
 
@@ -52,4 +54,8 @@ writeFile fn mode = openFile fn mode WriteMode
 
 closeFile (FileStream f) = mkIO (\_-> unsafeIO.closeFile f)
 
-writeStr str (FileStream f) = mkIO (\_ -> unsafeIO.writeString str f)*/
+//Reading
+readLine (FileStream f) = mkIO (\_ -> unsafeIO.readLine f)
+
+//Writing
+writeStr str (FileStream f) = mkIO (\_ -> unsafeIO.writeString str f)
