@@ -10,46 +10,16 @@ namespace Ela.Library.General
 {
 	public sealed class StringModule : ForeignModule
 	{
-        private sealed class FormatValue : IFormattable
-        {
-            internal static readonly IFormatProvider NumberFormat = CultureInfo.GetCultureInfo("en-US").NumberFormat;
-            
-            private readonly ElaFunction showf;
-            private readonly ElaValue val;
-
-            public FormatValue(ElaFunction showf, ElaValue val)
-            {
-                this.showf = showf;
-                this.val = val;
-            }
-
-            public string ToString(string format, IFormatProvider formatProvider)
-            {
-                if (val.TypeCode == ElaTypeCode.Long ||
-                    val.TypeCode == ElaTypeCode.String ||
-                    val.TypeCode == ElaTypeCode.Char ||
-                    val.TypeCode == ElaTypeCode.Double ||
-                    val.TypeCode == ElaTypeCode.Single ||
-                    val.TypeCode == ElaTypeCode.Integer ||
-                    val.TypeCode == ElaTypeCode.Boolean ||
-                    val.TypeCode == ElaTypeCode.Unit ||
-                    val.TypeCode == ElaTypeCode.Function ||
-                    val.TypeCode == ElaTypeCode.Module)
-                    return val.ToString(format ?? String.Empty, NumberFormat);
-
-                return showf.Call(new ElaValue(format ?? String.Empty), val).AsString();
-            }
-        }
-
-		public StringModule()
+        public StringModule()
 		{
 
 		}
 
 		public override void Initialize()
 		{
-            Add<String,Int32>("countArgs", CountArguments);
-            Add<String,ElaFunction,IEnumerable<ElaValue>,String>("format", Format);
+            Add<String,IEnumerable<ElaString>,String>("format", Format);
+            Add<String,ElaTuple>("getFormats", GetFormats);
+
 			Add<String,String>("upper", ToUpper);
 			Add<String,String>("lower", ToLower);
 			Add<String,String>("trim", Trim);
@@ -71,60 +41,88 @@ namespace Ela.Library.General
             Add<ElaString,ElaList>("toList", ToList);
 		}
 
-        private string Format(string format, ElaFunction showf, IEnumerable<ElaValue> values)
+        private string Format(string format, IEnumerable<ElaString> values)
         {
             var objs = new List<Object>(10);
 
             foreach (var v in values)
-                objs.Insert(0, new FormatValue(showf, v));
+                objs.Insert(0, v.ToString());
 
             return String.Format(format, objs.ToArray());
         }
 
-        private int CountArguments(string format)
+        public static ElaTuple GetFormats(string format)
         {
-            var ptr = 0;
-            var start = ptr;
-            var args = 0;
-            var dict = new Dictionary<Int32, Int32>();
-
-            while (ptr < format.Length)
+            try
             {
-                var c = format[ptr++];
+                var fmt = 0;
+                var sb = new StringBuilder();
+                var fsb = default(StringBuilder);
+                var buffer = format.ToCharArray();
+                var len = buffer.Length;
+                var dict = new Dictionary<Int32,String>();
+                var num = String.Empty;
 
-                if (c == '{')
+                for (var i = 0; i < len; i++)
                 {
-                    if (format[ptr] == '{')
+                    var c = buffer[i];
+                    var end = i == len - 1;
+
+                    if (fmt > 0 && c == '}' && (end || buffer[i + 1] != '}'))
                     {
-                        start = ptr++;
-                        continue;
-                    }
+                        sb.Append(c);
+                        var i4 = Int32.Parse(num);
 
-                    var idx = format.IndexOf('}', ptr - 1);
-
-                    if (idx != -1)
-                    {
-                        var sub = format.Substring(ptr, idx - ptr);
-                        var idx2 = sub.IndexOf(':');
-
-                        if (idx2 != -1)
-                            sub = sub.Substring(0, idx2);
-
-                        var i = Int32.Parse(sub);
-
-                        if (!dict.ContainsKey(i))
+                        if (fsb != null)
                         {
-                            start = ptr;
-                            args++;
-                            dict.Add(i, i);
+                            dict.Add(i4, fsb.ToString());
+                            fsb = null;
                         }
-                    }
-                }
-            }
+                        else
+                            dict.Add(i4, String.Empty);
 
-            return args;
-        }		
-        
+                        num = String.Empty;
+                        fmt = 0;
+                    }
+                    else if (fmt == 1 && c == ':')
+                    {
+                        fsb = new StringBuilder();
+                        fmt = 2;
+                    }
+                    else if (fmt == 1)
+                    {
+                        sb.Append(c);
+                        num += c;
+                    }
+                    else if (fmt == 2)
+                    {
+                        fsb.Append(c);
+                    }
+                    else if (fmt == 0 && c == '{' && !end && buffer[i + 1] != '{')
+                    {
+                        sb.Append(c);
+                        fmt = 1;
+                    }
+                    else
+                        sb.Append(c);
+                }
+
+                var lst = new string[dict.Count];
+
+                foreach (var ii in dict.Keys)
+                    lst[ii] = dict[ii];
+
+                var elaStr = new ElaValue(sb.ToString());
+                var elaInt = new ElaValue(dict.Count);
+                var elaList = new ElaValue(ElaList.FromEnumerable(lst));
+                return new ElaTuple(elaInt, elaStr, elaList);
+            }
+            catch (Exception)
+            {
+                throw new FormatException("Invalid format string.");
+            }
+        }
+
 		public string ToUpper(string val)
 		{
 			return val.ToUpper();

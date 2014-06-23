@@ -112,17 +112,6 @@ namespace Ela.Parsing
                     break;
             }
             
-            var tc = new ElaTry { Line = root.Line, Column = root.Column };
-            tc.Expression = root;
-            tc.Entries = new ElaEquationSet();
-            var teq1 = new ElaEquation { Line = root.Line, Column = root.Column };
-            teq1.Left = new ElaNameReference { Name = "$x03" };
-            var errExp2 = new ElaJuxtaposition();
-            errExp2.SetLinePragma(root.Line, root.Column);
-            errExp2.Target = new ElaNameReference { Name = "failure" };
-            errExp2.Parameters.Add(new ElaNameReference { Name = "$x03" });
-            teq1.Right = errExp2;
-            tc.Entries.Equations.Add(teq1);
             return root;
         }
 

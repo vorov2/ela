@@ -17,6 +17,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElaLibrary", "ElaLibrary\ElaLibrary.csproj", "{AFD398CA-09A8-486A-9C65-EDC4954F08C0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jobs", "Jobs", "{83C1D332-EF19-491C-B03B-CC3B8B7C0C50}"
+	ProjectSection(SolutionItems) = preProject
+		..\Build\make.bat = ..\Build\make.bat
+		..\Build\make_ela.bat = ..\Build\make_ela.bat
+		..\Build\make_elalib.bat = ..\Build\make_elalib.bat
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 7

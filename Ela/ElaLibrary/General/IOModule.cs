@@ -18,11 +18,6 @@ namespace Ela.Library.General
                 this.Stream = fs;
             }
 
-            //~FileWrapper()
-            //{
-            //    Close();
-            //}
-
             private void Close()
             {
                 if (Stream != null)
@@ -30,6 +25,11 @@ namespace Ela.Library.General
                     Stream.Close();
                     Stream = null;
                 }
+            }
+
+            ~FileWrapper()
+            {
+                Close();
             }
 
             public void Dispose()
@@ -50,7 +50,6 @@ namespace Ela.Library.General
             Add<FileWrapper,ElaUnit>("closeFile", CloseFile);
             Add<String,FileWrapper,ElaUnit>("writeString", WriteString);
             Add<FileWrapper,String>("readLine", ReadLine);
-            Add<FileWrapper,String>("readAllLines", ReadAllLines);
 
             Add<ElaFunction,String,String>("readLines", ReadLines);
             Add<String,ElaUnit>("truncateFile", TruncateFile);
@@ -62,7 +61,8 @@ namespace Ela.Library.General
         {
             var fm = mode == "AppendMode" ? FileMode.Append :
                 mode == "CreateMode" ? FileMode.Create :
-                mode == "OpenMode" ? FileMode.OpenOrCreate :
+                mode == "OpenMode" ? FileMode.Open :
+                mode == "OpenCreateMode" ? FileMode.OpenOrCreate :
                 mode == "TruncateMode" ? FileMode.Truncate :
                 FileMode.Truncate;
             var fa = acc == "ReadMode" ? FileAccess.Read :
@@ -88,15 +88,9 @@ namespace Ela.Library.General
         public string ReadLine(FileWrapper fs)
         {
             var sr = new StreamReader(fs.Stream);
-            return sr.ReadLine();
+            return sr.ReadLine() ?? String.Empty;
         }
 
-        public string ReadAllLines(FileWrapper fs)
-        {
-            var sr = new StreamReader(fs.Stream);
-            return sr.ReadToEnd();
-        }
-        
         public string ReadLines(ElaFunction fun, string file)
         {
             using (var sr = File.OpenText(file))
@@ -107,7 +101,7 @@ namespace Ela.Library.General
                 while ((line = sr.ReadLine()) != null)
                     sb.AppendLine((String)fun.Call(new ElaValue(line)).AsObject());
 
-                return sb.ToString();
+                return sb.ToString() ?? String.Empty;
             }
         }
 
