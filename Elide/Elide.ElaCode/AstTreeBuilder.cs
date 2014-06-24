@@ -28,7 +28,7 @@ namespace Elide.ElaCode
                 tree.Nodes.Clear();
 
                 astControl.ShowWorking();
-                var rootNode = new TreeNode("Root") { ImageKey = "Module", SelectedImageKey = "Module" };
+                var rootNode = new TreeNode("root") { ImageKey = "Module", SelectedImageKey = "Module" };
                 tree.Nodes.Add(rootNode);
                 PopulateNodes(rootNode, root.TopLevel);
                 astControl.HideInfo();
@@ -103,7 +103,7 @@ namespace Elide.ElaCode
                     PopulateNodes(eqLeftNode, @eq.Left);
                     if (@eq.Right != null)
                     {
-                        var eqRightNode = eqNode.Simple(@eq.Right, "Right");
+                        var eqRightNode = eqNode.Simple(@eq.Right, "right");
                         PopulateNodes(eqRightNode, @eq.Right);
                     }
                     break;
@@ -262,7 +262,7 @@ namespace Elide.ElaCode
                     var typcNode = par.Simple(@typc, "type check");
                     var traits = typcNode.Simple(@typc, "traits");
                     foreach (var typcTra in @typc.Traits)
-                        par.Name(@typc, (typcTra.Prefix != null ? typcTra.Prefix + "." : String.Empty), "trait");
+                        typcNode.Name(@typc, (typcTra.Prefix != null ? typcTra.Prefix + "." : String.Empty) + typcTra.Name, "trait");
                     var typcExprNode = typcNode.Simple(@typc, "expression");
                     PopulateNodes(typcExprNode, @typc.Expression);
                     break;
@@ -302,7 +302,7 @@ namespace Elide.ElaCode
 
         public static TreeNode Simple(this TreeNode par, ElaExpression exp, string str)
         {
-            return Element(par, exp, "", str, "Folder", "{0}{1}");
+            return Element(par, exp, "", str, "Arrow", "{0}{1}");
         }
 
         public static TreeNode Name(this TreeNode par, ElaExpression exp, object data, string title = "name")

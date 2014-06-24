@@ -32,6 +32,7 @@ namespace Elide.ElaCode.Views
             imageList.Images.Add("Module", Bitmaps.Load<NS>("Module"));
             imageList.Images.Add("Functon", Bitmaps.Load<NS>("Function"));
             imageList.Images.Add("Field", Bitmaps.Load<NS>("Field"));
+            imageList.Images.Add("Arrow", Bitmaps.Load<NS>("Arrow"));
 
             treeView.ImageList = imageList;
         }       
