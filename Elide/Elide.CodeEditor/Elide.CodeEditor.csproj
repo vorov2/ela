@@ -96,8 +96,12 @@
     <Compile Include="CodeEditorFeatures.cs" />
     <Compile Include="IAutocompleteService.cs" />
     <Compile Include="ICodeEditor.cs" />
+    <Compile Include="Infrastructure\AbstractCodeParserService.cs" />
     <Compile Include="Infrastructure\CodeLexerInfo.cs" />
     <Compile Include="Infrastructure\CodeLexerReader.cs" />
+    <Compile Include="Infrastructure\CodeParserInfo.cs" />
+    <Compile Include="Infrastructure\CodeParserReader.cs" />
+    <Compile Include="Infrastructure\IAst.cs" />
     <Compile Include="Infrastructure\IClass.cs" />
     <Compile Include="Infrastructure\IClassInstance.cs" />
     <Compile Include="Infrastructure\IClassMember.cs" />
@@ -126,6 +130,8 @@
     <Compile Include="CodeEditor.cs" />
     <Compile Include="Infrastructure\ICodeBuilder.cs" />
     <Compile Include="Infrastructure\ICodeBuilderService.cs" />
+    <Compile Include="Infrastructure\ICodeParser.cs" />
+    <Compile Include="Infrastructure\ICodeParserService.cs" />
     <Compile Include="Infrastructure\ICodeRunner.cs" />
     <Compile Include="Infrastructure\ICodeRunnerService.cs" />
     <Compile Include="Infrastructure\ICompiledAssembly.cs" />

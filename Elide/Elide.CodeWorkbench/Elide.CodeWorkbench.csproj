@@ -96,6 +96,7 @@
     <Compile Include="AutocompleteService.cs" />
     <Compile Include="BuildLogger.cs" />
     <Compile Include="CodeBuilderService.cs" />
+    <Compile Include="CodeParserService.cs" />
     <Compile Include="CodeRunnerService.cs" />
     <Compile Include="Documentation\DocFile.cs" />
     <Compile Include="Documentation\DocFolder.cs" />

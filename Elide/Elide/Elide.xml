@@ -49,6 +49,9 @@
         <add key="CodeBuilderService" interface="Elide.CodeEditor.Infrastructure.ICodeBuilderService,Elide.CodeEditor" type="Elide.CodeWorkbench.CodeBuilderService,Elide.CodeWorkbench">
             <add key="builders" />
         </add>
+        <add key="CodeParserService" interface="Elide.CodeEditor.Infrastructure.ICodeParserService,Elide.CodeEditor" type="Elide.CodeWorkbench.CodeParserService,Elide.CodeWorkbench">
+          <add key="parsers" />
+        </add>
         <add key="CodeRunnerService" interface="Elide.CodeEditor.Infrastructure.ICodeRunnerService,Elide.CodeEditor" type="Elide.CodeWorkbench.CodeRunnerService,Elide.CodeWorkbench">
             <add key="runners" />
         </add>
@@ -173,11 +176,16 @@
         <add key="CodeSamples" title="Code Samples" type="Elide.CodeWorkbench.CodeSamples.CodeSamplesView,Elide.CodeWorkbench" kind="Help" />
 
         <add key="ElaInteractive" title="Interactive" shortcut="Ctrl+Alt+I" type="Elide.ElaCode.Views.InteractiveView,Elide.ElaCode" kind="Output" />
+        <add key="ElaAST" title="Syntax Tree (AST)" shortcut="Ctrl+Alt+A" type="Elide.ElaCode.Views.AstView,Elide.ElaCode" />
     </views>
 
     <builders>
         <add key="ElaCodeBuilder" type="Elide.ElaCode.ElaCodeBuilder,Elide.ElaCode" />      
     </builders>
+
+    <parsers>
+        <add key="ElaCodeParser" type="Elide.ElaCode.ElaCodeParser,Elide.ElaCode" />
+    </parsers>
   
     <runners>
         <add key="ElaCodeRunner" type="Elide.ElaCode.ElaCodeRunner,Elide.ElaCode" />
