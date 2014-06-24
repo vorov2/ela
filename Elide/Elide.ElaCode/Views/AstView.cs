@@ -39,7 +39,10 @@ namespace Elide.ElaCode.Views
         {
             var builder = App.GetService<IMenuService>().CreateMenuBuilder<ContextMenuStrip>();
             var contextMenu = builder
-                .Item("&Clear", "Ctrl+Alt+X", () => { _control.TreeView.Nodes.Clear(); _control.ShowNoData(); }, () => _control.TreeView.Nodes.Count > 0)
+                .Item("&Clear", () => { _control.TreeView.Nodes.Clear(); _control.ShowNoData(); }, () => _control.TreeView.Nodes.Count > 0)
+                .Separator()
+                .Item("&Expand All", () => _control.TreeView.ExpandAll(), () => _control.TreeView.Nodes.Count > 0)
+                .Item("Co&llapse All", () => _control.TreeView.CollapseAll(), () => _control.TreeView.Nodes.Count > 0)
                 .Finish();
             return contextMenu;
         }
