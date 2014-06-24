@@ -94,6 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AstTreeBuilder.cs" />
     <Compile Include="AutocompleteManager.cs" />
     <Compile Include="BuildOptionsManager.cs" />
     <Compile Include="Configuration\CompilerConfig.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="EilGeneratorHelper.cs" />
     <Compile Include="ElaBackgroundCompiler.cs" />
     <Compile Include="ElaCodeBuilder.cs" />
+    <Compile Include="ElaCodeParser.cs" />
     <Compile Include="ElaCodeRunner.cs" />
     <Compile Include="ElaDocument.cs" />
     <Compile Include="ElaEditor.cs" />
@@ -148,6 +150,7 @@
     <Compile Include="ModuleFileInfoExtensions.cs" />
     <Compile Include="ObjectModel\CompiledAssembly.cs" />
     <Compile Include="ObjectModel\CompiledUnit.cs" />
+    <Compile Include="ObjectModel\ElaAst.cs" />
     <Compile Include="ObjectModel\Reference.cs" />
     <Compile Include="ObjectModel\TypeClass.cs" />
     <Compile Include="ObjectModel\TypeClassInstance.cs" />
@@ -156,6 +159,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SymbolFinder.cs" />
     <Compile Include="TaskProvider.cs" />
+    <Compile Include="Views\AstControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AstControl.Designer.cs">
+      <DependentUpon>AstControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AstView.cs" />
     <Compile Include="Views\InteractiveControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -229,6 +239,9 @@
     <EmbeddedResource Include="Configuration\EilGeneratorConfigPage.resx">
       <DependentUpon>EilGeneratorConfigPage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\AstControl.resx">
+      <DependentUpon>AstControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\InteractiveControl.resx">
       <DependentUpon>InteractiveControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -263,7 +276,15 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Literal.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Module.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Folder.bmp" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

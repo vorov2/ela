@@ -13,6 +13,8 @@ using Elide.Scintilla;
 using Elide.TextEditor;
 using Ela.Linking;
 using Ela;
+using Ela.CodeModel;
+using System.Windows.Forms;
 
 namespace Elide.ElaCode
 {
@@ -157,6 +159,21 @@ namespace Elide.ElaCode
 
             if (fi != null)
                 app.GetService<IDocumentNavigatorService>().Navigate(new VirtualDocument(fi), 0, 0, false);
+        }
+
+        public void GenerateAst()
+        {
+            var sel = sci.HasSelections() ? sci.GetSelection().Text : sci.Text;
+            var ast = app.GetService<ICodeParserService>().RunParser<ElaAst>(sel, app.Document());
+
+            if (ast != null && ast.Root != null)
+            {
+                app.GetService<IViewService>().OpenView("ElaAST");
+                var view = (AstView)app.GetService<IViewService>().GetView("ElaAST");
+                var node = ast.Root as ElaProgram;
+                var builder = new AstTreeBuilder(node);
+                builder.Build((AstControl)view.Control);
+            }
         }
     }
 }
