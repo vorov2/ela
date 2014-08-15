@@ -1,3 +1,4 @@
+0.1.11.0:Release:Release of 0.1.11.0.
 0.1.10.1:Change:Format API in String module is fully rewritten in order to enhance performance and stability.
 0.1.10.0:Release:Release of 0.1.10.0.
 0.1.9.3:Change:Implementation of 'Failure' class is changed for List and Maybe.
