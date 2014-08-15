@@ -1,3 +1,4 @@
+0.12.5.0:Release:Release of Ela 0.12.5.0.
 0.12.4.4:Fix:String formatting (fmt) didn't always work correctly on built-in type String.
 0.12.4.3:Fix:Using a default context annotation could cause a stack corruption.
 0.12.4.2:Fix:A bug fixed in compilation logic of do-notation when pattern matching is used in statements. Patterns could case an internal compiler error.

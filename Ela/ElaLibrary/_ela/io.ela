@@ -7,9 +7,6 @@ open monad generic unsafe.console unsafe.file libIO#elalib@unsafeIO
 //Type and instances
 type IO = IO a # private
 
-instance Failure IO where
-  failure x = write ( "FAILURE: " ++ typeName x) `seq` putStr "Problem..."
-
 instance Pointed IO where
   point x = IO x
 
