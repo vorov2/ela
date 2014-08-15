@@ -168,7 +168,7 @@ namespace Elide.TextWorkbench.Views
 			var doc = app.GetService<IDocumentService>().GetActiveDocument();
 			var node = default(TreeNode);
 			
-			if (nodeMap.TryGetValue(doc, out node) && (node.IsExpanded || node.Nodes.Count  == 0))
+			if (nodeMap.TryGetValue(doc, out node) && node != null && (node.IsExpanded || node.Nodes.Count  == 0))
 			{
 				if (node.Nodes.Count == 0)
 					node.Nodes.Add(new TreeNode { Tag = stub });
