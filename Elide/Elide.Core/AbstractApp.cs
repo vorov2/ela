@@ -72,7 +72,7 @@ namespace Elide.Core
             var serv = ServiceInstances[info.InterfaceType] as IExtService;
 
             if (serv == null)
-                throw new ElideException("Service '{0}' doesn't implement IRegService interface.", info.Type);
+                throw new ElideException("Service '{0}' doesn't implement IExtService interface.", info.Type);
 
             info.RegSections.ForEach(s => serv.CreateExtReader(s).Read(Sections.First(se => se.Name == s)));            
         }
