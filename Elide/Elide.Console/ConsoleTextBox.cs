@@ -150,6 +150,7 @@ namespace Elide.Console
                 }
                 else
                 {
+                    sci.CaretPosition = sci.GetTextLength();
                     var line = GetLine(sci.CurrentLine);
                     history.Add(line.Trim('\0'));
                     var ev = new SubmitEventArgs(line);
