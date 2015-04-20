@@ -49,7 +49,7 @@ namespace Elide.ElaCode
             Func<String,CompiledAssembly> fun = s => app.GetService<ICodeBuilderService>().
                  RunBuilder<CompiledAssembly>(s, app.Document(), BuildOptions.Output | BuildOptions.TipError, ElaCodeBuilder.NoDebug, ElaCodeBuilder.NoWarnings);
             var sel = sci.HasSelections() ? sci.GetSelection().Text : sci.GetLine(sci.CurrentLine).Text;
-            var src = sci.Text + "\r\n_=()\r\n" + sel;            
+            var src = sci.Text + "\r\n_=()\r\n" + sel.Trim();            
             var asm = fun(src);
 
             if (asm == null)

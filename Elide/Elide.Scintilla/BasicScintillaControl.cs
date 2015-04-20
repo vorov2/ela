@@ -40,6 +40,14 @@ namespace Elide.Scintilla
             }
         }
 
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == NativeConstants.WM_SETCURSOR)
+                base.DefWndProc(ref m);
+            else if (m.Msg != 0x000007f8 && m.Msg != 2542)
+                base.WndProc(ref m);
+        }
+
         public void EmptyUndoBuffer()
         {
             Ref.Send(Sci.SCI_EMPTYUNDOBUFFER);

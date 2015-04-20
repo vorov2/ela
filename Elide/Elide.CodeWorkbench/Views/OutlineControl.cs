@@ -97,9 +97,9 @@ namespace Elide.CodeWorkbench.Views
                         {
                             var tn = new TreeNode(v.Name)
                             {
-                                ImageKey = flags.Set(ElaVariableFlags.Private) ? "PrivateVariable" : "Variable",
-                                SelectedImageKey = "Variable"
+                                ImageKey = flags.Set(ElaVariableFlags.Private) ? "PrivateVariable" : "Variable"
                             };
+                            tn.SelectedImageKey = tn.ImageKey;
                             tn.Tag = v;
                             node.Nodes.Add(tn);
                         }

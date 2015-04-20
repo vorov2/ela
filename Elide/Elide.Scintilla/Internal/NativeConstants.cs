@@ -10,6 +10,8 @@ namespace Elide.Scintilla.Internal
 
 		internal const uint WM_USER = 0x0400;
 
+        internal const uint WM_SETCURSOR = 0x0020;
+
 		internal const uint OCM_BASE = WM_USER + 0x1C00;
 
 		internal const uint WM_REFLECT = WM_USER + 0x1c00;

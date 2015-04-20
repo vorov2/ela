@@ -175,7 +175,7 @@
             this.MinimizeBox = false;
             this.Name = "AddFolderDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Favourite Folder";
+            this.Text = "Favorite Folder";
             this.Load += new System.EventHandler(this.AddFolderDialog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);

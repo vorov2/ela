@@ -148,7 +148,7 @@ namespace Elide.Scintilla
                         break;
                 }
             }
-            else if (m.Msg != 0x000007f8)
+            else
                 base.WndProc(ref m);
         }
 
