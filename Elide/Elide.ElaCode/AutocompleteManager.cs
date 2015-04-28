@@ -99,6 +99,9 @@ namespace Elide.ElaCode
 
             keywords.Add(Snippet("if"));
 
+            if (tl.StartsWith("if") && tl.Length > 2)
+                keywords.Add(Snippet("then"));
+
             if (tl.Length == 0)
             {
                 keywords.Add(Snippet("open"));
@@ -106,17 +109,13 @@ namespace Elide.ElaCode
 
                 if (line.Length > 0)
                 {
-                    keywords.Add(Snippet("et"));
                     keywords.Add(Snippet("where"));
                 }
             }
             else if (tl.EndsWith("="))
                 keywords.Add(Snippet("let"));
-            else if (tl.EndsWith("let"))
-            {
-                keywords.Add(Snippet("private"));
-                keywords.Add(Snippet("inline"));
-            }
+            else
+                keywords.Add(Snippet("else"));
 
             if (names != null)
                 keywords.AddRange(names);
