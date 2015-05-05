@@ -1,3 +1,4 @@
+0.12.5.2:Fix:A bug fixed in global context compilation logic that could cause eval stack corruption.
 0.12.5.1:Fix:A critical bug fixed that could result in Ela virtual machine crush when using global contexts.
 0.12.5.0:Release:Release of Ela 0.12.5.0.
 0.12.4.4:Fix:String formatting (fmt) didn't always work correctly on built-in type String.

@@ -54,7 +54,7 @@ namespace Ela
 
         public string GetFileNameWithoutExtension()
         {
-            return FullName.Replace(Extension, String.Empty);
+            return !String.IsNullOrEmpty(FullName) ? FullName.Replace(Extension, String.Empty) : FullName;
         }
 
         public override string ToString()
