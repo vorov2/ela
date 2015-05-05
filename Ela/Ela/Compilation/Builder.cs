@@ -157,7 +157,9 @@ namespace Ela.Compilation
                         if (v.Expression == null)
                         {
                             cw.Emit(Op.Ctx);
-                            cw.Emit(Op.Pushunit);
+
+                            if ((hints & Hints.Left) != Hints.Left)
+                                cw.Emit(Op.Pushunit);
                         }
                         else
                         {
