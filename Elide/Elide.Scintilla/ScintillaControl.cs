@@ -1118,8 +1118,17 @@ namespace Elide.Scintilla
 
         public void SwapClipboard()
         {
+            var sel = GetSelection();
+            var txt = sel.Text;
+            var pos = sel.Start;
+            var len = 0;
+
+            if (Clipboard.ContainsText())
+                len = Clipboard.GetText().Length;
+
             Paste();
-            Clipboard.Clear();
+            Select(pos, len, SelectionFlags.None);
+            Clipboard.SetText(txt);
         }
 
         public void Clear()
