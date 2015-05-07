@@ -81,7 +81,7 @@ namespace Elide.Scintilla.Internal
 
 		internal unsafe static string SendStr(this EditorRef @ref, int cmd, int param)
 		{
-			var length = Send(@ref, cmd, 0, 0);			
+			var length = Send(@ref, cmd, param, 0);			
 			var buffer = new byte[length + 1];
 
 			fixed (byte* bp = buffer)
