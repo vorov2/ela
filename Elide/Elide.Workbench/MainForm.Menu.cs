@@ -8,6 +8,7 @@ using Elide.Environment.Configuration;
 using Elide.Environment.Editors;
 using Elide.Workbench.Configuration;
 using Elide.Environment.Views;
+using System.Collections.Generic;
 
 namespace Elide.Workbench
 {
@@ -134,18 +135,20 @@ namespace Elide.Workbench
                 builder.Item("[None]", null, () => false);
             else
             {
-                for (var i = 0; i < recFiles.Count; i++)
+                var count = 0;
+
+                foreach (var fls in new List<String>(recFiles))
                 {
-                    var idx = i;
-                    builder.Item("&" + (i + 1) + ". " + recFiles[i], () =>
+                    count++;
+                    builder.Item("&" + count + ". " + fls, () =>
                         {
-                            var fi = new FileInfo(recFiles[idx]);
+                            var fi = new FileInfo(fls);
 
                             if (!fi.Exists)
                             {
                                 if (App.GetService<IDialogService>().ShowWarningDialog(
                                     "File '{0}' doesn't exist. Do you want to remove it from the recently used list?", fi.FullName))
-                                    recFiles.RemoveAt(i);
+                                    recFiles.Remove(fls);
                             }
                             else
                                 App.GetService<IFileService>().OpenFile(fi);

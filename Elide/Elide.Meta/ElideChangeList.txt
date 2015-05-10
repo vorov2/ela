@@ -1,4 +1,5 @@
-﻿0.2.1.9:Fix:Elide could crash when chaning cursor color through text editor settings.
+﻿0.2.1.10:Fix:Elide could crash while remove an entry from a recent files list (when try to open a file that is not available now).
+0.2.1.9:Fix:Elide could crash when chaning cursor color through text editor settings.
 0.2.1.8:Fix:A Scintilla related bug is fixed (in Font configuration logic, that could cause wrong font settings to be applied).
 0.2.1.7:Fix:'Swap clipboard' function from Edit menu now works correctly.
 0.2.1.6:Change:Autocomplete enhanced and updated to matche the current state of the language.
