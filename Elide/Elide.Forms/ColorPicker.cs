@@ -74,8 +74,10 @@ namespace Elide.Forms
         {
             get
             {
-                if (SelectedItem != null && !DesignMode && Text != "Default")
-                    return (KnownColor)Enum.Parse(typeof(KnownColor), SelectedItem.ToString());
+                var si = SelectedItem;
+
+                if (si != null && !DesignMode && si.ToString() != "Default")
+                    return (KnownColor)Enum.Parse(typeof(KnownColor), si.ToString());
 
                 return null;
             }

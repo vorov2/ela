@@ -1,4 +1,5 @@
-﻿0.2.1.8:Fix:A Scintilla related bug is fixed (in Font configuration logic, that could cause wrong font settings to be applied).
+﻿0.2.1.9:Fix:Elide could crash when chaning cursor color through text editor settings.
+0.2.1.8:Fix:A Scintilla related bug is fixed (in Font configuration logic, that could cause wrong font settings to be applied).
 0.2.1.7:Fix:'Swap clipboard' function from Edit menu now works correctly.
 0.2.1.6:Change:Autocomplete enhanced and updated to matche the current state of the language.
 0.2.1.5:Fix:A typo fixed in the caption of 'Favorite Folder' dialog that can be opened from program options.
