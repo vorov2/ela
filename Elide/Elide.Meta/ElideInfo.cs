@@ -12,9 +12,9 @@ namespace Elide
 
         public const string Description = "Elide. Ela development environment.";
 
-        public const string Copyright = "Copyright © Basil Voronkov 2010-2014";
+        public const string Copyright = "Copyright © Basil Voronkov 2010-2015";
 
-        public const string VersionType = "Alpha";
+        public const string VersionType = "Beta";
 
         public const string Version = Const.Version;
     }
