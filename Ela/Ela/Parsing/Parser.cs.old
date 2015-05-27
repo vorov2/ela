@@ -226,7 +226,7 @@ internal sealed partial class Parser {
 				if (list != null)
 				{
 				    var listExp = new ElaListLiteral(ot) { Values = list };
-				 exp = listExp;
+				    exp = listExp;
 				}	
 				else if (comp != null)
 				    exp = comp;
@@ -235,7 +235,7 @@ internal sealed partial class Parser {
 				
 			}
 			if (exp == null)
-			exp = new ElaListLiteral(ot);
+			   exp = new ElaListLiteral(ot);
 			
 			Expect(22);
 		} else if (la.kind == 57) {
@@ -268,7 +268,7 @@ internal sealed partial class Parser {
 		
 		Expect(53);
 		if (exp == null)
-		exp = new ElaUnitLiteral(ot);
+		   exp = new ElaUnitLiteral(ot);
 		
 	}
 
@@ -379,7 +379,7 @@ internal sealed partial class Parser {
 				fld.FieldValue = cexp; 
 			}
 			if (fld.FieldValue == null)
-			fld.FieldValue = new ElaNameReference(t) { Name = t.val };
+			   fld.FieldValue = new ElaNameReference(t) { Name = t.val };
 			
 		} else if (la.kind == 5) {
 			Get();
@@ -400,7 +400,7 @@ internal sealed partial class Parser {
 				fld.FieldValue = cexp; 
 			}
 			if (fld.FieldValue == null)
-			fld.FieldValue = new ElaNameReference(t) { Name = t.val };
+			   fld.FieldValue = new ElaNameReference(t) { Name = t.val };
 			
 		} else SynErr(72);
 	}
@@ -503,8 +503,8 @@ internal sealed partial class Parser {
 		}
 		if (list == null && comp == null && rng == null && exp != null)
 		{
-			list = new List<ElaExpression>();
-			list.Add(exp);
+		    list = new List<ElaExpression>();
+		    list.Add(exp);
 		}
 		
 	}
@@ -615,7 +615,7 @@ internal sealed partial class Parser {
 				exp = GetOperatorFun(op, null, exp); 
 			}
 			if (exp == null)
-			exp = new ElaNameReference(ot) { Name = t.val };
+			   exp = new ElaNameReference(ot) { Name = t.val };
 			
 		} else SynErr(77);
 	}
@@ -644,7 +644,7 @@ internal sealed partial class Parser {
 				exp = GetOperatorFun(op, null, exp); 
 			}
 			if (exp == null)
-			exp = new ElaNameReference(ot) { Name = op };
+			   exp = new ElaNameReference(ot) { Name = op };
 			
 		} else SynErr(78);
 	}
@@ -673,7 +673,7 @@ internal sealed partial class Parser {
 				exp = GetOperatorFun(op, null, exp); 
 			}
 			if (exp == null)
-			exp = new ElaNameReference(ot) { Name = op };
+			   exp = new ElaNameReference(ot) { Name = op };
 			
 		} else SynErr(79);
 	}
@@ -702,7 +702,7 @@ internal sealed partial class Parser {
 				exp = GetOperatorFun(op, null, exp); 
 			}
 			if (exp == null)
-			exp = new ElaNameReference(ot) { Name = op };
+			   exp = new ElaNameReference(ot) { Name = op };
 			
 		} else SynErr(80);
 	}
@@ -731,7 +731,7 @@ internal sealed partial class Parser {
 				exp = GetOperatorFun(op, null, exp); 
 			}
 			if (exp == null)
-			exp = new ElaNameReference(ot) { Name = op };
+			   exp = new ElaNameReference(ot) { Name = op };
 			
 		} else SynErr(81);
 	}
@@ -760,7 +760,7 @@ internal sealed partial class Parser {
 				exp = GetOperatorFun(op, null, exp); 
 			}
 			if (exp == null)
-			exp = new ElaNameReference(ot) { Name = t.val };
+			   exp = new ElaNameReference(ot) { Name = t.val };
 			
 		} else SynErr(82);
 	}
@@ -789,7 +789,7 @@ internal sealed partial class Parser {
 				exp = GetOperatorFun(op, null, exp); 
 			}
 			if (exp == null)
-			exp = new ElaNameReference(ot) { Name = t.val };
+			   exp = new ElaNameReference(ot) { Name = t.val };
 			
 		} else SynErr(83);
 	}
@@ -818,7 +818,7 @@ internal sealed partial class Parser {
 				exp = GetOperatorFun(op, null, exp); 
 			}
 			if (exp == null)
-			exp = new ElaNameReference(ot) { Name = t.val };
+			   exp = new ElaNameReference(ot) { Name = t.val };
 			
 		} else SynErr(84);
 	}
@@ -847,7 +847,7 @@ internal sealed partial class Parser {
 				exp = GetOperatorFun(op, null, exp); 
 			}
 			if (exp == null)
-			exp = new ElaNameReference(ot) { Name = t.val };
+			   exp = new ElaNameReference(ot) { Name = t.val };
 			
 		} else SynErr(85);
 	}
@@ -870,13 +870,13 @@ internal sealed partial class Parser {
 					OpExpr10(out cexp);
 				}
 				var fc = new ElaJuxtaposition(ot) { 
-					Target = funexp
-				};
+				       Target = funexp
+				   };
 				fc.Parameters.Add(exp);			
 				
 				if (cexp != null)
-					fc.Parameters.Add(cexp);
-								
+				    fc.Parameters.Add(cexp);
+				                
 				exp = fc;
 				
 			}
@@ -889,7 +889,7 @@ internal sealed partial class Parser {
 				exp = GetPrefixFun(funexp, exp, true);	
 			}
 			if (exp == null)
-			exp = funexp;
+			   exp = funexp;
 			
 		} else SynErr(86);
 	}
@@ -918,7 +918,7 @@ internal sealed partial class Parser {
 				exp = GetOperatorFun(op, null, exp); 
 			}
 			if (exp == null)
-			exp = new ElaNameReference(ot) { Name = t.val };
+			   exp = new ElaNameReference(ot) { Name = t.val };
 			
 		} else SynErr(87);
 	}
@@ -947,7 +947,7 @@ internal sealed partial class Parser {
 				exp = GetOperatorFun(op, null, exp); 
 			}
 			if (exp == null)
-			exp = new ElaNameReference(ot) { Name = t.val };
+			   exp = new ElaNameReference(ot) { Name = t.val };
 			
 		} else SynErr(88);
 	}
@@ -976,7 +976,7 @@ internal sealed partial class Parser {
 				exp = GetOperatorFun(op, null, exp); 
 			}
 			if (exp == null)
-			exp = new ElaNameReference(ot) { Name = t.val };
+			   exp = new ElaNameReference(ot) { Name = t.val };
 			
 		} else SynErr(89);
 	}
@@ -996,13 +996,13 @@ internal sealed partial class Parser {
 			if (mi == null)
 			{
 			    mi = new ElaJuxtaposition(ot) { Target = exp };
-				exp = mi;
+			    exp = mi;
 			}
 			else
 			    mi.Parens = false;
 			
 			    if (mi != null)
-				    mi.Parameters.Add(cexp); 
+			        mi.Parameters.Add(cexp); 
 			
 		}
 		if (la.kind == 59) {
@@ -1305,13 +1305,13 @@ internal sealed partial class Parser {
 			   AddError(ElaParserError.InvalidAttributeWhere);
 			
 			    var letb = new ElaLetBinding();                    
-			       if (cb != null) letb.SetLinePragma(cb.Line, cb.Column);                    
-			       letb.Equations = cb;
+			    if (cb != null) letb.SetLinePragma(cb.Line, cb.Column);                    
+			    letb.Equations = cb;
 			        
 			    if (right != null)
 			    {
 			        letb.Expression = right;
-			           right = letb;
+			        right = letb;
 			    }
 			    else
 			    {

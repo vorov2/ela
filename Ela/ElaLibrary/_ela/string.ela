@@ -21,14 +21,13 @@ instance ListLike String where
 /* Functions */
 format = formatfn id
 
-formatfn fn !fstr = format [] count
-  where (count,fstr2,fsf) = str.getFormats fstr
-        format xs n
-          | n == 0 = fn $ str.format fstr2 (walkArgs [] xs fsf)
-          | else = \!x -> format (x::xs) (n - 1)
-        walkArgs ns [] _ = ns
-        walkArgs ns _ [] = ns
-        walkArgs ns (a::as) (f::fs) = walkArgs (fmt f a :: ns) as fs
+formatfn fn !fstr = format [] fsf
+  where (fstr2,fsf) = str.getFormats fstr
+        format xs [] = fn $ str.format fstr2 xs
+        format xs (f::fms) = walk xs f
+            where
+                walk xs [] _ = format xs fms
+                walk xs (fa::fas) x = walk (fmt fa x :: xs) fas x
 
 upper # qualified
 upper x = str.upper (force x)

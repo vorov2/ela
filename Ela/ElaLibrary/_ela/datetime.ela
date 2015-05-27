@@ -47,7 +47,7 @@ instance Show DateTime where
   show (DateTime x) = dt.formatToString "" x
 
 instance Format DateTime where
-  fmt f x = dt.formatToString (force fmt) x
+  fmt f (DateTime x) = dt.formatToString (force f) x
 
 /* Functions */
 addDates (DateTime x) (DateTime y) = fromTicks <| dt.add (force x) (force y)
