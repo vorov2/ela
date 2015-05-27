@@ -1,3 +1,6 @@
+0.1.12.0:Release:Release of 0.1.12.0.
+0.1.11.2:Fix:A bug fixed in function datetime.fmt.
+0.1.11.1:Fix:Format API is yet again rewritten to fix bugs introduced in previous versions.
 0.1.11.0:Release:Release of 0.1.11.0.
 0.1.10.1:Change:Format API in String module is fully rewritten in order to enhance performance and stability.
 0.1.10.0:Release:Release of 0.1.10.0.
