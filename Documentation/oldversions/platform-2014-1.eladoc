@@ -1,0 +1,20 @@
+#title What's new? (Ela Platform 2014.1)
+
+=Overview
+Ela Platform 2014.1 is a stabilization release that contains several important fixes to Ela compiler and Ela
+standard library. This platform also includes a new version of Elide, Ela interactive environment, and an
+updated standard library.
+
+=Ela changes
+Ela contains an important bug fix to the monadic do-notation. Usage of pattern matching inside do-notation bindings could
+cause an internal compiler error; now this feature is fully functional. Also this version of Ela fixes a critical bug with
+default contexts; usage of default context in previous version could case stack corruption.
+
+=Elide changes
+Ela Platform 2014.1 comes with a new version of Elide that includes a new tool pane 'Syntax Tree (AST)' and corresponding
+menu and context menu command for Ela editing mode. Now one can generate a graphical syntax tree from the entire source
+code file or selection. Source code is processed using standard Ela parser and displayed through a multilevel tree structure.
+
+=Library changes
+Ela Platform 2014.1 comes with a completely rewritten formatting API (`format` function from `string` module) that is now
+more reliable and offers better performance.

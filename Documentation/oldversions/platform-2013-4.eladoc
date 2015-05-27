@@ -1,0 +1,34 @@
+#title What's new? (Ela Platform 2013.4)
+
+=Overview
+This release of Ela Platform includes a new version of Elide and a new version of Ela, that includes some important
+fixes to Ela compiler. Also there are several corrections in Ela documentation.
+
+=Ela changes
+Ela contains an important bug fix in compiler that addresses a problem with chained `let-in` declarations in the cases as
+follows:
+>>qsort []      = []
+>>qsort (x::xs) = let lessThan = section (<)
+>>                    notLessThan = section (>=)
+>>                    section pred = qsort [y \\ y<-xs | y `pred` x]
+>>                 in lessThan ++ [x] ++ notLessThan
+The code above used to generate a compilation error while beign completely correct. However, its full equivalent using `where`
+statement worked correctly:
+>>qsort (x::xs) = lessThan ++ [x] ++ notLessThan where
+>>                    lessThan    = section (<)
+>>                    notLessThan = section (>=)
+>>                    section pred = qsort [y \\ y<-xs | y `pred` x]}}
+Now this issue is addressed and both code samples work as expected.//br
+There are also a couple of other important fixes including processing of single expression do-notations and an incorrect
+grammar definition for record literal.//br
+Other changes to Ela include transformation of a built-in `fail` statement (used to generate an exception) to a regular function
+and an ability to specify a default context for overload resolution. The latter is done like so:
+>>open monad io
+>>::: IO //here we say that a default context for top level is IO monad
+>>_ = do putStrLn "Hello!"
+>>_ = do putStrLn "Bye!"
+
+=Elide changes
+Ela Platform 2013.4 comes with a new version of Elide that incorporates a lot of new features a changes. Elide offers several UI
+enhancements and bug fixes and cleaner interanls for the text editor infrastructure. The major changes are an integration of
+Ela Interactive environment which is now available as a tool window in Elide and a better support for High DPI screens.
