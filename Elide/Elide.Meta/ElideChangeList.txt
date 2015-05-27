@@ -1,8 +1,9 @@
-﻿0.2.1.10:Fix:Elide could crash while remove an entry from a recent files list (when try to open a file that is not available now).
-0.2.1.9:Fix:Elide could crash when chaning cursor color through text editor settings.
+﻿0.3.0.0:Release:Release of Elide 0.3.0.0.
+0.2.1.10:Fix:Elide could crash while remove an entry from a recent files list (when try to open a file that is not available now).
+0.2.1.9:Fix:Elide could crash when changing cursor color through text editor settings.
 0.2.1.8:Fix:A Scintilla related bug is fixed (in Font configuration logic, that could cause wrong font settings to be applied).
 0.2.1.7:Fix:'Swap clipboard' function from Edit menu now works correctly.
-0.2.1.6:Change:Autocomplete enhanced and updated to matche the current state of the language.
+0.2.1.6:Change:Autocomplete enhanced and updated to match the current state of the language.
 0.2.1.5:Fix:A typo fixed in the caption of 'Favorite Folder' dialog that can be opened from program options.
 0.2.1.4:Fix:A bug in the Outline view, an icon of a 'private name' could incorrectly change after selecting this element in the tree view.
 0.2.1.3:Fix:Cursor flickering is fixed in the main editor window and in some tool windows (such as output, console, interactive, etc.).
