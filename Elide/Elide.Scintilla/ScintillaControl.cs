@@ -559,7 +559,7 @@ namespace Elide.Scintilla
             var buffer = Encoding.UTF8.GetBytes(text);
             Ref.Send(Sci.SCI_ANNOTATIONSETTEXT, line, buffer);
             //Ref.Send(Sci.SCI_ANNOTATIONSETSTYLE, line, (Int32)style);
-            Ref.Send(Sci.SCI_ANNOTATIONSETVISIBLE, 2); //BOXED
+            Ref.Send(Sci.SCI_ANNOTATIONSETVISIBLE, 3); //BOXED
             Ref.Send(Sci.SCI_ANNOTATIONSETSTYLES, line, new String((Char)style, buffer.Length));
         }
         #endregion
