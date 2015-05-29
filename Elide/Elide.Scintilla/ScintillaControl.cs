@@ -44,7 +44,6 @@ namespace Elide.Scintilla
 
         public void ResetStyles()
         {
-            Ref.Send(Sci.SCI_SETSTYLEBITS, 8);
             Ref.Send(Sci.SCI_STYLECLEARALL);
             Styles.Hyperlink.Hotspot = true;
             Styles.Invisible.Visible = false;
@@ -557,10 +556,14 @@ namespace Elide.Scintilla
         public void SetAnnotation(int line, string text, TextStyle style)
         {
             DocumentStateFlags |= STATE_ANNOTATION;
-            Ref.Send(Sci.SCI_ANNOTATIONSETVISIBLE, 2); //BOXED
-            Ref.Send(Sci.SCI_ANNOTATIONSETSTYLE, line, (Int32)style);
             var buffer = Encoding.UTF8.GetBytes(text);
             Ref.Send(Sci.SCI_ANNOTATIONSETTEXT, line, buffer);
+            //Ref.Send(Sci.SCI_ANNOTATIONSETSTYLE, line, (Int32)style);
+            Ref.Send(Sci.SCI_ANNOTATIONSETVISIBLE, 2); //BOXED
+            var str = "";
+            foreach (var c in buffer)
+                str += (Char)style;
+            Ref.Send(Sci.SCI_ANNOTATIONSETSTYLES, line, str);
         }
         #endregion
 

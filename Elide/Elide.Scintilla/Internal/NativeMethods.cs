@@ -21,6 +21,6 @@ namespace Elide.Scintilla.Internal
 		internal static extern int SendMessage(IntPtr hWnd, uint Msg, int wParam, uint lParam);
 
         [DllImport("user32.dll")]
-		internal static extern int SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, [MarshalAs(UnmanagedType.LPStr)] string lParam);
+		internal static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, [MarshalAs(UnmanagedType.LPStr)] string lParam);
 	}
 }

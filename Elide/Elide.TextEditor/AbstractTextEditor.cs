@@ -41,7 +41,7 @@ namespace Elide.TextEditor
                 var c = App.Config<TextEditorsConfig>().Configs[editorKey];
                 sci.UseTabs = c.UseTabs == null ? def.UseTabs.Value : c.UseTabs.Value;
                 sci.TabSize = c.TabSize == null ? def.TabSize.Value : c.TabSize.Value;
-                sci.IndentSize = c.IndentSize == null ? def.IndentSize.Value : c.IndentSize.Value;            
+                sci.IndentSize = c.IndentSize == null ? def.IndentSize.Value : c.IndentSize.Value;
             };
             App.GetService<IConfigService>().ConfigUpdated += ConfigUpdated;
 
@@ -50,7 +50,7 @@ namespace Elide.TextEditor
             InternalInitialize();
             UpdateTextEditorSettings();
 
-            this.sci.ContextMenuStrip = BuildContextMenu();            
+            this.sci.ContextMenuStrip = BuildContextMenu(); 
         }
 
         private void ConfigUpdated(object sender, ConfigEventArg e)
