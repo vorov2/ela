@@ -560,10 +560,7 @@ namespace Elide.Scintilla
             Ref.Send(Sci.SCI_ANNOTATIONSETTEXT, line, buffer);
             //Ref.Send(Sci.SCI_ANNOTATIONSETSTYLE, line, (Int32)style);
             Ref.Send(Sci.SCI_ANNOTATIONSETVISIBLE, 2); //BOXED
-            var str = "";
-            foreach (var c in buffer)
-                str += (Char)style;
-            Ref.Send(Sci.SCI_ANNOTATIONSETSTYLES, line, str);
+            Ref.Send(Sci.SCI_ANNOTATIONSETSTYLES, line, new String((Char)style, buffer.Length));
         }
         #endregion
 
