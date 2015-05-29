@@ -87,25 +87,30 @@ namespace Elide.CodeWorkbench
                 catch (CodeException ex)
                 {
                     ah.Set();
-                    output.WriteLine(OutputFormat.Header, "Unhandled run-time error:");
-                    output.WriteLine(OutputFormat.Error, ex.ToString());
-                    var nav = App.GetService<IDocumentNavigatorService>();
 
-                    if (options.Set(ExecOptions.TipError) && sci != null)
-                        sci.ShowCallTip(ex.Message);
+                    sci.Invoke(() =>
+                        {
+                            output.WriteLine(OutputFormat.Header, "Unhandled run-time error:");
+                            output.WriteLine(OutputFormat.Error, ex.ToString());
+                            var nav = App.GetService<IDocumentNavigatorService>();
 
-                    if (options.Set(ExecOptions.Annotation) && sci != null && ex.Document != null && nav.SetActive(ex.Document))
-                    {
-                        sci.SetAnnotation(ex.Line - 1, ex.Message, TextStyle.Annotation1);
-                        sci.CaretPosition = sci.GetPositionFromLine(ex.Line);
-                        sci.ScrollToCaret();
-                    }
+                            if (options.Set(ExecOptions.TipError) && sci != null)
+                                sci.ShowCallTip(ex.Message);
 
-                    if (options.Set(ExecOptions.Console) && con != null)
-                        con.EndSession("Session terminated because of an unhandled run-time error.");
+                            if (options.Set(ExecOptions.Annotation) && sci != null && ex.Document != null && nav.SetActive(ex.Document))
+                            {
+                                sci.Styles.Annotation1.Font = "Segoe UI";
+                                sci.SetAnnotation(ex.Line - 1, ex.Message, TextStyle.Annotation1);
+                                sci.CaretPosition = sci.GetPositionFromLine(ex.Line);
+                                sci.ScrollToCaret();
+                            }
 
-                    if (options.Set(ExecOptions.ShowOutput))
-                        App.OpenView("Output");
+                            if (options.Set(ExecOptions.Console) && con != null)
+                                con.EndSession("Session terminated because of an unhandled run-time error.");
+
+                            if (options.Set(ExecOptions.ShowOutput))
+                                App.OpenView("Output");
+                        });
 
                     return;
                 }
