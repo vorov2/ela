@@ -1,112 +1,113 @@
 ﻿COMPILER Ela
 
 CHARACTERS
-	cr = '\r'.
-	lf = '\n'.
-	tab = '\t'.    
-	letter = 'A' .. 'Z' + 'a' .. 'z' + '_'.
-	ucase = 'A' .. 'Z'.
-	lcase = 'a' .. 'z'.
-	digit = "0123456789".
-	notDigit = ANY - digit.
-	hexDigit = digit + "ABCDEFabcdef".
-	verbatimChar = ANY.
-	stringChar = ANY - '"' - '\\' - cr - lf.
-	char = ANY - "'" - '\\' - cr - lf.
-	op = "!%&+-.:<=>?$@^|$~`\\".
-	parens = "[]{}()".
+    cr = '\r'.
+    lf = '\n'.
+    tab = '\t'.    
+    letter = 'A' .. 'Z' + 'a' .. 'z' + '_'.
+    ucase = 'A' .. 'Z'.
+    lcase = 'a' .. 'z'.
+    digit = "0123456789".
+    notDigit = ANY - digit.
+    hexDigit = digit + "ABCDEFabcdef".
+    verbatimChar = ANY.
+    stringChar = ANY - '"' - '\\' - cr - lf.
+    char = ANY - "'" - '\\' - cr - lf.
+    op = "!%&+-.:<=>?$@^|$~`\\".
+    parens = "[]{}()".
+    literal = ucase + lcase.
+    literalLimited = literal - "ABCDEFabcdef".
 
 TOKENS
     ident = lcase { letter | digit | "'" }
-			| "_" ("'"|letter) { letter | digit | "'" }
-			| "'" letter [ (letter|digit|"'") {letter|digit|"'"} (letter|digit) ].	
-	
-	variantTok = ucase { letter | digit | "'" }.
-	
-	intTok = ["-"]( digit { digit } 
-	          | digit { digit } CONTEXT ("." notDigit) 
-	          | ("0x"|"0X") hexDigit { hexDigit } 
-	          ) ["L"|"l"].
-			
-	realTok = ["-"]"." digit { digit } [ ("e"|"E") ["+"|"-"] digit { digit } ] ["D"|"d"|"F"|"f"] 
-			| ["-"] digit { digit } 
-			    ( 
-				    "." digit { digit } [ ( "e" | "E" ) ["+" | "-" ] digit { digit } ] ["D"|"d"|"F"|"f"] 
-				    | ("e"|"E") ["+"|"-"] digit { digit } ["D"|"d"|"F"|"f"]  
-				    | "D"|"d"|"F"|"f"|"M"|"m"
-			    ).			
-			
-	stringTok = "\"" { stringChar
-					| "\\\"" | "\\\\" | "\\0" | "\\b" | "\\n" | "\\r" | "\\t" | "\\'"
-					| "\\u" hexDigit hexDigit hexDigit hexDigit
-					| "\\x" digit digit digit digit digit
-					}  
-				"\"".				
-	
-	charTok = 	"'" ( char
-					| "\\\"" | "\\\\" | "\\0" | "\\b" | "\\n" | "\\r" | "\\t" | "\\'"
-					| "\\u" hexDigit hexDigit hexDigit hexDigit
-					| "\\x" digit digit digit digit digit
-					)  
-				"'".
-	operatorTok = op { op }.
-	
-	parenTok = parens { parens }.
-	
-	NL = cr|lf.
-	
+            | "_" ("'"|letter) { letter | digit | "'" }
+            | "'" letter [ (letter|digit|"'") {letter|digit|"'"} (letter|digit) ].
+    
+    variantTok = ucase { letter | digit | "'" }.
+    
+    intTok = ["-"]( digit { digit } [literal]
+              //| ( digit { digit } CONTEXT ("." notDigit) [literal] )
+              | ( ("0x"|"0X") hexDigit { hexDigit } [literalLimited] )
+              ).
+            
+    realTok = ["-"]"." digit { digit } [ ("e"|"E") ["+"|"-"] digit { digit } ] [literal] 
+            | ["-"] digit { digit } 
+                ( 
+                    "." digit { digit } [ ( "e" | "E" ) ["+" | "-" ] digit { digit } ] [literal] 
+                    | ("e"|"E") ["+"|"-"] digit { digit } [literal]
+                ).
+            
+    stringTok = "\"" { stringChar
+                    | "\\\"" | "\\\\" | "\\0" | "\\b" | "\\n" | "\\r" | "\\t" | "\\'"
+                    | "\\u" hexDigit hexDigit hexDigit hexDigit
+                    | "\\x" digit digit digit digit digit
+                    }  
+                "\"".				
+    
+    charTok = 	"'" ( char
+                    | "\\\"" | "\\\\" | "\\0" | "\\b" | "\\n" | "\\r" | "\\t" | "\\'"
+                    | "\\u" hexDigit hexDigit hexDigit hexDigit
+                    | "\\x" digit digit digit digit digit
+                    )  
+                "'".
+    operatorTok = op { op }.
+    
+    parenTok = parens { parens }.
+    
+    NL = cr|lf.
+    
 IGNORE tab
 
 PRODUCTIONS
-	Comment =
-		(
-			"/*" 
-			(. var pos = t.pos; .)
-			{ ANY } ("*/")
-			(. 
-				Add(pos, t.pos - pos + t.val.Length, TextStyle.MultilineStyle1); 
-			.)
-		).
-				
-	SingleLineComment = 
-		(
-			"//"  (. var pos = t.pos; .) 
-			{ ANY } (NL)
-			(. 
-				Add(pos, t.pos - pos + t.val.Length, TextStyle.Style6); 
-				TryAddTask(pos + 2, t.pos - pos);
-			.)
-		).
-		
-	VerbatimString = 
-	    "<[" (. var pos = t.pos; .) {ANY} ("]>")
-	    (. Add(pos, t.pos - pos + t.val.Length, TextStyle.MultilineStyle2); .).
+    Comment =
+        (
+            "/*" 
+            (. var pos = t.pos; .)
+            { ANY } ("*/")
+            (. 
+                Add(pos, t.pos - pos + t.val.Length, TextStyle.MultilineStyle1); 
+            .)
+        ).
+                
+    SingleLineComment = 
+        (
+            "//"  (. var pos = t.pos; .) 
+            { ANY } (NL)
+            (. 
+                Add(pos, t.pos - pos + t.val.Length, TextStyle.Style6); 
+                TryAddTask(pos + 2, t.pos - pos);
+            .)
+        ).
+        
+    VerbatimString = 
+        "<[" (. var pos = t.pos; .) {ANY} ("]>")
+        (. Add(pos, t.pos - pos + t.val.Length, TextStyle.MultilineStyle2); .).
 
-	//Thunk = 
-	//	"(&" (. if (la.val != null && la.val != "" && la.val[0] != '&') Add(t.pos + 1, 1, TextStyle.Style10); .).
-						
-	Primary = 
-		(
-			ident (. Add(t.pos, t.val.Length, TextStyle.Style1); .)
-			| variantTok (. Add(t.pos, t.val.Length, TextStyle.Style3); .)
-			| intTok (. Add(t.pos, t.val.Length, TextStyle.Style9); .)
-			| realTok (. Add(t.pos, t.val.Length, TextStyle.Style9); .)
-			| stringTok (. Add(t.pos, t.val.Length, TextStyle.Style7); .)
-			| charTok (. Add(t.pos, t.val.Length, TextStyle.Style8); .)
-			| (operatorTok|"*"|"/"|"*/") (. Add(t.pos, t.val.Length, TextStyle.Style4); .)
-			| "true" (. Add(t.pos, t.val.Length, TextStyle.Style5); .)
-			| "false" (. Add(t.pos, t.val.Length, TextStyle.Style5); .)
-			| parenTok
-			| "_"
-			| ";" | "#" | ","
-		).
-		
-	Keywords = 
-		( "let" | "where" | "open" | "import" | "in" | "is" | "if" | "then" | "else" | "match" | "try" | "with" | "__internal" | "class" | "instance" | "type" | "data" | "fail" | "deriving" | "opentype" | "do"  )
-		(. Add(t.pos, t.val.Length, TextStyle.Style2); .).
-		
-	Code = Keywords | VerbatimString | Comment | SingleLineComment | Primary | NL.// | Thunk.
-	
-	Ela = Code { Code }.
+    //Thunk = 
+    //	"(&" (. if (la.val != null && la.val != "" && la.val[0] != '&') Add(t.pos + 1, 1, TextStyle.Style10); .).
+                        
+    Primary = 
+        (
+            ident (. Add(t.pos, t.val.Length, TextStyle.Style1); .)
+            | variantTok (. Add(t.pos, t.val.Length, TextStyle.Style3); .)
+            | intTok (. Add(t.pos, t.val.Length, TextStyle.Style9); .)
+            | realTok (. Add(t.pos, t.val.Length, TextStyle.Style9); .)
+            | stringTok (. Add(t.pos, t.val.Length, TextStyle.Style7); .)
+            | charTok (. Add(t.pos, t.val.Length, TextStyle.Style8); .)
+            | (operatorTok|"*"|"/"|"*/") (. Add(t.pos, t.val.Length, TextStyle.Style4); .)
+            | "true" (. Add(t.pos, t.val.Length, TextStyle.Style5); .)
+            | "false" (. Add(t.pos, t.val.Length, TextStyle.Style5); .)
+            | parenTok
+            | "_"
+            | ";" | "#" | ","
+        ).
+        
+    Keywords = 
+        ( "let" | "where" | "open" | "import" | "in" | "is" | "if" | "then" | "else" | "match" | "try" | "with" | "__internal" | "class" | "instance" | "type" | "data" | "fail" | "deriving" | "opentype" | "do"  )
+        (. Add(t.pos, t.val.Length, TextStyle.Style2); .).
+        
+    Code = Keywords | VerbatimString | Comment | SingleLineComment | Primary | NL.// | Thunk.
+    
+    Ela = Code { Code }.
 
 END Ela.
