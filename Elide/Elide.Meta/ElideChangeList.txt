@@ -1,4 +1,6 @@
-﻿0.3.0.1:Fix:A bug fixed with error messages in editor not displayed using configured style.
+﻿0.3.1.0:Release:Release of Elide 0.3.1.0.
+0.3.0.2:Change:Ela lexer is updated according to the language changes (custom literals).
+0.3.0.1:Fix:A bug fixed with error messages in editor not displayed using configured style.
 0.3.0.0:Release:Release of Elide 0.3.0.0.
 0.2.1.10:Fix:Elide could crash while remove an entry from a recent files list (when try to open a file that is not available now).
 0.2.1.9:Fix:Elide could crash when changing cursor color through text editor settings.
