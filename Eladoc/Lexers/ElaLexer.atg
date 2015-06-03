@@ -15,6 +15,8 @@ CHARACTERS
 	char = ANY - "'" - '\\' - cr - lf.
 	op = "!%&+-.,:<=>?@^|$~`\\".
 	parens = "[]{}()".
+    literal = ucase + lcase.
+    literalLimited = literal - "ABCDEFabcdef".
 
 TOKENS
     ident = lcase { letter | digit | "'" }
@@ -22,19 +24,18 @@ TOKENS
 			| "'" letter [ (letter|digit|"'") {letter|digit|"'"} (letter|digit) ].	
 	
 	variantTok = ucase { letter | digit | "'" }.
-	
-	intTok = ["-"]( digit { digit } 
-	          | digit { digit } CONTEXT ("." notDigit) 
-	          | ("0x"|"0X") hexDigit { hexDigit } 
-	          ) ["L"|"l"].
-			
-	realTok = ["-"]"." digit { digit } [ ("e"|"E") ["+"|"-"] digit { digit } ] ["D"|"d"|"F"|"f"] 
-			| ["-"] digit { digit } 
-			    ( 
-				    "." digit { digit } [ ( "e" | "E" ) ["+" | "-" ] digit { digit } ] ["D"|"d"|"F"|"f"] 
-				    | ("e"|"E") ["+"|"-"] digit { digit } ["D"|"d"|"F"|"f"]  
-				    | "D"|"d"|"F"|"f"|"M"|"m"
-			    ).			
+    
+    intTok = ["-"]( digit { digit } [literal]
+              //| ( digit { digit } CONTEXT ("." notDigit) [literal] )
+              | ( ("0x"|"0X") hexDigit { hexDigit } [literalLimited] )
+              ).
+            
+    realTok = ["-"]"." digit { digit } [ ("e"|"E") ["+"|"-"] digit { digit } ] [literal] 
+            | ["-"] digit { digit } 
+                ( 
+                    "." digit { digit } [ ( "e" | "E" ) ["+" | "-" ] digit { digit } ] [literal] 
+                    | ("e"|"E") ["+"|"-"] digit { digit } [literal]
+                ).
 			
 	stringTok = "\"" { stringChar
 					| "\\\"" | "\\\\" | "\\0" | "\\b" | "\\n" | "\\r" | "\\t" | "\\'"
