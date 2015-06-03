@@ -290,7 +290,6 @@
     <Compile Include="Runtime\Classes\StringInstance.cs" />
     <Compile Include="Runtime\Classes\TupleInstance.cs" />
     <Compile Include="Runtime\ElaRuntimeException.cs" />
-    <Compile Include="Runtime\EqHelper.cs" />
     <Compile Include="Runtime\ObjectModel\DelegateFunction.cs" />
     <Compile Include="Linking\ElaLinkerError.cs" />
     <Compile Include="Linking\ElaLinkerException.cs" />

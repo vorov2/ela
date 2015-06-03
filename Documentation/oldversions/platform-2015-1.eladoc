@@ -1,0 +1,26 @@
+#title What's new? (Ela Platform 2015.1)
+
+=Overview
+Ela Platform 2015.1 is a stabilization release that addresses a lot of issues in Ela, Elide and Ela standard library.
+Therefore this version of platform includes a new version of Elide, Ela runtime and compiler, and an
+updated standard library. Update is recommended.
+
+=Ela changes
+Ela contains a couple of critical fixes - a fix in contexts (that determine a return type of an operation) evaluation.
+Previously usage of global context could cause Ela to crush. This fix affects both compiler and virtual machine.
+Also Ela parser was updated and now processes multiline strings correctly.
+
+=Elide changes
+Elide goes from Alpha to Beta stage and comes with a lot of fixes including a fix in "Eval Selected" feature,
+fixes in Console view and Ela Interactive view that could cause output to be formatted incorrectly, a fix that
+addresses cursor flickering in the editor window, a fix for the bug in Outline view when a wrong icon could be
+selected for a tree element, a fix in "Swap Clipboard" function that didn't work correctly, a fix in font 
+configuration logic (wrong font could be applied), a fix that addresses a possible Elide crash when changing
+cursor color and a fix that addresses a possible Elide crush when removing an entry from a recent files list
+plus some minor fixes.//br
+Also this version of Elide includes an updated autocomplete.
+
+=Library changes
+Ela Platform 2015.1 comes with a rewritten formatting API (string.formatfn and string.format) functions. Changes addresses
+several problems introduced with the previous version of formatting. Also Ela library includes a bug fix to the datetime.fmt
+function.

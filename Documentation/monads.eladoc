@@ -72,8 +72,7 @@ entry can be on the same line with `do`, but other entries should indented after
 >>>    Some (x ++ show y ++ z)  
 >>>
 >>>foo
-The monadic notation in Ela mimics the one used in Haskell; however, Ela currently supports only irrefutable patterns
-in left hand side of `<-` expressions.//br
+The monadic notation in Ela mimics the one used in Haskell.//br
 It is also possible to use `let` bindings in `do` notation in the following way:
 >>do
 >>  putStrLn "What is your height?"

@@ -34,6 +34,7 @@
     <doc name="Bindings" file="bindings.htm"/>
     <doc name="Functions" file="functions.htm"/>
     <doc name="Primitive Types" file="primitivetypes.htm"/>
+    <doc name="Custom Literals" file="customliterals.htm"/>
     <doc name="Tuples" file="tuples.htm"/>
     <doc name="Records" file="records.htm"/>
     <doc name="Lists" file="lists.htm"/>
@@ -49,6 +50,7 @@
     <doc name="Operator Priority" file="operatorpriority.htm" />    
   </folder>
   <folder name="Older Versions">
+    <doc name="Platform 2015.1" file="oldversions/platform-2015-1.htm" />
     <doc name="Platform 2014.1" file="oldversions/platform-2014-1.htm" />
     <doc name="Platform 2013.4" file="oldversions/platform-2013-4.htm" />
     <doc name="Platform 2013.3" file="oldversions/platform-2013-3.htm" />

@@ -27,6 +27,7 @@ copy "%ELAPATH%ela\bin\elac.exe" c:\ela-platform\ela\
 copy "%ELAPATH%ela\elaconsole\elac.exe.config" c:\ela-platform\ela\
 copy "%ELAPATH%ela\bin\elalib.dll" c:\ela-platform\lib\
 xcopy "%ELAPATH%ela\elalibrary\_ela\*.ela" c:\ela-platform\lib\ /E
+xcopy "%ELAPATH%ela\bin\ela.dll" c:\projects\elaplatform\build\ela.dll /Y
 
 @echo. 
 @echo 5. Copy Elide files

@@ -11,7 +11,7 @@ namespace Ela.Compilation
         private ExprData CompilePrimitive(ElaPrimitive p, LabelMap map, Hints hints)
         {
             AddLinePragma(p);
-            PushPrimitive(p.Value);            
+            PushPrimitive(p, p.Value);
 
             if ((hints & Hints.Left) == Hints.Left)
                 AddValueNotUsed(p);
@@ -28,7 +28,7 @@ namespace Ela.Compilation
         //Pushes a primitive value. It can be a string, a char,
         //a 32-bit integer, a 64-bit integer, a 32-bit float, a 64-bit float,
         //a boolean or unit.
-        private void PushPrimitive(ElaLiteralValue val)
+        private void PushPrimitive(ElaExpression exp, ElaLiteralValue val)
         {
             switch (val.LiteralType)
             {
@@ -70,6 +70,12 @@ namespace Ela.Compilation
                     break;
                 case ElaTypeCode.Boolean:
                     cw.Emit(val.AsBoolean() ? Op.PushI1_1 : Op.PushI1_0);
+                    break;
+                case ElaTypeCode.__Reserved:
+                    cw.Emit(Op.Pushstr, AddString(val.AsString()));
+                    var sv = GetVariable("literal'" + Char.ToLower(val.Postfix), exp.Line, exp.Column);
+                    PushVar(sv);
+                    cw.Emit(Op.Call);
                     break;
                 default:
                     cw.Emit(Op.Pushunit);

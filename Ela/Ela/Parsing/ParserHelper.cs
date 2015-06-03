@@ -6,10 +6,10 @@ using System.Globalization;
 
 namespace Ela.Parsing
 {
-	internal sealed partial class Parser
-	{
+    internal sealed partial class Parser
+    {
         private static readonly ElaEquation unit = new ElaEquation();
-		private Stack<ElaEquation> bindings = new Stack<ElaEquation>(new ElaEquation[] { null });
+        private Stack<ElaEquation> bindings = new Stack<ElaEquation>(new ElaEquation[] { null });
 
         private ElaExpression ValidateDoBlock(ElaExpression exp)
         {
@@ -249,22 +249,22 @@ namespace Ela.Parsing
             }
         }
 
-		private bool RequireEndBlock()
-		{
-			if (la.kind == _EBLOCK)
-				return true;
+        private bool RequireEndBlock()
+        {
+            if (la.kind == _EBLOCK)
+                return true;
 
-			if (la.kind == _PIPE)
-				return false;
+            if (la.kind == _PIPE)
+                return false;
 
-			if (la.kind == _IN)
-			{
-				scanner.PopIndent();
-				return false;
-			}
+            if (la.kind == _IN)
+            {
+                scanner.PopIndent();
+                return false;
+            }
 
-			return true;
-		}
+            return true;
+        }
 
         private ElaVariableFlags ProcessAttribute(string attribute, ElaVariableFlags flags)
         {
@@ -329,8 +329,8 @@ namespace Ela.Parsing
                 block.Equations.Add(bid);
         }
 
-		private ElaExpression GetOperatorFun(string op, ElaExpression left, ElaExpression right)
-		{
+        private ElaExpression GetOperatorFun(string op, ElaExpression left, ElaExpression right)
+        {
             var fc = new ElaJuxtaposition(t) {
                 Target = new ElaNameReference(t) { Name = op }
             };
@@ -344,124 +344,149 @@ namespace Ela.Parsing
                 fc.Parameters.Add(right);
 
             return fc;
-		}
+        }
 
-		private ElaExpression GetPrefixFun(ElaExpression funexp, ElaExpression par, bool flip)
-		{
-			var fc = new ElaJuxtaposition(t) { Target = funexp };
-			fc.Parameters.Add(par);
-			fc.FlipParameters = flip;
-			return fc;
-		}
+        private ElaExpression GetPrefixFun(ElaExpression funexp, ElaExpression par, bool flip)
+        {
+            var fc = new ElaJuxtaposition(t) { Target = funexp };
+            fc.Parameters.Add(par);
+            fc.FlipParameters = flip;
+            return fc;
+        }
 
-		private ElaLiteralValue ParseInt(string val)
-		{
-            if (TrimLast(ref val, 'l', 'L'))
-			{
-				var res = default(Int64);
-				
-				if (!Int64.TryParse(val, out res))
-				{
-					try
-					{
-						res = Convert.ToInt64(val, 16);
-					}
-					catch 
-					{
-						AddError(ElaParserError.InvalidIntegerSyntax);
-					}
-				}
-				
-				return new ElaLiteralValue(res);
-			}
-			else
-			{
-				var res = default(Int32);
-				
-				if (!Int32.TryParse(val, out res))
-				{
-					try
-					{
-						res = Convert.ToInt32(val, 16);
-					}
-					catch 
-					{
-						AddError(ElaParserError.InvalidIntegerSyntax);
-					}
-				}
-				
-				return new ElaLiteralValue(res);
-			}
-		}
+        private ElaLiteralValue ParseInt(string val)
+        {
+            var except = val.Length > 2 && Char.ToUpper(val[1]) == 'X' ?
+                "ABCDEFabcdef" : null;
 
+            var c = TrimLast(ref val, except);
 
-		private ElaLiteralValue ParseString(string val)
-		{
-			return new ElaLiteralValue(ReadString(val));
-		}
-		
-		
-		private ElaLiteralValue ParseChar(string val)
-		{
-			var str = ReadString(val);
-			return new ElaLiteralValue(str[0]);
-		}
-
-		private ElaLiteralValue ParseReal(string val)
-		{
-            if (TrimLast(ref val, 'd', 'D'))
-			{
-				var res = default(Double);
-				
-				if (!Double.TryParse(val, NumberStyles.Float, Culture.NumberFormat, out res))
-					AddError(ElaParserError.InvalidRealSyntax);
-				
-				return new ElaLiteralValue(res);
-			}
-            else
+            if (c == 'l' || c == 'L')
             {
-                var res = default(Single);
+                var res = default(Int64);
 
-                if (!Single.TryParse(val.Trim('f', 'F'), NumberStyles.Float, Culture.NumberFormat, out res))
+                if (!Int64.TryParse(val, out res))
+                {
+                    try
+                    {
+                        res = Convert.ToInt64(val, 16);
+                    }
+                    catch
+                    {
+                        AddError(ElaParserError.InvalidIntegerSyntax);
+                    }
+                }
+
+                return new ElaLiteralValue(res);
+            } 
+            else if (c == 'd' || c == 'D')
+            {
+                var res = default(Double);
+
+                if (!Double.TryParse(val, NumberStyles.Float, Culture.NumberFormat, out res))
                     AddError(ElaParserError.InvalidRealSyntax);
 
                 return new ElaLiteralValue(res);
             }
-		}
+            else if (c == 'f' || c == 'F')
+            {
+                var res = default(Single);
 
+                if (!Single.TryParse(val, NumberStyles.Float, Culture.NumberFormat, out res))
+                    AddError(ElaParserError.InvalidRealSyntax);
 
-		private string ReadString(string val)
-		{
-			if (val.Length > 0) 
-			{
-				if (val[0] != '<')
-				{
-					var res = EscapeCodeParser.Parse(ref val);
+                return new ElaLiteralValue(res);
+            }
+            else if (c == '\0')
+            {
+                var res = default(Int32);
 
-					if (res > 0)
-						AddError(ElaParserError.InvalidEscapeCode, res);
-				}
-				else
-					val = val.Substring(2, val.Length - 4);
-			}
-			
-			return val;
-		}
-		
-		
-		private bool TrimLast(ref string val, char cl, char cu)
-		{			
-			var lc = val[val.Length - 1];			
-			
-			if (lc == cl || lc == cu)
-			{
-				val = val.Remove(val.Length - 1, 1);
-				return true;
-			}
-			else
-				return false;
-		}
+                if (!Int32.TryParse(val, out res))
+                {
+                    try
+                    {
+                        res = Convert.ToInt32(val, 16);
+                    }
+                    catch
+                    {
+                        AddError(ElaParserError.InvalidIntegerSyntax);
+                    }
+                }
 
-		public ElaProgram Program { get; private set; }
-	}
+                return new ElaLiteralValue(res);
+            }
+            else
+                return new ElaLiteralValue(val, c);
+        }
+
+        private ElaLiteralValue ParseString(string val)
+        {
+            return new ElaLiteralValue(ReadString(val));
+        }
+
+        private ElaLiteralValue ParseChar(string val)
+        {
+            var str = ReadString(val);
+            return new ElaLiteralValue(str[0]);
+        }
+
+        private ElaLiteralValue ParseReal(string val)
+        {
+            var c = TrimLast(ref val);
+
+            if (c == 'd' || c == 'D')
+            {
+                var res = default(Double);
+                
+                if (!Double.TryParse(val, NumberStyles.Float, Culture.NumberFormat, out res))
+                    AddError(ElaParserError.InvalidRealSyntax);
+                
+                return new ElaLiteralValue(res);
+            }
+            else if (c == 'f' || c == 'F' || c == '\0' || c == 'L' || c == 'l')
+            {
+                var res = default(Single);
+
+                if (!Single.TryParse(val, NumberStyles.Float, Culture.NumberFormat, out res))
+                    AddError(ElaParserError.InvalidRealSyntax);
+
+                return new ElaLiteralValue(res);
+            }
+            else
+               return new ElaLiteralValue(val, c);
+        }
+
+        private string ReadString(string val)
+        {
+            if (val.Length > 0) 
+            {
+                if (val[0] != '<')
+                {
+                    var res = EscapeCodeParser.Parse(ref val);
+
+                    if (res > 0)
+                        AddError(ElaParserError.InvalidEscapeCode, res);
+                }
+                else
+                    val = val.Substring(2, val.Length - 4);
+            }
+            
+            return val;
+        }
+
+        private char TrimLast(ref string val, string except = null)
+        {
+            var lc = val[val.Length - 1];
+
+            if (Char.IsLetter(lc) && (except == null || except.IndexOf(lc) == -1))
+            {
+                val = val.Remove(val.Length - 1, 1);
+                return lc;
+            }
+
+            return '\0';
+        }
+
+        public ElaProgram Program { get; private set; }
+    }
 }

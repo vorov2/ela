@@ -1,0 +1,32 @@
+#title Custom Literals
+#category Language Reference
+
+=Introduction
+This article discusses custom literals in Ela. 
+
+=Overview
+Ela (starting from version 0.12.7) supports a notation for custom numeric literals. A custom literal is combined from an
+integer or real literal and a char postfix (e.g. `12p`). Custom literals are implemented as functions and processed by parser
+in the same way as standard numeric literals and have the highest priority among all other operations.
+
+=Creating a custom literal
+In order to create a custom literal one should write a regular Ela global function which name is combined from the word
+`literal`, prime symbols and a literal postfix. For example, this is how a custom literal for peano numbers is implemented:
+>>literal'p s = fromIntegral x
+>>  where x = read s ::: Long
+In the example above `literal'p` is a regular Ela function and can be applicated like any other functions. However, one can
+also invoke this function using a literal notation:
+>>x = 12p //Is equivalent to: x = literal'p 12
+When defining a custom literal function a postfix part of its should be always in a lower case, e.g. `literal'p` is a correct
+name while `literal'P` is not and won't be recognized as a literal processor function. However, when specifying a literal
+postfix it is possible to use both uppercase and lowercase forms. E.g. the following examples are equivalent:
+>>x = 12p
+>>y = 12P
+
+=Notes on implementation of literal functions
+When Ela sees an occurence of a custom literal expression, such as `12p` in the examples above it doesn't parse this expression
+at all. Therefore a literal function should always accept just a single argument and this argument is always of type `String`.
+This string doesn't include a literal postfix, e.g. when somebody defines a number like so: `12p`, a literal function
+`literal'p` would received a single argument `"12"` of type `String`.//br
+The string, provided to the literal function, should be manually parsed inside the function. In a lot of cases it is possible
+to used standard `prelude.read` function for that, just like in the example of peano number literal function above.

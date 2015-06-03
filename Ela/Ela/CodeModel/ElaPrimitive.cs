@@ -4,21 +4,21 @@ using Ela.Parsing;
 
 namespace Ela.CodeModel
 {
-	public sealed class ElaPrimitive : ElaExpression
-	{
-		internal ElaPrimitive(Token tok) : base(tok, ElaNodeType.Primitive)
-		{
-			
-		}
+    public sealed class ElaPrimitive : ElaExpression
+    {
+        internal ElaPrimitive(Token tok) : base(tok, ElaNodeType.Primitive)
+        {
+            
+        }
         
-		public ElaPrimitive() : base(ElaNodeType.Primitive)
-		{
-			
-		}
+        public ElaPrimitive() : base(ElaNodeType.Primitive)
+        {
+            
+        }
 
         internal override bool Safe()
         {
-            return true;
+            return Value.Postfix == '\0';
         }
 
         internal override bool IsLiteral()
@@ -27,9 +27,9 @@ namespace Ela.CodeModel
         }
 
         internal override void ToString(StringBuilder sb, int ident)
-		{
-			sb.Append(Value);
-		}
+        {
+            sb.Append(Value);
+        }
 
         internal override bool CanFollow(ElaExpression exp)
         {
@@ -44,7 +44,7 @@ namespace Ela.CodeModel
 
             return true;
         }
-		
-		public ElaLiteralValue Value { get; set; }
-	}
+        
+        public ElaLiteralValue Value { get; set; }
+    }
 }

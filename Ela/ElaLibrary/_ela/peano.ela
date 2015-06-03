@@ -93,7 +93,8 @@ instance ListLike Peano where
 listLength [] = Zero
 listLength (x::xs) = add one (& listLength xs) ::: Peano
 
-(?) = fromIntegral
+literal'p s = fromIntegral x
+  where x = read s ::: Long
 
 add Zero b = b
 add (Succ a) b = Succ (& add a b)
