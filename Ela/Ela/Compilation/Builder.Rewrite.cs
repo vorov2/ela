@@ -270,6 +270,11 @@ namespace Ela.Compilation
                         return CanCompileStrict(g.Target, locals) && 
                             CanCompileStrict(g.Guard, locals) && CanCompileStrict(g.Body, locals);
                     }
+                case ElaNodeType.Primitive:
+                    {
+                        var p = (ElaPrimitive)exp;
+                        return p.Value.Postfix == '\0';
+                    }
                 case ElaNodeType.Juxtaposition:
                     {
                         //We are very conservative here. Basically we can't compile in a strict manner any application of a 

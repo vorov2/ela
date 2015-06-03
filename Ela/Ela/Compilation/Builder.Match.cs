@@ -332,7 +332,7 @@ namespace Ela.Compilation
 
                         //Compare a given value with a primitive
                         PushVar(sysVar);
-                        PushPrimitive(n.Value);
+                        PushPrimitive(n, n.Value);
                         cw.Emit(Op.Cneq);
 
                         //Values not equal, proceed to fail.

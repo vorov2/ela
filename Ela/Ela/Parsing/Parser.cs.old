@@ -162,7 +162,7 @@ internal sealed partial class Parser {
 		switch (la.kind) {
 		case 3: {
 			Get();
-			exp = new ElaPrimitive(t) { Value = ParseInt(t.val) };	
+			exp = new ElaPrimitive(t) { Value = ParseInt(t.val) }; 
 			break;
 		}
 		case 4: {
@@ -1317,7 +1317,7 @@ internal sealed partial class Parser {
 			    {
 			        letb.Expression = left;
 			        left = letb;
-			    }	                    
+			    }
 			
 		}
 		ProcessBinding(block, bid, left, right); 
@@ -1364,9 +1364,9 @@ internal sealed partial class Parser {
 	void IncludeStatElement(bool qual) {
 		var inc = new ElaModuleInclude(t) { RequireQualified=qual }; 
 		Qualident(inc.Path);
-		var name = inc.Path[inc.Path.Count - 1];				
-		inc.Path.RemoveAt(inc.Path.Count - 1);				
-		inc.Alias = inc.Name = name;				
+		var name = inc.Path[inc.Path.Count - 1];
+		inc.Path.RemoveAt(inc.Path.Count - 1);
+		inc.Alias = inc.Name = name;
 		Program.Includes.Add(inc);
 		
 		if (la.kind == 49) {
@@ -1455,7 +1455,7 @@ internal sealed partial class Parser {
 		scanner.InjectBlock();
 		
 		Expect(44);
-		tc = new ElaTypeClass(t); 	            
+		tc = new ElaTypeClass(t);
 		tc.And = Program.Classes;
 		Program.Classes = tc;
 		

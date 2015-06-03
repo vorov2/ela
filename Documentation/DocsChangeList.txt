@@ -1,3 +1,8 @@
+0.1.14.0:Release:Release of 0.1.14.0.
+0.1.13.4:New:A new document 'customliterals' about a corresponding language feature is added.
+0.1.13.3:Change:Article 'peano' is updated according to the module changes.
+0.1.13.2:New:A new document 'Whats new' that contains platform changes overview is added.
+0.1.13.1:Change:Article 'monads' is updated according to the language changes.
 0.1.13.0:Release:Release of 0.1.13.0.
 0.1.12.1:New:A new document 'Whats new' that contains platform changes overview is added.
 0.1.12.0:Release:Release of 0.1.12.0.

@@ -1,3 +1,6 @@
+0.12.7.0:Release:Release of Ela 0.12.7.0.
+0.12.6.2:New:Support for custom numeric literals (on parser and compiler levels).
+0.12.6.1:Change:Parsing logic of numeric literals is changed.
 0.12.6.0:Release:Release of Ela 0.12.6.0.
 0.12.5.3:Fix:A bug fixed in parser (processing of verbatim strings).
 0.12.5.2:Fix:A bug fixed in global context compilation logic that could cause eval stack corruption.
