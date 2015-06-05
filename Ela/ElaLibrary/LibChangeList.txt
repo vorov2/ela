@@ -1,3 +1,4 @@
+0.2.0.0:Release:Release of 0.2.0.0.
 0.1.13.5:Change:Now 'number' module provides a complete default implementation of 'Principal' class.
 0.1.13.4:Change:Now 'number' module provides a partial implementation of 'Integral' class ('div' function).
 0.1.13.3:Change:Now 'number' module provides a complete default implementation of 'Absolute' class.
