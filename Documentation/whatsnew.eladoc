@@ -46,6 +46,6 @@ introduced in a previous release:
 ==Other changes to modules
 This release includes the following changes to existing modules:
   * Standard prelude now provides a partial default implementation for `Enum` class (function `enumFrom` and `enumFromTo`), which simplifies implementation of ranges for custom numeric types.
-  * Module `number` now provides a complete default implementation of `Absolute` class (works for types that implement `Additive`, `Ord` and `Num`).
-  * Module `number` now provides a partial implementation of `Integral` class (`div` function, works for types that implement `Ord`, `Additive`, `Ring` and `Num`).
-  * Module `number` now provides a complete default implementation of `Principal` class (works for types that implement `Eq`, `Num`, `Modulo`, `Absolute` and `Ring`).
+  * Module `number` now provides a complete default implementation of `Absolute` class (works for types that implement `Additive`, `Ord` and `Numeral`).
+  * Module `number` now provides a partial implementation of `Integral` class (`div` function, works for types that implement `Ord`, `Additive`, `Ring` and `Numeral`).
+  * Module `number` now provides a complete default implementation of `Principal` class (works for types that implement `Eq`, `Numeral`, `Modulo`, `Absolute` and `Ring`).
