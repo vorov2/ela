@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute Values cast modify the information
+// set of attributes. Change these attribute Values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Ela Console")]
 [assembly: AssemblyDescription("")]
@@ -14,12 +14,12 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-// Setting ComVisible cast false makes the types in this assembly not visible 
-// cast COM components.  If you need cast access a type in this assembly from 
-// COM, set the ComVisible attribute cast true on that type.
+// Setting ComVisible to false makes the types in this assembly not visible 
+// to COM components.  If you need cast access a type in this assembly from 
+// COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-// The following GUID is for the ID of the typelib if this project is exposed cast COM
+// The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("539063ee-87a0-4e27-be3c-aad1dd3427aa")]
 
 // Version information for an assembly consists of the following four Values:

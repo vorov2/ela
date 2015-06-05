@@ -3,17 +3,17 @@ using Ela.Runtime.ObjectModel;
 
 namespace Ela.Runtime
 {
-	public sealed class ExecutionContext
-	{
-		#region Construction
+    public sealed class ExecutionContext
+    {
+        #region Construction
         public ExecutionContext()
-		{
+        {
             
-		}
-		#endregion
+        }
+        #endregion
 
 
-		#region Methods
+        #region Methods
         public void NoOverload(string expected, string got, string function)
         {
             Fail(ElaRuntimeError.NoOverload, function, expected, got);
@@ -29,22 +29,22 @@ namespace Ela.Runtime
             Fail(ElaRuntimeError.NoContext, function);
         }
 
-		public void InvalidFormat(string format, ElaValue value)
-		{
-			Fail(ElaRuntimeError.InvalidFormat, format, value.ToString(), value.GetTypeName());
-		}
+        public void InvalidFormat(string format, ElaValue value)
+        {
+            Fail(ElaRuntimeError.InvalidFormat, format, value.ToString(), value.GetTypeName());
+        }
 
 
-		public void DivideByZero(ElaValue value)
-		{
-			Fail(ElaRuntimeError.DivideByZero, value.ToString(), value.GetTypeName());
-		}
+        public void DivideByZero(ElaValue value)
+        {
+            Fail(ElaRuntimeError.DivideByZero, value.ToString(), value.GetTypeName());
+        }
 
 
-		public void InvalidIndexType(ElaValue index)
-		{
-			Fail(ElaRuntimeError.InvalidIndexType, index.GetTypeName());
-		}
+        public void InvalidIndexType(ElaValue index)
+        {
+            Fail(ElaRuntimeError.InvalidIndexType, index.GetTypeName());
+        }
 
         public void NotAlgebraicType(ElaValue val)
         {
@@ -52,11 +52,11 @@ namespace Ela.Runtime
         }
         
 
-		public void IndexOutOfRange(ElaValue index, ElaValue obj)
-		{
-			Fail(ElaRuntimeError.IndexOutOfRange, index.ToString(), index.GetTypeName(),
-				obj.ToString(), obj.GetTypeName());
-		}
+        public void IndexOutOfRange(ElaValue index, ElaValue obj)
+        {
+            Fail(ElaRuntimeError.IndexOutOfRange, index.ToString(), index.GetTypeName(),
+                obj.ToString(), obj.GetTypeName());
+        }
 
         public void InvalidTypeCode(ElaValue code)
         {
@@ -69,9 +69,9 @@ namespace Ela.Runtime
         }
 
 
-		public void InvalidType(string expected, ElaValue given)
-		{
-			Fail(ElaRuntimeError.InvalidType, expected, given.GetTypeName());
+        public void InvalidType(string expected, ElaValue given)
+        {
+            Fail(ElaRuntimeError.InvalidType, expected, given.GetTypeName());
         }
 
         public void UnknownField(string field, ElaValue given)
@@ -80,39 +80,39 @@ namespace Ela.Runtime
         }
 
 
-		public void NoOperator(ElaValue value, string op)
-		{
-			Fail(ElaRuntimeError.InvalidOp, value.GetTypeName(), op);
-		}
+        public void NoOperator(ElaValue value, string op)
+        {
+            Fail(ElaRuntimeError.InvalidOp, value.GetTypeName(), op);
+        }
 
 
-		public void Fail(ElaRuntimeError error, params object[] args)
-		{
-			Fail(new ElaError(error, args));
-		}
+        public void Fail(ElaRuntimeError error, params object[] args)
+        {
+            Fail(new ElaError(error, args));
+        }
 
 
-		public void Fail(string message)
-		{
-			Fail(new ElaError(message));
-		}
+        public void Fail(string message)
+        {
+            Fail(new ElaError(message));
+        }
 
 
-		internal void Fail(ElaError err)
-		{
-			if (!Failed)
-			{
-				Failed = true;
-				Error = err;
-			}
-		}
+        internal void Fail(ElaError err)
+        {
+            if (!Failed)
+            {
+                Failed = true;
+                Error = err;
+            }
+        }
 
 
-		internal void Reset()
-		{
-			Failed = false;
-			Error = null;
-		}
+        internal void Reset()
+        {
+            Failed = false;
+            Error = null;
+        }
 
 
         public void SetDeffered(ElaFunction fun, int args)
@@ -121,21 +121,21 @@ namespace Ela.Runtime
             Fun = fun;
             DefferedArgs = args;
         }
-		#endregion
+        #endregion
 
 
-		#region Properties
-		internal bool Failed { get; set; }
+        #region Properties
+        internal bool Failed { get; set; }
 
-		internal ElaError Error { get; set; }
+        internal ElaError Error { get; set; }
 
         internal int DefferedArgs;
 
-		internal ElaLazy Thunk;
+        internal ElaLazy Thunk;
 
         internal ElaFunction Fun;
 
         internal string Tag;
-		#endregion
-	}
+        #endregion
+    }
 }

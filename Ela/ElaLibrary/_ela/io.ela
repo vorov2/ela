@@ -1,6 +1,6 @@
 /* 
   Module io
-  Created in 2013 by Basil Voronkov
+  Created in 2013-2015 by Basil Voronkov
 */
 open monad generic unsafe.console unsafe.file libIO#elalib@unsafeIO
 
@@ -19,7 +19,7 @@ instance Functor IO where
   fmap f x = mkIO (f $ execIO x)
 
 instance Show IO where
-  show _ = ""
+  show _ = "IO"
 
 execIO (IO a)
   | a is Fun  = a ()

@@ -7,31 +7,31 @@ using System.IO;
 
 namespace Ela.Linking
 {
-	public sealed class CodeAssembly 
-	{
-		#region Construction
-		private const string MAIN_NAME = "[Main]";
-		private const int MAIN_HDL = 0;
-		
-		private Dictionary<String,Int32> moduleMap;
-		private FastList<CodeFrame> modules;
+    public sealed class CodeAssembly 
+    {
+        #region Construction
+        private const string MAIN_NAME = "[Main]";
+        private const int MAIN_HDL = 0;
+        
+        private Dictionary<String,Int32> moduleMap;
+        private FastList<CodeFrame> modules;
         private FastList<Boolean> quals;
         private FastList<ForeignModule> foreignModules;
-		
-		public static readonly CodeAssembly Empty = new CodeAssembly(CodeFrame.Empty);
+        
+        public static readonly CodeAssembly Empty = new CodeAssembly(CodeFrame.Empty);
 
-		public CodeAssembly(CodeFrame frame) : this()
-		{
-			moduleMap.Add(MAIN_NAME, modules.Count);
-			modules.Add(frame);			
-		}
+        public CodeAssembly(CodeFrame frame) : this()
+        {
+            moduleMap.Add(MAIN_NAME, modules.Count);
+            modules.Add(frame);			
+        }
 
 
-		internal CodeAssembly()
-		{
-			modules = new FastList<CodeFrame>();
-			foreignModules = new FastList<ForeignModule>();
-			moduleMap = new Dictionary<String,Int32>();
+        internal CodeAssembly()
+        {
+            modules = new FastList<CodeFrame>();
+            foreignModules = new FastList<ForeignModule>();
+            moduleMap = new Dictionary<String,Int32>();
             quals = new FastList<Boolean>();
             Instances = new Dictionary<Int64,Byte>();
             Constructors = new FastList<ConstructorData>();
@@ -81,22 +81,22 @@ namespace Ela.Linking
                     new Class(), //RES2
                     new Class(), //RES3
                 });
-		}
-		#endregion
+        }
+        #endregion
 
 
-		#region Methods
+        #region Methods
         internal void RegisterForeignModule(ForeignModule module)
-		{
-			foreignModules.Add(module);
-		}
+        {
+            foreignModules.Add(module);
+        }
 
 
-		internal int AddModule(ModuleFileInfo fi, CodeFrame module, bool qual, int logicHandle)
-		{
+        internal int AddModule(ModuleFileInfo fi, CodeFrame module, bool qual, int logicHandle)
+        {
             var name = ObtainModuleName(fi);
             return AddModule(name, module, qual, logicHandle);
-		}
+        }
 
 
         private string ObtainModuleName(ModuleFileInfo fi)
@@ -127,16 +127,16 @@ namespace Ela.Linking
         }
 
 
-		public bool IsModuleRegistered(string name)
-		{
-			return moduleMap.ContainsKey(name);
-		}
+        public bool IsModuleRegistered(string name)
+        {
+            return moduleMap.ContainsKey(name);
+        }
 
 
-		public CodeFrame GetRootModule()
-		{
-			return modules[MAIN_HDL];
-		}
+        public CodeFrame GetRootModule()
+        {
+            return modules[MAIN_HDL];
+        }
 
 
         internal CodeFrame GetModule(ModuleFileInfo fi, out int hdl)
@@ -156,10 +156,10 @@ namespace Ela.Linking
         }
 
 
-		public CodeFrame GetModule(int handle)
-		{
-			return modules[handle];
-		}
+        public CodeFrame GetModule(int handle)
+        {
+            return modules[handle];
+        }
 
 
         internal int TryGetModuleHandle(string name)
@@ -173,15 +173,15 @@ namespace Ela.Linking
         }
 
 
-		public int GetModuleHandle(string name)
-		{
-			return moduleMap[name];
-		}
+        public int GetModuleHandle(string name)
+        {
+            return moduleMap[name];
+        }
 
 
-		public string GetModuleName(int handle)
-		{
-			foreach (var kv in moduleMap)
+        public string GetModuleName(int handle)
+        {
+            foreach (var kv in moduleMap)
                 if (kv.Value == handle)
                 {
                     var fi = new FileInfo(kv.Key);
@@ -191,40 +191,40 @@ namespace Ela.Linking
                 }
 
             return null;
-		}
+        }
 
 
-		public IEnumerable<ForeignModule> EnumerateForeignModules()
-		{
-			return foreignModules;
-		}
+        public IEnumerable<ForeignModule> EnumerateForeignModules()
+        {
+            return foreignModules;
+        }
 
 
-		public IEnumerable<String> EnumerateModules()
-		{
-			return moduleMap.Keys;
-		}
+        public IEnumerable<String> EnumerateModules()
+        {
+            return moduleMap.Keys;
+        }
 
 
-		internal void RefreshRootModule(CodeFrame frame)
-		{
-			if (frame != null)
-				modules[0] = frame;
-		}
+        internal void RefreshRootModule(CodeFrame frame)
+        {
+            if (frame != null)
+                modules[0] = frame;
+        }
 
 
         internal bool RequireQuailified(int moduleHandle)
         {
             return quals[moduleHandle];
         }
-		#endregion
+        #endregion
 
 
-		#region Properties
-		public int ModuleCount
-		{
-			get { return modules.Count; }
-		}
+        #region Properties
+        public int ModuleCount
+        {
+            get { return modules.Count; }
+        }
 
         internal int ClassIndexer { get; set; }
 
@@ -235,6 +235,6 @@ namespace Ela.Linking
         internal FastList<ConstructorData> Constructors { get; private set; }
 
         internal FastList<Class> Cls { get; private set; }
-		#endregion
-	}
+        #endregion
+    }
 }
