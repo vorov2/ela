@@ -6,42 +6,42 @@ using Ela.Debug;
 
 namespace Ela.Runtime.ObjectModel
 {
-	public class ElaFunction : ElaObject
-	{
-		private ElaMachine vm;
-		internal static readonly ElaValue[] defaultParams = new ElaValue[] { new ElaValue(ElaUnit.Instance) };
-		internal static readonly ElaValue[] emptyParams = new ElaValue[0];
-		private const string DEF_NAME = "<f>";
+    public class ElaFunction : ElaObject
+    {
+        private ElaMachine vm;
+        internal static readonly ElaValue[] defaultParams = new ElaValue[] { new ElaValue(ElaUnit.Instance) };
+        internal static readonly ElaValue[] emptyParams = new ElaValue[0];
+        private const string DEF_NAME = "<f>";
         internal bool table;
          
-		protected ElaFunction() : this(1)
-		{
+        protected ElaFunction() : this(1)
+        {
 
-		}		
-		
-		protected ElaFunction(int parCount) : base(ElaTypeCode.Function)
-		{
-			if (parCount == 0)
-				parCount = 1;
-
-			if (parCount > 1)
-				Parameters = new ElaValue[parCount - 1];
-			else
-				Parameters = emptyParams;
-		}
-		
-		internal ElaFunction(int handle, int module, int parCount, FastList<ElaValue[]> captures, ElaMachine vm) : base(ElaTypeCode.Function)
-		{
-			Handle = handle;
-			ModuleHandle = module;
-			Captures = captures;
-			this.vm = vm;
-			Parameters = parCount > 1 ? new ElaValue[parCount - 1] : emptyParams;
-		}
+        }		
         
-		private ElaFunction(ElaValue[] pars) : base(ElaTypeCode.Function)
-		{
-			Parameters = pars;
+        protected ElaFunction(int parCount) : base(ElaTypeCode.Function)
+        {
+            if (parCount == 0)
+                parCount = 1;
+
+            if (parCount > 1)
+                Parameters = new ElaValue[parCount - 1];
+            else
+                Parameters = emptyParams;
+        }
+        
+        internal ElaFunction(int handle, int module, int parCount, FastList<ElaValue[]> captures, ElaMachine vm) : base(ElaTypeCode.Function)
+        {
+            Handle = handle;
+            ModuleHandle = module;
+            Captures = captures;
+            this.vm = vm;
+            Parameters = parCount > 1 ? new ElaValue[parCount - 1] : emptyParams;
+        }
+        
+        private ElaFunction(ElaValue[] pars) : base(ElaTypeCode.Function)
+        {
+            Parameters = pars;
         }
 
         #region Conversion
@@ -263,23 +263,23 @@ namespace Ela.Runtime.ObjectModel
             return AppliedParameters;
         }
 
-		internal ElaValue CallWithThrow(ElaValue value)
-		{
-			return vm.CallPartial(this, value);
-		}
+        internal ElaValue CallWithThrow(ElaValue value)
+        {
+            return vm.CallPartial(this, value);
+        }
         
         public override string ToString(string format, IFormatProvider provider)
         {
-			var sb = new StringBuilder();
-			sb.Append("*");
+            var sb = new StringBuilder();
+            sb.Append("*");
 
-			for (var i = 0; i < Parameters.Length + 1 - AppliedParameters; i++)
-			{
-				sb.Append("->");
-				sb.Append("*");
-			}
+            for (var i = 0; i < Parameters.Length + 1 - AppliedParameters; i++)
+            {
+                sb.Append("->");
+                sb.Append("*");
+            }
 
-			return GetFunctionName() + ":" + sb.ToString();
+            return GetFunctionName() + ":" + sb.ToString();
         }
 
         internal override bool CanTailCall()
@@ -288,132 +288,132 @@ namespace Ela.Runtime.ObjectModel
         }
 
         internal ElaFunction CloneFast()
-		{
+        {
             var pars = new ElaValue[Parameters.Length];
 
-			if (AppliedParameters > 0) //This is faster than Array.Copy
-				for (var i = 0; i < AppliedParameters; i++)
-					pars[i] = Parameters[i];
+            if (AppliedParameters > 0) //This is faster than Array.Copy
+                for (var i = 0; i < AppliedParameters; i++)
+                    pars[i] = Parameters[i];
 
-			var ret = new ElaFunction(pars);
-			ret.AppliedParameters = AppliedParameters;
-			ret.Handle = Handle;
-			ret.ModuleHandle = ModuleHandle;
-			ret.vm = vm;
-			ret.Captures = Captures;
-			ret._flip = _flip;
-			return ret;
-		}
+            var ret = new ElaFunction(pars);
+            ret.AppliedParameters = AppliedParameters;
+            ret.Handle = Handle;
+            ret.ModuleHandle = ModuleHandle;
+            ret.vm = vm;
+            ret.Captures = Captures;
+            ret._flip = _flip;
+            return ret;
+        }
 
-		protected ElaFunction CloneFast(ElaFunction newInstance)
-		{
-			var pars = new ElaValue[Parameters.Length];
+        protected ElaFunction CloneFast(ElaFunction newInstance)
+        {
+            var pars = new ElaValue[Parameters.Length];
 
-			if (AppliedParameters > 0) //This is faster than Array.Copy
-				for (var i = 0; i < AppliedParameters; i++)
-					pars[i] = Parameters[i];
+            if (AppliedParameters > 0) //This is faster than Array.Copy
+                for (var i = 0; i < AppliedParameters; i++)
+                    pars[i] = Parameters[i];
 
-			newInstance.Parameters = pars;
-			newInstance.AppliedParameters = AppliedParameters;
-			newInstance.Handle = Handle;
-			newInstance.ModuleHandle = ModuleHandle;
-			newInstance.vm = vm;
-			newInstance.Captures = Captures;
-			newInstance._flip = _flip;
-			return newInstance;
-		}
+            newInstance.Parameters = pars;
+            newInstance.AppliedParameters = AppliedParameters;
+            newInstance.Handle = Handle;
+            newInstance.ModuleHandle = ModuleHandle;
+            newInstance.vm = vm;
+            newInstance.Captures = Captures;
+            newInstance._flip = _flip;
+            return newInstance;
+        }
         
-		public virtual ElaFunction Clone()
-		{
-			var nf = (ElaFunction)MemberwiseClone();
-			var pars = new ElaValue[Parameters.Length];
+        public virtual ElaFunction Clone()
+        {
+            var nf = (ElaFunction)MemberwiseClone();
+            var pars = new ElaValue[Parameters.Length];
 
-			if (AppliedParameters > 0) //This is faster than Array.Copy
-				for (var i = 0; i < AppliedParameters; i++)
-					pars[i] = Parameters[i];
+            if (AppliedParameters > 0) //This is faster than Array.Copy
+                for (var i = 0; i < AppliedParameters; i++)
+                    pars[i] = Parameters[i];
 
-			nf.Parameters = pars;
-			return nf;
-		}
+            nf.Parameters = pars;
+            return nf;
+        }
 
-		public virtual ElaValue Call(params ElaValue[] args)
-		{
-			if (args == null || args.Length == 0)
-				args = defaultParams;
+        public virtual ElaValue Call(params ElaValue[] args)
+        {
+            if (args == null || args.Length == 0)
+                args = defaultParams;
 
-			return vm.Call(this, args);
-		}
+            return vm.Call(this, args);
+        }
         
-		public virtual string GetFunctionName()
-		{
-			var funName = DEF_NAME;
+        public virtual string GetFunctionName()
+        {
+            var funName = DEF_NAME;
 
-			if (vm != null)
-			{
-				var mod = vm.Assembly.GetModule(ModuleHandle);
-				var syms = mod.Symbols;
+            if (vm != null)
+            {
+                var mod = vm.Assembly.GetModule(ModuleHandle);
+                var syms = mod.Symbols;
 
-				if (syms != null)
-				{
-					var dr = new DebugReader(syms);
-					var fs = dr.GetFunSymByHandle(Handle);
+                if (syms != null)
+                {
+                    var dr = new DebugReader(syms);
+                    var fs = dr.GetFunSymByHandle(Handle);
 
-					if (fs != null && fs.Name != null)
-						funName = fs.Name;
-				}
-				else
-				{
-					foreach (var sv in mod.GlobalScope.Locals)
-					{
-						var v = vm.GetVariableByHandle(ModuleHandle, sv.Value.Address);
+                    if (fs != null && fs.Name != null)
+                        funName = fs.Name;
+                }
+                else
+                {
+                    foreach (var sv in mod.GlobalScope.Locals)
+                    {
+                        var v = vm.GetVariableByHandle(ModuleHandle, sv.Value.Address);
 
-						if (v.TypeId == ElaMachine.FUN && ((ElaFunction)v.Ref).Handle == Handle)
-						{
-							funName = sv.Key;
-							break;
-						}
-					}
-				}
-			}
+                        if (v.TypeId == ElaMachine.FUN && ((ElaFunction)v.Ref).Handle == Handle)
+                        {
+                            funName = sv.Key;
+                            break;
+                        }
+                    }
+                }
+            }
 
-			if (funName != DEF_NAME && Format.IsSymbolic(funName))
-				funName = "(" + funName + ")";
+            if (funName != DEF_NAME && Format.IsSymbolic(funName))
+                funName = "(" + funName + ")";
 
-			return funName;
-		}
+            return funName;
+        }
 
         public ElaModule GetFunctionModule()
         {
             return new ElaModule(ModuleHandle, vm);
         }
 
-		internal ElaMachine Machine 
+        internal ElaMachine Machine 
         { 
             get { return vm; }
             set { vm = value; }
         }
 
-		public int Handle { get; private set; }
+        public int Handle { get; private set; }
 
-		public int ModuleHandle { get; private set; }
+        public int ModuleHandle { get; private set; }
 
-		internal FastList<ElaValue[]> Captures { get; private set; }
-		
-		internal int AppliedParameters { get; set; }
+        internal FastList<ElaValue[]> Captures { get; private set; }
+        
+        internal int AppliedParameters { get; set; }
 
-		internal ElaValue[] Parameters { get; set; }
+        internal ElaValue[] Parameters { get; set; }
 
-		internal ElaValue LastParameter { get; set; }
+        internal ElaValue LastParameter { get; set; }
 
-		private bool _flip;
-		internal bool Flip 
-		{
-			get { return _flip; }
-			set
-			{
-				if (Parameters.Length > 0)
-					_flip = value;
-			}
-		}
-	}
+        private bool _flip;
+        internal bool Flip 
+        {
+            get { return _flip; }
+            set
+            {
+                if (Parameters.Length > 0)
+                    _flip = value;
+            }
+        }
+    }
 }

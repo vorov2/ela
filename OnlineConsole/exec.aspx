@@ -30,7 +30,9 @@
 			Session["Linker"] = null;
 			Session["VM"] = null;
 			Session["LastOffset"] = null;
-			return;
+			
+			if (Request["src"] == null)
+				return;
 		}
 	
 		try

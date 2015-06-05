@@ -7,14 +7,14 @@ using System.Threading;
 
 namespace Ela.Library.General
 {
-	public sealed class DebugModule : ForeignModule
-	{
-		#region Construction
-		public DebugModule()
-		{
+    public sealed class DebugModule : ForeignModule
+    {
+        #region Construction
+        public DebugModule()
+        {
 
-		}
-		#endregion
+        }
+        #endregion
 
         sealed class Fun2 : ElaFunction
         {
@@ -24,13 +24,13 @@ namespace Ela.Library.General
                 return new ElaValue(ElaUnit.Instance);
             }
         }
-		
-		#region Methods
-		public override void Initialize()
-		{
-			Add<ElaObject>("startClock", StartClock);
+        
+        #region Methods
+        public override void Initialize()
+        {
+            Add<ElaObject>("startClock", StartClock);
             Add<Wrapper<Stopwatch>,Double>("stopClock", StopClock);
-			Add<Int32,ElaUnit>("sleep", Sleep);
+            Add<Int32,ElaUnit>("sleep", Sleep);
             Add<ElaUnit,ElaUnit>("fun1", Fun1);
             Add("fun2",new Fun2());
             Add<Int32,Int32,Int32,ElaList>("enumFromTo2", EnumFromTo);
@@ -41,26 +41,26 @@ namespace Ela.Library.General
             return ElaUnit.Instance;
         }
         
-		public ElaObject StartClock()
-		{
+        public ElaObject StartClock()
+        {
             var t = new Stopwatch();
             t.Start();
             return new Wrapper<Stopwatch>(t);
-		}
+        }
 
 
-		public double StopClock(Wrapper<Stopwatch> val)
-		{
+        public double StopClock(Wrapper<Stopwatch> val)
+        {
             val.Value.Stop();
             return val.Value.Elapsed.TotalMilliseconds;
-		}
+        }
 
 
-		public ElaUnit Sleep(int ms)
-		{
-			Thread.Sleep(ms);
-			return ElaUnit.Instance;
-		}
+        public ElaUnit Sleep(int ms)
+        {
+            Thread.Sleep(ms);
+            return ElaUnit.Instance;
+        }
 
 
         public ElaList EnumFromTo(int max, int fst, int snd)
@@ -86,6 +86,6 @@ namespace Ela.Library.General
             Console.WriteLine(sw.Elapsed);
             return ret;
         }
-		#endregion
-	}
+        #endregion
+    }
 }

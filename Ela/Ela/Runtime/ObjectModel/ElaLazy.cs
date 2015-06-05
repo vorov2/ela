@@ -2,12 +2,12 @@
 
 namespace Ela.Runtime.ObjectModel
 {
-	public sealed class ElaLazy : ElaObject
-	{
-		internal ElaLazy(ElaFunction function) : base(ElaTypeCode.Lazy)
-		{
-			Function = function;
-			_value = default(ElaValue);
+    public sealed class ElaLazy : ElaObject
+    {
+        internal ElaLazy(ElaFunction function) : base(ElaTypeCode.Lazy)
+        {
+            Function = function;
+            _value = default(ElaValue);
         }
 
         internal override int GetTypeId()
@@ -15,8 +15,8 @@ namespace Ela.Runtime.ObjectModel
             return Value.Ref != null ? Value.Ref.TypeId : ElaMachine.LAZ;
         }
         
-		internal ElaValue Force()
-		{
+        internal ElaValue Force()
+        {
             if (Value.Ref == null)
             {
                 var fun = Function;
@@ -45,26 +45,26 @@ namespace Ela.Runtime.ObjectModel
             }
 
             return Value;
-		}
+        }
         
-		internal override ElaValue Force(ElaValue @this, ExecutionContext ctx)
-		{
-			if (ctx == ElaObject.DummyContext)
-				return Force();
+        internal override ElaValue Force(ElaValue @this, ExecutionContext ctx)
+        {
+            if (ctx == ElaObject.DummyContext)
+                return Force();
 
-			return Force(ctx);
-		}
+            return Force(ctx);
+        }
         
-		internal ElaValue Force(ExecutionContext ctx)
-		{
+        internal ElaValue Force(ExecutionContext ctx)
+        {
             var f = Function;
 
-			if (f != null)
-			{
+            if (f != null)
+            {
                 ctx.Failed = true;
                 ctx.Thunk = this;
                 return new ElaValue(this);
-			}
+            }
 
             if (Value.Ref == this)
             {
@@ -90,7 +90,7 @@ namespace Ela.Runtime.ObjectModel
             }
 
             return Value;
-		}
+        }
 
         public override string ToString(string format, IFormatProvider provider)
         {
@@ -125,27 +125,27 @@ namespace Ela.Runtime.ObjectModel
             return new ElaValue(new ElaLazyList(this, value));
         }
 
-		protected internal override ElaValue GenerateFinalize(ExecutionContext ctx)
-		{
-			return new ElaValue(this);
-		}
+        protected internal override ElaValue GenerateFinalize(ExecutionContext ctx)
+        {
+            return new ElaValue(this);
+        }
 
         public bool Evaled
         {
             get { return Function == null; }
         }
 
-		internal ElaFunction Function;
+        internal ElaFunction Function;
 
-		private ElaValue _value;
-		internal ElaValue Value
-		{
-			get { return _value; }
-			set
-			{
+        private ElaValue _value;
+        internal ElaValue Value
+        {
+            get { return _value; }
+            set
+            {
                 _value = value;
-				Function = null;				
-			}
-		}
-	}
+                Function = null;				
+            }
+        }
+    }
 }

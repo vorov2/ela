@@ -328,9 +328,7 @@ class Enum a where
   enumFrom a->a->_
   enumFromTo a->a->a->_
 
-instance Enum Int Long where
-  succ = (+ 1)
-  pred = (- 1)
+instance Enum where
   enumFrom fst snd = genInf fst (snd-fst)
     where genInf e step = e :: (& genInf (e+step) step)
   enumFromTo max fst snd
@@ -343,6 +341,10 @@ instance Enum Int Long where
           genGt xs e step
             | e > max = listReverse xs
             | else = genGt (e::xs) (e+step) step
+
+instance Enum Int Long where
+  succ = (+ 1)
+  pred = (- 1)
 
 /* Bounded */
 class Bounded a where

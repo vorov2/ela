@@ -1,4 +1,9 @@
+0.1.14.3:New:A new article 'integer' about a module of the same is added.
+0.1.14.3:Change:An article 'number' is updated according to the module changes.
+0.1.14.2:Change:An article 'prelude' is updated according to the module changes.
+0.1.14.1:New:A new document 'Whats new' that contains platform changes overview is added.
 0.1.14.0:Release:Release of 0.1.14.0.
+0.1.13.5:Change:Article 'datetime' is updated according to the module changes.
 0.1.13.4:New:A new document 'customliterals' about a corresponding language feature is added.
 0.1.13.3:Change:Article 'peano' is updated according to the module changes.
 0.1.13.2:New:A new document 'Whats new' that contains platform changes overview is added.
