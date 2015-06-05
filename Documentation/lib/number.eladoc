@@ -73,7 +73,7 @@ This partial default instance provides implementation for `div` function:
 >>  | r < 0u && r*y <> x = r - 1u
 >>  | else = r
 >>  where r = x `quot` y
-This default instance can be used for types that implement `Ord`, `Additive`, `Ring` and `Num`.
+This default instance can be used for types that implement `Ord`, `Additive`, `Ring` and `Numeral`.
 
 ===Absolute
 This complete instance provides implementation for all functions defined in `Absolute` class:
@@ -83,7 +83,7 @@ This complete instance provides implementation for all functions defined in `Abs
 >>signum x 
 >>  | x < 0u = negate 1u
 >>  | else = 1u
-This default instance can be used for types that implement `Eq`, `Ord`, `Additive` and `Num`.
+This default instance can be used for types that implement `Eq`, `Ord`, `Additive` and `Numeral`.
 
 ===Principal
 This complete instance provides implementation for all functions defined in `Principal` class:
@@ -96,7 +96,7 @@ This complete instance provides implementation for all functions defined in `Pri
 >>lcm !x y 
 >>  | x == 0u || y == 0u = 0u
 >>  | else = abs ((x `quot` gcd x y) * y)
-This default instance can be used for types that implement `Eq`, `Ring`, `Additive`, `Modulo`, `Absolute` and `Num`.
+This default instance can be used for types that implement `Eq`, `Ring`, `Additive`, `Modulo`, `Absolute` and `Numeral`.
 
 ===Transcendental
 This partial default instance contains definitions of functions `logBase`, `tan`
