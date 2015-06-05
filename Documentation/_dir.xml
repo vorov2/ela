@@ -12,6 +12,7 @@
     <doc name="prelude" file="lib\prelude.htm" />
     <doc name="number" file="lib\number.htm" />
     <doc name="integer" file="lib\integer.htm" />
+    <doc name="math" file="lib\math.htm" />
     <doc name="list" file="lib\list.htm" />
     <doc name="char" file="lib\char.htm" />
     <doc name="string" file="lib\string.htm" />

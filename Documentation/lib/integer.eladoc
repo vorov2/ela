@@ -24,7 +24,7 @@ of `/` function for `Integer` is in fact an integer division.
 ==Functions
 
 #literal'i x
-This function is used for the literal form of `Integer` type and called directly (or rebound to a different name).
+This function is used for the literal form of `Integer` type and can also be called directly (or rebound to a different name).
 >>12i
 
 #parse s

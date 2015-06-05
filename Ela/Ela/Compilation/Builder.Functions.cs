@@ -5,8 +5,8 @@ using Ela.Runtime;
 namespace Ela.Compilation
 {
     //This part is responsible for function compilation.
-	internal sealed partial class Builder
-	{
+    internal sealed partial class Builder
+    {
         //Used for 'clean' flag - to track whether a function that is currently compiled
         //doesn't reference any non-inits.
         private FastStack<Boolean> cleans = new FastStack<Boolean>();
@@ -14,46 +14,46 @@ namespace Ela.Compilation
         //Main method used to compile functions. Can compile regular named functions, 
         //named functions in-place (FunFlag.Inline) and type constructors (FunFlag.Newtype).
         //Return 'true' if a function is clean (no no-inits references).
-		private bool CompileFunction(ElaEquation dec)
-		{
+        private bool CompileFunction(ElaEquation dec)
+        {
             var fc = (ElaJuxtaposition)dec.Left;
-			var pars = fc.Parameters.Count;
+            var pars = fc.Parameters.Count;
 
             //Target can be null in a case of an anonymous function (lambda)
             var name = fc.Target != null ? fc.Target.GetName() : String.Empty;
 
             StartFun(name, pars);
-			var funSkipLabel = Label.Empty;
-			var map = new LabelMap();
-			var startLabel = cw.DefineLabel();
+            var funSkipLabel = Label.Empty;
+            var map = new LabelMap();
+            var startLabel = cw.DefineLabel();
 
             //Functions are always compiled in place, e.g. when met. Therefore a 'goto'
             //instruction is emitted to skip through function definition.
             funSkipLabel = cw.DefineLabel();
-	        cw.Emit(Op.Br, funSkipLabel);
+            cw.Emit(Op.Br, funSkipLabel);
 
             //FunStart label is needed for tail recursive calls when we emit a 'goto' 
             //instead of an actual function call.
-			map.FunStart = startLabel;
+            map.FunStart = startLabel;
 
             //Preserve some information about a function we're currently in.
-			map.FunctionName = name;
-			map.FunctionParameters = pars;
-			map.FunctionScope = CurrentScope;
-			
+            map.FunctionName = name;
+            map.FunctionParameters = pars;
+            map.FunctionScope = CurrentScope;
+            
             cw.MarkLabel(startLabel);
 
             //We start a real (VM based) lexical scope for a function.
-			StartScope(true, dec.Right.Line, dec.Right.Column);
+            StartScope(true, dec.Right.Line, dec.Right.Column);
 
             //We add a special 'context' variable; it is not initialized
             AddVariable("context", dec, ElaVariableFlags.Context, -1);
 
             //StartSection create a real lexical scope.
-			StartSection();
+            StartSection();
 
             var hints = Hints.Scope|Hints.Tail;
-			AddLinePragma(dec);
+            AddLinePragma(dec);
             var address = cw.Offset;
 
             cleans.Push(true);
@@ -61,22 +61,22 @@ namespace Ela.Compilation
             var ret = cleans.Pop();
 
             //This logic creates a function (by finally emitting Newfun).
-			var funHandle = frame.Layouts.Count;
-			var ss = EndFun(funHandle);
-			frame.Layouts.Add(new MemoryLayout(currentCounter, ss, address));
-			EndScope();
-			EndSection();
+            var funHandle = frame.Layouts.Count;
+            var ss = EndFun(funHandle);
+            frame.Layouts.Add(new MemoryLayout(currentCounter, ss, address));
+            EndScope();
+            EndSection();
 
-			cw.Emit(Op.Ret);
-			cw.MarkLabel(funSkipLabel);
+            cw.Emit(Op.Ret);
+            cw.MarkLabel(funSkipLabel);
 
-			AddLinePragma(dec);
+            AddLinePragma(dec);
 
             //Function is constructed
-			cw.Emit(Op.PushI4, pars);
-			cw.Emit(Op.Newfun, funHandle);
+            cw.Emit(Op.PushI4, pars);
+            cw.Emit(Op.Newfun, funHandle);
             return ret;
-		}
+        }
 
         //Used to compile an anonymous function (lambda). This function returns a number of parameters 
         //in compiled lambda.
@@ -205,5 +205,5 @@ namespace Ela.Compilation
             cw.Emit(Op.PushI4, args);
             cw.Emit(Op.Newfun, frame.Layouts.Count - 1);
         }
-	}
+    }
 }

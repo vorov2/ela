@@ -1,4 +1,5 @@
 0.13.0.0:Release:Release of Ela 0.13.0.0.
+0.12.7.2:Fix:A bug fixed that could cause Ela to crush when a class function was initialized with another class function directly, e.g. 'class Foo a where foo _->a' and 'instance Foo Int where foo = read'.
 0.12.7.1:Change:Now compiled for .NET 4.0.
 0.12.7.0:Release:Release of Ela 0.12.7.0.
 0.12.6.2:New:Support for custom numeric literals (on parser and compiler levels).

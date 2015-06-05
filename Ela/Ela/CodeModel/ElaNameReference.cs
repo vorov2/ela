@@ -4,21 +4,21 @@ using Ela.Parsing;
 
 namespace Ela.CodeModel
 {
-	public sealed class ElaNameReference : ElaExpression
-	{
-		internal ElaNameReference(Token tok) : base(tok, ElaNodeType.NameReference)
-		{
-			
-		}
+    public sealed class ElaNameReference : ElaExpression
+    {
+        internal ElaNameReference(Token tok) : base(tok, ElaNodeType.NameReference)
+        {
+            
+        }
         
-		public ElaNameReference() : this(null)
-		{
-			
-		}
-		
+        public ElaNameReference() : this(null)
+        {
+            
+        }
+        
         internal override string GetName()
-		{
-			return Name;
+        {
+            return Name;
         }
 
         internal override bool Safe()
@@ -27,7 +27,7 @@ namespace Ela.CodeModel
         }
 
         internal override void ToString(StringBuilder sb, int ident)
-		{
+        {
             if (Bang)
                 sb.Append('!');
 
@@ -35,7 +35,7 @@ namespace Ela.CodeModel
                 sb.AppendFormat("({0})", Name);
             else
                 sb.Append(Name);
-		}
+        }
 
         internal override bool IsIrrefutable()
         {
@@ -53,10 +53,10 @@ namespace Ela.CodeModel
             return true;
         }
 
-		public string Name { get; set; }
+        public string Name { get; set; }
 
         public bool Uppercase { get; set; }
 
         public bool Bang { get; set; }
-	}
+    }
 }

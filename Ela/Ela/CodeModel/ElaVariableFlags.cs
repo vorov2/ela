@@ -2,12 +2,12 @@
 
 namespace Ela.CodeModel
 {
-	[Flags]
-	public enum ElaVariableFlags
-	{
-		None = 0x00,
+    [Flags]
+    public enum ElaVariableFlags
+    {
+        None = 0x00,
 
-		External = 1 << 0,
+        External = 1 << 0,
 
         Private = 1 << 1,
 
@@ -42,5 +42,5 @@ namespace Ela.CodeModel
         PartiallyApplied = 1 << 16, //??
 
         Clean = 1 << 17
-	}
+    }
 }

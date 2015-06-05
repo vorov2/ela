@@ -1,6 +1,6 @@
 /* 
   Module number
-  Created in 2012 by Basil Voronkov
+  Created in 2012-2015 by Basil Voronkov
 */
 import libNumber#elalib@rl
 
@@ -8,6 +8,11 @@ import libNumber#elalib@rl
 class Num a where
   zero a
   one a
+
+class Numeral a where
+  numeral _->a
+
+literal'u = numeral
 
 class Float a where 
   inf a->_
@@ -70,6 +75,11 @@ instance Num Double where
   zero = 0d
   one = 1d
 
+instance Numeral where
+  numeral = read
+
+instance Numeral Int Long Single Double
+
 instance Float Single where
   inf       = rl.infSingle
   nan       = rl.nanSingle
@@ -90,7 +100,7 @@ instance Fractional Single Double where
 
 instance Integral where
   div x y
-    | r < zero ::: (r) && r*y <> x = r - one ::: (r)
+    | r < 0u && r*y <> x = r - 1u
     | else = r
     where r = x `quot` y
 
@@ -99,11 +109,11 @@ instance Integral Int Long where
 
 instance Absolute where
   abs x 
-    | signum x == one ::: (x) = x 
+    | signum x == 1u = x 
     | else = negate x
   signum x 
-    | x < zero ::: (x) = negate one ::: (x)
-    | else = one ::: (x)
+    | x < 0u = negate 1u
+    | else = 1u
 
 instance Absolute Int Long Single Double
 
@@ -153,14 +163,14 @@ instance Transcendental Double where
   atanh x     = rl.atanh (force x)
 
 instance Principal where
-  gcd x y
-    | x == zero ::: (x) && y == zero ::: (y) = fail "Principal.gcd: gcd 0 0 is undefined"
+  gcd !x y
+    | x == 0u && y == 0u = fail "Principal.gcd: gcd 0 0 is undefined"
     | else = gcd' (abs x) (abs y)
     where gcd' x y
-            | y == zero ::: (y) = x
+            | y == 0u = x
             | else = gcd' y (x % y)
-  lcm x y 
-    | x == zero ::: (x) || y == zero ::: (y) = zero ::: (y)
+  lcm !x y 
+    | x == 0u || y == 0u = 0u
     | else = abs ((x `quot` gcd x y) * y)
 
 instance Principal Int Long Single Double
