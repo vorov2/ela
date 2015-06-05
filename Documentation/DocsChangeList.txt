@@ -1,3 +1,4 @@
+0.1.15.0:Change:Release of 0.1.15.0.
 0.1.14.3:New:A new article 'integer' about a module of the same is added.
 0.1.14.3:Change:An article 'number' is updated according to the module changes.
 0.1.14.2:Change:An article 'prelude' is updated according to the module changes.

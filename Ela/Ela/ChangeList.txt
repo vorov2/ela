@@ -1,3 +1,4 @@
+0.13.0.1:Release:Release of Ela 0.13.0.1.
 0.12.7.1:Change:Now compiled for .NET 4.0.
 0.12.7.0:Release:Release of Ela 0.12.7.0.
 0.12.6.2:New:Support for custom numeric literals (on parser and compiler levels).
