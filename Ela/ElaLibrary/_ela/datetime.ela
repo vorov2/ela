@@ -1,9 +1,9 @@
 /* 
   Module datetime
-  Created in 2012 by Basil Voronkov
+  Created in 2012-2015 by Basil Voronkov
 */
 import libDateTime#elalib@dt
-open generic string
+open generic string io
 
 /* Construction */
 type DateTime = DateTime a # private
@@ -17,10 +17,10 @@ fromTuple (y,m,d,h,mm) = DateTime (dt.newDateTime y m d h mm 0 0)
 fromTuple (y,m,d,h,mm,s,ms) = DateTime (dt.newDateTime y m d h mm s ms)
 
 now # qualified
-now () = DateTime (dt.now ())
+now = mkIO (\() -> DateTime (dt.now ()))
 
 today # qualified
-today () = DateTime (dt.today ())
+today = mkIO (\() -> DateTime (dt.today ()))
 
 parse # qualified
 parse fmt str = DateTime (dt.parse (force fmt) (force str))

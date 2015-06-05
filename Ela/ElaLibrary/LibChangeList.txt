@@ -1,6 +1,8 @@
 0.1.13.0:Release:Release of 0.1.13.0.
-0.1.12.2:New:A new custom literal function `literal'p` is added to `peano` module.
-0.1.12.1:Change:A function `?` is removed from `peano` module.
+0.1.23.5:Change:Now instance 'IO' monad (from 'io' module) returns "IO" instead of an empty string.
+0.1.23.4:Change:Now members 'now' and 'today' from 'datetime' module return 'IO' monad instead of a direct value, which makes a module pure.
+0.1.12.2:New:A new custom literal function 'literal'p' is added to `peano` module.
+0.1.12.1:Change:A function '?' is removed from 'peano' module.
 0.1.12.0:Release:Release of 0.1.12.0.
 0.1.11.2:Fix:A bug fixed in function datetime.fmt.
 0.1.11.1:Fix:Format API is yet again rewritten to fix bugs introduced in previous versions.
