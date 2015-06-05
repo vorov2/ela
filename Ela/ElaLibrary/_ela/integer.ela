@@ -1,0 +1,94 @@
+/* 
+  Module integer
+  Created in 2015 by Basil Voronkov
+*/
+import libBigInteger#elalib@bi
+open string number
+
+//Type
+type Integer = Integer a # private
+  deriving Absolute Principal
+
+//Literal
+literal'i s = Integer $ bi.parse s
+
+//Classes
+class IntegerLike a where
+  toInteger a->_
+  fromInteger _->a
+
+//Basic instances
+instance Default Integer where
+  default = 0i
+
+instance Eq Integer where
+  (Integer x) == (Integer y) = bi.equals x y
+
+instance Ord Integer where
+  (Integer x) > (Integer y) = bi.greater x y
+  (Integer x) < (Integer y) = bi.lesser x y
+
+instance Enum Integer where
+  succ = (+ 1i)
+  pred = (- 1i)
+
+instance Show Integer where
+  show (Integer x) = bi.show x ""
+
+instance Read Integer where
+  read !s = Integer $ bi.parse s
+
+//Math instances
+instance Additive Integer where
+  (Integer x) + (Integer y) = Integer $ bi.add x y
+  (Integer x) - (Integer y) = Integer $ bi.subtract x y
+  negate (Integer x) = Integer $ bi.negate x
+
+instance Ring Integer where
+  (Integer x) * (Integer y) = Integer $ bi.multiply x y
+  (Integer x) ** (Integer y) = Integer $ bi.pow x y
+
+instance Field Integer where
+  (Integer x) / (Integer y) = Integer $ bi.divide x y
+
+instance Modulo Integer where
+  mod (Integer x) (Integer y) = Integer $ bi.mod x y
+  rem (Integer x) (Integer y) = Integer $ bi.rem x y
+
+//xLike instances
+instance IntLike Integer where
+  toInt (Integer x) = bi.toInt x
+  fromInt x = Integer $ bi.fromInt x
+
+instance LongLike Integer where
+  toLong (Integer x) = bi.toLong x
+  fromLong x = Integer $ bi.fromLong x
+
+instance IntegerLike Int where
+  toInteger x = Integer $ bi.fromInt x
+  fromInteger (Integer x) = bi.toInt x
+
+instance IntegerLike Long where
+  toInteger x = Integer $ bi.fromLong x
+  fromInteger (Integer x) = bi.toLong x
+
+instance IntegerLike Integer where
+  toInteger = id
+  fromInteger = id
+
+//Module 'string' instances
+instance Format Integer where
+  fmt (Integer x) !f = bi.show x f
+
+//Module 'number' instances
+instance Num Integer where
+  zero = 0i
+  one = 1i
+
+instance Integral Integer where
+  (Integer x) `quot` (Integer y) = Integer $ bi.divide x y
+
+//Functions
+parse # qualified
+parse !s = Integer $ bi.parse s
+ 
