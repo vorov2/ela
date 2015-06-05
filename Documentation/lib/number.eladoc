@@ -27,13 +27,16 @@ Defines two integer division functions - `quot`, which is an integer division, t
 towards zero, and `div`, which is an integer division, truncated towards negative
 infinity.
 >>>-5 `div` 2
-This module provides instances of `Integral` class for types `Int` and `Long`.
+This module provides instances of `Integral` class for types `Int` and `Long`.//br
+Minimum implementation: `quot` function.
 
 #Absolute
 Defines functions for the types with a notion of an absolute value. Function `abs` returns
 an absolute value of a given value, and function `signum` returns a sign of a given value.
 >>>signum -2
 This module provides instances of `Absolute` class for types `Int`, `Long`, `Single` and `Double`.
+Also this module provides a complete default implementation of this class that would work for
+types that implement `Additive`, `Ord` and `Num`.
 
 #Transcendental
 Represents a class for numbers supporting elementary transcendental functions.//br
@@ -44,8 +47,41 @@ A principal ideal domain is a ring in which every ideal, the set of multiples of
 set of elements, is principal. This class defines functions `gcd` (greatest common divisor for 
 the two given arguments) and `lcm` (the least common multiple of two given arguments).//br
 This module provides instances of `Principal` class for types `Int`, `Long`, `Single` and `Double`.
+Also this module provides a complete default implementation of this class that would for for types
+that implement `Eq`, `Num`, `Modulo`, `Absolute` and `Ring`.
 
 =Default instances
+
+===Integral
+This partial default instance provides implementation for `div` function:
+>>div x y
+>>  | r < zero ::: (r) && r*y <> x = r - one ::: (r)
+>>  | else = r
+>>  where r = x `quot` y
+This default instance can be used for types that implement `Ord`, `Additive`, `Ring` and `Num`.
+
+===Absolute
+This complete instance provides implementation for all functions defined in `Absolute` class:
+>>abs x 
+>>  | signum x == one ::: (x) = x 
+>>  | else = negate x
+>>signum x 
+>>  | x < zero ::: (x) = negate one ::: (x)
+>>  | else = one ::: (x)
+This default instance can be used for types that implement `Eq`, `Ord`, `Additive` and `Num`.
+
+===Principal
+This complete instance provides implementation for all functions defined in `Principal` class:
+>>gcd x y
+>>  | x == zero ::: (x) && y == zero ::: (y) = fail "..."
+>>  | else = gcd' (abs x) (abs y)
+>>  where gcd' x y
+>>          | y == zero ::: (y) = x
+>>          | else = gcd' y (x % y)
+>>lcm x y 
+>>  | x == zero ::: (x) || y == zero ::: (y) = zero ::: (y)
+>>  | else = abs ((x `quot` gcd x y) * y)
+This default instance can be used for types that implement `Eq`, `Ring`, `Additive`, `Modulo`, `Absolute` and `Num`.
 
 ===Transcendental
 This partial default instance contains definitions of functions `logBase`, `tan`
@@ -53,3 +89,4 @@ and `tanh`:
 >>logBase x y = log y / log x
 >>tan x       = sin x / cos x
 >>tanh x      = sinh x / cosh x
+There are no specific requirements to use this default instance for new types.

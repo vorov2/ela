@@ -13,6 +13,7 @@ using Ela.Library.General;
 [assembly: ElaModule("libRecord", typeof(RecordModule))]
 [assembly: ElaModule("libReflect", typeof(ReflectModule))]
 [assembly: ElaModule("libXml", typeof(XmlModule))]
+[assembly: ElaModule("libBigInteger", typeof(BigIntegerModule))]
 
 
 [assembly: ElaModule("experimental", typeof(Experimental))]

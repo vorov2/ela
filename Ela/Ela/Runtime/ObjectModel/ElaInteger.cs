@@ -2,14 +2,14 @@
 
 namespace Ela.Runtime.ObjectModel
 {
-	internal sealed class ElaInteger : ElaObject
-	{
-		internal static readonly ElaInteger Instance = new ElaInteger();
-		
-		private ElaInteger() : base(ElaTypeCode.Integer)
-		{
-			
-		}
+    internal sealed class ElaInteger : ElaObject
+    {
+        internal static readonly ElaInteger Instance = new ElaInteger();
+        
+        private ElaInteger() : base(ElaTypeCode.Integer)
+        {
+            
+        }
 
         internal override ElaValue Quot(ElaValue left, ElaValue right, ExecutionContext ctx)
         {
@@ -42,5 +42,5 @@ namespace Ela.Runtime.ObjectModel
 
             return new ElaValue(left.I4 / right.I4);
         }
-	}
+    }
 }

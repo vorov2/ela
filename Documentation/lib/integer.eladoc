@@ -1,0 +1,33 @@
+#file integer.ela
+#title integer
+#category Ela Standard Library
+This module contains implementation of an arbitrary precision integer data type, its instances, classes and functions. 
+
+=Integer
+
+#Integer
+This type is used to represent an arbitrary precision integer. In the current implementation this type is mapped to
+.NET Framework type `System.Numerics.BigInteger`.
+
+==Classes
+#IntegerLike
+This class defines `fromInteger` and `toInteger` function that can be used for data conversions. Module `integer` already
+comes with instances of this class for `Int` and `Long` data types.
+
+==Notes on instances
+===Field
+This is a instance for `Field` class from standard prelude. According to the rules of the `Field` class division (`/`) should
+not be implemented as integer division (there is a separate `Integral` class for integer division). However, in the current
+version, because it is not possible to correctly represent `Integer` data type through other numeric types the implementation
+of `/` function for `Integer` is in fact an integer division.
+
+==Functions
+
+#literal'i x
+This function is used for the literal form of `Integer` type and called directly (or rebound to a different name).
+>>12i
+
+#parse s
+This function can be used to create an instance of `Integer` type from string:
+>>x = parse "12345456606000400400045555"
+This function always requires a qualified access.

@@ -88,20 +88,24 @@ instance Fractional Single Double where
   ceiling   = rl.ceiling
   floor     = rl.floor
 
-instance Integral Int Long where
-  quot = __internal quot
+instance Integral where
   div x y
-    | r < 0 && r*y <> x = r - 1
+    | r < zero ::: (r) && r*y <> x = r - one ::: (r)
     | else = r
     where r = x `quot` y
 
-instance Absolute Int Long Single Double where
+instance Integral Int Long where
+  quot = __internal quot
+
+instance Absolute where
   abs x 
-    | x >= 0 = x 
+    | signum x == one ::: (x) = x 
     | else = negate x
   signum x 
-    | x < 0 = negate one ::: (x)
+    | x < zero ::: (x) = negate one ::: (x)
     | else = one ::: (x)
+
+instance Absolute Int Long Single Double
 
 instance Transcendental where
   logBase x y = log y / log x
@@ -148,11 +152,15 @@ instance Transcendental Double where
   asinh x     = rl.asinh (force x)
   atanh x     = rl.atanh (force x)
 
-instance Principal Int Long Single Double where  
-  gcd 0 0 = fail "Principal.gcd: gcd 0 0 is undefined"
-  gcd x y = gcd' (abs x) (abs y)
-    where gcd' x 0 = x
-          gcd' x y = gcd' y (x % y)
-  lcm _ 0 = 0
-  lcm 0 _ = 0
-  lcm x y = abs ((x `quot` gcd x y) * y)
+instance Principal where
+  gcd x y
+    | x == zero ::: (x) && y == zero ::: (y) = fail "Principal.gcd: gcd 0 0 is undefined"
+    | else = gcd' (abs x) (abs y)
+    where gcd' x y
+            | y == zero ::: (y) = x
+            | else = gcd' y (x % y)
+  lcm x y 
+    | x == zero ::: (x) || y == zero ::: (y) = zero ::: (y)
+    | else = abs ((x `quot` gcd x y) * y)
+
+instance Principal Int Long Single Double

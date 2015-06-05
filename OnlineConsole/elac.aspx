@@ -148,13 +148,16 @@
 			return resObject;
 		}
 
-		function execEla() {
+		function execEla(reset) {
 			var src = document.getElementById("console").value;
 			start();
 			var req = createXMLHttpRequest();
 			req.open("POST", "/exec.aspx?tag=" + getTag());
             req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             var frm = "src=" + encodeURIComponent(src);
+			
+			if (reset)
+				frm += "&reset=1";
             
 			req.onreadystatechange = function() {
 				if (req.readyState == 4) {
@@ -230,7 +233,7 @@
 			var p = getParameterByName("eval");
 			if (p != null && p != '') {
         document.getElementById("console").value = p;
-				execEla();
+				execEla(true);
 			}
 		}
     

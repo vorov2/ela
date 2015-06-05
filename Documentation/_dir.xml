@@ -11,6 +11,7 @@
     </folder>
     <doc name="prelude" file="lib\prelude.htm" />
     <doc name="number" file="lib\number.htm" />
+    <doc name="integer" file="lib\integer.htm" />
     <doc name="list" file="lib\list.htm" />
     <doc name="char" file="lib\char.htm" />
     <doc name="string" file="lib\string.htm" />
@@ -50,6 +51,7 @@
     <doc name="Operator Priority" file="operatorpriority.htm" />    
   </folder>
   <folder name="Older Versions">
+    <doc name="Platform 2015.2" file="oldversions/platform-2015-2.htm" />
     <doc name="Platform 2015.1" file="oldversions/platform-2015-1.htm" />
     <doc name="Platform 2014.1" file="oldversions/platform-2014-1.htm" />
     <doc name="Platform 2013.4" file="oldversions/platform-2013-4.htm" />

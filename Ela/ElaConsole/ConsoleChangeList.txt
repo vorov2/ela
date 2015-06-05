@@ -1,3 +1,5 @@
+0.9.9.0:Release:Release of Ela Console 0.9.9.
+0.9.8.1:Change:Now compiled for .NET 4.0.
 0.9.8.0:Release:Release of Ela Console 0.9.8.
 0.9.7.1:New:A new switch 'parse' is added (shows the AST without executing the code).
 0.9.7.0:Release:Release of Ela Console 0.9.7.

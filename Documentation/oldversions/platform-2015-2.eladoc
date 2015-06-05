@@ -1,0 +1,37 @@
+#title What's new? (Ela Platform 2015.2)
+
+=Overview
+Ela Platform 2015.2 focuses on an addition of a new feature to the Ela programming language - custom
+numeric literals.
+
+=Ela changes
+Ela (starting from version 0.12.7) supports a notation for custom numeric literals. A custom literal is combined from an
+integer or real literal and a char postfix (e.g. `12p`). Custom literals are implemented as functions and processed by parser
+in the same way as standard numeric literals and have the highest priority among all other operations.//br
+In order to create a custom literal one should write a regular Ela global function which name is combined from the word
+`literal`, prime symbols and a literal postfix. For example, this is how a custom literal for peano numbers is implemented:
+>>literal'p s = fromIntegral x
+>>  where x = read s ::: Long
+In the example above `literal'p` is a regular Ela function and can be applicated like any other functions. However, one can
+also invoke this function using a literal notation:
+>>x = 12p //Is equivalent to: x = literal'p 12
+When defining a custom literal function a postfix part of its should be always in a lower case, e.g. `literal'p` is a correct
+name while `literal'P` is not and won't be recognized as a literal processor function. However, when specifying a literal
+postfix it is possible to use both uppercase and lowercase forms.//br
+More information is available in the documentation shipped with this version of Ela platform.
+
+=Documentation
+Ela documentation is updated according to the language changes, including articles about modules `monad`, `datetime` and
+`peano`. Also a new article about custom literals is added.
+
+=Elide changes
+Ela Platform 2015.2 comes with a new version of Elide that contains an updated Ela lexer (which is able
+to correctly recognize custom literals) and a fix to the errors annotation feature which didn't apply
+style settings in the previous version.
+
+=Library changes
+A module `peano` in Ela standard library is updated to make use of the new custom literal feature. Now
+the function `?` which was used to construct literals is decomissioned and a new literal `p` is used
+instead.//br
+Members 'now' and 'today' in module `datetime` now return `IO` monad instead of direct value. Because of this change
+the module `datetime` is now completely pure.

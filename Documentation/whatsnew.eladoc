@@ -1,35 +1,35 @@
-#title What's new? (Ela Platform 2015.2)
+#title What's new? (Ela Platform 2015.3)
 
 =Overview
-Ela Platform 2015.2 focuses on an addition of a new feature to the Ela programming language - custom
-numeric literals.
+The major feature of Ela Platform 2015.3 is an addition of an arbitrary precision integer type through a separate
+`integer` module. Also Ela now goes from .NET 2.0 to .NET 4.0 (and Mono 2.8 respectively). Besides this Ela Platform
+2015.3 includes several enhancements to Ela standard library.
 
 =Ela changes
-Ela (starting from version 0.12.7) supports a notation for custom numeric literals. A custom literal is combined from an
-integer or real literal and a char postfix (e.g. `12p`). Custom literals are implemented as functions and processed by parser
-in the same way as standard numeric literals and have the highest priority among all other operations.//br
-In order to create a custom literal one should write a regular Ela global function which name is combined from the word
-`literal`, prime symbols and a literal postfix. For example, this is how a custom literal for peano numbers is implemented:
->>literal'p s = fromIntegral x
->>  where x = read s ::: Long
-In the example above `literal'p` is a regular Ela function and can be applicated like any other functions. However, one can
-also invoke this function using a literal notation:
->>x = 12p //Is equivalent to: x = literal'p 12
-When defining a custom literal function a postfix part of its should be always in a lower case, e.g. `literal'p` is a correct
-name while `literal'P` is not and won't be recognized as a literal processor function. However, when specifying a literal
-postfix it is possible to use both uppercase and lowercase forms.//br
-More information is available in the documentation shipped with this version of Ela platform.
+The only change to Ela in this platform release is compilation of Ela code to .NET 4.0 instead of .NET 2.0.
+
+=Ela Console changes
+Ela Console now (as well as Ela and other platform components) compiles to .NET 4.0.
 
 =Documentation
-Ela documentation is updated according to the language changes, including articles about modules `monad` and
-`peano`. Also a new article about custom literals is added.
-
-=Elide changes
-Ela Platform 2015.2 comes with a new version of Elide that contains an updated Ela lexer (which is able
-to correctly recognize custom literals) and a fix to the errors annotation feature which didn't apply
-style settings in the previous version.
+Documentation is updated with an article about new `integer` module. Also articles about `prelude` and `number` are
+updated according to the module changes.
 
 =Library changes
-A module `peano` in Ela standard library is updated to make use of the new custom literal feature. Now
-the function `?` which was used to construct literals is decomissioned and a new literal `p` is used
-instead.
+Ela standard library contains a new module `integer` that implements an arbitrary precision integer and several changes to
+already existing modules. Also the .NET part of the library is not compiled to .NET 4.0 (instead of .NET 2.0) as it used
+to be in a previous version).
+==New integer module
+A new integer module implements an arbitrary precision integer (data type `Integer`). In the current implementation a .NET
+Framework `System.Numerics.BigInteger` class is used in the back-end. Module `Integer` provides instances for the following classes:
+  * Standard prelude: `Default`, `Eq`, `Ord`, `Enum`, `Show`, `Read`, `Additive`, `Ring`, `Modulo`, `Field`, `IntLike`, `LongLike`
+  * Module `string`: `Format`
+  * Module `number`: `Num`, `Integeral`, `Absolute`, `Principal`
+  * Module `integera`: `IntegerLike`
+Additionally it defines a class `IntegerLike` and provides instances of it for `Int`, `Long` and itself.
+==Changes to existing modules
+This release includes the following changes to existing modules:
+  * Standard prelude now provides a partial default implementation for `Enum` class (function `enumFrom` and `enumFromTo`), which simplifies implementation of ranges for custom numeric types.
+  * Module `number` now provides a complete default implementation of `Absolute` class (works for types that implement `Additive`, `Ord` and `Num`).
+  * Module `number` now provides a partial implementation of `Integral` class (`div` function, works for types that implement `Ord`, `Additive`, `Ring` and `Num`).
+  * Module `number` now provides a complete default implementation of `Principal` class (works for types that implement `Eq`, `Num`, `Modulo`, `Absolute` and `Ring`).

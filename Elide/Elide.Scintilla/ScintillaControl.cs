@@ -251,6 +251,7 @@ namespace Elide.Scintilla
             Styles.Default.FontSize = 8;
             Ref.Send(Sci.SCI_AUTOCSHOW, lenEntered, words);
             Styles.Default.Font = fn;
+            Styles.Default.FontSize = fs;
         }
 
         public void RegisterAutocompleteImage(int imageIndex, Pixmap pxm)

@@ -59,7 +59,7 @@ del c:\ela-platform\elide\ela.dll /Q
 
 @echo.
 @echo 10. Build version info
-set rn=2015.2
+set rn=2015.3
 for /f "delims=" %%a in ('pver.exe c:\ela-platform\lib_log.txt') do @set lib_v=%%a 
 for /f "delims=" %%a in ('pver.exe c:\ela-platform\ela_log.txt') do @set ela_v=%%a
 for /f "delims=" %%a in ('pver.exe c:\ela-platform\elac_log.txt') do @set elac_v=%%a 
@@ -73,10 +73,10 @@ for /f "delims=" %%a in ('pver.exe c:\ela-platform\docs_log.txt') do @set docs_v
 @echo ^<table border="1"^> >> c:\ela-platform\readme.htm
 @echo ^<tr^>^<th^>Directory^</th^>^<th^>Description^</th^>^<th^>Platforms^</th^>^<th^>Version^</th^>^</tr^> >> c:\ela-platform\readme.htm
 @echo ^<tr^>^<td^>docs^</td^>^<td^>Documentation and code samples^</td^>^<td^>All platforms^</td^>^<td^>%docs_v% ^</td^>^</tr^> >> c:\ela-platform\readme.htm
-@echo ^<tr^>^<td rowspan=2^>ela^</td^>^<td^>Ela (ela.dll)^</td^>^<td^>.NET 2.0+/Mono 2.6+^</td^>^<td^>%ela_v% ^</td^>^</tr^> >> c:\ela-platform\readme.htm
-@echo ^<tr^>^<td^>Ela Interactive Console (elac.exe)^</td^>^<td^>.NET 2.0+/Mono 2.6+^</td^>^<td^>%elac_v% ^</td^>^</tr^> >> c:\ela-platform\readme.htm
+@echo ^<tr^>^<td rowspan=2^>ela^</td^>^<td^>Ela (ela.dll)^</td^>^<td^>.NET 4.0+/Mono 2.8+^</td^>^<td^>%ela_v% ^</td^>^</tr^> >> c:\ela-platform\readme.htm
+@echo ^<tr^>^<td^>Ela Interactive Console (elac.exe)^</td^>^<td^>.NET 4.0+/Mono 2.8+^</td^>^<td^>%elac_v% ^</td^>^</tr^> >> c:\ela-platform\readme.htm
 @echo ^<tr^>^<td^>elide^</td^>^<td^>Ela Integrated Development Environment (elide.exe)^</td^>^<td^>.NET 4.0+ (Windows only)^</td^>^<td^>%elide_v% ^</td^>^</tr^> >> c:\ela-platform\readme.htm
-@echo ^<tr^>^<td^>lib^</td^>^<td^>Ela standard library^</td^>^<td^>.NET 2.0+/Mono 2.6+^</td^>^<td^>%lib_v% ^</td^>^</tr^> >> c:\ela-platform\readme.htm
+@echo ^<tr^>^<td^>lib^</td^>^<td^>Ela standard library^</td^>^<td^>.NET 4.0+/Mono 2.8+^</td^>^<td^>%lib_v% ^</td^>^</tr^> >> c:\ela-platform\readme.htm
 @echo ^</table^>^<p^>This is a binary release. Source code is available at ^<a href="https://ela.codeplex.com/"^>https://ela.codeplex.com/^</a^>.^</p^>^<p^>Platform generated at %DATE%.^</p^>^</body^>^</html^> >> c:\ela-platform\readme.htm
 
 @echo.
