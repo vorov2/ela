@@ -5,6 +5,21 @@ This module contains major numeric classes and instances.
 
 =Classes
 
+#Num
+Defines polymorphic constancs `zero` and `one`, which should evaluate to respective
+numbers.//br
+Instances of this class are provided for all standard numeric types.
+
+#Numeral
+Defines a single function `numeral` which is used in conjunction with numeric literal
+function `literal'u` to support a concept of polymorphic numeric literals. In order to
+support polymorphic numeric literal a numeric type should provide an implementation of
+`numeral` function which accepts a single string parameter and returns a number instance.
+For example, this is how this class can be implemented for `Int`:
+>>instance Numeral Int where
+>>  numeral = read
+Instances of this class are provided for all standard numeric types.
+
 #Float
 Defines functions `inf` (tests if a given float is a positive or negative infinity),
 `posInf` (tests if a given float is a positive infinity), `negInf` (tests if a given
@@ -55,7 +70,7 @@ that implement `Eq`, `Num`, `Modulo`, `Absolute` and `Ring`.
 ===Integral
 This partial default instance provides implementation for `div` function:
 >>div x y
->>  | r < zero ::: (r) && r*y <> x = r - one ::: (r)
+>>  | r < 0u && r*y <> x = r - 1u
 >>  | else = r
 >>  where r = x `quot` y
 This default instance can be used for types that implement `Ord`, `Additive`, `Ring` and `Num`.
@@ -63,23 +78,23 @@ This default instance can be used for types that implement `Ord`, `Additive`, `R
 ===Absolute
 This complete instance provides implementation for all functions defined in `Absolute` class:
 >>abs x 
->>  | signum x == one ::: (x) = x 
+>>  | signum x == 1u = x 
 >>  | else = negate x
 >>signum x 
->>  | x < zero ::: (x) = negate one ::: (x)
->>  | else = one ::: (x)
+>>  | x < 0u = negate 1u
+>>  | else = 1u
 This default instance can be used for types that implement `Eq`, `Ord`, `Additive` and `Num`.
 
 ===Principal
 This complete instance provides implementation for all functions defined in `Principal` class:
->>gcd x y
->>  | x == zero ::: (x) && y == zero ::: (y) = fail "..."
+>>gcd !x y
+>>  | x == 0u && y == 0u = fail "..."
 >>  | else = gcd' (abs x) (abs y)
 >>  where gcd' x y
->>          | y == zero ::: (y) = x
+>>          | y == 0u = x
 >>          | else = gcd' y (x % y)
->>lcm x y 
->>  | x == zero ::: (x) || y == zero ::: (y) = zero ::: (y)
+>>lcm !x y 
+>>  | x == 0u || y == 0u = 0u
 >>  | else = abs ((x `quot` gcd x y) * y)
 This default instance can be used for types that implement `Eq`, `Ring`, `Additive`, `Modulo`, `Absolute` and `Num`.
 
@@ -90,3 +105,14 @@ and `tanh`:
 >>tan x       = sin x / cos x
 >>tanh x      = sinh x / cosh x
 There are no specific requirements to use this default instance for new types.
+
+===Numeral
+This complete instance provides implementation for function `numeral` defined in `Numeral` class:
+>>numeral = read
+This default instance can be used for types that implement `Read` class.
+
+=Functions
+
+#literal'u s
+This function is used for the polymorphic numeric literals:
+>>12u

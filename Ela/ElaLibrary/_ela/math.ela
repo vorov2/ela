@@ -1,0 +1,63 @@
+/*
+  Module 'math'
+  Created in 2015 by Basil Voronkov
+*/
+open number list
+
+//Compute the factorial function
+fact !n = fact' 1u n
+  where fact' acc 0u = acc
+        fact' acc n = fact' (n * acc) (n - 1u)
+
+//Returns the nth fibonacci number
+fib !n = fib' 0u 1u n
+  where fib' a _ 0u = a
+        fib' a b n = fib' b (a + b) (n - 1u)
+
+//An infiniti list of fibonacci numbers (requires an explicit content
+//to be dispatched)
+fibs = & fib' 1u 1u
+  where fib' x y = & x :: fib' y (x + y)
+
+//Binomial coefficients function
+choose n k = fact n `div` (fact k * fact (n-k))
+
+//An extension to Euclidean algorithm  which computes, besides the greatest common divisor
+//of given integers, the coefficients of Bézout's identity
+egcd !a b
+  | a == 0u = (b, 0u, 1u)
+  | else = let (g, y, x) = egcd (b % a) a
+            in (g, x - (b `div` a) * y, y)
+
+//Divides two numbers and returns a remainder
+divrem x y = (x / y, x % y)
+
+//An alias for divrem function
+(/.) = divrem
+
+sieve # private
+sieve [] = []
+sieve (!p::xs) = & p :: sieve [& x \\ x <- xs | x % p > 0u]
+
+//A list of prime numbers
+primes !max = sieve [2u..max]
+
+//A lazy list of all prime numbers
+primes'all = & sieve [2u..]
+
+//Pythagorean theorem
+pythag !a b = sqrt $ a ** 2u + b ** 2u
+
+//Van der Corput Sequence
+vdc !bs n = vdc' 0u 1u n
+  where vdc' v d n 
+          | n > 0u = vdc' v' d' n'
+          | else  = v
+          where 
+            d' = d * bs
+            rem = n % bs
+            n' = truncate (n / bs)
+            v' = v + rem / d'
+
+//Generates an infinite list with the Van der Corput Sequence
+vdcseq !n = map' (vdc n) [1u..]

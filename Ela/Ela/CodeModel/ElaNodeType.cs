@@ -2,71 +2,71 @@
 
 namespace Ela.CodeModel
 {
-	public enum ElaNodeType
-	{
-		None = 0,
+    public enum ElaNodeType
+    {
+        None = 0,
 
 
-		ListLiteral = 1,
+        ListLiteral = 1,
 
-		RecordLiteral = 2,
+        RecordLiteral = 2,
 
-		TupleLiteral = 3,
-		
-		UnitLiteral = 4,
+        TupleLiteral = 3,
+        
+        UnitLiteral = 4,
 
-		Lambda = 5,
+        Lambda = 5,
 
-		LazyLiteral = 6,
+        LazyLiteral = 6,
 
-		// = 7,
-		
-		
+        // = 7,
+        
+        
         Header,
 
-		Context,
+        Context,
         
         Builtin,
-        		
-		Juxtaposition,
+                
+        Juxtaposition,
 
-		FieldDeclaration,
+        FieldDeclaration,
 
-		Primitive,
+        Primitive,
 
-		NameReference,
+        NameReference,
 
         FieldReference,
 
-		ImportedVariable,
-		
-		Placeholder,
+        ImportedVariable,
+        
+        Placeholder,
 
-		As,
+        As,
 
-		Condition,
+        Condition,
 
-		Try,
+        Try,
 
-		Equation,
+        Equation,
 
-		EquationSet,
+        EquationSet,
 
-		Match,
+        Match,
 
-		Range,
+        Range,
 
-		ModuleInclude,
+        ModuleInclude,
 
-		Comprehension,
+        Comprehension,
 
-		Generator,
+        Generator,
 
         LetBinding,
 
         TypeCheck,
 
-			
+            
 
         TypeClass,
 
@@ -75,5 +75,5 @@ namespace Ela.CodeModel
         ClassMember,
 
         Newtype
-	}
+    }
 }

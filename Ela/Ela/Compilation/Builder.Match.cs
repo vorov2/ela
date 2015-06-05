@@ -240,7 +240,7 @@ namespace Ela.Compilation
             AddLinePragma(exp);
 
             switch (exp.Type)
-            {                    
+            {
                 case ElaNodeType.LazyLiteral:
                     {
                         var n = (ElaLazyLiteral)exp;

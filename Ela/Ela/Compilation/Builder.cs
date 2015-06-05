@@ -6,17 +6,17 @@ using Ela.Linking;
 
 namespace Ela.Compilation
 {
-	internal sealed partial class Builder
-	{
-		private ElaCompiler comp; //Reference to compiler, to raise ModuleInclude event
+    internal sealed partial class Builder
+    {
+        private ElaCompiler comp; //Reference to compiler, to raise ModuleInclude event
                 
         //Compilation options
         private bool debug; //Generate extended debug info
-		private bool opt;   //Perform optimizations
+        private bool opt;   //Perform optimizations
         private CompilerOptions options;
-		
+        
         private CodeWriter cw; //Code emitter
-		
+        
         private CodeFrame frame; //Frame that is currently compiled
         private Scope globalScope; //Global scope for the current frame
         private Dictionary<String,Int32> stringLookup;  //String table
@@ -24,31 +24,31 @@ namespace Ela.Compilation
         private ExportVars exports; //Exports for current module
         
         //globalScope is not empty (e.g. new Scope()) only if we are resuming in interactive mode
-		internal Builder(CodeFrame frame, ElaCompiler comp, ExportVars exportVars, Scope globalScope)
-		{
-			this.frame = frame;
-			this.options = comp.Options;
-			this.exports = exportVars;
-			this.comp = comp;
-			this.cw = new CodeWriter(frame.Ops, frame.OpData);
-			this.globalScope = globalScope;
-            			
-			CurrentScope = globalScope;
-			debug = options.GenerateDebugInfo;
-			opt = options.Optimize;
+        internal Builder(CodeFrame frame, ElaCompiler comp, ExportVars exportVars, Scope globalScope)
+        {
+            this.frame = frame;
+            this.options = comp.Options;
+            this.exports = exportVars;
+            this.comp = comp;
+            this.cw = new CodeWriter(frame.Ops, frame.OpData);
+            this.globalScope = globalScope;
+                        
+            CurrentScope = globalScope;
+            debug = options.GenerateDebugInfo;
+            opt = options.Optimize;
 
-			stringLookup = new Dictionary<String,Int32>();
+            stringLookup = new Dictionary<String,Int32>();
             cleans.Push(true);
 
             ResumeIndexer();
             Success = true;			
-		}
+        }
 
         //Entry point
-		internal void CompileUnit(ElaProgram prog)
-		{
+        internal void CompileUnit(ElaProgram prog)
+        {
             frame.Layouts.Add(new MemoryLayout(0, 0, 1)); //top level layout
-			cw.StartFrame(0);
+            cw.StartFrame(0);
 
             //Handles and references should be of the same length. This might not
             //be the case, if we are resuming in interactive mode. We should "align" them,
@@ -59,7 +59,7 @@ namespace Ela.Compilation
 
             //Determine whether this is fresh session.
             var scratch = cw.Offset == 0;
-			
+            
             //We always include prelude, but a module variable is created just once
             //(We check if we are not resuming in interactive mode (cw.Offset==0) and if yes
             //we don't create a variable 'prelude'.
@@ -88,7 +88,7 @@ namespace Ela.Compilation
                     refs[i] = e.Frame;
                 }
             }
-			            
+                        
             var map = new LabelMap();
 
             //Main compilation routine
@@ -98,12 +98,12 @@ namespace Ela.Compilation
             cw.Emit(Op.Force);
             
             //Every Ela module should end with a Stop op typeId
-			cw.Emit(Op.Stop);
-			cw.CompileOpList();
+            cw.Emit(Op.Stop);
+            cw.CompileOpList();
 
-			frame.Layouts[0].Size = currentCounter;
-			frame.Layouts[0].StackSize = cw.FinishFrame();
-		}
+            frame.Layouts[0].Size = currentCounter;
+            frame.Layouts[0].StackSize = cw.FinishFrame();
+        }
 
         private ExprData CompileExpression(ElaExpression exp, LabelMap map, Hints hints, ElaExpression parent)
         {
@@ -386,25 +386,25 @@ namespace Ela.Compilation
 
             return exprData;
         }
-		
+        
         //Adds a string to a string table (strings are indexed).
-		private int AddString(string val)
-		{
-			var index = 0;
+        private int AddString(string val)
+        {
+            var index = 0;
 
             //The lookup is done to prevent redundant strings.
-			if (!stringLookup.TryGetValue(val, out index))
-			{
-				frame.Strings.Add(val);
-				index = frame.Strings.Count - 1;
-				stringLookup.Add(val, index);
-			}
+            if (!stringLookup.TryGetValue(val, out index))
+            {
+                frame.Strings.Add(val);
+                index = frame.Strings.Count - 1;
+                stringLookup.Add(val, index);
+            }
 
-			return index;
-		}
+            return index;
+        }
 
-		internal bool Success { get; private set; }
-		
-		internal Scope CurrentScope { get; private set; }
-	}
+        internal bool Success { get; private set; }
+        
+        internal Scope CurrentScope { get; private set; }
+    }
 }

@@ -190,6 +190,7 @@
     <None Include="_ela\integer.ela" />
     <None Include="_ela\io.ela" />
     <None Include="_ela\list.ela" />
+    <None Include="_ela\math.ela" />
     <None Include="_ela\monad.ela" />
     <None Include="_ela\peano.ela" />
     <None Include="_ela\random.ela" />

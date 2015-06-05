@@ -518,6 +518,9 @@ namespace Ela.Runtime
                                 goto SWITCH_MEM;
                             }
                         }
+
+                        if (callStack.Peek().Context == 0)
+                            callStack.Peek().Context = evalStack.Peek().TypeId;
                         break;
                     case Op.Untag:
                         right = evalStack.Peek();

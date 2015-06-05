@@ -93,6 +93,9 @@ namespace Ela.Runtime.ObjectModel
                     return null;
                 }
 
+                if (ret.table)
+                    ret = ((ElaFunTable)ret).GetFunction(val, ctx, contextPar);
+
                 ret = ret.CloneFast();
                 ret.Flip = Flip;
                 ret.AppliedParameters = AppliedParameters;

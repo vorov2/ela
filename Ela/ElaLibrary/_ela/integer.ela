@@ -7,7 +7,7 @@ open string number
 
 //Type
 type Integer = Integer a # private
-  deriving Absolute Principal
+  deriving Absolute Principal Numeral
 
 //Literal
 literal'i s = Integer $ bi.parse s
