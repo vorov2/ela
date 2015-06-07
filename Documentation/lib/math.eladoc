@@ -12,7 +12,7 @@ Returns the nth fibonacci number. This function infers a context automatically.
 
 #fibs
 An infinite list of fibonacci numbers (requires an explicit content to be dispatched):
->>take 10 fibs ::: Int
+>>>take 10 fibs ::: Int
 
 #choose n k
 Binomial coefficients function. This function infers a context automatically.
@@ -33,7 +33,7 @@ A list of prime numbers.
 
 #primes'all
 A lazy list of all prime numbers (requires an explicit content to be dispatched):
-take 10 primes'all ::: Int
+>>>take 10 primes'all ::: Int
 
 #pythag 12 2
 Pythagorean theorem.

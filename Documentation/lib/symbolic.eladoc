@@ -1,0 +1,60 @@
+#file symbolic.ela
+#title symbolic
+#category Ela Standard Library
+This module contains simple implementation of symbolic calculations. It also implements
+a symbolic number notation using a custom literal which allows to use symbolic numbers
+with any generic mathematical functions.
+
+=Overview
+A symbolic calculation is a calcuation that is not evaluated until a certain point but
+instead is presented as an expression tree. For example:
+>>>show $ 2s + 2s
+Thanks to some notable Ela features (such as polymorphic mathematical operators, polymorphic
+numerals and custom numerals) creation of a symbolic calculation is easy and straightforward.
+You should a special numeric literal form (with `s` postfix, e.g. `12s` or `42.42s`). All
+standard operations (including classes `Additive`, `Ring`, `Field`, `Modulo`) are supported.
+Additional a type that represents a symbolic calculation supports classes `Fractional`,
+`Transcendental`, `Numeral` and `Num` from `number` module.//br
+The current implementation of symbolic calculations doesn't support term rewriting (though
+it can be extended with it any time); instead it focuses on ability to use symbolic calculations
+seamlessly with regular generic mathematical functions (such as functions from module `math`).
+Besides mathematical operations symbolic calculations also support equality test (`Eq` class)
+and comparisons (`Ord` class). When you run a comparison or equality test a symbolic calculation
+is always automatically evaluated:
+>>>(12s * 2s + 1s) == (30s - 5s)
+Thanks to this peculiarity you can use symbolic calculations as arguments to regular mathematical
+functions and these functions would successfully evaluate:
+>>>open math
+>>>a = fib 4s
+>>>show a
+The result is, of course, can be manually evaluated:
+>>>eval a
+The same with a van der Corput sequence function:
+>>>show $ vdc 10s 12s
+When a symbolic calculation is evaluated (e.g. using `eval` function) all calculations are
+performed using `Double` data type.
+
+=Types
+#Sym
+This type represents a symbolic calculation.
+
+=Functions
+
+#literal's s
+This is a literal function which allows to create instances of a special number type used
+by symbolic calculations:
+>>a = 12s
+
+#eval exp
+This function evaluates a given symbolic expression and returns a result of evaluation:
+>>>eval $ 2s + 2s
+
+#name nm exp
+This function can give a name to a specified expression so that an expression tree would
+be visualized using this name.//br
+For example, a default behavior for expression visualization is:
+>>>b = 3s * 12s - 4s
+>>>show $ b + 12s / 3s
+However, if you mark `b` as a named expression it would work differently:
+>>>b' = name "b" b
+>>>show $ b' + 12s / 3s

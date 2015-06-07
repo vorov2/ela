@@ -55,7 +55,7 @@ namespace Ela.Compilation
 
         InvalidBuiltinClassDefinition = 323,
 
-        NoHindingSameScope = 324,
+        NoHidingSameScope = 324,
 
         InvalidQualident = 325,
 

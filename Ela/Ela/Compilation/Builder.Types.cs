@@ -13,8 +13,10 @@ namespace Ela.Compilation
         private void CompileTypes(ElaNewtype v, LabelMap map)
         {
             CompileHeaders(v);
-            CompileTypeOnly(v, map);
-            CompileDataOnly(v, map);
+            CompileTypeHeaderOnly(v, map);
+            CompileDataHeaderOnly(v, map);
+            CompileTypeBodyOnly(v, map);
+            CompileDataBodyOnly(v, map);
         }
 
         //Builds a list of attribute headers for types
@@ -41,7 +43,36 @@ namespace Ela.Compilation
         
         //This method only compiles types declared through 'type' keyword
         //and not type extensions ('data' declarations).
-        private void CompileTypeOnly(ElaNewtype nt, LabelMap map)
+        private void CompileTypeHeaderOnly(ElaNewtype nt, LabelMap map)
+        {
+            var v = nt;
+
+            while (v != null)
+            {
+                if (!v.Extends && !v.Header)
+                    CompileTypeHeader(v, map);
+
+                v = v.And;
+            }
+        }
+
+        //This method only compiles type extensions (declared through 'data').
+        private void CompileDataHeaderOnly(ElaNewtype nt, LabelMap map)
+        {
+            var v = nt;
+
+            while (v != null)
+            {
+                if (v.Extends && !v.Header)
+                    CompileTypeHeader(v, map);
+
+                v = v.And;
+            }
+        }
+
+        //This method only compiles types declared through 'type' keyword
+        //and not type extensions ('data' declarations).
+        private void CompileTypeBodyOnly(ElaNewtype nt, LabelMap map)
         {
             var v = nt;
 
@@ -55,7 +86,7 @@ namespace Ela.Compilation
         }
 
         //This method only compiles type extensions (declared through 'data').
-        private void CompileDataOnly(ElaNewtype nt, LabelMap map)
+        private void CompileDataBodyOnly(ElaNewtype nt, LabelMap map)
         {
             var v = nt;
 
@@ -69,13 +100,13 @@ namespace Ela.Compilation
         }
 
         //Main method for type compilation
-        private void CompileTypeBody(ElaNewtype v, LabelMap map)
+        private void CompileTypeHeader(ElaNewtype v, LabelMap map)
         {
             //We need to obtain typeId for a type
             var tc = -1;
             var sca = -1;
             var flags = v.Flags;
-                
+
             //A body may be null only if this is a built-in type
             if (!v.HasBody && v.Extends)
                 AddError(ElaCompilerError.ExtendsNoDefinition, v, v.Name);
@@ -84,7 +115,8 @@ namespace Ela.Compilation
                 tc = (Int32)TCF.GetTypeCode(v.Name);
                 tc = tc == 0 ? -1 : tc;
                 sca = AddVariable("$$" + v.Name, v, flags | ElaVariableFlags.ClosedType, tc);
-
+                var sv = GetVariable("$$" + v.Name, v.Line, v.Column);
+                
                 //OK, type is built-in
                 if (tc > 0)
                 {
@@ -138,20 +170,36 @@ namespace Ela.Compilation
                     cw.Emit(Op.Typeid, AddString(v.Name));
                 
                 PopVar(sca);
+                v.TypeModuleId = typeModuleId;
+                v.ScopeVar = sca;
 
-                if (v.HasBody)
-                {
-                    for (var i = 0; i < v.Constructors.Count; i++)
-                    {
-                        var c = v.Constructors[i];
-                        var cf = v.ConstructorFlags[i];
-                        cf = cf == ElaVariableFlags.None ? flags : cf|flags;
-                        CompileConstructor(v.Name, sca, c, cf, typeModuleId);
-                    }
-                }
+                //if (v.HasBody)
+                //{
+                //    for (var i = 0; i < v.Constructors.Count; i++)
+                //    {
+                //        var c = v.Constructors[i];
+                //        var cf = v.ConstructorFlags[i];
+                //        cf = cf == ElaVariableFlags.None ? flags : cf|flags;
+                //        CompileConstructor(v.Name, sca, c, cf, typeModuleId);
+                //    }
+                //}
             }
             else
                 cw.Emit(Op.Nop);
+        }
+
+        private void CompileTypeBody(ElaNewtype v, LabelMap map)
+        {
+            if (v.HasBody)
+            {
+                for (var i = 0; i < v.Constructors.Count; i++)
+                {
+                    var c = v.Constructors[i];
+                    var cf = v.ConstructorFlags[i];
+                    cf = cf == ElaVariableFlags.None ? v.Flags : cf | v.Flags;
+                    CompileConstructor(v.Name, v.ScopeVar, c, cf, v.TypeModuleId);
+                }
+            }
         }
 
         //Generic compilation logic for a constructor, compiles both functions and constants.
@@ -260,7 +308,7 @@ namespace Ela.Compilation
 
                     //First we check if a constraint is actually valid
                     if (IsInvalidConstructorParameterConstaint(jc))
-                        AddError(ElaCompilerError.InvalidConstructorParameter, juxta, FormatNode(ce), name);                    
+                        AddError(ElaCompilerError.InvalidConstructorParameter, juxta, FormatNode(ce), name);
                     else if (jc.Target.Type == ElaNodeType.NameReference)
                     {
                         //A simple direct type reference

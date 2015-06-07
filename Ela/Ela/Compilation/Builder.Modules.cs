@@ -127,8 +127,10 @@ namespace Ela.Compilation
         //Checks if a field reference is actually an exported name prefixed by a module
         //and if so emits a direct Pushexit op typeId. If this is not the case returns false
         //and the typeId gets compiled as a regular field reference.
-        private bool TryOptimizeFieldReference(ElaFieldReference p)
+        private bool TryOptimizeFieldReference(ElaFieldReference p, out ScopeVar fieldSv)
         {
+            fieldSv = default(ScopeVar);
+
             if (p.TargetObject.Type != ElaNodeType.NameReference)
                 return false;
             
@@ -139,8 +141,6 @@ namespace Ela.Compilation
             if ((sv.Flags & ElaVariableFlags.Module) != ElaVariableFlags.Module || 
                 !frame.References.TryGetValue(p.TargetObject.GetName(), out mod))
                 return false;
-
-            var fieldSv = default(ScopeVar);
 
             //We have such a reference but looks like it couldn't be obtained
             //We don't need to handle this situation here, it is already reported by a linker
