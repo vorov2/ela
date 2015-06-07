@@ -1,4 +1,6 @@
 0.13.0.0:Release:Release of Ela 0.13.0.0.
+0.12.7.4:Fix:A bug fixed - referencing a polymorphic constant through a module alias (e.g. 'number.pi' instead of just 'pi') didn't work emit context resolution and didn't compile correctly.
+0.12.7.3:Fix:A bug fixed in compiler that could cause type declarations to be compiled in an invalid order.
 0.12.7.2:Fix:A bug fixed that could cause Ela to crush when a class function was initialized with another class function directly, e.g. 'class Foo a where foo _->a' and 'instance Foo Int where foo = read'.
 0.12.7.1:Change:Now compiled for .NET 4.0.
 0.12.7.0:Release:Release of Ela 0.12.7.0.

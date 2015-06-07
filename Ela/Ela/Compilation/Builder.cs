@@ -281,16 +281,26 @@ namespace Ela.Compilation
                 case ElaNodeType.FieldReference:
                     {
                         var p = (ElaFieldReference)exp;
+                        var sv = default(ScopeVar);
 
                         //Here we check if a field reference is actually an external name
                         //prefixed by a module alias. This call is not neccessary (modules
                         //are first class) but is used as optimization.
-                        if (!TryOptimizeFieldReference(p))
+                        if (!TryOptimizeFieldReference(p, out sv))
                         {
                             CompileExpression(p.TargetObject, map, Hints.None, p);
                             cw.Emit(Op.Pushstr, AddString(p.FieldName));
                             AddLinePragma(p);
                             cw.Emit(Op.Pushfld);
+                        }
+                        else if ((sv.Flags & ElaVariableFlags.Polyadric) == ElaVariableFlags.Polyadric)
+                        {
+                            if (map.HasContext)
+                                PushVar(map.Context.Value);
+                            else
+                                cw.Emit(Op.Pushunit);
+
+                            cw.Emit(Op.Disp);
                         }
 
                         if ((hints & Hints.Left) == Hints.Left)

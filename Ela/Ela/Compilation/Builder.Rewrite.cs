@@ -165,11 +165,12 @@ namespace Ela.Compilation
                     //Unless somebody explicitly told us to compile everything in a
                     //strict manner, we need to check if we need to create some thunks here.
                     if (!options.Strict)
-                    {                        
-                        //Thunks are created if we have a single non-function binding which is recursive
-                        //or when we have more than one binding, and we 'suspect' that this one cannot
-                        //be executed in a strict manner (e.g. it references non-initialized names).
-                        if ((small && IsRecursive(b)) || (!small && !CanCompileStrict(b.Right, null)))
+                    {
+                        //Thunks are created if we have a binding which is recursive or when we
+                        //'suspect' that this one cannot be executed in a strict manner (e.g.
+                        //it references non-initialized names).
+                        //if ((small && IsRecursive(b)) || (!small && !CanCompileStrict(b.Right, null)))
+                        if (IsRecursive(b) || !CanCompileStrict(b.Right, null)) //TODO: Experimental
                         {
 #if DEBUG
                             Console.WriteLine("lazy:::" + FormatNode(b));

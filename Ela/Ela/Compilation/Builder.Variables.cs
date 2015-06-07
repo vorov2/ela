@@ -139,7 +139,7 @@ namespace Ela.Compilation
             {
                 //But for other cases hiding in the same scope is not allowed
                 CurrentScope.Locals.Remove(name);
-                AddError(ElaCompilerError.NoHindingSameScope, exp, name.TrimStart('$'));
+                AddError(ElaCompilerError.NoHidingSameScope, exp, name.TrimStart('$'));
             }
 
             CurrentScope.Locals.Add(name, new ScopeVar(flags, currentCounter, data));

@@ -86,5 +86,9 @@ namespace Ela.CodeModel
         public ElaVariableFlags Flags { get; set; }
 
         public ElaNewtype And { get; set; }
+
+        internal int TypeModuleId;
+
+        internal int ScopeVar;
     }
 }

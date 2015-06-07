@@ -1,4 +1,5 @@
 0.2.0.0:Release:Release of 0.2.0.0.
+0.1.13.9:New:A new module 'symbolic' is added.
 0.1.13.8:New:A new module 'integer' that implements an arbitrary precision integer is added.
 0.1.13.7:New:A new module 'math' with generic mathematical functions is added.
 0.1.13.6:New:A new type 'Numeral' and a corresponding literal function literal'u are added to 'number' module to support polymorphic numeric literals.

@@ -1,0 +1,199 @@
+/*
+  Module 'symbolic'.
+  Created in 2015 by Basil Voronkov
+*/
+open number generic string
+
+//"Named" type,  instances and functions; used for "named" sections
+type Named # private
+type Named = Named (String nm) (Sym val)
+  deriving Name
+
+instance Eq Named where
+  (Named _ x) == (Named _ y) = x == y
+
+instance Ord Named where
+  (Named _ x) > (Named _ y) = x > y
+  (Named _ x) < (Named _ y) = x < y
+
+instance Show Named where
+  show (Named nm _) = nm
+
+instance Format Named where
+  fmt _ = show
+
+name nm = (!!!) << Named nm
+
+//Main "Sym" type, instances and functions; used to represent symbolic calculation
+type Sym =
+  | !!! (Named x) # private
+  | !!x # private
+  | x +. y
+  | x -. y
+  | x *. y
+  | x /. y
+  | ~. x
+  | x ^. y
+  | x %%. y
+  | x %. y
+  | Tanh x
+  | E
+  | PI
+  | Sqrt x
+  | Exp x
+  | Cos x
+  | Sin x
+  | Log x
+  | LogBase x y
+  | Tan x
+  | Acos x
+  | Asin x
+  | Atan x
+  | Cosh x
+  | Sinh x
+  | Acosh x
+  | Asinh x
+  | Atanh x
+  | Round x
+  | Truncate x
+  | Ceiling x
+  | Floor x
+
+instance Eq Sym where
+  !!x == !!y = x == y
+  !!!x == !!!y = x == y
+  x == y = eval x == eval y
+
+instance Ord Sym where
+  !!x > !!y = x > y
+  !!!x > !!!y = x > y
+  x > y = eval x > eval y
+  !!x < !!y = x < y
+  !!!x < !!!y = x < y
+  x < y = eval x < eval y
+
+instance Show Sym where
+  show (!!!x) = show x
+  show (!!x) = show x
+  show (x +. y) = format "{0} + {1}" x y
+  show (x -. y) = format "{0} - {1}" x y
+  show (x *. y) = format "{0} * {1}" x y
+  show (x /. y) = format "{0} / {1}" x y
+  show (~. x) = format "-{0}" x
+  show (x ^. y) = format "{0} ** {1}" x y
+  show (x %%. y) = format "{0} `mod` {1}" x y
+  show (x %. y) = format "{0} % {1}" x y
+  show (LogBase x y) = format "logBase {0} {1}" x y
+  show (Tan x) = format "tan {0}" x
+  show (Tanh x) = format "tanh {0}" x
+  show E = "e"
+  show PI = "pi"
+  show (Sqrt x) = format "sqrt {0}" x
+  show (Exp x) = format "exp {0}" x
+  show (Cos x) = format "cos {0}" x
+  show (Sin x) = format "sin {0}" x
+  show (Log x) = format "log {0}" x
+  show (Acos x) = format "acos {0}" x
+  show (Asin x) = format "asin {0}" x
+  show (Atan x) = format "atan {0}" x
+  show (Cosh x) = format "cosh {0}" x
+  show (Sinh x) = format "sinh {0}" x
+  show (Acosh x) = format "acosh {0}" x
+  show (Asinh x) = format "asinh {0}" x
+  show (Atanh x) = format "atanh {0}" x
+  show (Round x) = format "round {0}" x
+  show (Truncate x) = format "truncate {0}" x
+  show (Floor x) = format "floor {0}" x
+  show (Ceiling x) = format "ceiling {0}" x
+
+instance Format Sym where
+  fmt _ (!!!x) = show x
+  fmt _ (!!x) = show x
+  fmt _ PI = "pi"
+  fmt _ E = "e"
+  fmt _ x = "(" ++ show x ++ ")"
+
+instance Additive Sym where
+  x + y = x +. y
+  x - y = x -. y
+  negate x = ~. x
+
+instance Ring Sym where
+  x * y = x *. y
+  x ** y = x ^. y
+
+instance Field Sym where
+  x / y = x /. y
+
+instance Modulo Sym where
+  x `mod` y = x %%. y
+  x `rem` y = x %. y
+
+instance Num Sym where
+  zero = 0s
+  one = 1s
+
+instance Numeral Sym where
+  numeral = literal's
+
+instance Transcendental Sym where
+  logBase x y = LogBase x y
+  tan x       = Tan x
+  tanh x      = Tanh x
+  e           = E
+  pi          = PI
+  sqrt x      = Sqrt x
+  exp x       = Exp x
+  cos x       = Cos x
+  sin x       = Sin x
+  log x       = Log x
+  acos x      = Acos x
+  asin x      = Asin x
+  atan x      = Atan x
+  cosh x      = Cosh x
+  sinh x      = Sinh x
+  acosh x     = Acosh x
+  asinh x     = Asinh x
+  atanh x     = Atanh x
+
+instance Fractional Sym where
+  round     = Round
+  truncate  = Truncate
+  ceiling   = Ceiling
+  floor     = Floor
+
+literal's s = !! (read s ::: Double + 0d)
+
+//Evaluation
+eval (!!!x) = eval x.val
+eval (!!x) = x
+eval (x %%. y) = eval x `mod` eval y
+eval (x %. y) = eval x `rem` eval y
+eval (x +. y) = eval x + eval y
+eval (x -. y) = eval x - eval y
+eval (x *. y) = eval x * eval y
+eval (x /. y) = eval x / eval y
+eval (~. x) = eval $ negate x
+eval (x ^. y) = eval x ** eval y
+eval (LogBase x y) = logBase (eval x) (eval y)
+eval (Tan x) = tan $ eval x
+eval (Tanh x) = tanh $ eval x
+eval E = e ::: Double
+eval PI = pi ::: Double
+eval (Sqrt x) = sqrt $ eval x
+eval (Exp x) = exp $ eval x
+eval (Cos x) = cos $ eval x
+eval (Sin x) = sin $ eval x
+eval (Log x) = log $ eval x
+eval (Acos x) = acos $ eval x
+eval (Asin x) = asin $ eval x
+eval (Atan x) = atan $ eval x
+eval (Cosh x) = cosh $ eval x
+eval (Sinh x) = sinh $ eval x
+eval (Acosh x) = acosh $ eval x
+eval (Asinh x) = asinh $ eval x
+eval (Atanh x) = atanh $ eval x
+eval (Round x) = round $ eval x
+eval (Truncate x) = truncate $ eval x
+eval (Ceiling x) = ceiling $ eval x
+eval (Floor x) = floor $ eval x

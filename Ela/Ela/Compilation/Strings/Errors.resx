@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BangPatternNotValid" xml:space="preserve">
     <value>Bang pattern {0} is not valid in this context.</value>
@@ -192,7 +192,7 @@
   <data name="MemberNotAll" xml:space="preserve">
     <value>Not all of the members for class '{0}' are declared in instance '{1}'.</value>
   </data>
-  <data name="NoHindingSameScope" xml:space="preserve">
+  <data name="NoHidingSameScope" xml:space="preserve">
     <value>A conflicting definition of '{0}'. Shadowing of names in the same lexical scope is not allowed.</value>
   </data>
   <data name="PatternsTooFew" xml:space="preserve">
