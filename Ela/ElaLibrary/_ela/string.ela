@@ -1,6 +1,6 @@
 /* 
   Module string
-  Created in 2012 by Basil Voronkov
+  Created in 2012-2015 by Basil Voronkov
 */
 import libString#elalib@str
 import lang
