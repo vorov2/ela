@@ -1,4 +1,6 @@
 0.2.0.0:Release:Release of 0.2.0.0.
+0.1.13.13:New:A new 'collections.stack' module was added.
+0.1.13.12:New:Functions 'put' and 'putLn' added to 'io' module.
 0.1.13.11:New:File IO is added to the 'io' module (functions 'openFile', 'closeFile', 'readLine', 'readLines', 'writeStr', etc.).
 0.1.13.10:New:New functions 'ref', 'valueof', 'mutate' and ':=' were added to 'io' module to support stateful programming inside 'IO' monad.
 0.1.13.9:New:A new module 'symbolic' is added.

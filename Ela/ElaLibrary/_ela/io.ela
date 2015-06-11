@@ -29,6 +29,10 @@ execIO (IO a)
 mkIO a = IO a
 
 //Console IO
+put s = mkIO (\_ -> write $ show s)
+
+putLn s = putStrLn (show s ++ "\r\n")
+
 putStr s = mkIO (\_ -> write s)
 
 putStrLn s = putStr (s ++ "\r\n")
