@@ -3,6 +3,7 @@
     <folder name="collections">
       <doc name="alist" file="lib\collections\alist.htm"/>
       <doc name="queue" file="lib\collections\queue.htm"/>
+      <doc name="stack" file="lib\collections\stack.htm"/>
     </folder>
     <folder name="unsafe">
       <doc name="cell" file="lib\unsafe\cell.htm" />

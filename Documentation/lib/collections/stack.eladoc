@@ -1,0 +1,37 @@
+#file stack.ela
+#title collections.stack
+#category Ela Standard Library
+This module contains an implementation of an immutable stack.
+
+=Stack
+
+#Stack
+An immutable stack that implements LIFO (last-in-first-out) container. This implementation of
+stack is based on a linked list.//br
+This data type doesn't have any public constructors.//br
+Stack provides an instance for `Seq` class and can be treated as a linked list in many cases and
+even deconstructed using list and head/tail pattern. Also stacks can be indexed. In order to 
+construct stacks from linked lists (and vice versa) one can functions `toList` and `fromList` from
+`ListLike` class that is implemented by `Stack`.
+
+==Construction
+
+#empty
+This is a constant that returns an empty stack. This constant requires a qualified access, e.g. `stack.empty`.
+
+==Main functions
+
+#push e st
+Appends an elements to the given stack and returns a new stack:
+>>>st = fromList [1..10] ::: Stack
+>>>push 22 st
+
+#pop qu
+Removes a last element from a stack and returns a new stack:
+>>>st' = fromList ['a','b','c'] ::: Stack
+>>>pop st'
+
+#peek st
+Returns a value from the top of a stack without removing it:
+>>>sts = fromList ["foo","bar"] ::: Stack
+>>>peek sts

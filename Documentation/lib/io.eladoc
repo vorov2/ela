@@ -31,6 +31,12 @@ This action writes a given string and a new line to a standard output.
 #readStr
 This action reads a string from a standard output.
 
+#put a
+This action formats a given value to a string using `show` function and writes it to a standard output.
+
+#putStrLn a
+This action formats a given value to a string using `show` function and writes it and a new line to a standard output.
+
 #readAny
 This action reads a string from a standard output and converts it to a specified type using `gread` function.
 >>do
