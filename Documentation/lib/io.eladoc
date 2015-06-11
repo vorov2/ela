@@ -1,8 +1,9 @@
 #file io.ela
 #title io
 #category Ela Standard Library
-Module IO contains an implementation of IO monad and several IO related functions implemented
-in monadic style. This module is in an experimental state.
+Module IO contains an implementation of IO monad, IO related functions implemented
+in monadic style as well as support for console IO, file IO and state mutation in monadic style
+through IO monad.
 
 =IO
 
@@ -43,3 +44,83 @@ This action reads a string from a standard output and converts it to a specified
 >>    else if rec < 2 then "You're too heavy!"
 >>    else "You're OK...")
 >>  putStr x
+
+=File IO
+#FileMode
+Specifies a mode in which file should be opened, e.g.:
+  * `AppendMode` - append data to the end of the existing file
+  * `CreateMode` - create a new (or truncate a file if it already exists)
+  * `OpenMode` - open an already existing file
+  * `OpenCreateMode` - open an alreadt existing file or create a new one if a file doesn't exist
+  * `TruncateMode` - truncate an existing file to zero bytes
+
+#FileAccessMode
+Specifies how to share the access to the file with other programs.
+  * `ReadMode` - only reading is allowed
+  * `WriteMode` - only writing is allowed
+  * `ReadWriteMode` - both reading and writing is allowed
+
+#openFile fn mode acc
+Opens a file `fn` using the mode `mode` (specified by an instance of `FileMode` type) and access mode `acc`
+(specified by an instance of `FileAccessMode` type).//br
+This function returns a file handle that should be closed using `closeFile` function.
+
+#readFile fn mode
+This function is defined like so:
+>>readFile fn mode = openFile fn mode ReadMode
+
+#writeFile fn mode
+This function is defined like so:
+>>writeFile fn Mode = openFile fn mode WriteMode
+
+#closeFile fh
+Closes a file obtained by `openFile` function:
+>>do
+>>  fh <- openFile "c:\\test.txt" OpenMode ReadMode
+>>  closeFile fh
+
+#readLine fh
+Reads a line from a file opened by `openFile` function:
+>>do
+>>  fh <- openFile "c:\\test.txt" OpenMode ReadMode
+>>  line <- readLine fh
+>>  closeFile fh
+
+#readLines fh
+Reads all lines from a file opened by `openFile` function:
+>>do
+>>  fh <- openFile "c:\\test.txt" OpenMode ReadMode
+>>  lines <- readLines fh
+>>  closeFile fh
+
+#writeStr str fh
+Writes a string to a file opened by `openFile` function:
+>>do
+>>  fh <- openFile "c:\\test.txt" OpenMode WriteMode
+>>  writeStr "Hello, world!" fh
+>>  closeFile fh
+
+=Stateful programming
+
+#ref x
+Creates a reference cell (like in OCaml language) that can only be operated within the `IO` monad:
+>>do
+>>  x <- ref 12
+
+#valueof x
+Obtains a value from a reference cell, created using `ref`:
+>>do
+>>  x <- ref 12
+>>  y <- valueof x
+
+#mutate value rf
+Mutates a reference cell `rf` by changing its value to `value`:
+>>do
+>>  x <- ref 12
+>>  y <- mutate 14 y
+
+#:= rf value
+An alias for `mutate` function with reverse argument order:
+>>do
+>>  x <- ref 12
+>>  y := 14
