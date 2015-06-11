@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Ela.Parsing;
+using System.Collections.Generic;
 
 namespace Ela.CodeModel
 {
@@ -19,6 +20,11 @@ namespace Ela.CodeModel
         internal override bool Safe()
         {
             return Expression.Safe();
+        }
+
+        internal override IEnumerable<String> ExtractNames()
+        {
+            return Expression.ExtractNames();
         }
 
         internal override void ToString(StringBuilder sb, int ident)

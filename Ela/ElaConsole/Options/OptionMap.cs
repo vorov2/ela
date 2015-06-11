@@ -4,25 +4,25 @@ using System.Reflection;
 
 namespace ElaConsole.Options
 {
-	internal static class OptionMap<T>
-	{
-		#region Construction
-		private const string DEF_OPT = "Default";
-		private static Dictionary<String,PropertyInfo> properties;
+    internal static class OptionMap<T>
+    {
+        #region Construction
+        private const string DEF_OPT = "Default";
+        private static Dictionary<String,PropertyInfo> properties;
 
-		static OptionMap()
-		{
-			properties = new Dictionary<String,PropertyInfo>();
-			BuildMap();
-		}
-		#endregion
+        static OptionMap()
+        {
+            properties = new Dictionary<String,PropertyInfo>();
+            BuildMap();
+        }
+        #endregion
 
 
-		#region Methods
-		internal static void SetOption(string key, string value, T cls)
-		{
-			key = key.Trim();
-			var pi = default(PropertyInfo);
+        #region Methods
+        internal static void SetOption(string key, string value, T cls)
+        {
+            key = key.Trim();
+            var pi = default(PropertyInfo);
 
             //This is an argument
             if (key.Length > 0 && key[0] == '-' && properties.TryGetValue("arg", out pi) &&
@@ -54,40 +54,40 @@ namespace ElaConsole.Options
                     pi.SetValue(cls, obj, null);
                 }
             }
-		}
+        }
 
 
-		private static object ChangeType(string value, Type type)
-		{
-			var ret = default(Object);
+        private static object ChangeType(string value, Type type)
+        {
+            var ret = default(Object);
 
-			if (type.IsEnum)
-				ret = Enum.Parse(type, value.Trim(), true);
-			else
-				ret = Convert.ChangeType(value, type);
+            if (type.IsEnum)
+                ret = Enum.Parse(type, value.Trim(), true);
+            else
+                ret = Convert.ChangeType(value, type);
 
-			return ret;
-		}
+            return ret;
+        }
 
 
-		private static void BuildMap()
-		{
-			foreach (var pi in typeof(T).GetProperties())
-			{
-				var attr = (CommandLineOptionAttribute)Attribute.GetCustomAttribute(
-					pi, typeof(CommandLineOptionAttribute));
+        private static void BuildMap()
+        {
+            foreach (var pi in typeof(T).GetProperties())
+            {
+                var attr = (CommandLineOptionAttribute)Attribute.GetCustomAttribute(
+                    pi, typeof(CommandLineOptionAttribute));
 
-				if (attr != null)
-				{
-					if (!String.IsNullOrEmpty(attr.Key))
-						properties.Add(attr.Key, pi);
-					if (!String.IsNullOrEmpty(attr.ShortKey))
-						properties.Add(attr.ShortKey, pi);
-					if (attr.DefaultOption)
-						properties.Add(DEF_OPT, pi);
-				}
-			}
-		}
-		#endregion
-	}
+                if (attr != null)
+                {
+                    if (!String.IsNullOrEmpty(attr.Key))
+                        properties.Add(attr.Key, pi);
+                    if (!String.IsNullOrEmpty(attr.ShortKey))
+                        properties.Add(attr.ShortKey, pi);
+                    if (attr.DefaultOption)
+                        properties.Add(DEF_OPT, pi);
+                }
+            }
+        }
+        #endregion
+    }
 }

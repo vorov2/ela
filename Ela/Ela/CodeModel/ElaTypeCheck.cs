@@ -37,6 +37,11 @@ namespace Ela.CodeModel
             }
         }
 
+        internal override IEnumerable<String> ExtractNames()
+        {
+            return Expression.ExtractNames();
+        }
+
         public ElaExpression Expression { get; set; }
 
         private List<TraitInfo> _traits;

@@ -5,17 +5,17 @@ using Ela.Parsing;
 
 namespace Ela.CodeModel
 {
-	public sealed class ElaComprehension : ElaExpression
-	{
-		internal ElaComprehension(Token tok) : base(tok, ElaNodeType.Comprehension)
-		{
+    public sealed class ElaComprehension : ElaExpression
+    {
+        internal ElaComprehension(Token tok) : base(tok, ElaNodeType.Comprehension)
+        {
 
-		}
+        }
         
-		public ElaComprehension() : base(null, ElaNodeType.Comprehension)
-		{
+        public ElaComprehension() : base(null, ElaNodeType.Comprehension)
+        {
 
-		}
+        }
 
         internal override bool Safe()
         {
@@ -23,18 +23,23 @@ namespace Ela.CodeModel
         }
 
         internal override void ToString(StringBuilder sb, int ident)
-		{
-			sb.Append('[');
+        {
+            sb.Append('[');
 
-			if (Lazy)
-				sb.Append("& ");
+            if (Lazy)
+                sb.Append("& ");
 
-			Generator.ToString(sb, 0);
-			sb.Append(']');
-		}
+            Generator.ToString(sb, 0);
+            sb.Append(']');
+        }
 
-		public ElaGenerator Generator { get; set; }
+        internal override IEnumerable<String> ExtractNames()
+        {
+            return Generator.ExtractNames();
+        }
 
-		public bool Lazy { get; set; }
-	}
+        public ElaGenerator Generator { get; set; }
+
+        public bool Lazy { get; set; }
+    }
 }

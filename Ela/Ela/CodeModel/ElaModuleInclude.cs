@@ -5,51 +5,51 @@ using Ela.Parsing;
 
 namespace Ela.CodeModel
 {
-	public sealed class ElaModuleInclude : ElaExpression
-	{
-		internal ElaModuleInclude(Token tok) : base(tok, ElaNodeType.ModuleInclude)
-		{
-			Path = new List<String>();
-		}
+    public sealed class ElaModuleInclude : ElaExpression
+    {
+        internal ElaModuleInclude(Token tok) : base(tok, ElaNodeType.ModuleInclude)
+        {
+            Path = new List<String>();
+        }
         
-		public ElaModuleInclude() : this(null)
-		{
-			
-		}
-		
+        public ElaModuleInclude() : this(null)
+        {
+            
+        }
+        
         internal override bool Safe()
         {
             return true;
         }
 
-		internal override void ToString(StringBuilder sb, int indent)
-		{
+        internal override void ToString(StringBuilder sb, int indent)
+        {
             if (RequireQualified)
                 sb.Append("import ");
             else
                 sb.Append("open ");
 
-			for (var i = 0; i < Path.Count; i++)
-			{
-				if (i > 0)
-					sb.Append('.');
+            for (var i = 0; i < Path.Count; i++)
+            {
+                if (i > 0)
+                    sb.Append('.');
 
-				sb.Append(Path[i]);
-			}
+                sb.Append(Path[i]);
+            }
 
-			sb.Append(Name);
+            sb.Append(Name);
 
-			if (!String.IsNullOrEmpty(Alias) && Alias != Name)
-			{
-				sb.Append('@');
-				sb.Append(Alias);
-			}
+            if (!String.IsNullOrEmpty(Alias) && Alias != Name)
+            {
+                sb.Append('@');
+                sb.Append(Alias);
+            }
 
-			if (!String.IsNullOrEmpty(DllName))
-			{
-				sb.Append('#');
-				sb.Append(DllName);
-			}
+            if (!String.IsNullOrEmpty(DllName))
+            {
+                sb.Append('#');
+                sb.Append(DllName);
+            }
 
             if (HasImportList)
             {
@@ -66,33 +66,33 @@ namespace Ela.CodeModel
 
                 sb.Append(")");
             }
-		}
+        }
 
-		public string Name { get; set; }
+        public string Name { get; set; }
 
-		public string Alias { get; set; }
+        public string Alias { get; set; }
 
-		public string DllName { get; set; }
+        public string DllName { get; set; }
 
         public bool RequireQualified { get; set; }
 
-		public List<String> Path { get; private set; }
+        public List<String> Path { get; private set; }
 
-		public bool HasImportList
-		{
-			get { return _importList != null; }
-		}
+        public bool HasImportList
+        {
+            get { return _importList != null; }
+        }
 
-		private List<ElaImportedVariable> _importList;
-		public List<ElaImportedVariable> ImportList
-		{
-			get
-			{
-				if (_importList == null)
-					_importList = new List<ElaImportedVariable>();
+        private List<ElaImportedVariable> _importList;
+        public List<ElaImportedVariable> ImportList
+        {
+            get
+            {
+                if (_importList == null)
+                    _importList = new List<ElaImportedVariable>();
 
-				return _importList;
-			}
-		}
-	}
+                return _importList;
+            }
+        }
+    }
 }

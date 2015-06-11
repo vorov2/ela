@@ -44,6 +44,12 @@ namespace Ela.CodeModel
 
             return true;
         }
+
+        internal override System.Collections.Generic.IEnumerable<string> ExtractNames()
+        {
+            if (Value.Postfix != '\0')
+                yield return "$literal";
+        }
         
         public ElaLiteralValue Value { get; set; }
     }

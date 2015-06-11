@@ -51,13 +51,13 @@ namespace Ela.Library.General
             Add<String,FileWrapper,ElaUnit>("writeString", WriteString);
             Add<FileWrapper,String>("readLine", ReadLine);
 
-            Add<ElaFunction,String,String>("readLines", ReadLines);
+            Add<FileWrapper,String>("readLines", ReadLines);
             Add<String,ElaUnit>("truncateFile", TruncateFile);
             Add<String,String,ElaUnit>("writeLine", WriteLine);
             Add<String,String,ElaUnit>("writeText", WriteText);
         }
 
-        public FileWrapper OpenFile(string file, string mode, string acc)
+        public FileWrapper OpenFile(string file, string acc, string mode)
         {
             var fm = mode == "AppendMode" ? FileMode.Append :
                 mode == "CreateMode" ? FileMode.Create :
@@ -91,18 +91,10 @@ namespace Ela.Library.General
             return sr.ReadLine() ?? String.Empty;
         }
 
-        public string ReadLines(ElaFunction fun, string file)
+        public string ReadLines(FileWrapper fs)
         {
-            using (var sr = File.OpenText(file))
-            {
-                var line = String.Empty;
-                var sb = new StringBuilder();
-
-                while ((line = sr.ReadLine()) != null)
-                    sb.AppendLine((String)fun.Call(new ElaValue(line)).AsObject());
-
-                return sb.ToString() ?? String.Empty;
-            }
+            var sr = new StreamReader(fs.Stream);
+            return sr.ReadToEnd() ?? String.Empty;
         }
 
         public ElaUnit TruncateFile(string file)

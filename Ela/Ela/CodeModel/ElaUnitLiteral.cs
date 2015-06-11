@@ -4,15 +4,15 @@ using Ela.Parsing;
 
 namespace Ela.CodeModel
 {
-	public sealed class ElaUnitLiteral : ElaExpression
-	{
-		internal ElaUnitLiteral(Token tok) : base(tok, ElaNodeType.UnitLiteral)
-		{
-			
-		}
+    public sealed class ElaUnitLiteral : ElaExpression
+    {
+        internal ElaUnitLiteral(Token tok) : base(tok, ElaNodeType.UnitLiteral)
+        {
+            
+        }
 
-		public ElaUnitLiteral() : this(null)
-		{
+        public ElaUnitLiteral() : this(null)
+        {
 
         }
 
@@ -27,8 +27,8 @@ namespace Ela.CodeModel
         }
 
         internal override void ToString(StringBuilder sb, int ident)
-		{
-			sb.Append("()");
-		}
-	}
+        {
+            sb.Append("()");
+        }
+    }
 }

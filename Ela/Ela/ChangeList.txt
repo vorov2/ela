@@ -1,4 +1,7 @@
 0.13.0.0:Release:Release of Ela 0.13.0.0.
+0.12.7.7:Fix:Ela could fail with internal compiler error when a module specified through 'open' or 'include' directive couldn't be found.
+0.12.7.6:Fix:A bug fixed in Ela compiler that could cause a last expression in the form '_ = exp' not to be compiled correctly and result in a VM crush.
+0.12.7.5:Fix:Ela rewriting mechanism in compiler is now more effecient and accounts for all of the cases when an expression should be either compiled later than other or made lazy.
 0.12.7.4:Fix:A bug fixed - referencing a polymorphic constant through a module alias (e.g. 'number.pi' instead of just 'pi') didn't work emit context resolution and didn't compile correctly.
 0.12.7.3:Fix:A bug fixed in compiler that could cause type declarations to be compiled in an invalid order.
 0.12.7.2:Fix:A bug fixed that could cause Ela to crush when a class function was initialized with another class function directly, e.g. 'class Foo a where foo _->a' and 'instance Foo Int where foo = read'.

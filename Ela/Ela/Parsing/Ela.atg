@@ -1456,7 +1456,7 @@ PRODUCTIONS
         (
             (. scanner.InjectBlock(); .)
             DoBlockStmt<ref eqt> (. if (RequireEndBlock()) .) EndBlock
-            {	            
+            {
                 (. scanner.InjectBlock(); .)
                 DoBlockStmt<ref eqt> (. if (RequireEndBlock()) .) EndBlock
             }
@@ -1465,7 +1465,7 @@ PRODUCTIONS
         (. if (!skip) .) EndBlock.
         
     DoBlockStmt<ref ElaExpression eqt> =
-        (.			
+        (.
             var cexp1 = default(ElaExpression);
             var cexp2 = default(ElaExpression);
         .)

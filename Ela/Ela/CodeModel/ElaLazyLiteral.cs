@@ -4,15 +4,15 @@ using Ela.Parsing;
 
 namespace Ela.CodeModel
 {
-	public sealed class ElaLazyLiteral : ElaExpression
-	{
-		internal ElaLazyLiteral(Token tok) : base(tok, ElaNodeType.LazyLiteral)
-		{
+    public sealed class ElaLazyLiteral : ElaExpression
+    {
+        internal ElaLazyLiteral(Token tok) : base(tok, ElaNodeType.LazyLiteral)
+        {
 
-		}
+        }
         
-		public ElaLazyLiteral() : base(ElaNodeType.LazyLiteral)
-		{
+        public ElaLazyLiteral() : base(ElaNodeType.LazyLiteral)
+        {
 
         }
 
@@ -22,11 +22,11 @@ namespace Ela.CodeModel
         }
 
         internal override void ToString(StringBuilder sb, int ident)
-		{
-			sb.Append("(& ");
+        {
+            sb.Append("(& ");
             Expression.ToString(sb, 0);
-			sb.Append(')');
-		}
+            sb.Append(')');
+        }
 
         internal override bool IsIrrefutable()
         {
@@ -34,5 +34,5 @@ namespace Ela.CodeModel
         }
 
         public ElaExpression Expression { get; set; }
-	}
+    }
 }

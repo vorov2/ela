@@ -130,8 +130,8 @@ type StringBuilder = SB sb s # private
 a +> b = SB (force a) (toString <| force b)
 
 instance StringLike StringBuilder where
-  toString sb = lang.asString sb
-  fromString s = SB "" (force s)
+  toString !sb = lang.asString sb
+  fromString !s = SB "" (force s)
 
 instance Eq StringBuilder where
   (SB a b) == (SB c d) = 
@@ -495,108 +495,108 @@ instance IntLike Int where
   fromInt = id
 
 instance IntLike Long where
-  toInt = lang.asInt
-  fromInt = lang.asLong
+  toInt !x = lang.asInt x
+  fromInt !x = lang.asLong x
 
 instance IntLike Single where
-  toInt = lang.asInt
-  fromInt = lang.asSingle
+  toInt !x = lang.asInt x
+  fromInt !x = lang.asSingle x
 
 instance IntLike Double where
-  toInt = lang.asInt
-  fromInt = lang.asDouble
+  toInt !x = lang.asInt x
+  fromInt !x = lang.asDouble x
 
 instance IntLike Char where
-  toInt = lang.asInt
-  fromInt = lang.asChar
+  toInt !x = lang.asInt x
+  fromInt !x = lang.asChar x
 
 instance IntLike Bool where
-  toInt = lang.asInt
-  fromInt = lang.asBool
+  toInt !x = lang.asInt x
+  fromInt !x = lang.asBool x
 
 instance LongLike Long where
   toLong = id
   fromLong = id
 
 instance LongLike Int where
-  toLong = lang.asLong
-  fromLong = lang.asInt
+  toLong !x = lang.asLong x
+  fromLong !x = lang.asInt x
 
 instance LongLike Single where
-  toLong = lang.asLong
-  fromLong = lang.asSingle
+  toLong !x = lang.asLong x
+  fromLong !x = lang.asSingle x
 
 instance LongLike Double where
-  toLong = lang.asLong
-  fromLong = lang.asDouble
+  toLong !x = lang.asLong x
+  fromLong !x = lang.asDouble x
 
 instance LongLike Char where
-  toLong = lang.asLong
-  fromLong = lang.asChar
+  toLong !x = lang.asLong x
+  fromLong !x = lang.asChar x
 
 instance LongLike Bool where
-  toLong = lang.asLong
-  fromLong = lang.asBool
+  toLong !x = lang.asLong x
+  fromLong !x = lang.asBool x
 
 instance SingleLike Single where
   toSingle = id
   fromSingle = id
 
 instance SingleLike Int where
-  toSingle = lang.asSingle
-  fromSingle = lang.asInt
+  toSingle !x = lang.asSingle x
+  fromSingle !x = lang.asInt x
 
 instance SingleLike Double where
-  toSingle = lang.asSingle
-  fromSingle = lang.asDouble
+  toSingle !x = lang.asSingle x
+  fromSingle !x = lang.asDouble x
 
 instance SingleLike Long where
-  toSingle = lang.asSingle
-  fromSingle = lang.asLong
+  toSingle !x = lang.asSingle x
+  fromSingle !x = lang.asLong x
 
 instance DoubleLike Double where
   toDouble = id
   fromDouble = id
 
 instance DoubleLike Int where
-  toDouble = lang.asDouble
-  fromDouble = lang.asInt
+  toDouble !x = lang.asDouble x
+  fromDouble !x = lang.asInt x
 
 instance DoubleLike Single where
-  toDouble = lang.asDouble
-  fromDouble = lang.asSingle
+  toDouble !x = lang.asDouble x
+  fromDouble !x = lang.asSingle x
 
 instance DoubleLike Long where
-  toDouble = lang.asDouble
-  fromDouble = lang.asLong
+  toDouble !x = lang.asDouble x
+  fromDouble !x = lang.asLong x
 
 instance CharLike Char where
   toChar = id
   fromChar = id
 
 instance CharLike Int where
-  toChar = lang.asChar
-  fromChar = lang.asChar
+  toChar !x = lang.asChar x
+  fromChar !x = lang.asChar x
 
 instance BoolLike Bool where
   toBool = id
   fromBool = id
   
 instance BoolLike Int where
-  toBool = lang.asBool
-  fromBool = lang.asInt
+  toBool !x = lang.asBool x
+  fromBool !x = lang.asInt x
 
 instance BoolLike Long where
-  toBool = lang.asBool
-  fromBool = lang.asLong
+  toBool !x = lang.asBool x
+  fromBool x = lang.asLong x
 
 instance StringLike String where
   toString = id
   fromString = id
 
 instance StringLike Char where
-  toString = lang.asString
-  fromString = lang.asChar
+  toString !x = lang.asString x
+  fromString !x = lang.asChar x
 
 /* Misc */
 force = __internal force

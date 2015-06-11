@@ -5,12 +5,12 @@ using Ela.Parsing;
 
 namespace Ela.CodeModel
 {
-	public sealed class ElaEquationSet : ElaExpression
-	{
-		public ElaEquationSet() : base(null, ElaNodeType.EquationSet)
-		{
+    public sealed class ElaEquationSet : ElaExpression
+    {
+        public ElaEquationSet() : base(null, ElaNodeType.EquationSet)
+        {
             Equations = new List<ElaEquation>();
-		}
+        }
 
         internal override bool Safe()
         {
@@ -18,7 +18,7 @@ namespace Ela.CodeModel
         }
 
         internal override void ToString(StringBuilder sb, int indent)
-		{
+        {
             var c = 0;
 
             foreach (var e in Equations)
@@ -28,8 +28,15 @@ namespace Ela.CodeModel
 
                 e.ToString(sb, indent, c == 1);
             }
-		}
-		
-		public List<ElaEquation> Equations { get; private set; }
-	}
+        }
+
+        internal override IEnumerable<String> ExtractNames()
+        {
+            foreach (var e in Equations)
+                foreach (var n in e.ExtractNames())
+                    yield return n;
+        }
+        
+        public List<ElaEquation> Equations { get; private set; }
+    }
 }

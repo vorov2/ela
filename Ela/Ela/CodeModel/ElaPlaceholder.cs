@@ -4,17 +4,17 @@ using Ela.Parsing;
 
 namespace Ela.CodeModel
 {
-	public sealed class ElaPlaceholder : ElaExpression
-	{
-		internal ElaPlaceholder(Token tok) : base(tok, ElaNodeType.Placeholder)
-		{
-			
-		}
+    public sealed class ElaPlaceholder : ElaExpression
+    {
+        internal ElaPlaceholder(Token tok) : base(tok, ElaNodeType.Placeholder)
+        {
+            
+        }
 
-		public ElaPlaceholder() : this(null)
-		{
-			
-		}
+        public ElaPlaceholder() : this(null)
+        {
+            
+        }
 
         internal override bool Safe()
         {
@@ -22,13 +22,13 @@ namespace Ela.CodeModel
         }
 
         internal override void ToString(StringBuilder sb, int ident)
-		{
-			sb.Append('_');
-		}
+        {
+            sb.Append('_');
+        }
 
         internal override bool IsIrrefutable()
         {
             return true;
         }
-	}
+    }
 }

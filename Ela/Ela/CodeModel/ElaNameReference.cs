@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Ela.Parsing;
+using System.Collections.Generic;
 
 namespace Ela.CodeModel
 {
@@ -14,6 +15,11 @@ namespace Ela.CodeModel
         public ElaNameReference() : this(null)
         {
             
+        }
+
+        internal override IEnumerable<String> ExtractNames()
+        {
+            yield return Name;
         }
         
         internal override string GetName()

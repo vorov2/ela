@@ -222,21 +222,29 @@ namespace Ela.Linking
             foreach (var id in frame.InternalInstances)
             {
                 var typeModule = Assembly.GetModule(id.TypeModuleId == -1 ? hdl : frame.HandleMap[id.TypeModuleId]);
-                var typeCode = typeModule.InternalTypes[id.Type];
 
-                var classModule = Assembly.GetModule(id.ClassModuleId == -1 ? hdl : frame.HandleMap[id.ClassModuleId]);
-                var classCode = (Int64)classModule.InternalClasses[id.Class].Code;
-
-                var lo = (Int64)typeCode << 32;
-                long instanceCode = classCode | lo;
-
-                if (Assembly.Instances.ContainsKey(instanceCode))
+                if (typeModule != null)
                 {
-                    if (!reload)
-                        AddError(ElaLinkerError.InstanceAlreadyExists, frame.File, id.Line, id.Column, id.Class, id.Type);
+                    var typeCode = typeModule.InternalTypes[id.Type];
+
+                    var classModule = Assembly.GetModule(id.ClassModuleId == -1 ? hdl : frame.HandleMap[id.ClassModuleId]);
+
+                    if (classModule != null)
+                    {
+                        var classCode = (Int64)classModule.InternalClasses[id.Class].Code;
+
+                        var lo = (Int64)typeCode << 32;
+                        long instanceCode = classCode | lo;
+
+                        if (Assembly.Instances.ContainsKey(instanceCode))
+                        {
+                            if (!reload)
+                                AddError(ElaLinkerError.InstanceAlreadyExists, frame.File, id.Line, id.Column, id.Class, id.Type);
+                        }
+                        else
+                            Assembly.Instances.Add(instanceCode, 0);
+                    }
                 }
-                else
-                    Assembly.Instances.Add(instanceCode, 0);
             }
         }
 

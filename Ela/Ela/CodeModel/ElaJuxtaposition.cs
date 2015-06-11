@@ -5,24 +5,24 @@ using Ela.Parsing;
 
 namespace Ela.CodeModel
 {
-	public sealed class ElaJuxtaposition : ElaExpression
-	{
-		private static readonly char[] opChars = new char[] { '!', '%', '&', '*', '+', '-', '.', ':', '/', '\\', '<', '=', '>', '?', '@', '^', '|', '~', '"' };
+    public sealed class ElaJuxtaposition : ElaExpression
+    {
+        private static readonly char[] opChars = new char[] { '!', '%', '&', '*', '+', '-', '.', ':', '$', '/', '\\', '<', '=', '>', '?', '@', '^', '|', '~', '"' };
 
-		internal ElaJuxtaposition(Token tok) : base(tok, ElaNodeType.Juxtaposition)
-		{
-			Parameters = new List<ElaExpression>();
-		}
+        internal ElaJuxtaposition(Token tok) : base(tok, ElaNodeType.Juxtaposition)
+        {
+            Parameters = new List<ElaExpression>();
+        }
         
-		public ElaJuxtaposition() : this(null)
-		{
-			
-		}
-		
-		internal override string GetName()
-		{
-			return Target.GetName();
-		}
+        public ElaJuxtaposition() : this(null)
+        {
+            
+        }
+        
+        internal override string GetName()
+        {
+            return Target.GetName();
+        }
         
         internal override bool Safe()
         {
@@ -36,27 +36,27 @@ namespace Ela.CodeModel
         }
 
         internal override void ToString(StringBuilder sb, int ident)
-		{
-			if (Target.Type == ElaNodeType.NameReference && Target.GetName().IndexOfAny(opChars) != -1 &&
-				Parameters.Count == 2)
-			{
+        {
+            if (Target.Type == ElaNodeType.NameReference && Target.GetName().IndexOfAny(opChars) != -1 &&
+                Parameters.Count == 2)
+            {
                 Format.PutInBraces(Parameters[0], sb);
-				sb.Append(' ');
-				sb.Append(Target.GetName());
-				sb.Append(' ');
+                sb.Append(' ');
+                sb.Append(Target.GetName());
+                sb.Append(' ');
                 Format.PutInBraces(Parameters[1], sb);
-			}
-			else
-			{
-				Format.PutInBraces(Target, sb);
+            }
+            else
+            {
+                Format.PutInBraces(Target, sb);
 
-				foreach (var p in Parameters)
-				{
-					sb.Append(' ');
-					Format.PutInBraces(p, sb);
-				}
-			}
-		}
+                foreach (var p in Parameters)
+                {
+                    sb.Append(' ');
+                    Format.PutInBraces(p, sb);
+                }
+            }
+        }
 
         internal override bool CanFollow(ElaExpression exp)
         {
@@ -79,13 +79,24 @@ namespace Ela.CodeModel
 
             return true;
         }
-		
+
+        internal override IEnumerable<String> ExtractNames()
+        {
+            if (Target != null)
+                foreach (var n in Target.ExtractNames())
+                    yield return n;
+
+            foreach (var e in Parameters)
+                foreach (var n in e.ExtractNames())
+                    yield return n;
+        }
+        
         public ElaExpression Target { get; set; }
 
-		public List<ElaExpression> Parameters { get; set; }
+        public List<ElaExpression> Parameters { get; set; }
 
-		public bool FlipParameters { get; set; }
+        public bool FlipParameters { get; set; }
 
         internal bool Spec;
-	}
+    }
 }

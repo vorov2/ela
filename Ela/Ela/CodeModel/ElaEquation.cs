@@ -5,23 +5,23 @@ using Ela.Parsing;
 
 namespace Ela.CodeModel
 {
-	public class ElaEquation : ElaExpression, IEnumerable<ElaEquation>
-	{
+    public class ElaEquation : ElaExpression, IEnumerable<ElaEquation>
+    {
         internal ElaEquation(Token tok, ElaNodeType type) : base(tok, type)
-		{
-			
-		}
+        {
+            
+        }
 
 
-		internal ElaEquation(Token tok) : base(tok, ElaNodeType.Equation)
-		{
-			
-		}
+        internal ElaEquation(Token tok) : base(tok, ElaNodeType.Equation)
+        {
+            
+        }
         
-		public ElaEquation() : this(null)
-		{
-			
-		}
+        public ElaEquation() : this(null)
+        {
+            
+        }
 
         internal override bool Safe()
         {
@@ -58,9 +58,9 @@ namespace Ela.CodeModel
         }
 
         internal override void ToString(StringBuilder sb, int indent)
-		{
+        {
             ToString(sb, indent, false);
-		}
+        }
 
         internal bool IsFunction()
         {
@@ -96,6 +96,20 @@ namespace Ela.CodeModel
         public ElaExpression Right { get; set; }
 
         public ElaEquation Next { get; set; }
+
+        internal override IEnumerable<String> ExtractNames()
+        {
+            foreach (var n in Left.ExtractNames())
+                yield return n;
+
+            if (Right != null)
+                foreach (var n in Right.ExtractNames())
+                    yield return n;
+
+            if (Next != null)
+                foreach (var n in Next.ExtractNames())
+                    yield return n;
+        }
 
         public IEnumerator<ElaEquation> GetEnumerator()
         {
