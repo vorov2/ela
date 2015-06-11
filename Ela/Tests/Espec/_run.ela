@@ -1,6 +1,6 @@
 open espec 
 open basic
-open monads io
+open monad io
 
 res = []
   |> addTests basic
