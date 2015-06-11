@@ -185,15 +185,21 @@
   <ItemGroup>
     <None Include="_ela\bench.ela" />
     <None Include="_ela\core.ela" />
+    <None Include="_ela\core.elaobj" />
     <None Include="_ela\espec.ela" />
     <None Include="_ela\generic.ela" />
+    <None Include="_ela\generic.elaobj" />
     <None Include="_ela\integer.ela" />
     <None Include="_ela\io.ela" />
     <None Include="_ela\list.ela" />
+    <None Include="_ela\list.elaobj" />
     <None Include="_ela\math.ela" />
     <None Include="_ela\monad.ela" />
+    <None Include="_ela\number.elaobj" />
     <None Include="_ela\peano.ela" />
+    <None Include="_ela\prelude.elaobj" />
     <None Include="_ela\random.ela" />
+    <None Include="_ela\string.elaobj" />
     <None Include="_ela\symbolic.ela" />
     <None Include="_ela\tuple.ela" />
     <None Include="_ela\xml.ela" />

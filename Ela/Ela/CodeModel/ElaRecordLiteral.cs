@@ -5,34 +5,34 @@ using Ela.Parsing;
 
 namespace Ela.CodeModel
 {
-	public class ElaRecordLiteral : ElaExpression
-	{
-		internal ElaRecordLiteral(Token tok) : this(tok, ElaNodeType.RecordLiteral)
-		{
-			
-		}
+    public class ElaRecordLiteral : ElaExpression
+    {
+        internal ElaRecordLiteral(Token tok) : this(tok, ElaNodeType.RecordLiteral)
+        {
+            
+        }
         
-		internal ElaRecordLiteral(Token tok, ElaNodeType type) : base(tok, type)
-		{
-			Fields = new List<ElaFieldDeclaration>();
-		}
+        internal ElaRecordLiteral(Token tok, ElaNodeType type) : base(tok, type)
+        {
+            Fields = new List<ElaFieldDeclaration>();
+        }
         
-		public ElaRecordLiteral() : this(ElaNodeType.RecordLiteral)
-		{
-			
-		}
+        public ElaRecordLiteral() : this(ElaNodeType.RecordLiteral)
+        {
+            
+        }
         
-		protected ElaRecordLiteral(ElaNodeType type) : base(type)
-		{
-			Fields = new List<ElaFieldDeclaration>();
+        protected ElaRecordLiteral(ElaNodeType type) : base(type)
+        {
+            Fields = new List<ElaFieldDeclaration>();
         }
 
         internal override bool IsLiteral()
         {
             return true;
         }
-		
-		internal override bool Safe()
+        
+        internal override bool Safe()
         {
             foreach (var f in Fields)
                 if (!f.Safe())
@@ -42,20 +42,20 @@ namespace Ela.CodeModel
         }
 
         internal override void ToString(StringBuilder sb, int ident)
-		{
-			sb.Append('{');
-			var c = 0;
+        {
+            sb.Append('{');
+            var c = 0;
 
-			foreach (var f in Fields)
-			{
-				if (c++ > 0)
-					sb.Append(',');
+            foreach (var f in Fields)
+            {
+                if (c++ > 0)
+                    sb.Append(',');
 
-				f.ToString(sb, 0);
-			}
+                f.ToString(sb, 0);
+            }
 
-			sb.Append('}');
-		}
+            sb.Append('}');
+        }
 
         internal override bool CanFollow(ElaExpression pat)
         {
@@ -78,7 +78,14 @@ namespace Ela.CodeModel
 
             return true;
         }
-		
-		public List<ElaFieldDeclaration> Fields { get; private set; }
-	}
+
+        internal override IEnumerable<String> ExtractNames()
+        {
+            foreach (var f in Fields)
+                foreach (var n in f.ExtractNames())
+                    yield return n;
+        }
+        
+        public List<ElaFieldDeclaration> Fields { get; private set; }
+    }
 }

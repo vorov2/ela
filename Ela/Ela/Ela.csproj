@@ -302,7 +302,6 @@
     <Compile Include="Parsing\Strings.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="CodeModel\ElaTry.cs" />
-    <Compile Include="CodeModel\ElaOperator.cs" />
     <Compile Include="CodeModel\ElaCondition.cs" />
     <Compile Include="CodeModel\ElaExpression.cs" />
     <Compile Include="CodeModel\ElaFieldReference.cs" />

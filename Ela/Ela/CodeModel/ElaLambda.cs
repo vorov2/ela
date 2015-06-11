@@ -7,14 +7,14 @@ namespace Ela.CodeModel
     public sealed class ElaLambda : ElaEquation
     {
         internal ElaLambda(Token tok) : base(tok, ElaNodeType.Lambda)
-		{
-			
-		}
+        {
+            
+        }
         
-		public ElaLambda() : this(null)
-		{
-			
-		}
+        public ElaLambda() : this(null)
+        {
+            
+        }
 
         internal override bool Safe()
         {

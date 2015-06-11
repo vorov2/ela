@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Ela.Parsing;
+using System.Collections.Generic;
 
 namespace Ela.CodeModel
 {
@@ -27,7 +28,16 @@ namespace Ela.CodeModel
             sb.AppendLine();
             sb.Append(' ', indent);
             sb.Append("where ");
-            Equations.ToString(sb, indent + 6);            
+            Equations.ToString(sb, indent + 6);
+        }
+
+        internal override IEnumerable<String> ExtractNames()
+        {
+            foreach (var n in Equations.ExtractNames())
+                yield return n;
+
+            foreach (var n in Expression.ExtractNames())
+                yield return n;
         }
 
         public ElaEquationSet Equations { get; set; }

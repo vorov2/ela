@@ -3,6 +3,7 @@
   Created in 2013-2015 by Basil Voronkov
 */
 open monad generic unsafe.console unsafe.file libIO#elalib@unsafeIO
+import unsafe.cell
 
 //Type and instances
 type IO = IO a # private
@@ -19,7 +20,7 @@ instance Functor IO where
   fmap f x = mkIO (f $ execIO x)
 
 instance Show IO where
-  show _ = "IO"
+  show _ = ""
 
 execIO (IO a)
   | a is Fun  = a ()
@@ -49,10 +50,19 @@ readFile fn mode = openFile fn mode ReadMode
 
 writeFile fn mode = openFile fn mode WriteMode
 
-closeFile (FileStream f) = mkIO (\_-> unsafeIO.closeFile f)
+closeFile (FileStream f) = mkIO (\_ -> unsafeIO.closeFile f)
 
-//Reading
 readLine (FileStream f) = mkIO (\_ -> unsafeIO.readLine f)
 
-//Writing
+readLines (FileStream f) = mkIO (\_ -> unsafeIO.readLines f)
+
 writeStr str (FileStream f) = mkIO (\_ -> unsafeIO.writeString str f)
+
+//Mutation
+ref x = mkIO (\_ -> cell.ref x)
+
+valueof x = mkIO (\_ -> cell.valueof x)
+
+mutate e rf = mkIO (\_ -> cell.mutate e rf)
+
+r := v = mutate v r

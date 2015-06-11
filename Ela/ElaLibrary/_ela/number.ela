@@ -99,7 +99,7 @@ instance Fractional Single Double where
   floor     = rl.floor
 
 instance Integral where
-  div x y
+  div x! y
     | r < 0u && r*y <> x = r - 1u
     | else = r
     where r = x `quot` y

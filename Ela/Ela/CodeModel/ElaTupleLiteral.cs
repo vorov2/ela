@@ -5,20 +5,20 @@ using Ela.Parsing;
 
 namespace Ela.CodeModel
 {
-	public class ElaTupleLiteral : ElaExpression
-	{
-		internal ElaTupleLiteral(Token tok, ElaNodeType type) : base(tok, type)
-		{
+    public class ElaTupleLiteral : ElaExpression
+    {
+        internal ElaTupleLiteral(Token tok, ElaNodeType type) : base(tok, type)
+        {
 
-		}
+        }
         
-		internal ElaTupleLiteral(Token tok) : base(tok, ElaNodeType.TupleLiteral)
-		{
-			
-		}
+        internal ElaTupleLiteral(Token tok) : base(tok, ElaNodeType.TupleLiteral)
+        {
+            
+        }
         
-		public ElaTupleLiteral() : this(null)
-		{
+        public ElaTupleLiteral() : this(null)
+        {
 
         }
 
@@ -40,20 +40,20 @@ namespace Ela.CodeModel
         }
 
         internal override void ToString(StringBuilder sb, int ident)
-		{
-			sb.Append('(');
-			var c = 0;
+        {
+            sb.Append('(');
+            var c = 0;
 
-			foreach (var f in Parameters)
-			{
-				if (c++ > 0)
-					sb.Append(',');
+            foreach (var f in Parameters)
+            {
+                if (c++ > 0)
+                    sb.Append(',');
 
-				f.ToString(sb, 0);
-			}
+                f.ToString(sb, 0);
+            }
 
-			sb.Append(')');
-		}
+            sb.Append(')');
+        }
 
         internal override bool CanFollow(ElaExpression pat)
         {
@@ -76,19 +76,27 @@ namespace Ela.CodeModel
 
             return true;
         }
-		
-		private List<ElaExpression> _parameters;
-		public List<ElaExpression> Parameters
-		{
-			get
-			{
-				if (_parameters == null)
-					_parameters = new List<ElaExpression>();
 
-				return _parameters;
-			}
-		}
+        internal override IEnumerable<String> ExtractNames()
+        {
+            if (HasParameters)
+                foreach (var p in Parameters)
+                    foreach (var n in p.ExtractNames())
+                        yield return n;
+        }
+
+        private List<ElaExpression> _parameters;
+        public List<ElaExpression> Parameters
+        {
+            get
+            {
+                if (_parameters == null)
+                    _parameters = new List<ElaExpression>();
+
+                return _parameters;
+            }
+        }
         
-		public bool HasParameters { get { return _parameters != null; } }
-	}
+        public bool HasParameters { get { return _parameters != null; } }
+    }
 }

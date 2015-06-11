@@ -158,6 +158,9 @@ namespace Ela.Linking
 
         public CodeFrame GetModule(int handle)
         {
+            if (handle < 0)
+                return null;
+
             return modules[handle];
         }
 

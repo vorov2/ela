@@ -5,19 +5,19 @@ using Ela.Parsing;
 
 namespace Ela.CodeModel
 {
-	public sealed class ElaListLiteral : ElaExpression
-	{
+    public sealed class ElaListLiteral : ElaExpression
+    {
         internal static readonly ElaListLiteral Empty = new ElaListLiteral();
 
-		internal ElaListLiteral(Token tok) : base(tok, ElaNodeType.ListLiteral)
-		{
-			
-		}
+        internal ElaListLiteral(Token tok) : base(tok, ElaNodeType.ListLiteral)
+        {
+            
+        }
         
-		public ElaListLiteral() : this(null)
-		{
-			
-		}
+        public ElaListLiteral() : this(null)
+        {
+            
+        }
 
         internal override bool IsLiteral()
         {
@@ -37,20 +37,20 @@ namespace Ela.CodeModel
         }
 
         internal override void ToString(StringBuilder sb, int ident)
-		{
-			sb.Append('[');
-			var c = 0;
+        {
+            sb.Append('[');
+            var c = 0;
 
-			foreach (var v in Values)
-			{
-				if (c++ > 0)
-					sb.Append(',');
+            foreach (var v in Values)
+            {
+                if (c++ > 0)
+                    sb.Append(',');
 
-				v.ToString(sb, 0);
-			}
+                v.ToString(sb, 0);
+            }
 
-			sb.Append(']');
-		}
+            sb.Append(']');
+        }
 
         public bool HasValues()
         {
@@ -78,18 +78,26 @@ namespace Ela.CodeModel
 
             return true;
         }
-		
-		private List<ElaExpression> _values;
-		public List<ElaExpression> Values 
-		{
-			get
-			{
-				if (_values == null)
-					_values = new List<ElaExpression>();
 
-				return _values;
-			}
-			internal set { _values = value; }
-		}
-	}
+        internal override IEnumerable<String> ExtractNames()
+        {
+            if (_values != null)
+                foreach (var e in Values)
+                    foreach (var n in e.ExtractNames())
+                        yield return n;
+        }
+        
+        private List<ElaExpression> _values;
+        public List<ElaExpression> Values 
+        {
+            get
+            {
+                if (_values == null)
+                    _values = new List<ElaExpression>();
+
+                return _values;
+            }
+            internal set { _values = value; }
+        }
+    }
 }

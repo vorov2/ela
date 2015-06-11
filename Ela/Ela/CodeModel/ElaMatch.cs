@@ -5,20 +5,20 @@ using Ela.Parsing;
 
 namespace Ela.CodeModel
 {
-	public class ElaMatch : ElaExpression
-	{
-		internal ElaMatch(Token tok, ElaNodeType type) : base(tok, type)
-		{
+    public class ElaMatch : ElaExpression
+    {
+        internal ElaMatch(Token tok, ElaNodeType type) : base(tok, type)
+        {
             
-		}
+        }
 
-		internal ElaMatch(Token tok) : this(tok, ElaNodeType.Match)
-		{
-			
-		}
+        internal ElaMatch(Token tok) : this(tok, ElaNodeType.Match)
+        {
+            
+        }
 
-		public ElaMatch() : this(null, ElaNodeType.Match)
-		{
+        public ElaMatch() : this(null, ElaNodeType.Match)
+        {
 
         }
 
@@ -28,9 +28,9 @@ namespace Ela.CodeModel
         }
 
         internal override void ToString(StringBuilder sb, int indent)
-		{
+        {
             ToString(sb, indent, "match");
-		}
+        }
 
         internal void ToString(StringBuilder sb, int indent, string keyword)
         {
@@ -46,8 +46,17 @@ namespace Ela.CodeModel
             }
         }
 
-		public ElaExpression Expression { get; set; }
-		
-		public ElaEquationSet Entries { get; set; }
-	}
+        internal override IEnumerable<String> ExtractNames()
+        {
+            foreach (var n in Expression.ExtractNames())
+                yield return n;
+
+            foreach (var n in Entries.ExtractNames())
+                yield return n;
+        }
+
+        public ElaExpression Expression { get; set; }
+        
+        public ElaEquationSet Entries { get; set; }
+    }
 }

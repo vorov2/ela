@@ -1,10 +1,13 @@
 open espec 
 open basic
-open unsafe.file
+open monads io
 
 res = []
   |> addTests basic
   |> run
   |> formatResultHtm
 
-writeText res "C:\\testresult.htm"
+do
+  fh <- openFile "C:\\testresult.htm" WriteMode OpenCreateMode
+  writeStr res fh
+  closeFile fh

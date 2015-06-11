@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Text;
 using Ela.Parsing;
+using System.Collections.Generic;
 
 namespace Ela.CodeModel
 {
-	public sealed class ElaRange : ElaExpression
-	{
-		internal ElaRange(Token tok) : base(tok, ElaNodeType.Range)
-		{
+    public sealed class ElaRange : ElaExpression
+    {
+        internal ElaRange(Token tok) : base(tok, ElaNodeType.Range)
+        {
 
-		}
+        }
         
-		public ElaRange() : base(ElaNodeType.Range)
-		{
+        public ElaRange() : base(ElaNodeType.Range)
+        {
 
         }
 
@@ -22,28 +23,43 @@ namespace Ela.CodeModel
         }
 
         internal override void ToString(StringBuilder sb, int ident)
-		{
-			sb.Append('[');
-			First.ToString(sb, 0);
+        {
+            sb.Append('[');
+            First.ToString(sb, 0);
 
-			if (Second != null)
-			{
-				sb.Append(',');
-				Second.ToString(sb, 0);
-			}
+            if (Second != null)
+            {
+                sb.Append(',');
+                Second.ToString(sb, 0);
+            }
 
-			sb.Append(" .. ");
+            sb.Append(" .. ");
 
-			if (Last != null)
-				Last.ToString(sb, 0);
+            if (Last != null)
+                Last.ToString(sb, 0);
 
-			sb.Append(']');
-		}
-		
-		public ElaExpression First { get; set; }
+            sb.Append(']');
+        }
 
-		public ElaExpression Second { get; set; }
+        internal override IEnumerable<String> ExtractNames()
+        {
+            if (First != null)
+                foreach (var n in First.ExtractNames())
+                    yield return n;
 
-		public ElaExpression Last { get; set; }
-	}
+            if (Second != null)
+                foreach (var n in Second.ExtractNames())
+                    yield return n;
+
+            if (Last != null)
+                foreach (var n in Last.ExtractNames())
+                    yield return n;
+        }
+        
+        public ElaExpression First { get; set; }
+
+        public ElaExpression Second { get; set; }
+
+        public ElaExpression Last { get; set; }
+    }
 }

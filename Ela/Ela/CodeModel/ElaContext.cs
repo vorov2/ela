@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Ela.Parsing;
+using System.Collections.Generic;
 
 namespace Ela.CodeModel
 {
@@ -39,6 +40,17 @@ namespace Ela.CodeModel
             }
             else
                 Context.ToString(sb, 0);
+        }
+
+        internal override IEnumerable<String> ExtractNames()
+        {
+            if (Expression != null)
+                foreach (var n in Expression.ExtractNames())
+                    yield return n;
+
+            if (Context != null)
+                foreach (var n in Context.ExtractNames())
+                    yield return n;
         }
 
         public bool Tentative { get; set; }
