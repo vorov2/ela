@@ -65,6 +65,7 @@ This release includes the following changes to existing modules:
   * Module `number` now provides a complete default implementation of `Principal` class (works for types that implement `Eq`, `Numeral`, `Modulo`, `Absolute` and `Ring`).
   * Module `io` now provides an implementation of file IO inside `IO` monad (see module documentation for more details).
   * Module `io` now provides an implementation of state mutation through reference cells inside `IO` monad (see module documentation for more details).
+  * Console output functions `put` and `putLn` that formats its argument using standard `show` function are added to `io` module.
 ==Precompiled modules
 Starting from this version of standard library modules `prelude`, `core`, `list`, `number`, `string` and `generic` are included in distribution precompiled form (of course, source code for the modules
 is also shipped with the platform).
