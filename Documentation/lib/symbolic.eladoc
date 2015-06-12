@@ -14,7 +14,7 @@ numerals and custom numerals) creation of a symbolic calculation is easy and str
 You should a special numeric literal form (with `s` postfix, e.g. `12s` or `42.42s`). All
 standard operations (including classes `Additive`, `Ring`, `Field`, `Modulo`) are supported.
 Additional a type that represents a symbolic calculation supports classes `Fractional`,
-`Transcendental`, `Numeral` and `Num` from `number` module.//br
+`Transcendental`, `Numeral`, `Float` and `Num` from `number` module.//br
 The current implementation of symbolic calculations doesn't support term rewriting (though
 it can be extended with it any time); instead it focuses on ability to use symbolic calculations
 seamlessly with regular generic mathematical functions (such as functions from module `math`).

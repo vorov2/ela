@@ -1,0 +1,56 @@
+#file state.ela
+#title state
+#category Ela Standard Library
+Module `state` contains an implementation of `State` monad, `MonadState` class and related functions.
+
+=MonadState
+
+#MonadState
+This class defines two members - `put` and `get`. Function `put` replaces the state inside the monad
+and `get` returns the state from the internals of the monad.//br
+An instance of this class is provided for the type `State`.
+
+=State
+
+#State
+`State` type is used to repesent stateful operations. It is a monad and provides instances for classes `Functor`, `Union`, `Pointed` and `Failure`.
+For convinience this type also provides an instance for class `Show`, however applying function `show`
+to an instance of this type always returns just a string `"State"`.//br
+Here is an example of using `State` monad:
+>>>playGame [] = do
+>>>    (_, score) <- get
+>>>    return score
+>>>playGame (x::xs) = do
+>>>    (on, score) <- get
+>>>    match (x, on) with
+>>>      ('a', true) = put (on, score + 1)
+>>>      ('b', true) = put (on, score - 1)
+>>>      ('c', _)    = put (not on, score)
+>>>      _           = put (on, score)
+>>>    playGame xs
+>>>
+>>>startState = (false, 0)
+>>>evalState (playGame "abcaaacbbcabbab") startState ::: State
+The game is to produce a number from the string. By default the game is off, and `'c'` toggles it on
+and off. An `'a'` increments number and a `'b'` decrements it.
+
+==Functions
+
+#mkState s
+Creates a new instance of State type
+
+#runState st
+Represents a functional type encapsulated by `State`.
+
+#evalState act
+Returns the final result of the given State computation after applying `runState`.
+
+#execState act
+Returns the final state of the given State computation after applying `runState`.
+
+#modify f
+Monadic state transformer. Maps an old state to a new state inside a state monad.
+The old state is thrown away.
+
+#gets f
+Gets specific component of the state, using a projection function supplied.

@@ -109,3 +109,18 @@ For example, this code filters out all events from a given list (using `do` nota
 >>>  return x
 >>>
 >>>evens [1..10] ::: List
+
+#liftM f m1
+Promote a function to a monad.
+
+#liftM2 f m1 m2
+Promote a function to a monad, scanning the monadic arguments from left to right.
+
+#liftM3 f m1 m2 m3
+The same as `liftM2`, but for three monadic arguments.
+
+#liftM4 f m1 m2 m3 m4
+The same as `liftM2`, but for four monadic arguments.
+
+#liftM5 f m1 m2 m3 m4 m5
+The same as `liftM2`, but for five monadic arguments.

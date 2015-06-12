@@ -48,7 +48,7 @@ An immutable indexed array of unicode characters.
 >>"Hello, world!"
 Strings in Ela are immutable indexed arrays, however, they do provide an instance for the `Seq`
 class and can be treated like lists in some cases.//br
-Applying a `head` to a string is equivalent to a substring that eliminates the first character:
+Applying a `tail` to a string is equivalent to a substring that eliminates the first character:
 >>>tail "Bar"
 A function `head` always returns a first character:
 >>>head "Bar"

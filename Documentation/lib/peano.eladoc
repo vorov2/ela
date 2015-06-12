@@ -117,6 +117,10 @@ Provides an instance for a `Modulo` class. Both `mod` and `rem` implement a lazy
 This instance provides implementations for multiplication and power functions. Both multiplication
 and power are lazy functions.
 
+===Numeral
+This instance adds a support for overloaded numeric literal defined in `number` module:
+>>>3u ::: Peano
+
 ===Additive
 Provides an instance for an `Additive` class. An implementation of addition is lazy and never overlows
 (as soon as the upper bound for a peano number is infinity). An implementation of subtraction is lazy

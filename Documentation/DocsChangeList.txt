@@ -1,4 +1,7 @@
 0.1.15.0:Change:Release of 0.1.15.0.
+0.1.14.10:Change:An article 'peano' is updated according to the module changes.
+0.1.14.9:Change:An article 'monad' is updated according to the module changes.
+0.1.14.8:New:A new article 'state' about a module of the same name is added.
 0.1.14.7:New:A new article 'stack' about a module of the same name is added.
 0.1.14.6:Change:An article 'io' is updated according to the module changes.
 0.1.14.5:New:A new article 'symbolic' about a module of the same name is added.
