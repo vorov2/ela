@@ -7,6 +7,7 @@ import unsafe.cell
 
 //Type and instances
 type IO = IO a # private
+  deriving Failure
 
 instance Pointed IO where
   point x = IO x
@@ -29,9 +30,9 @@ execIO (IO a)
 mkIO a = IO a
 
 //Console IO
-put s = mkIO (\_ -> write $ show s)
+put s = putStr $ show s
 
-putLn s = putStrLn (show s ++ "\r\n")
+putLn s = putStrLn $ show s
 
 putStr s = mkIO (\_ -> write s)
 
@@ -43,16 +44,16 @@ readAny = mkIO (\_ -> gread $ readn())
 
 //File IO
 type FileMode = AppendMode | CreateMode | OpenMode | OpenCreateMode | TruncateMode
-type FileAccessMode = ReadMode | WriteMode | ReadWriteMode
+type FileAccess = ReadAccess | WriteAccess | ReadWriteAccess
 type FileStream = FileStream a # private
 
 openFile fn mode acc = mkIO (\_ -> FileStream $ unsafeIO.openFile fn ms as)
   where ms = consName mode
         as = consName acc
 
-readFile fn mode = openFile fn mode ReadMode
+readFile fn mode = openFile fn mode ReadAccess
 
-writeFile fn mode = openFile fn mode WriteMode
+writeFile fn mode = openFile fn mode WriteAccess
 
 closeFile (FileStream f) = mkIO (\_ -> unsafeIO.closeFile f)
 

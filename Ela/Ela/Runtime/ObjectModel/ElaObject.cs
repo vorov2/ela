@@ -4,8 +4,8 @@ using Ela.Linking;
 
 namespace Ela.Runtime.ObjectModel
 {
-	public abstract class ElaObject : IFormattable
-	{
+    public abstract class ElaObject : IFormattable
+    {
         internal static readonly ExecutionContext DummyContext = new ExecutionContext();
         internal const string INVALID = "<INVALID>";
 
@@ -24,15 +24,15 @@ namespace Ela.Runtime.ObjectModel
             }
         }
 
-		protected ElaObject() : this(ElaTypeCode.Object)
-		{
-			
-		}
-		
-		internal ElaObject(ElaTypeCode type)
-		{
-			TypeId = (Int32)type;
-		}
+        protected ElaObject() : this(ElaTypeCode.Object)
+        {
+            
+        }
+        
+        internal ElaObject(ElaTypeCode type)
+        {
+            TypeId = (Int32)type;
+        }
 
         internal virtual int GetTypeId()
         {
@@ -49,10 +49,10 @@ namespace Ela.Runtime.ObjectModel
             return default(Double);
         }
 
-		public override string ToString()
-		{
+        public override string ToString()
+        {
             return ToString(String.Empty, Culture.NumberFormat);
-		}
+        }
 
         public virtual string ToString(string format, IFormatProvider formatProvider)
         {
@@ -64,15 +64,15 @@ namespace Ela.Runtime.ObjectModel
             return false;
         }
         
-		protected ElaValue Default()
-		{
-			return new ElaValue(ElaInvalidObject.Instance);
-		}
+        protected ElaValue Default()
+        {
+            return new ElaValue(ElaInvalidObject.Instance);
+        }
         
-		protected internal virtual string GetTypeName()
-		{
-			return TCF.GetShortForm((ElaTypeCode)TypeId);
-		}
+        protected internal virtual string GetTypeName()
+        {
+            return TCF.GetShortForm((ElaTypeCode)TypeId);
+        }
 
         internal virtual bool True(ElaValue @this, ExecutionContext ctx)
         {
@@ -91,12 +91,12 @@ namespace Ela.Runtime.ObjectModel
             ctx.NoOperator(left, "quot");
             return Default();
         }
-    	
-		protected internal virtual ElaValue Tail(ExecutionContext ctx)
-		{
-			ctx.NoOperator(new ElaValue(this), "tail");
-			return Default();
-		}
+        
+        protected internal virtual ElaValue Tail(ExecutionContext ctx)
+        {
+            ctx.NoOperator(new ElaValue(this), "tail");
+            return Default();
+        }
 
         internal virtual ElaValue Cons(ElaValue val, ExecutionContext ctx)
         {
@@ -104,23 +104,23 @@ namespace Ela.Runtime.ObjectModel
             return Default();
         }
         
-		protected internal virtual ElaValue GenerateFinalize(ExecutionContext ctx)
-		{
-			ctx.NoOperator(new ElaValue(this), "genfin");
-			return Default();
-		}
+        protected internal virtual ElaValue GenerateFinalize(ExecutionContext ctx)
+        {
+            ctx.NoOperator(new ElaValue(this), "genfin");
+            return Default();
+        }
         
         internal virtual ElaValue Force(ElaValue @this, ExecutionContext ctx)
-		{
-			return @this;
-		}
+        {
+            return @this;
+        }
         
-		internal virtual int GetTag()
-		{
+        internal virtual int GetTag()
+        {
             return -1;
-		}
+        }
         
-		internal virtual ElaValue Untag(CodeAssembly asm, ExecutionContext ctx, int index)
+        internal virtual ElaValue Untag(CodeAssembly asm, ExecutionContext ctx, int index)
         {
             ctx.Fail(new ElaError(ElaRuntimeError.InvalidTypeArgument, "<>", GetTypeName(), index + 1));
             return Default();

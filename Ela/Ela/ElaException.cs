@@ -2,8 +2,8 @@
 
 namespace Ela
 {
-	public class ElaException : Exception
-	{
+    public class ElaException : Exception
+    {
         internal ElaException()
         {
 
@@ -14,9 +14,9 @@ namespace Ela
 
         }
 
-		public ElaException(string message, Exception ex) : base(message, ex)
-		{
+        public ElaException(string message, Exception ex) : base(message, ex)
+        {
 
-		}
-	}
+        }
+    }
 }

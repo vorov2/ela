@@ -2,14 +2,14 @@
 
 namespace Ela.Runtime.ObjectModel
 {
-	internal sealed class ElaBoolean : ElaObject
-	{
-		internal static readonly ElaBoolean Instance = new ElaBoolean();
+    internal sealed class ElaBoolean : ElaObject
+    {
+        internal static readonly ElaBoolean Instance = new ElaBoolean();
         
-		private ElaBoolean() : base(ElaTypeCode.Boolean)
-		{
+        private ElaBoolean() : base(ElaTypeCode.Boolean)
+        {
 
-		}
+        }
 
         internal override bool True(ElaValue @this, ExecutionContext ctx)
         {
@@ -20,5 +20,5 @@ namespace Ela.Runtime.ObjectModel
         {
             return @this.I4 == 0;
         }
-	}
+    }
 }

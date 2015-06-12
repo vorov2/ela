@@ -438,7 +438,7 @@ internal sealed class Scanner {
 	
 	Token NextToken() {
 		while (ch == ' ' ||
-			ch == 10 || ch == 13
+			ch == 0 || ch == 10 || ch == 13
 		) {
 			if (ch == ' ' && nl)
 				indent++;

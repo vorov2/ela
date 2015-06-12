@@ -2,35 +2,35 @@
 
 namespace Ela.Parsing
 {
-	public enum ElaParserError
-	{
-		None = 0,
+    public enum ElaParserError
+    {
+        None = 0,
 
-		InvalidSyntax = 1,
+        InvalidSyntax = 1,
 
         InvaliDoEnd = 2,
 
-		InvalidIntegerSyntax = 3,
+        InvalidIntegerSyntax = 3,
 
-		InvalidRealSyntax = 4,
+        InvalidRealSyntax = 4,
 
-		InvalidEscapeCode = 5,
+        InvalidEscapeCode = 5,
 
-		InvalidVariantLiteral = 6,
+        InvalidVariantLiteral = 6,
 
-		InvalidFunctionDeclaration = 7,
+        InvalidFunctionDeclaration = 7,
 
-		InvalidFunctionSignature = 8,
+        InvalidFunctionSignature = 8,
 
-		ComprehensionOpInvalidOperand = 9,
+        ComprehensionOpInvalidOperand = 9,
 
-		TabNotAllowed = 10,
+        TabNotAllowed = 10,
 
-		IncorrectIndentation = 11,
+        IncorrectIndentation = 11,
 
-		InvalidSyntaxUnexpectedSymbol = 12,
+        InvalidSyntaxUnexpectedSymbol = 12,
 
-		InvalidIndentationUnexpectedSymbol = 13,
+        InvalidIndentationUnexpectedSymbol = 13,
 
         UnknownAttribute = 14,
 
@@ -39,262 +39,262 @@ namespace Ela.Parsing
         InvalidAttributeWhere = 16,
 
 
-		ExpectedToken = 100,
+        ExpectedToken = 100,
 
-		ExpectedEof = 101,
+        ExpectedEof = 101,
 
-		ExpectedIdentifierToken = 102,
+        ExpectedIdentifierToken = 102,
 
-		ExpectedIntToken = 103,
+        ExpectedIntToken = 103,
 
-		ExpectedRealToken = 104,
+        ExpectedRealToken = 104,
 
-		ExpectedStringToken = 105,
+        ExpectedStringToken = 105,
 
-		ExpectedCharToken = 106,
+        ExpectedCharToken = 106,
 
-		ExpectedOperatorToken = 107,
+        ExpectedOperatorToken = 107,
 
-		ExpectedPipe = 108,
+        ExpectedPipe = 108,
 
-		ExpectedBooleanToken = 109,
+        ExpectedBooleanToken = 109,
 
-		// = 110,
+        // = 110,
 
-		ExpectedCurlyBrace = 111,
+        ExpectedCurlyBrace = 111,
 
-		ExpectedArrow = 112,
+        ExpectedArrow = 112,
 
-		ExpectedKeywordIn = 113,
+        ExpectedKeywordIn = 113,
 
-		ExpectedKeywordImport = 114,
+        ExpectedKeywordImport = 114,
 
-		ExpectedKeywordType = 115,
+        ExpectedKeywordType = 115,
 
-		ExpectedKeywordWith = 116,
+        ExpectedKeywordWith = 116,
 
-		ExpectedKeywordInstance = 117,
+        ExpectedKeywordInstance = 117,
 
-		ExpectedKeywordClass = 118,
+        ExpectedKeywordClass = 118,
 
-		ExpectedKeywordMatch = 119,
+        ExpectedKeywordMatch = 119,
 
-		ExpectedSquareBrace = 120,
+        ExpectedSquareBrace = 120,
 
-		ExpectedComprehensionSlash = 121,
+        ExpectedComprehensionSlash = 121,
 
-		ExpectedIsOperator = 122,
+        ExpectedIsOperator = 122,
 
-		ExpectedKeywordLet = 123,
+        ExpectedKeywordLet = 123,
 
         ExpectedKeywordOpentype = 124,
 
-		ExpectedKeywordOpen = 125,
+        ExpectedKeywordOpen = 125,
 
-		// = 126,
+        // = 126,
 
-		// = 127,
+        // = 127,
 
-		// = 128,
+        // = 128,
 
-		// = 129,
+        // = 129,
 
-		// = 130,
+        // = 130,
 
-		// = 131,
+        // = 131,
 
-		// = 132,
+        // = 132,
 
-		// = 133,
-		
-		// = 134,
+        // = 133,
+        
+        // = 134,
 
-		ExpectedKeywordIf = 135,
+        ExpectedKeywordIf = 135,
 
-		ExpectedKeywordElse = 136,
+        ExpectedKeywordElse = 136,
 
-		// = 137,
+        // = 137,
 
-		// = 138,
+        // = 138,
 
-		// = 139,
+        // = 139,
 
-		// = 140,
+        // = 140,
 
-		// = 141,
+        // = 141,
 
-		ExpectedKeywordRaise = 142,
+        ExpectedKeywordRaise = 142,
 
-		// = 143,
+        // = 143,
 
-		// = 144,
+        // = 144,
 
-		// = 145,
+        // = 145,
 
-		// = 146,
+        // = 146,
 
-		ExpectedLambda = 147,
+        ExpectedLambda = 147,
 
-		ExpectedDot = 148,
+        ExpectedDot = 148,
 
-		ExpectedKeywordThen = 149,
+        ExpectedKeywordThen = 149,
 
-		ExpectedKeywordTry = 150,
+        ExpectedKeywordTry = 150,
 
-		ExpectedKeywordFail = 151,
+        ExpectedKeywordFail = 151,
 
-		ExpectedKeywordWhere = 152,
+        ExpectedKeywordWhere = 152,
 
-		// = 153,
+        // = 153,
 
-		// = 154,
+        // = 154,
 
-		// = 155,
+        // = 155,
 
-		ExpectedKeywordAsAmp = 156,
+        ExpectedKeywordAsAmp = 156,
 
-		// = 157,
+        // = 157,
 
 
 
-		InvalidProduction = 200,
+        InvalidProduction = 200,
 
-		InvalidLiteral = 201,
+        InvalidLiteral = 201,
 
-		InvalidPrimitive = 202,
+        InvalidPrimitive = 202,
 
-		InvalidExpression = 203,
+        InvalidExpression = 203,
 
-		InvalidTypeCheck = 204,
+        InvalidTypeCheck = 204,
 
-		InvalidDoBlock = 205,
+        InvalidDoBlock = 205,
 
-		InvalidOperator = 206,
+        InvalidOperator = 206,
 
-		// = 207,
+        // = 207,
 
-		// = 208,
+        // = 208,
 
-		// = 209,
+        // = 209,
 
-		InvalidRoot = 210,
+        InvalidRoot = 210,
 
-		// = 211,
+        // = 211,
 
-		// = 212,
+        // = 212,
 
-		InvalidIf = 213,
+        InvalidIf = 213,
 
-		// = 214,
+        // = 214,
 
-		// = 215,
+        // = 215,
 
-		InvalidLazy = 216,
+        InvalidLazy = 216,
 
-		InvalidFail = 217,
+        InvalidFail = 217,
 
-		InvalidTry = 218,
+        InvalidTry = 218,
 
-		InvalidClassInstance = 219,
+        InvalidClassInstance = 219,
 
-		InvalidNewType = 220,
+        InvalidNewType = 220,
 
-		InvalidTypeClass = 221,
+        InvalidTypeClass = 221,
 
-		// = 222,
+        // = 222,
 
-		InvalidSimpleExpression = 223,
+        InvalidSimpleExpression = 223,
 
-		InvalidVariant = 224,
+        InvalidVariant = 224,
 
-		InvalidVariableReference = 225,
+        InvalidVariableReference = 225,
 
-		InvalidTuple = 226,
+        InvalidTuple = 226,
 
-		InvalidGrouping = 227,
+        InvalidGrouping = 227,
 
-		InvalidMemberAccess = 228,
+        InvalidMemberAccess = 228,
 
-		// = 229,
+        // = 229,
 
-		// = 230,
+        // = 230,
 
-		InvalidMatch = 231,
+        InvalidMatch = 231,
 
-		// = 232,
+        // = 232,
 
-		// = 233,
+        // = 233,
 
-		// = 234,
+        // = 234,
 
-		// = 235,
+        // = 235,
 
-		// = 236,
+        // = 236,
 
-		// = 237,
+        // = 237,
 
-		// = 238,
+        // = 238,
 
-		// = 239,
+        // = 239,
 
-		// = 240,
+        // = 240,
 
-		// = 241,
+        // = 241,
 
-		// = 242,
+        // = 242,
 
-		InvalidRecord = 243,
+        InvalidRecord = 243,
 
-		InvalidRange = 244,
+        InvalidRange = 244,
 
-		InvalidList = 245,
+        InvalidList = 245,
 
-		InvalidParamList = 246,
+        InvalidParamList = 246,
 
-		InvalidOperation = 247,
+        InvalidOperation = 247,
 
-		InvalidBinding = 248,
+        InvalidBinding = 248,
 
-		InvalidWhereBinding = 249,
+        InvalidWhereBinding = 249,
 
-		InvalidLambda = 250,
+        InvalidLambda = 250,
 
-		InvalidInclude = 251,
+        InvalidInclude = 251,
 
         InvalidHeader = 252,
 
-		// = 253,
+        // = 253,
 
-		// = 254,
+        // = 254,
 
         InvalidAs = 255,
 
-		// = 256,
+        // = 256,
 
-		// = 257,
+        // = 257,
 
-		// = 258,
+        // = 258,
 
-		// = 259,
+        // = 259,
 
-		// = 260,
+        // = 260,
 
-		InvalidInfix = 261,
+        InvalidInfix = 261,
 
-		// = 262,
+        // = 262,
 
-		// = 263,
+        // = 263,
 
-		// = 264,
+        // = 264,
 
-		// = 265,
+        // = 265,
 
-		InvalidApplication = 266,
+        InvalidApplication = 266,
 
-		// = 267,
+        // = 267,
 
-		InvalidComprehension = 268,
+        InvalidComprehension = 268,
 
-		InvalidGuard = 269
-	}
+        InvalidGuard = 269
+    }
 }

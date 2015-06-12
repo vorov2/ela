@@ -3,13 +3,13 @@ using Ela.Runtime.ObjectModel;
 
 namespace Ela.Runtime
 {
-	internal class ElaRuntimeException : ElaException
-	{
-		internal ElaRuntimeException(ElaRuntimeError error, params object[] arguments)
-		{
+    internal class ElaRuntimeException : ElaException
+    {
+        internal ElaRuntimeException(ElaRuntimeError error, params object[] arguments)
+        {
             Error = error;
             Arguments = arguments;
-		}
+        }
 
         internal ElaRuntimeException(ElaError err)
         {
@@ -21,5 +21,5 @@ namespace Ela.Runtime
         internal object[] Arguments { get; set; }
 
         internal ElaError ErrorObj { get; set; }
-	}
+    }
 }

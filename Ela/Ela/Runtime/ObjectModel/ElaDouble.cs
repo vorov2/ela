@@ -2,13 +2,13 @@
 
 namespace Ela.Runtime.ObjectModel
 {
-	public sealed class ElaDouble : ElaObject
-	{
-		public ElaDouble(double value) : base(ElaTypeCode.Double)
-		{
-			Value = value;
-		}
-		
+    public sealed class ElaDouble : ElaObject
+    {
+        public ElaDouble(double value) : base(ElaTypeCode.Double)
+        {
+            Value = value;
+        }
+        
         internal override double AsDouble()
         {
             return Value;
@@ -19,6 +19,6 @@ namespace Ela.Runtime.ObjectModel
             return Value.ToString(format, provider);
         }
 
-		public double Value { get; private set; }
-	}
+        public double Value { get; private set; }
+    }
 }

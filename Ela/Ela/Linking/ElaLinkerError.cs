@@ -2,30 +2,30 @@
 
 namespace Ela.Linking
 {
-	public enum ElaLinkerError
-	{
-		None = 0,
+    public enum ElaLinkerError
+    {
+        None = 0,
 
 
-		AssemblyLoad = 600,
+        AssemblyLoad = 600,
 
-		DuplicateModuleInAssembly = 601,
+        DuplicateModuleInAssembly = 601,
 
-		ForeignModuleInitFailed = 602,
+        ForeignModuleInitFailed = 602,
 
-		ForeignModuleDescriptorMissing = 603,
+        ForeignModuleDescriptorMissing = 603,
 
-		ForeignModuleInvalidType = 604,
+        ForeignModuleInvalidType = 604,
 
-		ModuleNameInvalid = 605,
+        ModuleNameInvalid = 605,
 
-		ModuleNotFoundInAssembly = 606,
+        ModuleNotFoundInAssembly = 606,
 
-		ObjectFileReadFailed = 607,
+        ObjectFileReadFailed = 607,
 
-		UnresolvedModule = 608,
+        UnresolvedModule = 608,
 
-		ModuleLinkFailed = 609,
+        ModuleLinkFailed = 609,
 
         ExportedNameRemoved = 610,
 
@@ -34,5 +34,5 @@ namespace Ela.Linking
         InstanceAlreadyExists = 612,
 
         CyclicReference = 613,
-	}
+    }
 }

@@ -1,4 +1,5 @@
 0.13.0.0:Release:Release of Ela 0.13.0.0.
+0.12.7.8:Change:Interoperability between Ela and .NET is enhanced when thunks are passed as parameters to .NET code.
 0.12.7.7:Fix:Ela could fail with internal compiler error when a module specified through 'open' or 'include' directive couldn't be found.
 0.12.7.6:Fix:A bug fixed in Ela compiler that could cause a last expression in the form '_ = exp' not to be compiled correctly and result in a VM crush.
 0.12.7.5:Fix:Ela rewriting mechanism in compiler is now more effecient and accounts for all of the cases when an expression should be either compiled later than other or made lazy.

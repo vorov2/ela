@@ -17,7 +17,7 @@ namespace Ela.Runtime.ObjectModel
         protected ElaFunction() : this(1)
         {
 
-        }		
+        }
         
         protected ElaFunction(int parCount) : base(ElaTypeCode.Function)
         {

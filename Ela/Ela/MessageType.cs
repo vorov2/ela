@@ -2,14 +2,14 @@
 
 namespace Ela
 {
-	public enum MessageType
-	{
-		None,
+    public enum MessageType
+    {
+        None,
 
-		Hint,
+        Hint,
 
-		Warning,
+        Warning,
 
-		Error
-	}
+        Error
+    }
 }

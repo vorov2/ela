@@ -58,6 +58,10 @@ type Sym =
   | Truncate x
   | Ceiling x
   | Floor x
+  | Inf
+  | Nan
+  | PosInf
+  | NegInf
 
 instance Eq Sym where
   !!x == !!y = x == y
@@ -105,12 +109,20 @@ instance Show Sym where
   show (Truncate x) = format "truncate {0}" x
   show (Floor x) = format "floor {0}" x
   show (Ceiling x) = format "ceiling {0}" x
+  show Inf = "inf"
+  show Nan = "NaN"
+  show PosInf = "posInf"
+  show NegInf = "negInf"
 
 instance Format Sym where
   fmt _ (!!!x) = show x
   fmt _ (!!x) = show x
   fmt _ PI = "pi"
   fmt _ E = "e"
+  fmt _ Inf = "inf"
+  fmt _ Nan = "nan"
+  fmt _ PosInf = "posInf"
+  fmt _ NegInf = "negInf"
   fmt _ x = "(" ++ show x ++ ")"
 
 instance Additive Sym where
@@ -162,6 +174,12 @@ instance Fractional Sym where
   ceiling   = Ceiling
   floor     = Floor
 
+instance Float Sym where
+  inf       = Inf
+  nan       = Nan
+  posInf    = PosInf
+  negInf    = NegInf
+
 literal's s = !! (read s ::: Double + 0d)
 
 //Evaluation
@@ -197,3 +215,7 @@ eval (Round x) = round $ eval x
 eval (Truncate x) = truncate $ eval x
 eval (Ceiling x) = ceiling $ eval x
 eval (Floor x) = floor $ eval x
+eval Inf = inf ::: Double
+eval Nan = nan ::: Double
+eval PosInf = posInf ::: Double
+eval NegInf = negInf ::: Double

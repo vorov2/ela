@@ -6,54 +6,45 @@ using Ela.CodeModel;
 
 namespace Ela.Parsing
 {
-	public sealed class ElaParser : IElaParser
-	{
-		#region Construction
-		public ElaParser()
-		{
-		
-		}
-		#endregion
+    public sealed class ElaParser : IElaParser
+    {
+        public ElaParser()
+        {
+        
+        }
 
-
-		#region Methods
-		public ParserResult Parse(string source)
-		{
-			return InternalParse(source);
-		}
+        public ParserResult Parse(string source)
+        {
+            return InternalParse(source);
+        }
 
         public ParserResult Parse(ModuleFileInfo file)
         {
             return Parse(new FileInfo(file.FullName));
         }
 
+        public ParserResult Parse(FileInfo file)
+        {
+            using (var fs = file.Open(FileMode.Open, FileAccess.Read))
+                return InternalParse(fs);
+        }
 
-		public ParserResult Parse(FileInfo file)
-		{
-			using (var fs = file.Open(FileMode.Open, FileAccess.Read))
-				return InternalParse(fs);
-		}
+        public ParserResult Parse(Stream stream)
+        {
+            return InternalParse(stream);
+        }
 
+        private ParserResult InternalParse(string source)
+        {
+            using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(source)))
+                return InternalParse(ms);
+        }
 
-		public ParserResult Parse(Stream stream)
-		{
-			return InternalParse(stream);
-		}
-
-
-		private ParserResult InternalParse(string source)
-		{
-			using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(source)))
-				return InternalParse(ms);
-		}
-
-
-		private ParserResult InternalParse(Stream stream)
-		{
-			var p = new Parser(new Scanner(stream));
-			p.Parse();
-			return new ParserResult(p.Program, p.errors.ErrorList.Count == 0, p.errors.ErrorList);
-		}
-		#endregion
-	}
+        private ParserResult InternalParse(Stream stream)
+        {
+            var p = new Parser(new Scanner(stream));
+            p.Parse();
+            return new ParserResult(p.Program, p.errors.ErrorList.Count == 0, p.errors.ErrorList);
+        }
+    }
 }

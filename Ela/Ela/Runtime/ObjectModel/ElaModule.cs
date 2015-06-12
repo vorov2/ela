@@ -5,9 +5,9 @@ using Ela.Compilation;
 
 namespace Ela.Runtime.ObjectModel
 {
-	public sealed class ElaModule : ElaObject
-	{
-		private const string ADDRESS = "address";
+    public sealed class ElaModule : ElaObject
+    {
+        private const string ADDRESS = "address";
         private const string VARNAME = "name";
         private const string ISPRIVATE = "isPrivate";
         private const string VALUE = "value";
@@ -16,18 +16,18 @@ namespace Ela.Runtime.ObjectModel
         private const string ALIAS = "alias";
         private const string PATH = "path";
         private const string MODULE = "[module:{0}:{1}]";
-		private ElaMachine vm;
+        private ElaMachine vm;
 
-		public ElaModule(int handle, ElaMachine vm) : base(ElaTypeCode.Module)
-		{
-			Handle = handle;
-			this.vm = vm;
-		}
+        public ElaModule(int handle, ElaMachine vm) : base(ElaTypeCode.Module)
+        {
+            Handle = handle;
+            this.vm = vm;
+        }
 
         public override string ToString(string format, IFormatProvider provider)
         {
             return String.Format(MODULE, vm != null ? vm.Assembly.GetModuleName(Handle) : String.Empty, Handle);
-		}
+        }
         
         internal int GetVariableCount(ExecutionContext ctx)
         {
@@ -66,9 +66,9 @@ namespace Ela.Runtime.ObjectModel
         }
 
         internal ElaValue GetField(ElaValue index, ExecutionContext ctx)
-		{
-			if (vm != null)
-			{
+        {
+            if (vm != null)
+            {
                 if (index.TypeId != ElaMachine.STR)
                 {
                     ctx.InvalidType(TCF.GetShortForm(ElaTypeCode.String), index);
@@ -76,27 +76,27 @@ namespace Ela.Runtime.ObjectModel
                 }
 
                 var field = index.DirectGetString();
-				var frame = vm.Assembly.GetModule(Handle);
-				ScopeVar sc;
+                var frame = vm.Assembly.GetModule(Handle);
+                ScopeVar sc;
 
-				if (!frame.GlobalScope.Locals.TryGetValue(field, out sc))
-				{
-					ctx.UnknownField(index.DirectGetString(), new ElaValue(this));
-					return Default();
-				}
+                if (!frame.GlobalScope.Locals.TryGetValue(field, out sc))
+                {
+                    ctx.UnknownField(index.DirectGetString(), new ElaValue(this));
+                    return Default();
+                }
 
-				if ((sc.Flags & ElaVariableFlags.Private) == ElaVariableFlags.Private)
-				{
-					ctx.Fail(new ElaError(ElaRuntimeError.PrivateVariable, field));
-					return Default();
-				}
+                if ((sc.Flags & ElaVariableFlags.Private) == ElaVariableFlags.Private)
+                {
+                    ctx.Fail(new ElaError(ElaRuntimeError.PrivateVariable, field));
+                    return Default();
+                }
 
-				return vm.modules[Handle][sc.Address];
-			}
+                return vm.modules[Handle][sc.Address];
+            }
 
             ctx.Fail(ElaRuntimeError.Unknown, "VM is non present");
-			return Default();
-		}
+            return Default();
+        }
 
         public IEnumerable<ElaRecord> GetVariables()
         {
@@ -107,19 +107,19 @@ namespace Ela.Runtime.ObjectModel
 
             foreach (var v in frame.GlobalScope.EnumerateNames())
             {
-				var sv = frame.GlobalScope.GetVariable(v);
+                var sv = frame.GlobalScope.GetVariable(v);
 
-				if ((sv.Flags & ElaVariableFlags.Private) != ElaVariableFlags.Private)
-				{
+                if ((sv.Flags & ElaVariableFlags.Private) != ElaVariableFlags.Private)
+                {
                     var val = vm.GetVariableByHandle(Handle, sv.Address);
 
-					if (val.Ref != null)
-						yield return new ElaRecord(
-							new ElaRecordField(ADDRESS, sv.Address),
-							new ElaRecordField(VARNAME, v),
-							new ElaRecordField(VALUE, val),
-							new ElaRecordField(ISPRIVATE, (sv.Flags & ElaVariableFlags.Private) == ElaVariableFlags.Private));
-				}
+                    if (val.Ref != null)
+                        yield return new ElaRecord(
+                            new ElaRecordField(ADDRESS, sv.Address),
+                            new ElaRecordField(VARNAME, v),
+                            new ElaRecordField(VALUE, val),
+                            new ElaRecordField(ISPRIVATE, (sv.Flags & ElaVariableFlags.Private) == ElaVariableFlags.Private));
+                }
             }
         }
 
@@ -151,6 +151,6 @@ namespace Ela.Runtime.ObjectModel
             return vm.Assembly.GetModuleName(Handle);
         }
 
-		public int Handle { get; private set; }
-	}
+        public int Handle { get; private set; }
+    }
 }

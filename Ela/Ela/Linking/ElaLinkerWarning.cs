@@ -2,10 +2,10 @@
 
 namespace Ela.Linking
 {
-	public enum ElaLinkerWarning
-	{
-		None = 0,
+    public enum ElaLinkerWarning
+    {
+        None = 0,
 
-		ObjectFileOutdated = 700
-	}
+        ObjectFileOutdated = 700
+    }
 }

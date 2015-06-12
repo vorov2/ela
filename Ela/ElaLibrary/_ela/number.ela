@@ -108,10 +108,10 @@ instance Integral Int Long where
   quot = __internal quot
 
 instance Absolute where
-  abs x 
+  abs !x 
     | signum x == 1u = x 
     | else = negate x
-  signum x 
+  signum !x 
     | x < 0u = negate 1u
     | else = 1u
 

@@ -3,10 +3,10 @@ using System.IO;
 
 namespace Ela.Parsing
 {
-	public interface IElaParser
-	{
-		ParserResult Parse(string source);
-		
-		ParserResult Parse(FileInfo file);
-	}
+    public interface IElaParser
+    {
+        ParserResult Parse(string source);
+        
+        ParserResult Parse(FileInfo file);
+    }
 }

@@ -199,6 +199,7 @@
     <None Include="_ela\peano.ela" />
     <None Include="_ela\prelude.elaobj" />
     <None Include="_ela\random.ela" />
+    <None Include="_ela\state.ela" />
     <None Include="_ela\string.elaobj" />
     <None Include="_ela\symbolic.ela" />
     <None Include="_ela\tuple.ela" />

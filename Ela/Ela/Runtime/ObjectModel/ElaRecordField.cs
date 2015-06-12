@@ -2,8 +2,8 @@
 
 namespace Ela.Runtime.ObjectModel
 {
-	public struct ElaRecordField
-	{
+    public struct ElaRecordField
+    {
         public readonly string Field;
         public readonly ElaValue Value;
         
@@ -18,5 +18,5 @@ namespace Ela.Runtime.ObjectModel
             Field = field;
             Value = ElaValue.FromObject(value);
         }
-	}
+    }
 }
