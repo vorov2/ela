@@ -6,7 +6,7 @@ open generic core list tuple
 
 /* Functor */
 class Functor a where
-  fmap _->a->_
+  fmap _->a->_ //a >>= return . f
 
 instance Functor where
   fmap f xs
@@ -47,7 +47,7 @@ instance Functor Tuple where
 
 /* Union */
 class Union a where
-  join a->_
+  join a->_ //join m = m >>= id
 
 instance Union where
   join xs
@@ -151,3 +151,14 @@ xs >>- ys = xs >>= (\_ -> ys)
 
 guard true = return ()
 guard false = default
+
+liftM f m1 = do x1 <- m1; return (f x1)
+
+liftM2 f m1 m2 = do x1 <- m1; x2 <- m2; return (f x1 x2)
+
+liftM3 f m1 m2 m3 = do x1 <- m1; x2 <- m2; x3 <- m3; return (f x1 x2 x3)
+
+liftM4 f m1 m2 m3 m4 = do x1 <- m1; x2 <- m2; x3 <- m3; x4 <- m4; return (f x1 x2 x3 x4)
+
+liftM5 f m1 m2 m3 m4 m5 = do x1 <- m1; x2 <- m2; x3 <- m3; x4 <- m4; x5 <- m5; return (f x1 x2 x3 x4 x5)
+

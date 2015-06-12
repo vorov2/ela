@@ -1,0 +1,56 @@
+/*
+  Module state
+  Created in 2015 by Basil Voronkov
+*/
+open generic monad
+
+//Classes
+//`put` replaces the state inside the monad.
+//`get` returns the state from the internals of the monad.
+class MonadState a where
+  put _->a
+  get a
+
+//Type and instances
+type State = State (Fun s) # private
+  deriving Failure
+
+instance Show State where
+  show _ = "State"
+
+instance Pointed State where
+  point x = State (\st -> (x, st))
+
+instance Union State where
+  join m = State (\st -> 
+             let (x, st') = runState m st
+             in runState x st')
+
+instance Functor State where
+  fmap f xs = State (\st -> 
+               let (x, st') = runState xs st
+               in runState (State (\st -> (f x,st))) st')
+
+instance MonadState State where
+  put newState = State (\_ -> ((), newState))
+  get = State (\st -> (st, st))
+
+//Functions
+//Creates a new instance of State type
+mkState s = State s
+
+//Represents a functional type encapsulated by State
+runState (State f) = f
+
+//Returns the final result of the given State computation after applying `runState`
+evalState act = fst << runState act
+
+//Returns the final state of the given State computation after applying `runState`
+execState act = snd << runState act
+
+//Monadic state transformer. Maps an old state to a new state inside a state monad.
+//The old state is thrown away.
+modify f = do x <- get; put (f x)
+
+//Gets specific component of the state, using a projection function supplied
+gets f = do x <- get; return (f x)

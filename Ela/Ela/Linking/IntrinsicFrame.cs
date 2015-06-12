@@ -4,18 +4,13 @@ using Ela.Runtime;
 
 namespace Ela.Linking
 {
-	public sealed class IntrinsicFrame : CodeFrame
-	{
-		#region Construction
-		internal IntrinsicFrame(ElaValue[] mem)
-		{
-			Memory = mem;
-		}
-		#endregion
+    public sealed class IntrinsicFrame : CodeFrame
+    {
+        internal IntrinsicFrame(ElaValue[] mem)
+        {
+            Memory = mem;
+        }
 
-
-		#region Properties
-		internal ElaValue[] Memory { get; private set; }
-		#endregion
-	}
+        internal ElaValue[] Memory { get; private set; }
+    }
 }

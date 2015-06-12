@@ -2,25 +2,25 @@
 
 namespace Ela
 {
-	public static class TCF
-	{
-		internal const string ERR = "?";
-		internal const string CHAR = "Char";
-		internal const string INT = "Int";
-		internal const string LONG = "Long";
-		internal const string SINGLE = "Single";
-		internal const string DOUBLE = "Double";
-		internal const string STRING = "String";
-		internal const string BOOL = "Bool";
-		internal const string RECORD = "Record";
-		internal const string TUPLE = "Tuple";
-		internal const string LIST = "List";
-		internal const string FUN = "Fun";
-		internal const string UNIT = "Unit";
-		internal const string MOD = "Module";
-		internal const string OBJ = "Object";
-		internal const string LAZ = "Thunk";
-		
+    public static class TCF
+    {
+        internal const string ERR = "?";
+        internal const string CHAR = "Char";
+        internal const string INT = "Int";
+        internal const string LONG = "Long";
+        internal const string SINGLE = "Single";
+        internal const string DOUBLE = "Double";
+        internal const string STRING = "String";
+        internal const string BOOL = "Bool";
+        internal const string RECORD = "Record";
+        internal const string TUPLE = "Tuple";
+        internal const string LIST = "List";
+        internal const string FUN = "Fun";
+        internal const string UNIT = "Unit";
+        internal const string MOD = "Module";
+        internal const string OBJ = "Object";
+        internal const string LAZ = "Thunk";
+        
         public static ElaTypeCode GetTypeCode(string type)
         {
             switch (type)
@@ -44,27 +44,27 @@ namespace Ela
             }
         }
 
-		public static string GetShortForm(ElaTypeCode @this)
-		{
-			switch (@this)
-			{
-				case ElaTypeCode.Char: return CHAR;
-				case ElaTypeCode.Integer: return INT;
-				case ElaTypeCode.Long: return LONG;
-				case ElaTypeCode.Single: return SINGLE;
-				case ElaTypeCode.Double: return DOUBLE;
-				case ElaTypeCode.Boolean: return BOOL;
-				case ElaTypeCode.String: return STRING;
-				case ElaTypeCode.List: return LIST;
-				case ElaTypeCode.Tuple: return TUPLE;
-				case ElaTypeCode.Record: return RECORD;
-				case ElaTypeCode.Function: return FUN;
-				case ElaTypeCode.Unit: return UNIT;
-				case ElaTypeCode.Module: return MOD;
-				case ElaTypeCode.Object: return OBJ;
-				case ElaTypeCode.Lazy: return LAZ;
+        public static string GetShortForm(ElaTypeCode @this)
+        {
+            switch (@this)
+            {
+                case ElaTypeCode.Char: return CHAR;
+                case ElaTypeCode.Integer: return INT;
+                case ElaTypeCode.Long: return LONG;
+                case ElaTypeCode.Single: return SINGLE;
+                case ElaTypeCode.Double: return DOUBLE;
+                case ElaTypeCode.Boolean: return BOOL;
+                case ElaTypeCode.String: return STRING;
+                case ElaTypeCode.List: return LIST;
+                case ElaTypeCode.Tuple: return TUPLE;
+                case ElaTypeCode.Record: return RECORD;
+                case ElaTypeCode.Function: return FUN;
+                case ElaTypeCode.Unit: return UNIT;
+                case ElaTypeCode.Module: return MOD;
+                case ElaTypeCode.Object: return OBJ;
+                case ElaTypeCode.Lazy: return LAZ;
                 default: return ERR;
-			}
-		}
-	}
+            }
+        }
+    }
 }

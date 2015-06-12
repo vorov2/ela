@@ -4,26 +4,26 @@ using System.Text;
 
 namespace Ela.Runtime.ObjectModel
 {
-	public sealed class ElaRecord : ElaObject, IEnumerable<ElaRecordField>
-	{
-		internal readonly string[] keys;
+    public sealed class ElaRecord : ElaObject, IEnumerable<ElaRecordField>
+    {
+        internal readonly string[] keys;
         internal readonly ElaValue[] values;
 
-		public ElaRecord(params ElaRecordField[] fields) : base(ElaTypeCode.Record)
-		{
-			keys = new string[fields.Length];
+        public ElaRecord(params ElaRecordField[] fields) : base(ElaTypeCode.Record)
+        {
+            keys = new string[fields.Length];
             values = new ElaValue[fields.Length];
 
-			for (var i = 0; i < fields.Length; i++)
-				SetField(i, fields[i].Field, fields[i].Value);
-		}
+            for (var i = 0; i < fields.Length; i++)
+                SetField(i, fields[i].Field, fields[i].Value);
+        }
         
-		internal ElaRecord(int size) : base(ElaTypeCode.Record)
-		{
-			keys = new string[size];
-			values = new ElaValue[size];
-		}
-		
+        internal ElaRecord(int size) : base(ElaTypeCode.Record)
+        {
+            keys = new string[size];
+            values = new ElaValue[size];
+        }
+        
         public static ElaRecord Concat(ElaRecord left, ElaRecord right)
         {
             var list = new List<ElaRecordField>();
@@ -33,7 +33,7 @@ namespace Ela.Runtime.ObjectModel
         }
 
         internal ElaValue GetValue(ElaValue key, ExecutionContext ctx)
-		{
+        {
             var idx = key.I4;
 
             if (key.TypeId != ElaMachine.INT)
@@ -48,7 +48,7 @@ namespace Ela.Runtime.ObjectModel
                 return Default();
             }
 
-			return values[idx];
+            return values[idx];
         }
 
         internal ElaValue GetField(ElaValue key, ExecutionContext ctx)
@@ -83,26 +83,26 @@ namespace Ela.Runtime.ObjectModel
             return GetOrdinal(key.DirectGetString()) != -1;
         }
 
-		public override string ToString(string format, IFormatProvider provider)
+        public override string ToString(string format, IFormatProvider provider)
         {
-			var sb = new StringBuilder();
-			sb.Append('{');
+            var sb = new StringBuilder();
+            sb.Append('{');
 
-			var c = 0;
+            var c = 0;
 
-			for (var i = 0; i < keys.Length; i++)
-			{
+            for (var i = 0; i < keys.Length; i++)
+            {
                 var k = keys[i];
 
-				if (c++ > 0)
-					sb.Append(",");
+                if (c++ > 0)
+                    sb.Append(",");
 
-				sb.AppendFormat("{0}={1}", k, values[i]);
-			}
+                sb.AppendFormat("{0}={1}", k, values[i]);
+            }
 
-			sb.Append('}');
-			return sb.ToString();
-		}
+            sb.Append('}');
+            return sb.ToString();
+        }
 
         public IEnumerator<ElaRecordField> GetEnumerator()
         {
@@ -115,16 +115,16 @@ namespace Ela.Runtime.ObjectModel
             return GetEnumerator();
         }
 
-		public IEnumerable<String> GetKeys()
-		{
-			return keys;
-		}
+        public IEnumerable<String> GetKeys()
+        {
+            return keys;
+        }
         
-		internal void SetField(int index, string key, ElaValue value)
-		{
-			keys[index] = key;
-			values[index] = value;
-		}
+        internal void SetField(int index, string key, ElaValue value)
+        {
+            keys[index] = key;
+            values[index] = value;
+        }
 
         internal ElaValue GetKey(ElaValue index, ExecutionContext ctx)
         {
@@ -143,42 +143,42 @@ namespace Ela.Runtime.ObjectModel
             return new ElaValue(keys[index.I4]);
         }
 
-		private int GetOrdinal(string key)
-		{
-			for (var i = 0; i < keys.Length; i++)
-				if (keys[i] == key)
-					return i;
+        private int GetOrdinal(string key)
+        {
+            for (var i = 0; i < keys.Length; i++)
+                if (keys[i] == key)
+                    return i;
 
-			return -1;
-		}
+            return -1;
+        }
 
         public int Length
         {
             get { return keys.Length; }
         }
         
-		public ElaValue this[string key]
-		{
-			get
-			{
-				var index = GetOrdinal(key);
+        public ElaValue this[string key]
+        {
+            get
+            {
+                var index = GetOrdinal(key);
 
-				if (index > -1 && index < values.Length)
-					return values[index];
-				else
-					throw new IndexOutOfRangeException();
-			}
-		}
+                if (index > -1 && index < values.Length)
+                    return values[index];
+                else
+                    throw new IndexOutOfRangeException();
+            }
+        }
         
-		public ElaValue this[int index]
-		{
-			get
-			{
-				if (index > -1 && index < values.Length)
-					return values[index];
-				else
-					throw new IndexOutOfRangeException();
-			}
-		}
+        public ElaValue this[int index]
+        {
+            get
+            {
+                if (index > -1 && index < values.Length)
+                    return values[index];
+                else
+                    throw new IndexOutOfRangeException();
+            }
+        }
     }
 }

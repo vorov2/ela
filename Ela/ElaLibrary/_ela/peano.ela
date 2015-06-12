@@ -89,6 +89,9 @@ instance ListLike Peano where
           list n (Succ a) = & n :: list (n+1) a
   fromList xs = fromInt (length xs)
 
+instance Numeral Peano where
+  numeral = literal'p
+
 /* Functions */
 listLength [] = Zero
 listLength (x::xs) = add one (& listLength xs) ::: Peano

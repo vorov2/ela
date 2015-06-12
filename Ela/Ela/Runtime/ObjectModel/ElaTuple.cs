@@ -5,25 +5,25 @@ using System.Text;
 
 namespace Ela.Runtime.ObjectModel
 {
-	public sealed class ElaTuple : ElaObject, IEnumerable<ElaValue>
-	{
+    public sealed class ElaTuple : ElaObject, IEnumerable<ElaValue>
+    {
         public ElaTuple(params object[] args) : base(ElaTypeCode.Tuple)
-		{
-			Values = new ElaValue[args.Length];
+        {
+            Values = new ElaValue[args.Length];
 
             for (var i = 0; i < args.Length; i++)
                 Values[i] = ElaValue.FromObject(args[i]);
-		}
+        }
 
-		public ElaTuple(params ElaValue[] args) : base(ElaTypeCode.Tuple)
-		{
-			Values = args;
-		}
+        public ElaTuple(params ElaValue[] args) : base(ElaTypeCode.Tuple)
+        {
+            Values = args;
+        }
 
-		internal ElaTuple(int size) : base(ElaTypeCode.Tuple)
-		{
+        internal ElaTuple(int size) : base(ElaTypeCode.Tuple)
+        {
             Values = new ElaValue[size];
-		}
+        }
 
         public static ElaTuple Concat(ElaTuple left, ElaTuple right)
         {
@@ -56,38 +56,38 @@ namespace Ela.Runtime.ObjectModel
             return sb.ToString();
         }
                 
-		public IEnumerator<ElaValue> GetEnumerator()
-		{
-			for (var i = 0; i < Values.Length; i++)
+        public IEnumerator<ElaValue> GetEnumerator()
+        {
+            for (var i = 0; i < Values.Length; i++)
                 yield return Values[i];
-		}
+        }
         
         IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
+        {
+            return GetEnumerator();
+        }
 
-		internal void InternalSetValue(int index, ElaValue value)
-		{
+        internal void InternalSetValue(int index, ElaValue value)
+        {
             Values[index] = value;
-		}
+        }
 
         internal ElaValue[] Values;
 
-		public ElaValue this[int index]
-		{
-			get
-			{
-				if (index < Length && index > -1)
-					return Values[index];
-				else
-					throw new IndexOutOfRangeException();
-			}
-		}
+        public ElaValue this[int index]
+        {
+            get
+            {
+                if (index < Length && index > -1)
+                    return Values[index];
+                else
+                    throw new IndexOutOfRangeException();
+            }
+        }
         
-		public int Length 
-		{ 
-			get { return Values.Length; } 
-		}
-	}
+        public int Length 
+        { 
+            get { return Values.Length; } 
+        }
+    }
 }

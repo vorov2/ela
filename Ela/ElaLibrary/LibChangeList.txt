@@ -1,5 +1,9 @@
 0.2.0.0:Release:Release of 0.2.0.0.
-0.1.13.13:New:A new 'collections.stack' module was added.
+0.1.13.17:New:Peano numbers (module 'peano') now provides an instance for 'Numeral' class.
+0.1.13.16:Change:A 'liftM' family of functions is added to the 'monad' module.
+0.1.13.15:Change:Now modules 'prelude', 'core', 'generic', 'number' and 'string' comes in precompiled (.elaobj) form in addition to source code.
+0.1.13.14:New:A new 'state' module' is added.
+0.1.13.13:New:A new 'collections.stack' module is added.
 0.1.13.12:New:Functions 'put' and 'putLn' added to 'io' module.
 0.1.13.11:New:File IO is added to the 'io' module (functions 'openFile', 'closeFile', 'readLine', 'readLines', 'writeStr', etc.).
 0.1.13.10:New:New functions 'ref', 'valueof', 'mutate' and ':=' were added to 'io' module to support stateful programming inside 'IO' monad.

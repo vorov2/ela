@@ -2,13 +2,13 @@
 
 namespace Ela.Runtime.ObjectModel
 {
-	internal sealed class ElaChar : ElaObject
-	{
-		internal static readonly ElaChar Instance = new ElaChar();
+    internal sealed class ElaChar : ElaObject
+    {
+        internal static readonly ElaChar Instance = new ElaChar();
         
-		private ElaChar() : base(ElaTypeCode.Char)
-		{
+        private ElaChar() : base(ElaTypeCode.Char)
+        {
 
-		}
-	}
+        }
+    }
 }

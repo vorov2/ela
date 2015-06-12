@@ -50,23 +50,21 @@ namespace Ela.Library.General
             Add<FileWrapper,ElaUnit>("closeFile", CloseFile);
             Add<String,FileWrapper,ElaUnit>("writeString", WriteString);
             Add<FileWrapper,String>("readLine", ReadLine);
-
-            Add<FileWrapper,String>("readLines", ReadLines);
-            Add<String,ElaUnit>("truncateFile", TruncateFile);
-            Add<String,String,ElaUnit>("writeLine", WriteLine);
-            Add<String,String,ElaUnit>("writeText", WriteText);
+            Add<FileWrapper, String>("readLines", ReadLines);
+            Add<String, String, ElaUnit>("writeLine", WriteLine);
+            Add<String, String, ElaUnit>("writeText", WriteText);
+            Add<String, ElaUnit>("truncateFile", TruncateFile);
         }
 
-        public FileWrapper OpenFile(string file, string acc, string mode)
+        public FileWrapper OpenFile(string file, string mode, string acc)
         {
             var fm = mode == "AppendMode" ? FileMode.Append :
                 mode == "CreateMode" ? FileMode.Create :
                 mode == "OpenMode" ? FileMode.Open :
                 mode == "OpenCreateMode" ? FileMode.OpenOrCreate :
-                mode == "TruncateMode" ? FileMode.Truncate :
                 FileMode.Truncate;
-            var fa = acc == "ReadMode" ? FileAccess.Read :
-                acc == "WriteMode" ? FileAccess.Write :
+            var fa = acc == "ReadAccess" ? FileAccess.Read :
+                acc == "WriteAccess" ? FileAccess.Write :
                 FileAccess.ReadWrite;
             return new FileWrapper(File.Open(file, fm, fa));
         }
@@ -97,12 +95,6 @@ namespace Ela.Library.General
             return sr.ReadToEnd() ?? String.Empty;
         }
 
-        public ElaUnit TruncateFile(string file)
-        {
-            File.Open(file, FileMode.Create).Close();
-            return ElaUnit.Instance;
-        }
-
         public ElaUnit WriteLine(string line, string file)
         {
             using (var sw = new StreamWriter(File.Open(file, FileMode.Append)))
@@ -116,6 +108,12 @@ namespace Ela.Library.General
             using (var sw = new StreamWriter(File.Open(file, FileMode.Create)))
                 sw.WriteLine(text);
 
+            return ElaUnit.Instance;
+        }
+
+        public ElaUnit TruncateFile(string file)
+        {
+            File.Open(file, FileMode.Create).Close();
             return ElaUnit.Instance;
         }
     }

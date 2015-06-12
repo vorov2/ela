@@ -5,21 +5,16 @@ using System.Text;
 
 namespace Ela.Linking
 {
-	public sealed class CodeBase
-	{
-		#region Construction
-		public CodeBase()
-		{
-			Directories = new List<String>();
-			LookupStartupDirectory = true;
-		}
-        #endregion
+    public sealed class CodeBase
+    {
+        public CodeBase()
+        {
+            Directories = new List<String>();
+            LookupStartupDirectory = true;
+        }
 
+        public List<String> Directories { get; private set; }
 
-		#region Properties
-		public List<String> Directories { get; private set; }
-
-		public bool LookupStartupDirectory { get; set; }
-		#endregion
-	}
+        public bool LookupStartupDirectory { get; set; }
+    }
 }

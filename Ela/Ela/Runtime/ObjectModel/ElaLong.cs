@@ -2,13 +2,13 @@
 
 namespace Ela.Runtime.ObjectModel
 {
-	public sealed class ElaLong : ElaObject
-	{
-		public ElaLong(long value) : base(ElaTypeCode.Long)
-		{
-			Value = value;
-		}
-		
+    public sealed class ElaLong : ElaObject
+    {
+        public ElaLong(long value) : base(ElaTypeCode.Long)
+        {
+            Value = value;
+        }
+        
         internal override long AsLong()
         {
             return Value;
@@ -51,6 +51,6 @@ namespace Ela.Runtime.ObjectModel
             return new ElaValue(left.Ref.AsLong() / right.Ref.AsLong());
         }
 
-		public long Value { get; private set; }
-	}
+        public long Value { get; private set; }
+    }
 }

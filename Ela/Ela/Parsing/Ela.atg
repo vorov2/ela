@@ -3,6 +3,7 @@
 CHARACTERS
     cr = '\r'.
     lf = '\n'.
+    zero = '\0'.
     newLine = cr + lf.
     closeBraket = ']' + '>'.
     tab = '\t'.    
@@ -119,7 +120,7 @@ TOKENS
     
 COMMENTS FROM "//" TO lf
 COMMENTS FROM "/*" TO "*/"
-IGNORE cr + lf
+IGNORE cr + lf + zero
 
 PRODUCTIONS
     EndBlock = EBLOCK (. if (!t.virt) scanner.PopIndent(); .).

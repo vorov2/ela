@@ -14,7 +14,17 @@ namespace Ela.Runtime.ObjectModel
         {
             return Value.Ref != null ? Value.Ref.TypeId : ElaMachine.LAZ;
         }
-        
+
+        internal override double AsDouble()
+        {
+            return Force().Ref.AsDouble();
+        }
+
+        internal override long AsLong()
+        {
+            return Force().Ref.AsLong();
+        }
+
         internal ElaValue Force()
         {
             if (Value.Ref == null)
@@ -144,7 +154,7 @@ namespace Ela.Runtime.ObjectModel
             set
             {
                 _value = value;
-                Function = null;				
+                Function = null;
             }
         }
     }
