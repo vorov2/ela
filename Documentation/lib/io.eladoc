@@ -60,15 +60,15 @@ Specifies a mode in which file should be opened, e.g.:
   * `OpenCreateMode` - open an alreadt existing file or create a new one if a file doesn't exist
   * `TruncateMode` - truncate an existing file to zero bytes
 
-#FileAccessMode
+#FileAccess
 Specifies how to share the access to the file with other programs.
-  * `ReadMode` - only reading is allowed
-  * `WriteMode` - only writing is allowed
-  * `ReadWriteMode` - both reading and writing is allowed
+  * `ReadAccess` - only reading is allowed
+  * `WriteAccess` - only writing is allowed
+  * `ReadWriteAccess` - both reading and writing is allowed
 
 #openFile fn mode acc
 Opens a file `fn` using the mode `mode` (specified by an instance of `FileMode` type) and access mode `acc`
-(specified by an instance of `FileAccessMode` type).//br
+(specified by an instance of `FileAccess` type).//br
 This function returns a file handle that should be closed using `closeFile` function.
 
 #readFile fn mode
@@ -82,27 +82,27 @@ This function is defined like so:
 #closeFile fh
 Closes a file obtained by `openFile` function:
 >>do
->>  fh <- openFile "c:\\test.txt" OpenMode ReadMode
+>>  fh <- openFile "c:\\test.txt" OpenMode ReadAccess
 >>  closeFile fh
 
 #readLine fh
 Reads a line from a file opened by `openFile` function:
 >>do
->>  fh <- openFile "c:\\test.txt" OpenMode ReadMode
+>>  fh <- openFile "c:\\test.txt" OpenMode ReadAccess
 >>  line <- readLine fh
 >>  closeFile fh
 
 #readLines fh
 Reads all lines from a file opened by `openFile` function:
 >>do
->>  fh <- openFile "c:\\test.txt" OpenMode ReadMode
+>>  fh <- openFile "c:\\test.txt" OpenMode ReadAccess
 >>  lines <- readLines fh
 >>  closeFile fh
 
 #writeStr str fh
 Writes a string to a file opened by `openFile` function:
 >>do
->>  fh <- openFile "c:\\test.txt" OpenMode WriteMode
+>>  fh <- openFile "c:\\test.txt" OpenMode WriteAccess
 >>  writeStr "Hello, world!" fh
 >>  closeFile fh
 

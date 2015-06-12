@@ -31,8 +31,9 @@
     <doc name="peano" file="lib\peano.htm" />
     <doc name="bench" file="lib\bench.htm" />
     <doc name="monad" file="lib\monad.htm" />
-    <doc name="imperative" file="lib\imperative.htm" />
     <doc name="io" file="lib\io.htm" />
+    <doc name="state" file="lib\state.htm" />
+    <doc name="imperative" file="lib\imperative.htm" />
   </folder>
   <folder name="Language Reference">
     <doc name="Bindings" file="bindings.htm"/>
