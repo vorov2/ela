@@ -148,7 +148,7 @@ take = take []
   where
     take ys 0 _       = reverse ys
     take ys n (x::xs) = take (x::ys) (n - 1) xs
-    take ys _ []      = []
+    take ys _ []      = reverse ys
 
 takeWhile f (x::xs) 
   | f x  = x :: takeWhile f xs
