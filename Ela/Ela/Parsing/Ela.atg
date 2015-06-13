@@ -249,7 +249,7 @@ PRODUCTIONS
                 (
                     ident
                     (. fld = new ElaFieldDeclaration(t) { FieldName = t.val }; .) 
-                    [						
+                    [
                         "=" Expr<out cexp> 
                         (. fld.FieldValue = cexp; .)
                     ]
@@ -271,7 +271,7 @@ PRODUCTIONS
                     (. string name; .)
                     "(" Operators (. name=t.val; .) ")"
                     (. fld = new ElaFieldDeclaration(t) { FieldName = name }; .) 
-                    [						
+                    [
                         "=" Expr<out cexp> 
                         (. fld.FieldValue = cexp; .)
                     ]
