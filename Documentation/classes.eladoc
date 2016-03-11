@@ -169,7 +169,18 @@ It is also possible to specify a default context for a current function or for a
 >>::: IO //here we say that a default context for top level is IO monad
 >>_ = do putStrLn "Hello!"
 >>_ = do putStrLn "Bye!"
-A default context annotation can be overriden by a specific context annotation.
+A default context annotation can be overriden by a specific context annotation.//br
+In some cases it is also possible to infer the context from one of the function arguments, e.g.:
+>>>open monad
+>>mfilter p !ma = do
+>>  a <- ma
+>>  if p a then return a else default
+A context can be inferred by applying a so called "bang" pattern to one of the arguments.
+In the example above a context is inferred from the `ma` argument, therefore the function `mfilter` can be used without
+explicit annotations at all:
+>>>mfilter odd [1,2,3]
+and
+>>>mfilter odd (Some 2)
 
 =Default Instances
 Ela also allows to declare default instances. A default instance is an instance without a type specification. For example, this

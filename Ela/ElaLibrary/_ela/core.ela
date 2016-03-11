@@ -1,6 +1,6 @@
 /*
   Module core
-  Created in 2012 by Basil Voronkov
+  Created in 2012-2016 by Basil Voronkov
 */
 open generic
 
@@ -11,6 +11,10 @@ type Maybe = None | Some a
 instance ListLike Maybe where
   fromList [] = None
   fromList (x::[]) = Some x
+
+instance Cat Maybe where
+  None ++ ra = ra
+  la   ++ _  = la
 
 maybe n _ None = n
 maybe _ f (Some x) = f x

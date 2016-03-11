@@ -1,3 +1,23 @@
+0.2.1.0:Release:Relase of 0.2.1.0.
+0.2.0.23:New:A function 'asum' is added to 'list' module.
+0.2.0.22:New:Now type 'Maybe' from 'core' module implements class 'Cat'.
+0.2.0.21:New:A function 'replicateM' is added to 'monad' module.
+0.2.0.20:New:Functions 'mapAndUnzipM', 'zipWithM' and 'zipWithM_' are added to 'monad' module.
+0.2.0.19:New:A function 'forM' is added to 'monad' module.
+0.2.0.18:New:A function 'mapM' is added to 'monad' module.
+0.2.0.17:New:A function 'sequence' is added to 'monad' module.
+0.2.0.16:Change:Function 'return' is eta-expanded and now forces its argument.
+0.2.0.15:Change:Functions in the 'liftM*' family are corrected to automatically infer context from the second argument.
+0.2.0.14:New:Functions '=<<', '<=<' and '>=>' are added to 'monad' module.
+0.2.0.13:New:A function 'foldM_' is added to 'monad' module.
+0.2.0.12:New:A function 'foldM' is added to 'monad' module.
+0.2.0.11:New:A function 'replicateM_' is added to 'monad' module.
+0.2.0.10:New:A function 'filterM' is added to 'monad' module.
+0.2.0.9:New:A function 'mfilter' is added to 'monad' module.
+0.2.0.8:New:Functions 'forever' and 'void' are added to 'monad' module.
+0.2.0.7:New:Functions 'when' and 'unless' are added to 'monad' module.
+0.2.0.6:New:Functions '$>' and '<$>' are added to 'monad' module.
+0.2.0.5:New:A function 'ap' is added to 'monad' module.
 0.2.0.4:New:A function 'sequence_' is added to 'monad' module.
 0.2.0.3:New:A function 'forM_' is added to 'monad' module.
 0.2.0.2:New:A function 'rndIO' is added to 'random' module.

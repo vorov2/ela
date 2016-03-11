@@ -106,6 +106,8 @@ all _ [] = true
 
 sum xs = foldl (+) 0 xs
 
+asum !xs = foldr (++) default
+
 product xs = foldl (*) 1 xs
 
 minimum xs = foldl1 minValue xs

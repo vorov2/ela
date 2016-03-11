@@ -73,15 +73,12 @@ also provides a generic default instance of `Functor`. A default generic instanc
 
 =Functions
 
-#<$ v cont
-This function is not a part of `Functor` definition but can be defined in terms of `fmap` like so:
->>(<$) = fmap << const
-This function replaces all locations in the with the same value like so:
->>>2 <$ [1..5]
+==Core monadic operators
 
-#return
-The `return` function is simply an alias for `point` function made for convinience:
->>return = point
+The two operators `>>=` and `>>-`, listed in this section, are used by Ela compiler when desugaring a do-notation. One
+can change an implementation of these operators in any way he or she likes - a compiler would use the operators available 
+in the current scope.//br
+By default in order to use do-notation one should reference `monad` module.
 
 #>>=
 A "bind" function that sequentially compose two actions, passing any value produces by the first as an argument to the
@@ -93,6 +90,96 @@ Sequentially compose two actions, discarding any value produced by the first, li
 in imperative languages. This function is define through `>>=` like so:
 >>xs >>- ys = xs >>= (\_ -> ys)
 
+
+==Basic monadic functions
+
+#<$ v cont
+This function is not a part of `Functor` definition but can be defined in terms of `fmap` like so:
+>>(<$) = fmap << const
+This function replaces all locations in the with the same value like so:
+>>>2 <$ [1..5]
+
+#$> cont v
+This is a flipped version of `(<$)`.
+
+#<$>
+This is an infix synonym for `fmap`.
+
+#return
+The `return` function delegates to the `point` function but forces (and infers a context) from its argument first:
+>>return !x = point x
+
+#=<<
+Same as `(>>=)` but with the arguments intercharged.
+
+#>=>
+Left-to-right Kleisli composition of monads.
+
+#<=<
+A flipped version of `(>=>)` function.
+
+#mapM f
+Map each element of a structure to a monadic action, evaluate these actions from left to right, and collect the results.
+
+#mapM_ f
+Map each element of a structure to a monadic action, evaluate these actions from left to right, and ignore the results.
+
+#forM f
+This function is `mapM` with its arguments flipped.
+
+#forM_ f
+This function is `mapM_` with its arguments flipped.
+
+#sequence d
+Evaluate each monadic action in the structure from left to right, and collect the results.
+For a version that ignores the results see `sequence_`.
+
+#sequence_ d
+Evaluate each monadic action in the structure from left to right, and ignore the results.
+
+#forever act
+Takes an action `act` and executes it infinitely, e.g.:
+>>open monad io
+>>forever (putStrLn "Hello!")
+
+#void
+Discards the result of evaluation, such as the return value of an IO action.
+
+==Generalization of list functions
+
+#mfilter
+A direct equivalent of `filter` function:
+>>>mfilter odd (Some 1)
+>>>mfilter odd (Some 2)
+
+#filterM
+Generalizes the list-based `filter` function.
+
+#mapAndUnzipM
+This function maps its first argument over a list, returning
+the result as a pair of lists. This function is mainly used with complicated
+data structures or a state-transforming monad.
+
+#zipWithM
+Generalizes `zipWith`.
+
+#zipWithM_
+Generalizes `zipWith` function (discards the results).
+
+#foldM
+Monadic fold over the elements of a structure, associating to the left, i.e. from left to right.
+
+#foldM_
+Acts like `foldM` but discards the result.
+
+#replicateM n act
+Performs an actions `act` `n` times, gathering the results.
+
+#replicateM_ n act
+Performs an actions `act` `n` times and discards the result.
+
+
+==Conditional execution
 #guard
 A boolean guard function that can be used in monadic expressions, specifically in `do` notation. This function is
 defined as follows:
@@ -110,6 +197,16 @@ For example, this code filters out all events from a given list (using `do` nota
 >>>
 >>>evens [1..10] ::: List
 
+#when
+Conditional execution of expressions. For example:
+>>do
+>>  when debug (putStrLn "Debugging")
+will output the string `"Debugging"` if the boolean value `debug` is `true`, and otherwise do nothing.
+
+#unless
+The reverse of `when`.
+
+==Monadic lifting operators
 #liftM f m1
 Promote a function to a monad.
 
@@ -125,11 +222,8 @@ The same as `liftM2`, but for four monadic arguments.
 #liftM5 f m1 m2 m3 m4 m5
 The same as `liftM2`, but for five monadic arguments.
 
-#mapM_ f
-Map each element of a structure to a monadic action, evaluate these actions from left to right, and ignore the results.
-
-#forM_ f
-This function is `mapM_` with its arguments flipped.
-
-#sequence_ d
-Evaluate each monadic action in the structure from left to right, and ignore the results.
+#ap m1 m2
+In many situations, the `liftM` operations can be replaced by uses of `ap`, which promotes function application.
+>>return f `ap` x1 `ap` ... `ap` xn
+is equivalent to
+>>liftMn f x1 x2 ... xn
