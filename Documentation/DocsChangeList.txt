@@ -1,3 +1,6 @@
+0.1.15.3:New:A new document 'Whats new' that contains platform changes overview is added.
+0.1.15.2:Change:An article 'random' is updated according to the module changes.
+0.1.15.1:Change:An article 'monad' is updated according to the module changes.
 0.1.15.0:Change:Release of 0.1.15.0.
 0.1.14.10:Change:An article 'peano' is updated according to the module changes.
 0.1.14.9:Change:An article 'monad' is updated according to the module changes.

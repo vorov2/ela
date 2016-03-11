@@ -5,7 +5,11 @@ This module contains an implementation of a pseudo-random number generator.
 
 =Functions
 
-#rnd
+#rnd seed min max
 A randomize function. It returns a pseudo random number which is equal or greater to `min` and 
 equal or lesser than `max`. This is actually a pure function as it will always return the same 
 value for the same seed.
+
+#rndIO min max
+Generates a random number using system clock milliseconds value as a seed. This function evaluates
+inside an `IO` monad.
