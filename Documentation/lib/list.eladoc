@@ -66,6 +66,9 @@ Returns `true` if all elements in `xs` list satisfy `p` predicate.
 Computes the sum of a finite list of numbers: 
 >>>sum [1,2,3]
 
+#asum xs
+A sum of a collection of actions.
+
 #product xs
 Computes the product of a finite list of numbers. 
 

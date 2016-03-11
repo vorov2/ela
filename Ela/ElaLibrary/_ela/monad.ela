@@ -1,6 +1,6 @@
 /*
   Module monad
-  Created by Basil Voronkov in 2013
+  Created by Basil Voronkov in 2013-2016
 */
 open generic core list tuple
 
@@ -42,8 +42,6 @@ instance Functor Or where
 
 instance Functor Tuple where
   fmap = tuple.map
-
-(<$) = fmap << const
 
 /* Union */
 class Union a where
@@ -107,7 +105,7 @@ instance Pointed Either where
 instance Pointed Tuple where
   point x = (x,)
 
-return = point
+return !x = point x
 
 /* Copointed */
 class Copointed a where
@@ -145,25 +143,97 @@ instance Failure Either
 instance Failure Tuple
 
 /* Functions */
+
+/* Core monadic operators */
 xs >>= f = join (fmap f xs)
 
 xs >>- ys = xs >>= (\_ -> ys)
 
-guard true = return ()
-guard false = default
 
-liftM f m1 = do x1 <- m1; return (f x1)
+/* Basic monadic functions */
 
-liftM2 f m1 m2 = do x1 <- m1; x2 <- m2; return (f x1 x2)
+f =<< x = x >>= f
 
-liftM3 f m1 m2 m3 = do x1 <- m1; x2 <- m2; x3 <- m3; return (f x1 x2 x3)
+f >=> g = \x -> f x >>= g
 
-liftM4 f m1 m2 m3 m4 = do x1 <- m1; x2 <- m2; x3 <- m3; x4 <- m4; return (f x1 x2 x3 x4)
+(<=<) = flip (>=>)
 
-liftM5 f m1 m2 m3 m4 m5 = do x1 <- m1; x2 <- m2; x3 <- m3; x4 <- m4; x5 <- m5; return (f x1 x2 x3 x4 x5)
+(<$) = fmap << const
+
+($>) = flip (<$)
+
+(<$>) = fmap
+
+mapM f = sequence << fmap f
 
 mapM_ f = foldr ((>>-) << f) (return ())
 
+forM = flip mapM
+
 forM_ = flip mapM_
 
+sequence [] = return []
+sequence (!m::ms) = do
+  x <- m
+  xs <- sequence ms
+  return (x::xs)
+
 sequence_ f = foldr (>>-) (return ()) f
+
+forever a = let a' = a >>- a' in a'
+
+void x = () <$ x
+
+
+/* Generalization of list functions */
+
+mfilter p !ma = do
+  a <- ma
+  if p a then return a else default
+
+filterM p !xs = foldr go (return []) xs
+  where
+    go x r = do
+      flg <- p x
+      ys <- r
+      return (if flg then x::ys else ys)
+
+mapAndUnzipM f xs = sequence (map f xs) >>= return << unzip
+
+zipWithM f xs ys = sequence (zipWith f xs ys)
+
+zipWithM_ f xs ys =  sequence_ (zipWith f xs ys)
+
+foldM f z0 xs = foldr f' return xs z0
+  where f' x k z = f z x >>= k
+
+foldM_ f a xs = foldM f a xs >>- return ()
+
+replicateM n x = sequence (replicate n x)
+
+replicateM_ n x = sequence_ (replicate n x)
+
+
+/* Conditional execution of monadic expressions */
+guard true = return ()
+guard false = default
+
+when p s = if p then s else return ()
+
+unless p s =  if p then return () else s
+
+/* Monadic lifting operators */
+liftM f !m1 = do x1 <- m1; return (f x1)
+
+liftM2 f !m1 m2 = do x1 <- m1; x2 <- m2; return (f x1 x2)
+
+liftM3 f !m1 m2 m3 = do x1 <- m1; x2 <- m2; x3 <- m3; return (f x1 x2 x3)
+
+liftM4 f !m1 m2 m3 m4 = do x1 <- m1; x2 <- m2; x3 <- m3; x4 <- m4; return (f x1 x2 x3 x4)
+
+liftM5 f !m1 m2 m3 m4 m5 = do x1 <- m1; x2 <- m2; x3 <- m3; x4 <- m4; x5 <- m5; return (f x1 x2 x3 x4 x5)
+
+ap m1 m2 = do
+  x1 <- m1
+  x2 <- m2
+  return (x1 x2)

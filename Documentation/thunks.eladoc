@@ -55,4 +55,8 @@ One can force an evaluation of a thunk using prelude `force` function like so:
 >>>force t
 This function always forces thunks recursively:
 >>>force (& 2 + (& 2+2))
-Also thunks are automatically forced when used in sequence expressions (created using built-in `$` operator). 
+Also thunks are automatically forced when used in sequence expressions (created using `seq` function) or using a so called "banged"
+pattern, e.g.:
+>>fun !a = a
+which is an equivalent to:
+>>fun a = force a
