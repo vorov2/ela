@@ -1,0 +1,75 @@
+﻿#title What's new? (Ela Platform 2015.3)
+
+=Overview
+Ela Platform 2015.3 is focused on additions and enhancements to the standard library. Starting from this version an 
+arbitrary precision integer type is introduced (`integer` module), polymorphic numeric literals, new modules `math`, `symbolic`, `stack`, `state` and
+important additions to other modules. Also Ela now goes
+from .NET 2.0 to .NET 4.0 (and Mono 2.8 respectively). Besides this Ela Platform 2015.3 includes several other enhancements
+to Ela standard library and a new version of Ela with several important bug fixes.
+
+=Ela changes
+Now Ela compiles to .NET 4.0 instead of .NET 2.0. Also this version of Ela (0.13) contains an important bug fix - previously
+Ela virtual machine could crash when a class function is defined directly through another class function in a simple binding
+manner (e.g. `foo = bar`), without eta-expansion. Another important change is a bug fix in compilation logic for the polymorphic
+constants reference. In previous versions when a polymorphic constant was references through a module alias (e.g. `number.pi`)
+wrong code could be emitted in some cases. Also a fix was implemented for a bug when type declarations could be compiled in
+incorrect order due to invalid rewriting algorithm. For other bug fixes see change log for this release.
+
+=Ela Console changes
+Ela Console now (as well as Ela and other platform components) compiles to .NET 4.0.
+
+=Documentation
+Documentation is updated with articles about new `integer`, `math`, `symbolic`, `stack` and `state` modules. Also articles about `prelude`, `number`, `monad` and `io` are
+updated according to the modules changes.
+
+=Library changes
+Ela standard library contains a new module `integer` that implements an arbitrary precision integer, new modules and several changes to
+already existing modules. Also the .NET part of the library is not compiled to .NET 4.0 (instead of .NET 2.0) as it used
+to be in a previous version).
+==New integer module
+A new integer module implements an arbitrary precision integer (data type `Integer`). In the current implementation a .NET
+Framework `System.Numerics.BigInteger` class is used in the back-end. Module `Integer` provides instances for the following classes:
+  * Standard prelude: `Default`, `Eq`, `Ord`, `Enum`, `Show`, `Read`, `Additive`, `Ring`, `Modulo`, `Field`, `IntLike`, `LongLike`
+  * Module `string`: `Format`
+  * Module `number`: `Num`, `Integeral`, `Absolute`, `Principal`
+  * Module `integer`: `IntegerLike`
+Additionally it defines a class `IntegerLike` and provides instances of it for `Int`, `Long` and itself.
+==New math module
+A new `math` module implements several generic mathematic functions which can work with any numeric types including the newly
+introduced `Integer` type or symbolic calculations.
+==New stack module
+A new `stack` module implements an immutable stack which is based on a single linked list. See module documentation for more details.
+==New symbolic module
+This module contains simple implementation of symbolic calculations. It also implements
+a symbolic number notation using a custom literal which allows to use symbolic numbers
+with any generic mathematical functions.//br
+Here is a sample usage with a van der Corput sequence function from `math` module:
+>>>open symbolic math
+>>>show $ vdc 10s 12s
+For more details refer to the `symbolic` module reference.
+==New state module
+Module `state` implements `State` monad in Haskell style. For more details refer to the `state` module reference.
+==Polymorphic numeric literals
+Module `number` now implements polymorphic numeric literals which can be used when writing generic functions over numbers. 
+In order to support polymorphic literals for a custom type one should implement `Numeral` class with a single `numeral` function,
+which can be done like so (for `Int`):
+>>instance Numeral Int where
+>>  numeral = read
+Of course module `number` already provides instances for all Ela numeric types.//br
+Also this module now contains a `literal'u` function which can be used to create polymorphic literal using a custom literal notation
+introduced in a previous release:
+>>x = 12u //12u is a polymorphic literal and requires a context to be dispatched
+==Other changes to modules
+This release includes the following changes to existing modules:
+  * Standard prelude now provides a partial default implementation for `Enum` class (function `enumFrom` and `enumFromTo`), which simplifies implementation of ranges for custom numeric types.
+  * Module `number` now provides a complete default implementation of `Absolute` class (works for types that implement `Additive`, `Ord` and `Numeral`).
+  * Module `number` now provides a partial implementation of `Integral` class (`div` function, works for types that implement `Ord`, `Additive`, `Ring` and `Numeral`).
+  * Module `number` now provides a complete default implementation of `Principal` class (works for types that implement `Eq`, `Numeral`, `Modulo`, `Absolute` and `Ring`).
+  * Module `io` now provides an implementation of file IO inside `IO` monad (see module documentation for more details).
+  * Module `io` now provides an implementation of state mutation through reference cells inside `IO` monad (see module documentation for more details).
+  * Console output functions `put` and `putLn` that formats its argument using standard `show` function are added to `io` module.
+  * New functions `liftM`, `liftM2`, `liftM3`, `liftM4` and `liftM5` that promote a function to monad are added to module `monad`.
+  * Peano numbers (module `peano`) now provides an instance for `Numeral` class.
+==Precompiled modules
+Starting from this version of standard library modules `prelude`, `core`, `list`, `number`, `string` and `generic` are included in distribution precompiled form (of course, source code for the modules
+is also shipped with the platform).

@@ -1,3 +1,7 @@
+0.2.0.4:New:A function 'sequence_' is added to 'monad' module.
+0.2.0.3:New:A function 'forM_' is added to 'monad' module.
+0.2.0.2:New:A function 'rndIO' is added to 'random' module.
+0.2.0.1:New:A function 'mapM_' is added to 'monad' module.
 0.2.0.0:Release:Release of 0.2.0.0.
 0.1.13.17:New:Peano numbers (module 'peano') now provides an instance for 'Numeral' class.
 0.1.13.16:Change:A 'liftM' family of functions is added to the 'monad' module.

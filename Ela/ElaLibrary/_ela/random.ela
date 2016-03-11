@@ -2,6 +2,12 @@
   Module random
   Created in 2011-2012 by Basil Voronkov
 */
-import libCore#elalib@cm 
+import libCore#elalib@cm datetime
+open monad io
 
 rnd seed min max = cm.rnd (force seed) (force min) (force max)
+
+rndIO min max = do
+  dtn <- datetime.now
+  return $ rnd (datetime.milliseconds dtn) min max ::: IO
+

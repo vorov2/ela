@@ -387,10 +387,6 @@ internal sealed partial class Parser {
 			Expect(55);
 			Expr(out cexp);
 			fld.FieldValue = cexp; 
-		} else if (la.kind == 32) {
-			var chain = default(ElaEquationSet); 
-			Get();
-			BindingChain(out chain);
 		} else if (la.kind == 52) {
 			string name; 
 			Get();
@@ -407,21 +403,6 @@ internal sealed partial class Parser {
 			   fld.FieldValue = new ElaNameReference(t) { Name = t.val };
 			
 		} else SynErr(72);
-	}
-
-	void BindingChain(out ElaEquationSet block) {
-		block = new ElaEquationSet(); 
-		scanner.InjectBlock();
-		
-		Binding(block);
-		if (RequireEndBlock()) 
-		EndBlock();
-		while (StartOf(3)) {
-			scanner.InjectBlock(); 
-			Binding(block);
-			if (RequireEndBlock()) 
-			EndBlock();
-		}
 	}
 
 	void Operators() {
@@ -572,6 +553,21 @@ internal sealed partial class Parser {
 		bindings.Pop();
 		
 		EndBlock();
+	}
+
+	void BindingChain(out ElaEquationSet block) {
+		block = new ElaEquationSet(); 
+		scanner.InjectBlock();
+		
+		Binding(block);
+		if (RequireEndBlock()) 
+		EndBlock();
+		while (StartOf(3)) {
+			scanner.InjectBlock(); 
+			Binding(block);
+			if (RequireEndBlock()) 
+			EndBlock();
+		}
 	}
 
 	void TryExpr(out ElaExpression exp) {

@@ -59,7 +59,7 @@ del c:\ela-platform\elide\ela.dll /Q
 
 @echo.
 @echo 10. Build version info
-set rn=2015.3
+set rn=2016.1
 for /f "delims=" %%a in ('pver.exe c:\ela-platform\lib_log.txt') do @set lib_v=%%a 
 for /f "delims=" %%a in ('pver.exe c:\ela-platform\ela_log.txt') do @set ela_v=%%a
 for /f "delims=" %%a in ('pver.exe c:\ela-platform\elac_log.txt') do @set elac_v=%%a 

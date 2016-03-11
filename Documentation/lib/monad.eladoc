@@ -124,3 +124,12 @@ The same as `liftM2`, but for four monadic arguments.
 
 #liftM5 f m1 m2 m3 m4 m5
 The same as `liftM2`, but for five monadic arguments.
+
+#mapM_ f
+Map each element of a structure to a monadic action, evaluate these actions from left to right, and ignore the results.
+
+#forM_ f
+This function is `mapM_` with its arguments flipped.
+
+#sequence_ d
+Evaluate each monadic action in the structure from left to right, and ignore the results.
