@@ -19,7 +19,7 @@ namespace Ela.CodeModel
 
         internal override void ToString(StringBuilder sb, int ident)		
         {
-            Format.PutInBraces(TargetObject, sb);
+            Format.PutInParens(TargetObject, sb);
             sb.Append('.');
             sb.Append(FieldName);
         }

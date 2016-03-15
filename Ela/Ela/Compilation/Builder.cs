@@ -111,6 +111,9 @@ namespace Ela.Compilation
 
             switch (exp.Type)
             {
+                case ElaNodeType.DoNotation:
+                    CompileDoNotation((ElaDoNotation)exp, map, hints);
+                    break;
                 case ElaNodeType.As:
                 case ElaNodeType.Equation:
                     AddError(ElaCompilerError.InvalidExpression, exp, FormatNode(exp));

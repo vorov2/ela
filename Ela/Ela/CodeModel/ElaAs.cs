@@ -29,7 +29,7 @@ namespace Ela.CodeModel
 
         internal override void ToString(StringBuilder sb, int ident)
         {
-            Format.PutInBraces(Expression, sb);
+            Format.PutInParens(Expression, sb);
             sb.Append("@");
             sb.Append(Name);
         }

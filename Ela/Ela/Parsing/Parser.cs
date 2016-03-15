@@ -1160,10 +1160,10 @@ internal sealed partial class Parser {
 	}
 
 	void DoBlock(out ElaExpression exp) {
-		scanner.InjectBlock(); 			
+		scanner.InjectBlock();
 		var skip = false;
-		ElaExpression eqt = new ElaJuxtaposition(t) { Spec = true };
-		exp = eqt;
+		ElaDoNotation don = new ElaDoNotation(t);
+		exp = don;
 		
 		while (!(la.kind == 0 || la.kind == 64)) {SynErr(96); Get();}
 		Expect(64);
@@ -1172,16 +1172,15 @@ internal sealed partial class Parser {
 			skip=true; 
 		}
 		scanner.InjectBlock(); 
-		DoBlockStmt(ref eqt);
+		DoBlockStmt(don);
 		if (RequireEndBlock()) 
 		EndBlock();
 		while (StartOf(3)) {
 			scanner.InjectBlock(); 
-			DoBlockStmt(ref eqt);
+			DoBlockStmt(don);
 			if (RequireEndBlock()) 
 			EndBlock();
 		}
-		exp = ValidateDoBlock(exp); 
 		if (!skip) 
 		EndBlock();
 	}
@@ -1710,7 +1709,7 @@ internal sealed partial class Parser {
 		}
 	}
 
-	void DoBlockStmt(ref ElaExpression eqt) {
+	void DoBlockStmt(ElaDoNotation don) {
 		var cexp1 = default(ElaExpression);
 		var cexp2 = default(ElaExpression);
 		
@@ -1720,25 +1719,18 @@ internal sealed partial class Parser {
 				Get();
 				EmbExpr(out cexp2);
 			}
-			ProcessDoBlock(cexp1, cexp2, ref eqt); 
+			if (cexp2 != null)
+			   don.Statements.Add(new ElaDoAssignment(t) { Left = cexp1, Right = cexp2 });
+			else
+			    don.Statements.Add(cexp1);
+			
 		} else if (la.kind == 32) {
 			scanner.InjectBlock(); 
 			var eqs = new ElaEquationSet();
 			
 			Get();
 			Binding(eqs);
-			if (eqt.Type == ElaNodeType.LetBinding)
-			   ((ElaLetBinding)eqt).Equations.Equations.AddRange(eqs.Equations);
-			else
-			{
-			    var lt = new ElaLetBinding(t);
-			    lt.Equations = eqs;
-			    if (eqt.Type == ElaNodeType.Lambda)
-			        ((ElaLambda)eqt).Right = lt;
-			    else
-			        lt.Expression = eqt;
-			    eqt = lt;
-			}
+			don.Statements.Add(new ElaLetBinding(t) { Equations = eqs });
 			
 			EndBlock();
 		} else SynErr(117);

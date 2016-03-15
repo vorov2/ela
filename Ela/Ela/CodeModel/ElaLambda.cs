@@ -25,30 +25,37 @@ namespace Ela.CodeModel
         {
             sb.Append('\\');
 
-            if (Left.Type == ElaNodeType.Juxtaposition)
-            {
-                var j = (ElaJuxtaposition)Left;
-                Format.PutInBraces(j.Target, sb);
-
-                if (j.Parameters.Count > 0)
-                    sb.Append(' ');
-
-                foreach (var p in j.Parameters)
-                {
-                    Format.PutInBraces(p, sb);
-                    sb.Append(' ');
-                }
-            }
+            if (Left == null)
+                sb.Append("<null>");
             else
             {
-                Format.PutInBraces(Left, sb);
-                sb.Append(' ');
+                if (Left.Type == ElaNodeType.Juxtaposition)
+                {
+                    var j = (ElaJuxtaposition)Left;
+                    Format.PutInParens(j.Target, sb);
+
+                    if (j.Parameters.Count > 0)
+                        sb.Append(' ');
+
+                    foreach (var p in j.Parameters)
+                    {
+                        Format.PutInParens(p, sb);
+                        sb.Append(' ');
+                    }
+                }
+                else
+                {
+                    Format.PutInParens(Left, sb);
+                    sb.Append(' ');
+                }
             }
 
             sb.Append("-> ");
 
             if (Right != null)
                 Right.ToString(sb, 0);
+            else
+                sb.Append("<null>");
         }
 
         internal int GetParameterCount()

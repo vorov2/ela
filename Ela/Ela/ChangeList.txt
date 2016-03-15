@@ -1,3 +1,6 @@
+0.14.0.0:Release:Release of Ela 0.14.0.0.
+0.13.0.2:Change:Do-notation is now completely rewritten for better efficiency and stability.
+0.13.0.1:Fix:A bug fixed in Ela parser that could cause parser to crush when it encounters incorrect binding inside of a do-notation.
 0.13.0.0:Release:Release of Ela 0.13.0.0.
 0.12.7.8:Change:Interoperability between Ela and .NET is enhanced when thunks are passed as parameters to .NET code.
 0.12.7.7:Fix:Ela could fail with internal compiler error when a module specified through 'open' or 'include' directive couldn't be found.
