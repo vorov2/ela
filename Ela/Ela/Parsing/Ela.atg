@@ -1448,24 +1448,23 @@ PRODUCTIONS
     
     DoBlock<out ElaExpression exp> = 
         (. 
-            scanner.InjectBlock(); 			
+            scanner.InjectBlock();
             var skip = false;
-            ElaExpression eqt = new ElaJuxtaposition(t) { Spec = true };
-            exp = eqt;
+            ElaDoNotation don = new ElaDoNotation(t);
+            exp = don;
         .) 
         SYNC "do" [EndBlock (. skip=true; .)]
         (
             (. scanner.InjectBlock(); .)
-            DoBlockStmt<ref eqt> (. if (RequireEndBlock()) .) EndBlock
+            DoBlockStmt<don> (. if (RequireEndBlock()) .) EndBlock
             {
                 (. scanner.InjectBlock(); .)
-                DoBlockStmt<ref eqt> (. if (RequireEndBlock()) .) EndBlock
+                DoBlockStmt<don> (. if (RequireEndBlock()) .) EndBlock
             }
         )
-        (. exp = ValidateDoBlock(exp); .)
         (. if (!skip) .) EndBlock.
         
-    DoBlockStmt<ref ElaExpression eqt> =
+    DoBlockStmt<ElaDoNotation don> =
         (.
             var cexp1 = default(ElaExpression);
             var cexp2 = default(ElaExpression);
@@ -1474,7 +1473,12 @@ PRODUCTIONS
             (
                 (
                     EmbExpr<out cexp1> [ "<-" EmbExpr<out cexp2> ]
-                    (. ProcessDoBlock(cexp1, cexp2, ref eqt); .)
+                    (. 
+                        if (cexp2 != null)
+                            don.Statements.Add(new ElaDoAssignment(t) { Left = cexp1, Right = cexp2 });
+                        else
+                            don.Statements.Add(cexp1);
+                    .)
                 )
                 | 
                 ( 
@@ -1484,18 +1488,7 @@ PRODUCTIONS
                     .)
                     LET Binding<eqs>
                     (.  
-                        if (eqt.Type == ElaNodeType.LetBinding)
-                            ((ElaLetBinding)eqt).Equations.Equations.AddRange(eqs.Equations);
-                        else
-                        {
-                            var lt = new ElaLetBinding(t);
-                            lt.Equations = eqs;
-                            if (eqt.Type == ElaNodeType.Lambda)
-                                ((ElaLambda)eqt).Right = lt;
-                            else
-                                lt.Expression = eqt;
-                            eqt = lt;
-                        }
+                        don.Statements.Add(new ElaLetBinding(t) { Equations = eqs });
                     .)
                     EndBlock
                 )

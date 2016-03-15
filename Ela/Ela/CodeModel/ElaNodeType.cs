@@ -66,6 +66,10 @@ namespace Ela.CodeModel
 
         TypeCheck,
 
+        DoNotation,
+
+        DoAssignment,
+
             
 
         TypeClass,

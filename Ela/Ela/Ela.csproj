@@ -189,6 +189,9 @@
     <Compile Include="Api.cs" />
     <Compile Include="Builtins.cs" />
     <Compile Include="CodeModel\ElaContext.cs" />
+    <Compile Include="CodeModel\ElaDoAssignment.cs" />
+    <Compile Include="CodeModel\ElaDoNotation.cs" />
+    <Compile Include="Compilation\Builder.DoNotation.cs" />
     <Compile Include="Compilation\ConstructorData.cs" />
     <Compile Include="CodeModel\ElaAs.cs" />
     <Compile Include="CodeModel\ElaHeader.cs" />

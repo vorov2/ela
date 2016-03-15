@@ -37,23 +37,25 @@ namespace Ela.CodeModel
 
         internal override void ToString(StringBuilder sb, int ident)
         {
+            sb.Append(' ', ident);
+
             if (Target.Type == ElaNodeType.NameReference && Target.GetName().IndexOfAny(opChars) != -1 &&
                 Parameters.Count == 2)
             {
-                Format.PutInBraces(Parameters[0], sb);
+                Format.PutInParens(Parameters[0], sb);
                 sb.Append(' ');
                 sb.Append(Target.GetName());
                 sb.Append(' ');
-                Format.PutInBraces(Parameters[1], sb);
+                Format.PutInParens(Parameters[1], sb);
             }
             else
             {
-                Format.PutInBraces(Target, sb);
+                Format.PutInParens(Target, sb);
 
                 foreach (var p in Parameters)
                 {
                     sb.Append(' ');
-                    Format.PutInBraces(p, sb);
+                    Format.PutInParens(p, sb);
                 }
             }
         }

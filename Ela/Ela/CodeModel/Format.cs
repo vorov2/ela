@@ -32,8 +32,14 @@ namespace Ela.CodeModel
                 ((ElaNameReference)p).Name[0] == '$';
         }
         
-        public static void PutInBraces(ElaExpression e, StringBuilder sb)
+        public static void PutInParens(ElaExpression e, StringBuilder sb)
         {
+            if (e == null)
+            {
+                sb.Append("<null>");
+                return;
+            }
+
             var simple = IsSimpleExpression(e);
 
             if (!simple)

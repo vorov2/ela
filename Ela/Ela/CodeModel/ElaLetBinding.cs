@@ -24,11 +24,21 @@ namespace Ela.CodeModel
 
         internal override void ToString(StringBuilder sb, int indent)
         {
-            Expression.ToString(sb, indent);
-            sb.AppendLine();
-            sb.Append(' ', indent);
-            sb.Append("where ");
-            Equations.ToString(sb, indent + 6);
+            if (Expression != null)
+            {
+                Expression.ToString(sb, indent);
+
+                sb.AppendLine();
+                sb.Append(' ', indent);
+                sb.Append("where ");
+                Equations.ToString(sb, indent + 6);
+            }
+            else
+            {
+                sb.Append(' ', indent);
+                sb.Append("let ");
+                Equations.ToString(sb, 0);
+            }
         }
 
         internal override IEnumerable<String> ExtractNames()
