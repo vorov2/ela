@@ -1192,14 +1192,23 @@ namespace Ela.Runtime
                     case Op.LazyCall:
                         {
                             var o = (ElaFunction)evalStack.Pop().Ref;
-
+                            var obj = o;
+                            right = evalStack.Pop();
+                                
                             if (!o.table)
-                            {
                                 o = o.CloneFast();
-                                o.LastParameter = evalStack.Pop();
-                            }
                             else
-                                o = ((ElaFunTable)o).GetFunction(evalStack.Pop(), ctx, thread.CallStack.Peek().Context);
+                                o = ((ElaFunTable)o).GetFunction(right, ctx, thread.CallStack.Peek().Context);
+
+                            if (ctx.Failed)
+                            {
+                                evalStack.Push(right);
+                                evalStack.Push(new ElaValue(obj));
+                                ExecuteThrow(thread, evalStack);
+                                goto SWITCH_MEM;
+                            }
+
+                            o.LastParameter = right;
                             
                             evalStack.Push(new ElaValue(-1, new ElaLazy(o)));
                         }

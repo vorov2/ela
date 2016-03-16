@@ -106,8 +106,8 @@ This is a flipped version of `(<$)`.
 This is an infix synonym for `fmap`.
 
 #return
-The `return` function delegates to the `point` function but forces (and infers a context) from its argument first:
->>return !x = point x
+The `return` function is an alias for `point` and is defined like so:
+>>return = point
 
 #=<<
 Same as `(>>=)` but with the arguments intercharged.

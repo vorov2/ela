@@ -55,6 +55,7 @@
     <doc name="Operator Priority" file="operatorpriority.htm" />    
   </folder>
   <folder name="Older Versions">
+    <doc name="Platform 2016.1" file="oldversions/platform-2016-1.htm" />
     <doc name="Platform 2015.3" file="oldversions/platform-2015-3.htm" />
     <doc name="Platform 2015.2" file="oldversions/platform-2015-2.htm" />
     <doc name="Platform 2015.1" file="oldversions/platform-2015-1.htm" />

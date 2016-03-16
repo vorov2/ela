@@ -105,7 +105,7 @@ instance Pointed Either where
 instance Pointed Tuple where
   point x = (x,)
 
-return !x = point x
+return x = point x
 
 /* Copointed */
 class Copointed a where
@@ -145,9 +145,9 @@ instance Failure Tuple
 /* Functions */
 
 /* Core monadic operators */
-xs >>= f = join (fmap f xs)
+!xs >>= f = join (fmap f xs)
 
-xs >>- ys = xs >>= (\_ -> ys)
+!xs >>- ys = xs >>= (\_ -> ys)
 
 
 /* Basic monadic functions */

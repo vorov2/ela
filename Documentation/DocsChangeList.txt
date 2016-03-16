@@ -1,4 +1,6 @@
-0.1.16.0:Relase:Release of 0.1.16.0
+0.1.17.0:Relase:Release of 0.1.17.0.
+0.1.16.1:New:A new document 'Whats new' that contains platform changes overview is added.
+0.1.16.0:Relase:Release of 0.1.16.0.
 0.1.15.8:Change:An article 'list' is updated according to the module changes.
 0.1.15.7:Change:An article 'core' is updated according to the module changes.
 0.1.15.6:Change:An article 'patternmatching' is corrected according to the language changes.

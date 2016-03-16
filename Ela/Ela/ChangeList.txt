@@ -1,4 +1,6 @@
 0.14.0.0:Release:Release of Ela 0.14.0.0.
+0.13.0.4:Fix:A bug fixed in Ela virtual machine that would cause a crush because of an incorrect execution of optimized lazy expressions.
+0.13.0.3:Fix:A bug fixed in Ela virtual machine that could cause Ela to crush when a dispatch context is not available.
 0.13.0.2:Change:Do-notation is now completely rewritten for better efficiency and stability.
 0.13.0.1:Fix:A bug fixed in Ela parser that could cause parser to crush when it encounters incorrect binding inside of a do-notation.
 0.13.0.0:Release:Release of Ela 0.13.0.0.

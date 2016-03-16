@@ -73,7 +73,19 @@ namespace Ela.Compilation
                         else if (root.Type == ElaNodeType.Juxtaposition)
                         {
                             var jroot = (ElaJuxtaposition)root;
-                            root = jroot.Parameters[0];
+                            //root = jroot.Parameters[0];
+                            jroot.Parameters[1] = MakeFake();
+                        }
+                        else if (root.Type == ElaNodeType.LetBinding)
+                        {
+                            var lroot = (ElaLetBinding)root;
+
+                            if (lroot.Expression.Type == ElaNodeType.Juxtaposition)
+                            {
+                                var jroot = (ElaJuxtaposition)lroot.Expression;
+                                jroot.Parameters[1] = MakeFake();
+                                //lroot.Expression = jroot.Parameters[0];
+                            }
                         }
                     }
                 }
@@ -89,6 +101,21 @@ namespace Ela.Compilation
             }
 
             CompileExpression(root, map, hints, null);
+        }
+
+        private ElaLambda MakeFake()
+        {
+            var juxta = new ElaJuxtaposition
+            {
+                Target = new ElaNameReference { Name = "point" }
+            };
+            juxta.Parameters.Add(new ElaUnitLiteral());
+
+            return new ElaLambda
+            {
+                Left = new ElaPlaceholder(),
+                Right = juxta
+            };
         }
 
         private ElaJuxtaposition MakeBind(ElaExpression exp)
