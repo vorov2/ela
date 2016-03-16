@@ -1,0 +1,35 @@
+﻿#title What's new? (Ela Platform 2016.1)
+
+=Overview
+Ela Platform 2016.1 contains multiple changes to the standard library. Also an experimental feature in Ela compiler
+that allows to infer contexts from function arguments is now supposed to be stable.
+
+=Ela changes
+An experimental feature (an ability to automatically infer contexts from the function arguments using "bang"
+pattern) introduced with the previous version of Ela Platform is now tested and supposed to be stable. This feature allows to define generic function is such a
+way so that no explicit context declaration is required (neither local or global), e.g.:
+>>>open monad core
+>>mfilter p !ma = do
+>>  a <- ma
+>>  if p a then return a else default
+A context can be inferred by applying a so called "bang" pattern to one of the arguments.
+In the example above a context is inferred from the `ma` argument, therefore the function `mfilter` can be used without
+explicit annotations at all:
+>>>mfilter odd [1,2,3]
+and
+>>>mfilter odd (Some 2)
+
+=Documentation
+Documentation articles about `monad`, `random`, `core`, `list` modules are updates according to the additions to these modules.
+Also articles _Lazy Evaluation_, _Pattern Matching_ and _Classes_ (from _Language Reference_) are corrected
+according to the language changes.
+
+=Library changes
+
+==Overview
+A new version of library comes with enhancements and new functions in the following modules: `monad`, `random`, `list`, `core`. The major changes can be
+seen in `monad` module with a set of 25+ new functions. See module documentation for more details.
+
+==Precompiled modules
+Starting from this version of standard library modules `char`, `record` and `tuple` are included in distribution precompiled form (of course, source 
+code for the modules is also shipped with the platform).
