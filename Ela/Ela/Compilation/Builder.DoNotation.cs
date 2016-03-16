@@ -56,6 +56,16 @@ namespace Ela.Compilation
                         lam.Left = ass != null ? ass.Left : new ElaPlaceholder();
                         juxta.Parameters[1] = lam;
                         current = lam;
+
+                        if (lam.Left.Type != ElaNodeType.NameReference && lam.Left.Type != ElaNodeType.Placeholder)
+                        {
+                            var jux = new ElaJuxtaposition { Target = new ElaNameReference { Name = "failure" } };
+                            jux.Parameters.Add(new ElaNameReference { Name = "$val$" });
+
+                            var jux2 = new ElaJuxtaposition();
+                            jux2.Parameters.Add(new ElaNameReference { Name = "$val$" });
+                            lam.Next = new ElaEquation { Left = jux2, Right = jux };
+                        }
                     }
                     else
                     {
