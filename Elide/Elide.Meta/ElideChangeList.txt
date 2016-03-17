@@ -1,4 +1,7 @@
-﻿0.3.1.0:Release:Release of Elide 0.3.1.0.
+﻿0.3.2.0:Release:Release of Elide 0.3.2.0.
+0.3.1.2:New:Now AST generation can process do-notation.
+0.3.1.1:Fix:A bug fixed that could result Elide to crush when calling AST generation from a file that haven't been saved yet.
+0.3.1.0:Release:Release of Elide 0.3.1.0.
 0.3.0.3:Fix:A bug fixed - default style font size could be switches to 9 points when typing.
 0.3.0.2:Change:Ela lexer is updated according to the language changes (custom literals).
 0.3.0.1:Fix:A bug fixed with error messages in editor not displayed using configured style.
