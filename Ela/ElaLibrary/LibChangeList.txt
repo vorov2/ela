@@ -1,3 +1,11 @@
+0.2.1.8:New:Functions 'padLeft_', 'padLeft', 'padRight_' and 'padRight' are added to the 'string' module.
+0.2.1.7:New:Functions 'unlines' and 'lines' are added to the 'string' module.
+0.2.1.6:New:Functions 'join', 'unwords' and 'words' are added to the 'string' module.
+0.2.1.5:Add:An instance for '~=' function is implemented for type Peano.
+0.2.1.4:Add:An instance for '~=' function is implemented for type Sym (symbolic number).
+0.2.1.3:Add:An instance for '~=' function is implemented for type Integer.
+0.2.1.2:Add:Class 'Num' from 'number' module is extended with '~=' function. Also instances for this function are implemented for Int, Long, Double and Single.
+0.2.1.1:Fix:Implementation of 'read' function for various data types (Int, Long, Double, etc.) is corrected - it could return an instance of a wrong data type depending on the input, e.g. 'read str ::: Int' could result in a float if 'str' contains a float literal.
 0.2.1.0:Release:Relase of 0.2.1.0.
 0.2.0.23:New:A function 'asum' is added to 'list' module.
 0.2.0.22:New:Now type 'Maybe' from 'core' module implements class 'Cat'.

@@ -1,0 +1,10 @@
+﻿#title What's new? (Ela Platform 2016.2)
+
+=Overview
+Ela Platform 2016.2 is a stabilization release. It comes with a new version of Ela compiler that addresses several important
+issues and refactorings.
+
+=Ela changes
+Ela contains several important bug fixes that could result in a crush of Ela runtime environment. It address issues connected with
+optimizations of evaluation of lazy sections and issues with compilation logic of context dispatch. Also this version of Ela includes a completely rewritten compilation logic of
+the do-notation which is now faster, more stable and more maintainable.

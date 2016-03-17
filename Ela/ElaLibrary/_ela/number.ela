@@ -1,6 +1,6 @@
 /* 
   Module number
-  Created in 2012-2015 by Basil Voronkov
+  Created in 2012-2016 by Basil Voronkov
 */
 import libNumber#elalib@rl
 
@@ -8,6 +8,7 @@ import libNumber#elalib@rl
 class Num a where
   zero a
   one a
+  (~=) a->a->_
 
 class Numeral a where
   numeral _->a
@@ -62,18 +63,22 @@ class Principal a where
 instance Num Int where
   zero = 0
   one = 1
+  (~=) = (==)
 
 instance Num Long where
   zero = 0L
   one = 1L
+  (~=) = (==)
 
 instance Num Single where
   zero = 0f
   one = 1f
+  x ~= y = (x - y) < 0.000001f
 
 instance Num Double where
   zero = 0d
   one = 1d
+  x ~= y = (x - y) < 0.000001d
 
 instance Numeral where
   numeral = read

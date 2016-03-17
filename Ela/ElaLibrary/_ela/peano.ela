@@ -26,6 +26,7 @@ instance Default Peano where
 instance Num Peano where
   zero = Zero
   one = Succ Zero
+  (~=) = comp (==)
 
 instance Bounded Peano where
   maxBound = infinity

@@ -106,3 +106,53 @@ Splits a given string into a list using a separator, specified as a first argume
 #insert idx ins s
 Inserts a string `ins` at a position `idx` inside the string `s`. This function creates a 
 new string. 
+
+#join sep xs
+A generic function that accepts a separator `sep`, a list of string `xs` and joins
+these strings into a solid string by inserting a separator `sep` between them.
+>>>join ";" ["one","two","thee"]
+
+#unwords
+Translates a list of strings into a solid string by concatenating each list element and
+inserting spaces between them.
+>>>unwords ["functional", "language"]
+The `unwords` function is defined as:
+>>unwords = join " "
+
+#words
+Parses a string a returns a list of all words (e.g. string entries separated by spaces):
+>>>words "functional language"
+Functions `words` and `unwords` are symmetrical:
+>>>xs = ["functional", "language"]
+>>>(words $ unwords xs) == xs
+
+#lines
+Splits a string into an array of lines if this string contains Unix, Mac or Windows
+line separators (all would work).
+>>>lines "one\ntwo\nthree"
+
+#unlines xs
+Joins a list of string into a solid string by inserting a new line character (Unix line
+separator) between them. This function is defined as:
+>>unlines = join "\n"
+Functions `lines` and `unlines` are symmetrical:
+>>>ys = ["one","two","thee"]
+>>>(lines $ unlines ys) == ys
+
+#padLeft_ sym num str
+Returns a string that right-aligns the characters in the given string `str` by padding them
+on the left with a string `sym`, for a specified total length of `num`.
+>>>padLeft_ "0" 3 "1"
+
+#padLeft num str
+A specialization of `padLeft_` function that is defined like so:
+>>padLeft = padLeft_ " "
+
+#padRight_ sym num str
+Returns a string that left-aligns the characters in the given string `str` by padding them
+on the right with a string `sym`, for a specified total length of `num`.
+>>>padRight_ "0" 3 "1"
+
+#padRight num str
+A specialization of `padRight_` function that is defined like so:
+>>padRight = padRight_ " "

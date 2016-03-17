@@ -59,6 +59,29 @@ split sep s = str.split (force sep) (force s)
 
 insert idx ins s = str.insert (force idx) (force ins) (force s)
 
+join sep (x::xs) = _join (toString x) xs
+  where _join _ [] = ""
+        _join str (x::[]) = toString $ str +> sep +> x
+        _join str (x::xs) = _join (str +> sep +> x) xs
+
+unwords = join " "
+
+words = split " "
+
+unlines = join "\n"
+
+lines = split "\n" << replace "\n\n" "\n" << replace "\r" "\n"
+
+padLeft_ _ 0 str = str
+padLeft_ sym num str = padLeft_ sym (num - 1) (sym ++ str)
+
+padLeft = padLeft_ " "
+
+padRight_ _ 0 str = str
+padRight_ sym num str = padRight_ sym (num - 1) (str ++ sym)
+
+padRight = padRight_ " "
+
 //This function is used to collect chars in a list
 collect # private
 collect fn xs x 

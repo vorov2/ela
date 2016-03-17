@@ -60,10 +60,10 @@ namespace Ela.Compilation
                         if (lam.Left.Type != ElaNodeType.NameReference && lam.Left.Type != ElaNodeType.Placeholder)
                         {
                             var jux = new ElaJuxtaposition { Target = new ElaNameReference { Name = "failure" } };
-                            jux.Parameters.Add(new ElaNameReference { Name = "$val$" });
+                            jux.Parameters.Add(new ElaNameReference { Name = "$v" });
 
                             var jux2 = new ElaJuxtaposition();
-                            jux2.Parameters.Add(new ElaNameReference { Name = "$val$" });
+                            jux2.Parameters.Add(new ElaNameReference { Name = "$v" });
                             lam.Next = new ElaEquation { Left = jux2, Right = jux };
                         }
                     }
