@@ -46,6 +46,20 @@ namespace Elide.ElaCode
 
             switch (exp.Type)
             {
+                case ElaNodeType.DoNotation:
+                    var @do = (ElaDoNotation)exp;
+                    var doNode = par.Simple(@do, "do");
+
+                    foreach (var st in @do.Statements)
+                    {
+                        var stNode = doNode.Simple(st, "statement");
+                        PopulateNodes(stNode, st);
+                    }
+                    break;
+                case ElaNodeType.DoAssignment:
+                    var @ass = (ElaDoAssignment)exp;
+                    par.Simple(@ass, String.Format("{0} <- {1}", @ass.Left, @ass.Right));
+                    break;
                 case ElaNodeType.As:
                     var @as = (ElaAs)exp;
                     par.Control(@as, "as", @as.Name);
@@ -173,8 +187,13 @@ namespace Elide.ElaCode
                 case ElaNodeType.LetBinding:
                     var @let = (ElaLetBinding)exp;
                     var letNode = par.Simple(@let, "let");
-                    var letExprNode = letNode.Simple(@let.Expression, "expression");
-                    PopulateNodes(letExprNode, @let.Expression);
+
+                    if (@let.Expression != null)
+                    {
+                        var letExprNode = letNode.Simple(@let.Expression, "expression");
+                        PopulateNodes(letExprNode, @let.Expression);
+                    }
+
                     var letEqNode = letNode.Simple(@let.Equations, "equations");
                     PopulateNodes(letEqNode, @let.Equations);
                     break;
