@@ -39,12 +39,12 @@ namespace Ela.CodeModel
         {
             sb.Append(' ', ident);
 
-            if (Target.Type == ElaNodeType.NameReference && Target.GetName().IndexOfAny(opChars) != -1 &&
+            if ((Target == null || (Target.Type == ElaNodeType.NameReference && Target.GetName().IndexOfAny(opChars) != -1)) &&
                 Parameters.Count == 2)
             {
                 Format.PutInParens(Parameters[0], sb);
                 sb.Append(' ');
-                sb.Append(Target.GetName());
+                sb.Append(Target != null ? Target.GetName() : "<null>");
                 sb.Append(' ');
                 Format.PutInParens(Parameters[1], sb);
             }

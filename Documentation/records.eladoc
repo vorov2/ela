@@ -21,4 +21,47 @@ new elements. However you can "clone" existing records and create new records th
 using concatenation function `++`: 
 >>>r1 = {x=1,y=2}
 >>>r1 ++ {z=3}
-Concatenation always produces a new record. 
+Concatenation always produces a new record.
+
+=Pattern matching
+You can pattern match records using a special "record" pattern:
+>>{name} = {name="John Doe",age=31,sex="male"}
+>>name
+You don't have to list all of the record fields - just the fields that you want to bind
+to names or to check their values:
+>>{age=31,sex} = {name="John Doe",age=31,sex="male"}
+>>sex
+
+=Operations with records
+Ela comes with a standard library that includes a `record` module. This module provides
+additional operations with records.//br
+Let's say that we have the following record:
+>>>rec = { name = "John Doe", age = 31 }
+We need to reference a `record` module first:
+>>>open record
+And now we add a new field to the record like so:
+>>>rec2 = addFields { sex = "male" } rec
+>>>rec2
+This will produce a new record.//br
+It is also possible to remove fields from the record (by also creating a new record)
+using a `removeField` function:
+>>>rec3 = removeFields "sex" rec2
+>>>rec3
+It is also possible to change a field:
+>>>rec4 = changeField "age" 32 rec3
+>>>rec4
+This will produce a new record.//br
+And to list all the fields from the record:
+>>>fields rec4
+When you have a name of a field you can always obtain a value of this field using
+generic `getField` function from standard prelude like so:
+>>>"name" `getField` rec
+
+=Records and tuples
+Records in Ela are essentially tuples with "names" that are attached to
+each element of a tuple. As a result you can use records in all the situations where
+tuples are expected. For example, you can pattern match records like tuples:
+>>>(a,b,c) = {name="John Doe",age=31,sex="male"}
+>>>(a,b,c)
+Or access a record element by its index using indexing operator:
+>>>rec4:1

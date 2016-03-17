@@ -1,0 +1,15 @@
+﻿#title Arbitrary size integer
+#category Language Reference
+
+=Introduction
+This article discusses arbitrary size integers in Ela. 
+
+=Overview
+Support for arbitrary size integers in Ela are added on the library level. Arbitrary size integers
+(the type name is `Integer`, while regular integers are `Int`) are implemented in the module `integer`.
+Once you reference this module you can use arbitrary size integers in your calculations, e.g.:
+>>>open integer
+>>>323i ** 12i
+As you can notice in order to create an arbitrary size integer you should use a special `i` postfix
+(case doesn't matter).//br
+Integers of `Integer` support the same set of operations as regular integers.

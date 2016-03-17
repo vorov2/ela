@@ -195,8 +195,49 @@ class Read a where
 
 gread = lang.readLiteral
 
-instance Read Int Long Single Double Bool Char String List Tuple Record where
-  read = gread
+instance Read Unit where
+  read "()" = ()
+  read _ = fail "prelude.read: Invalid literal."
+
+instance Read String where
+  read = id
+
+instance Read Char where
+  read str | length str > 0 = str:0
+           | else = '\0'
+
+instance Read Bool where
+  read "true" = true
+  read "false" = false
+
+instance Read Int where
+  read str = lang.readInt32 str 0
+
+instance Read Long where
+  read str = lang.readInt64 str 0L
+
+instance Read Single where
+  read str = lang.readFloat32 str 0F
+
+instance Read Double where
+  read str = lang.readFloat64 str 0D
+
+instance Read List where
+  read str = match gread str with
+                x | x is List = x
+                  | else = fail "prelude.read: Invalid literal."
+
+
+instance Read Tuple where
+  read str = match gread str with
+                x | x is Tuple = x
+                  | else = fail "prelude.read: Invalid literal."
+
+
+instance Read Record where
+  read str = match gread str with
+                x | x is Record = x
+                  | else = fail "prelude.read: Invalid literal."
 
 instance Read Ordering where
   read "LT" = LT

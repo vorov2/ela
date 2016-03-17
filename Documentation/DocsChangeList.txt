@@ -1,3 +1,10 @@
+0.1.17.7:Add:An article 'Arbitrary size integers' is added to the language reference.
+0.1.17.6:Change:An article 'Lists' from language reference is expanded with new sections.
+0.1.17.5:Change:An article 'Tuples' from language reference is expanded with new sections.
+0.1.17.4:Change:An article 'Records' from language reference is expanded with new sections.
+0.1.17.3:Change:An article 'string' is updated according to the module changes.
+0.1.17.2:Change:An article 'number' is updated according to the module changes.
+0.1.17.1:New:A new document 'Whats new' that contains platform changes overview is added.
 0.1.17.0:Relase:Release of 0.1.17.0.
 0.1.16.1:New:A new document 'Whats new' that contains platform changes overview is added.
 0.1.16.0:Relase:Release of 0.1.16.0.

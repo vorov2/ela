@@ -12,4 +12,52 @@ A `[]` literal denotes an empty list (usually called _nil_ list). Operator `::` 
 when you construct lists using this operator the right-most operand should be always a list. //br
 One can also use a special literal syntax for list construction. The code above is fully equivalent to: 
 >>xs = [1,2,3]
-As soon as Ela is a dynamically typed language, lists can contain values of any type. Also lists can be nested. 
+As soon as Ela is a dynamically typed language, lists can contain values of any type. Also lists can be nested:
+>>[[1,2],[3,4]]
+
+=Pattern matching
+Ela provides several ways to match lists inside pattern matching constructs. The first (and most
+basic way) is to use list construction operator:
+>>>(12::ys) = [12,13,14]
+>>>ys
+This pattern can have multiple elements and compare elements along with binding them to names:
+>>>(12::y::yss) = [12,13,14]
+>>>y
+If you want to match an empty list you can use a `[]` pattern:
+>>(12::_::_::[]) = [12,13,14]
+The example above matches a list with exactly three elements with `12` as head. There is also a more
+convinient way to write this pattern - using list literal:
+>>[12,_,_] = [12,13,14]
+
+=Operations with lists
+Standard prelude already defines a couple of core functions such as `map`, `filter` and `length` that you
+can use with lists:
+>>>map (*2) [1,2,3]
+and
+>>>length [1,2,3]
+However if you reference a `list` module you will be able to use dozens of list related functions including
+`concat` function that works like so:
+>>>open list
+>>>concat [[1,2],[3,4]]
+Functions from `list` module allows you to operate with lists, e.g. to delete or add elements:
+>>>delete 5 [1,4,5,6]
+Module `list` contains various filtering, sorting, merging, zipping, etc. functions. You can always refer to
+the module documentation to learn more about these functions. Also many functions from this module are available
+both in a lazy and in a strict form, e.g. `fold` (a strict version) and `fold'` (a lazy version).
+
+=Lists as monad
+Lists in Ela are also monads. If you reference `monad` module that implements monadic classes for lists you
+will be able to use lists as monad, e.g. inside a do-notation:
+>>>open monad
+>>>
+>>>squares lst = do
+>>>    x <- lst
+>>>    return (x * x)
+>>>
+>>>squares [1, 2, 3]
+
+=Infinite and lazy lists
+Lists in Ela can be lazy or even infinite. The simplest way to create an infinite list is to
+use ranges like so:
+>>[1..]
+More information about lazy lists is available in _Lazy Evaluation_ article.

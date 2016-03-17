@@ -23,6 +23,51 @@ namespace Ela.Linking
             Add<Int32,ElaRecord,ElaValue>("showRecordKey", ShowRecordKey);
             Add<String,ElaValue,ElaValue>("toString", ToString);
             Add<String,ElaValue>("readLiteral", Read);
+
+            Add<String,Int32,Int32>("readInt32", ReadInt32);
+            Add<String,Int64,Int64>("readInt64", ReadInt64);
+            Add<String,Single,Single>("readFloat32", ReadFloat32);
+            Add<String,Double,Double>("readFloat64", ReadFloat64);
+        }
+
+        private int ReadInt32(string value, int def)
+        {
+            var i4 = 0;
+
+            if (!Int32.TryParse(value, out i4))
+                return def;
+
+            return i4;
+        }
+
+        private long ReadInt64(string value, long def)
+        {
+            var i8 = 0L;
+
+            if (!Int64.TryParse(value, out i8))
+                return def;
+
+            return i8;
+        }
+
+        private float ReadFloat32(string value, float def)
+        {
+            var r4 = 0f;
+
+            if (!Single.TryParse(value, out r4))
+                return def;
+
+            return r4;
+        }
+
+        private double ReadFloat64(string value, double def)
+        {
+            var r8 = 0d;
+
+            if (!Double.TryParse(value, out r8))
+                return def;
+
+            return r8;
         }
 
         public ElaValue ToString(string format, ElaValue val)

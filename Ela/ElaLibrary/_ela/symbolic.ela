@@ -144,6 +144,7 @@ instance Modulo Sym where
 instance Num Sym where
   zero = 0s
   one = 1s
+  (~=) = (==)
 
 instance Numeral Sym where
   numeral = literal's

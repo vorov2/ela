@@ -9,8 +9,70 @@ Tuple is a grouped sequence of values. Tuples can be useful in cases when you ne
 values (such as to return several values from a function). Tuples can be created using special literal syntax: 
 >>t = (1,2,3)
 Note that `,` is not an operator in Ela but syntax. However, one can easily write a function that constructs tuples like so: 
->>>x => y = (x,y)
->>>1 => 2
+>>x => y = (x,y)
+>>1 => 2
 A function `=>` is in fact already automatically imported from prelude and available for your use.//br
 Tuples are always compared using structured equality. Tuples are immutable as all Ela data structures - there 
-is no way to add or to change an element of a tuple. 
+is no way to add or to change an element of a tuple.//br
+It is also possible to create a single element tuple like so:
+>>>(2,)
+
+=Pattern matching
+You can pattern match tuples using a special pattern:
+>>>(x,y,z) = (1,2,3)
+>>>x
+You have to list all of the tuple elements in the pattern, e.g. the following code:
+>>(x,y) = (1,2,3)
+would result in an error.//br
+If you don't need values of some of the tuple elements you use a placeholder character
+instead of a name like so:
+>>>(_,_,xyz) = (1,2,3)
+>>>xyz
+
+=Tuples and ranges
+If you reference a standard `tuple` module you can use tuples in ranges like so:
+>>>open tuple
+>>>[(1,2)..(4,5)]
+The range would stop when one of the elements in a tuple would reach its upper bound:
+>>>[(1,2)..(2,5)]
+It is also possible to specify steps for ranges like so:
+>>>[(1,1),(2,2)..(6,6)]
+
+=Arithmetic operations
+Tuples support basic arithmetic operations (implemented in `tuple` module) including
+addition and subtraction (class `Additive`), multiplication and power (class `Ring`) and
+division (class `Field`):
+>>>(1,1) + (4,6)
+Tuples use float division:
+>>>(4,6) / (3,5)
+When using a `(**)` operator a second argument is treated as a power:
+>>>(2,) ** (3,)
+
+=Tuples as sequences
+Tuples are also sequences of elements, so it is possible to use corresponding functions
+with tuples as well.//br
+First a regular concatenation operator `(++)` would work on tuples:
+>>>(1,2) ++ (3,4)
+You can also use `map`:
+>>>tuple.map (*2) (1,2,3)
+and `concat` functions:
+>>>tuple.concat ( (1,2), (3,4) )
+Module `tuple` also defines such functions as `foldl`, `foldl1`, `foldr` and `foldr` with
+standard behavior. Function `any` can help to test if at least one tuple element satisfies
+the given condition:
+>>>tuple.any (==2) (1,2,3)
+Function `all` tests if all elements in a tuple satisfies a given condition:
+>>>tuple.all even (1,2,3)
+Function `join` can "glue" two tuples of the same size into a single one using a given
+function like so:
+>>>tuple.join (*) (2,3,4) (5,6,7)
+All of these functions require full qualification.
+
+=Tuples as monads
+As long as tuples have implementations of such functions as `map` and `concat` it is
+possible to treat tuples as monad. And in fact module `monad` provides implementation of
+monadic classes for tuples.
+>>>open monad
+>>>do
+>>>  tup <- (1,2,3)
+>>>  return tup

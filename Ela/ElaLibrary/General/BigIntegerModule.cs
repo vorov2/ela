@@ -71,7 +71,12 @@ namespace Ela.Library.General
 
         public BI Parse(string str)
         {
-            return new BI(BigInteger.Parse(str, Culture.NumberFormat));
+            var bi = default(BigInteger);
+            
+            if (!BigInteger.TryParse(str, NumberStyles.Integer, Culture.NumberFormat, out bi))
+                return new BI(new BigInteger(0));
+
+            return new BI(bi);
         }
 
         public bool Equals(BI left, BI right)

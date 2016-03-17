@@ -7,7 +7,10 @@ This module contains major numeric classes and instances.
 
 #Num
 Defines polymorphic constancs `zero` and `one`, which should evaluate to respective
-numbers.//br
+numbers. This class also defines a `(~=)` function which can be described as "almost equal".
+This function is useful when you need to write generic routines that might compare integers
+and floats (direct comparison of floats might fail due to the peculiarities of this data type).
+For integers this function should be the same as regular comparison.//br
 Instances of this class are provided for all standard numeric types.
 
 #Numeral
