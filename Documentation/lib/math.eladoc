@@ -25,6 +25,9 @@ infers a context automatically.
 #divrem x y
 Divides two numbers and returns a remainder.
 
+#quotrem x y
+Divides two numbers (using integer division, truncated towards zero) and returns a remainder.
+
 #/. x y
 An alias for divrem function.
 

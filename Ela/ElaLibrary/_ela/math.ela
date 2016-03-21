@@ -32,6 +32,8 @@ egcd !a b
 //Divides two numbers and returns a remainder
 divrem x y = (x / y, x % y)
 
+quotrem x y = (x `quot` y, x % y)
+
 //An alias for divrem function
 (/.) = divrem
 

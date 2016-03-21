@@ -1,6 +1,6 @@
 /* 
   Module string
-  Created in 2012-2015 by Basil Voronkov
+  Created in 2012-2016 by Basil Voronkov
 */
 import libString#elalib@str
 import lang
@@ -55,9 +55,9 @@ remove start n s = str.remove (force start) (force n) (force s)
 
 substr start n s = str.substr (force start) (force n) (force s)
 
-split sep s = str.split (force sep) (force s)
+split !sep !s = str.split sep s
 
-insert idx ins s = str.insert (force idx) (force ins) (force s)
+insert !idx !ins !s = str.insert idx ins s
 
 join sep (x::xs) = _join (toString x) xs
   where _join _ [] = ""
@@ -87,3 +87,4 @@ collect # private
 collect fn xs x 
   | x is Char = collect fn (x::xs)
   | else = fn xs x
+

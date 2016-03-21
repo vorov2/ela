@@ -1,0 +1,78 @@
+#file measure.ela
+#title measure
+#category Ela Standard Library
+
+=Overview
+This module implements units of measurement, which are typically used to indicate length,
+volume, mass, and so on. Units can be used to operate with compatible units (such as grams or kilograms)
+without the need of explicit convertion, which helps prevent programming errors.
+
+=Usage notes
+First you have to declare your units which can be done using the following helper functions:
+>>>g = UAtom "g"
+>>>kg = UComplex "kg" 1000 g
+>>>tn = UComplex "tn" 1000 kg
+Units can be atomic or complex. In the example above (for the sake of simplicity) we suppose grams (name `g`) to be
+the atomic units which means that this is the most atomic measurement in our program. Other units such as
+kilograms (`kg`) and tons (`tn`) are defined as complex units, e.g. using more atomic units. You can see how
+kilograms are defines using grams, but tons are defined using kilograms. This is not a requirement however, and one
+can define tons through grams like so:
+>>tn = UComplex "tn" (1000*1000) g
+Both versions would work in the same manner.//br
+Now that we have our measurement units defined we can perform basic comparison and arithmetic operations with
+them.
+>>>g:1200 + kg:1.2
+or
+>>>kg:1.304 > g:1200
+An operator `(:)` is used to create values. However, for convinience, one can define custom literals for the measurement
+units that used in a program like:
+>>>literal'g = value g
+>>>literal'k = value kg
+>>>literal't = value tn
+The function `value` is a helper function that can simplify creation of values.//br
+Now it is possible to use a more convinient and clean syntax:
+>>>show $ 1.2k - 304g
+
+=Types
+#MeasureUnit
+This type represents a measurement unit such as grams, kilograms, etc.
+
+#MeasureValue
+This type represents a value associated with a unit (represented using `MeasureUnit` type).
+
+=Functions
+#atom name
+A helper function that can be used to define literals instead of a `UAtom` constructor, e.g.:
+>>>atom "g"
+This function requires a qualified access.
+
+#complex name value unit
+A helper function that can be used to define literals instead of a `UComplex` constructor, e.g.:
+>>>complex "kg" 1000 g
+This function requires a qualified access.
+
+#expand value
+Expands a given value to the atomic unit:
+>>>expand 0.34t
+This function requires a qualified access.
+
+#map fn value
+Applies a function `fn` to a given value:
+>>>map (+2) 3k
+This function requires a qualified access.
+
+#join fn value1 value2
+Joins two values of the same (or compatible) measurement units by applying a function `fn` to these values:
+>>>join (+) 13k 0.05t
+This function requires a qualified access.
+
+#convert value unit
+Convert a given value into the specified compatible unit:
+>>>convert 12t kg
+This function requires a qualified access.
+
+#value unit
+A helper function that can be used to create values. This function is defined like:
+>>value unit = (unit:) << gread
+This function requires a qualified access.
+

@@ -195,6 +195,7 @@
     <None Include="_ela\list.ela" />
     <None Include="_ela\list.elaobj" />
     <None Include="_ela\math.ela" />
+    <None Include="_ela\measure.ela" />
     <None Include="_ela\monad.ela" />
     <None Include="_ela\number.elaobj" />
     <None Include="_ela\peano.ela" />

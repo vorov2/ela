@@ -1,0 +1,98 @@
+/* 
+  Module measure
+  Created in 2016 by Basil Voronkov
+*/
+open generic string
+
+type MeasureUnit = UAtom name | UComplex name value (MeasureUnit measure)
+  deriving Name Eq
+
+instance Show MeasureUnit where
+  show (UAtom name) = name
+  show (UComplex name value measure) = name ++ "/" ++ show value ++ intshow value measure
+    where intshow mult (UComplex name value measure) = name ++ "/" ++ show (mult * value) ++ intshow (mult * value) measure
+          intshow mult (UAtom name) = name
+
+instance Ix MeasureUnit where
+  getValue value measure = MValue measure value
+
+type MeasureValue = MValue (MeasureUnit measure) value
+  deriving Name
+
+instance Show MeasureValue where
+  show (MValue measure value) = show value ++ "<" ++ measure.name ++ ">"
+
+instance Additive MeasureValue where
+  (+) = join (+)
+  (-) = join (-)
+  negate = map negate
+
+instance Ring MeasureValue where
+  (*) = join (*)
+  (**) = join (**)
+
+instance Modulo MeasureValue where
+  mod = join mod
+  rem = join rem
+
+instance Field MeasureValue where
+  (/) = join (/)
+
+instance Eq MeasureValue where
+  (==) = joinByResult (==)
+
+instance Ord MeasureValue where
+  (>) = joinByResult (>)
+  (<) = joinByResult (<)
+  (>=) = joinByResult (>=)
+  (<=) = joinByResult (<=)
+
+instance Enum MeasureValue where
+  succ = map succ
+  pred = map pred
+
+atom # qualified
+atom = UAtom
+
+complex # qualified
+complex = UComplex
+
+failure_string # private
+failure_string = format "measure: Unable to operate on measuremenet units {0} and {1}"
+
+expand # qualified
+expand (MValue (UComplex _ mult measure) value) = expand <| MValue measure <| mult * value
+expand value = value
+
+map # qualified
+map fn (MValue measure value) = MValue measure $ fn value
+
+join # qualified
+join = joinBy (\m res -> MValue (UAtom m) res)
+
+joinByResult # private
+joinByResult = joinBy (\_ res -> res)
+
+joinBy # private
+joinBy mut fn (MValue (UAtom m1) value1) (MValue (UAtom m2) value2)
+  | m1 == m2 = mut m1 $ fn value1 value2
+  | else = fail $ failure_string m1 m2
+joinBy mut fn x (MValue (UComplex _ _ _) _)@y = joinBy mut fn x $ expand y
+joinBy mut fn (MValue (UComplex _ _ _) _)@x y = joinBy mut fn (expand x) y
+
+convert # qualified
+convert origvalue unit  = _convert (expand origvalue) unit
+  where
+    _convert value (UAtom m) 
+      | value.measure.name == m = value
+      | else = fail $ failure_string origvalue.measure.name m
+    _convert value (UComplex m cvalue (UAtom mn))@tar
+      | value.measure.name == mn = MValue tar (value.value / cvalue)
+      | else = fail $ failure_string origvalue.measure.name mn
+    _convert value (UComplex m cvalue (UComplex mi _ _)@tar)@fin
+      | value.measure.name == mi = MValue fin (value.value / cvalue)
+      | else = _convert (_convert value tar) fin
+
+value # qualified
+value unit = (unit:) << gread
+

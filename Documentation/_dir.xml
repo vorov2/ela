@@ -15,6 +15,7 @@
     <doc name="integer" file="lib\integer.htm" />
     <doc name="math" file="lib\math.htm" />
     <doc name="symbolic" file="lib\symbolic.htm" />
+    <doc name="measure" file="lib\measure.htm" />
     <doc name="list" file="lib\list.htm" />
     <doc name="char" file="lib\char.htm" />
     <doc name="string" file="lib\string.htm" />

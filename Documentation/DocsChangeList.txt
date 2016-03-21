@@ -1,3 +1,7 @@
+0.1.18.0:Relase:Release of 0.1.18.0.
+0.1.17.10:New:A new article about 'measure' about a new module of the same name is added.
+0.1.17.9:Change:An article 'random' is updated according to the module changes.
+0.1.17.8:Change:An article 'math' is updated according to the module changes.
 0.1.17.7:Add:An article 'Arbitrary size integers' is added to the language reference.
 0.1.17.6:Change:An article 'Lists' from language reference is expanded with new sections.
 0.1.17.5:Change:An article 'Tuples' from language reference is expanded with new sections.

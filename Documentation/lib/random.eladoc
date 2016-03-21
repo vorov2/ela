@@ -11,5 +11,16 @@ equal or lesser than `max`. This is actually a pure function as it will always r
 value for the same seed.
 
 #rndIO min max
-Generates a random number using system clock milliseconds value as a seed. This function evaluates
+Generates a random number using system clock milliseconds value as a seed. This function is evaluated
 inside an `IO` monad.
+
+#rndList seed min max
+Returns an infinite list of random numbers; each number in this list is equal or greater to `min` and 
+equal or lesser than `max`. This is actually a pure function as it will always return the same 
+list for the same seed.
+>>>open list
+>>>take 10 $ rndList 234 1 48586
+
+#rndListIO min max
+Generates an infinite list of random numbers using system clock milliseconds value as a seed. This
+function is evaluated inside an `IO` monad.

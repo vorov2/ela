@@ -1,3 +1,4 @@
+0.14.1.0:Relase:Release of Ela 0.14.1.0.
 0.14.0.1:Fix:Ela compiler could crash instead of generating an error message when encountered an ill-formed pattern matching inside a do-notation.
 0.14.0.0:Release:Release of Ela 0.14.0.0.
 0.13.0.4:Fix:A bug fixed in Ela virtual machine that would cause a crush because of an incorrect execution of optimized lazy expressions.

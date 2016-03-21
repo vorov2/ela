@@ -1,3 +1,8 @@
+0.2.2.0:Release:Release of 0.2.2.0.
+0.2.1.12:New:A new module 'measure' is added.
+0.2.1.11:New:Type 'Maybe' now have an instance of class 'Read'.
+0.2.1.10:New:Function 'rndList' and 'rndListIO' are added to the 'random' module.
+0.2.1.9:New:A function 'quotrem' is added to the 'math' module.
 0.2.1.8:New:Functions 'padLeft_', 'padLeft', 'padRight_' and 'padRight' are added to the 'string' module.
 0.2.1.7:New:Functions 'unlines' and 'lines' are added to the 'string' module.
 0.2.1.6:New:Functions 'join', 'unwords' and 'words' are added to the 'string' module.
