@@ -1,3 +1,4 @@
+0.2.2.1:Fix:A bug fixed in the function 'writeLines' from 'file' module (only the first line from the provided list was written to the file).
 0.2.2.0:Release:Release of 0.2.2.0.
 0.2.1.12:New:A new module 'measure' is added.
 0.2.1.11:New:Type 'Maybe' now have an instance of class 'Read'.
