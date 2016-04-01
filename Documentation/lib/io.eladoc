@@ -91,9 +91,10 @@ Reads a line from a file opened by `openFile` function:
 >>  fh <- openFile "c:\\test.txt" OpenMode ReadAccess
 >>  line <- readLine fh
 >>  closeFile fh
+If a file stream is at the end position this function would return an instance of a unit.
 
-#readLines fh
-Reads all lines from a file opened by `openFile` function:
+#readAll fh
+Reads all contents from a file opened by `openFile` function and returns a string:
 >>do
 >>  fh <- openFile "c:\\test.txt" OpenMode ReadAccess
 >>  lines <- readLines fh
@@ -105,6 +106,32 @@ Writes a string to a file opened by `openFile` function:
 >>  fh <- openFile "c:\\test.txt" OpenMode WriteAccess
 >>  writeStr "Hello, world!" fh
 >>  closeFile fh
+
+#writeLines pred xs fh
+Accepts a list of values, a predicate, a file handle (obtained from `openFile` function) and writes each value from a list 
+if this value satisfies the predicate as a separate line to the given file.
+>>do
+>>  fh <- openFile "c:\\test.txt" OpenMode WriteAccess
+>>  writeLines (\_ -> true) ["123", "abc", "defg", "4567"] fh
+>>  closeFile fh
+
+#writeAllLines xs fh
+This function is defined as follows:
+>>writeAllLines = writeLines (\_ -> true)
+
+#readLines pred fh
+Accepts a predicator function, a file handle (obtained from `openFile` function) a reads all lines from a given file into a list
+if these lines satisfy a given predicate.
+>>//For a file that contains lines written in the code sample for 'writeLines' function:
+>>do
+>>  fh <- openFile "c:\\test.txt" OpenMode ReadAccess
+>>  xs <- readLines (<>"123") fh //All lines except "123" are read
+>>  closeFile fh
+>>  return xs
+
+#readAllLines fh
+This function is defined as follows:
+>>readAllLines = readLines (\_ -> true)
 
 =Stateful programming
 
