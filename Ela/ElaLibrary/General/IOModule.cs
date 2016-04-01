@@ -18,6 +18,10 @@ namespace Ela.Library.General
                 this.Stream = fs;
             }
 
+            internal StreamReader Reader { get; set; }
+
+            internal StreamWriter Writer { get; set; }
+
             private void Close()
             {
                 if (Stream != null)
@@ -25,6 +29,9 @@ namespace Ela.Library.General
                     Stream.Close();
                     Stream = null;
                 }
+
+                Writer = null;
+                Reader = null;
             }
 
             ~FileWrapper()
@@ -49,7 +56,7 @@ namespace Ela.Library.General
             Add<String,String,String,ElaObject>("openFile", OpenFile);
             Add<FileWrapper,ElaUnit>("closeFile", CloseFile);
             Add<String,FileWrapper,ElaUnit>("writeString", WriteString);
-            Add<FileWrapper,String>("readLine", ReadLine);
+            Add<FileWrapper,ElaValue>("readLine", ReadLine);
             Add<FileWrapper, String>("readLines", ReadLines);
             Add<String, String, ElaUnit>("writeLine", WriteLine);
             Add<String, String, ElaUnit>("writeText", WriteText);
@@ -77,24 +84,31 @@ namespace Ela.Library.General
 
         public ElaUnit WriteString(string str, FileWrapper fs)
         {
-            var sw = new StreamWriter(fs.Stream);
-            sw.Write(str);
-            sw.Flush();
+            if (fs.Writer == null)
+                fs.Writer = new StreamWriter(fs.Stream);
+
+            fs.Writer.Write(str);
+            fs.Writer.Flush();
             return ElaUnit.Instance;
         }
         
-        public string ReadLine(FileWrapper fs)
+        public ElaValue ReadLine(FileWrapper fs)
         {
-            var sr = new StreamReader(fs.Stream);
-            return sr.ReadLine() ?? String.Empty;
+            if (fs.Reader == null)
+                fs.Reader = new StreamReader(fs.Stream);
+
+            var line = fs.Reader.ReadLine();
+            return line != null ? new ElaValue(line) : new ElaValue(ElaUnit.Instance);
         }
 
         public string ReadLines(FileWrapper fs)
         {
-            var sr = new StreamReader(fs.Stream);
-            return sr.ReadToEnd() ?? String.Empty;
+            fs.Reader = new StreamReader(fs.Stream);
+            fs.Stream.Seek(0, SeekOrigin.Begin);
+            return fs.Reader.ReadToEnd() ?? String.Empty;
         }
 
+        //Deprecated?
         public ElaUnit WriteLine(string line, string file)
         {
             using (var sw = new StreamWriter(File.Open(file, FileMode.Append)))

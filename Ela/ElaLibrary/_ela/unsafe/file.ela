@@ -4,7 +4,10 @@
 */
 import libIO#elalib@io
 
-readLines fun fl = io.readLines (force fun) (force fl)
+readLines !fl = 
+  let fh = io.openFile fl "OpenMode" "ReadAccess" in
+  let str = io.readLines fh in
+  io.closeFile fh `seq` str
 
 writeLines xs fl = io.truncateFile fl `seq` write (force xs)
   where f = force fl

@@ -15,7 +15,7 @@ instance Pointed IO where
 instance Union IO where
   join (IO a) 
     | a is IO = mkIO $ execIO a
-    | else = fail "Union IO.join: Expected IO."
+    | else = fail $ "Union IO.join: Expected IO. Got " ++ (typeName a) ++ "."
 
 instance Functor IO where
   fmap f x = mkIO (f $ execIO x)
@@ -59,9 +59,29 @@ closeFile (FileStream f) = mkIO (\_ -> unsafeIO.closeFile f)
 
 readLine (FileStream f) = mkIO (\_ -> unsafeIO.readLine f)
 
-readLines (FileStream f) = mkIO (\_ -> unsafeIO.readLines f)
+readAllStr (FileStream f) = mkIO (\_ -> unsafeIO.readLines f)
+
+readAllLines = readLines (\_ -> true)
+
+readLines pred fh = return $ read (\_ -> execIO $ readLine fh)
+  where
+    read fun | res is Unit = []
+             | pred res = res :: read fun
+             | else = read fun
+             where res = fun()
 
 writeStr str (FileStream f) = mkIO (\_ -> unsafeIO.writeString str f)
+
+writeLine str = writeStr (str ++ "\r\n")
+
+writeLines pred [] _ = return $ mkIO (\_ -> ())
+writeLines pred (x::xs) fh = do
+  if pred x 
+    then writeStr (x ++ "\r\n") fh
+    else return ()
+  writeLines pred xs fh
+
+writeAllLines = writeLines (\_ -> true)
 
 //Mutation
 ref x = mkIO (\_ -> cell.ref x)
