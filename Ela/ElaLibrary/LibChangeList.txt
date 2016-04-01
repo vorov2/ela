@@ -1,3 +1,9 @@
+0.2.2.7:New:A function 'writeLine' is added to 'io' module.
+0.2.2.6:New:Functions 'writeLines', 'writeAllLines', 'readLines' and 'readAllLines' are added to 'io' module.
+0.2.2.5:Change:A 'readLines' function in 'io' module is renamed to 'readAllStr'.
+0.2.2.4:Fix:A bug in 'readLine' function from 'io' module is fixed - this function used to return only the very first line.
+0.2.2.3:Fix:A function 'readLines' from 'file' module is rewritten.
+0.2.2.2:Change:Now function 'readLine' from 'io' module returns an instance of unit when at the end of the file.
 0.2.2.1:Fix:A bug fixed in the function 'writeLines' from 'file' module (only the first line from the provided list was written to the file).
 0.2.2.0:Release:Release of 0.2.2.0.
 0.2.1.12:New:A new module 'measure' is added.
