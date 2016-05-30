@@ -1,3 +1,4 @@
+0.2.2.8:Fix:A bug fixed in implementation of 'read' function in 'integer' module.
 0.2.2.7:New:A function 'writeLine' is added to 'io' module.
 0.2.2.6:New:Functions 'writeLines', 'writeAllLines', 'readLines' and 'readAllLines' are added to 'io' module.
 0.2.2.5:Change:A 'readLines' function in 'io' module is renamed to 'readAllStr'.

@@ -36,7 +36,7 @@ instance Show Integer where
   show (Integer x) = bi.show x ""
 
 instance Read Integer where
-  read !s = Integer $ bi.parse s 0i
+  read !s = Integer $ bi.parse s
 
 //Math instances
 instance Additive Integer where
