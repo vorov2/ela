@@ -1,6 +1,6 @@
 /* 
   Module integer
-  Created in 2015 by Basil Voronkov
+  Created in 2015-2016 by Basil Voronkov
 */
 import libBigInteger#elalib@bi
 open string number
