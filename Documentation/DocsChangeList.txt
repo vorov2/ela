@@ -1,4 +1,6 @@
-0.1.18.0:Relase:Release of 0.1.18.0.
+0.1.19.0:Release:Release of 0.1.19.0.
+0.1.18.1:New:A new document 'Whats new' that contains platform changes overview is added.
+0.1.18.0:Release:Release of 0.1.18.0.
 0.1.17.10:New:A new article about 'measure' about a new module of the same name is added.
 0.1.17.9:Change:An article 'random' is updated according to the module changes.
 0.1.17.8:Change:An article 'math' is updated according to the module changes.
