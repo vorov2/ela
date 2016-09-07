@@ -1,0 +1,19 @@
+#file xml.ela
+#title xml
+#category Ela Standard Library
+This module implements a simple XML processing library that treats XML documents as Ela records.
+
+=XmlAble type
+
+#XmlAble
+This type is used to serialize Ela data types to a string that is valid in XML document. If a type
+doesn't support it, it cannot be used in a serialization context.
+
+=Functions
+
+#fromXmlString str
+Takes a string as input and generates a record. All attributes are added directly
+as record fields. Value of XML elements can be accessed using special field `value'`.
+
+#toXmlString rec
+Takes a records and serializes it to an XML string.

@@ -1,0 +1,13 @@
+#title What's new? (Ela Platform 2016.4)
+
+=Overview
+Ela Platform 2016.4 is an iterative release that contains an important bug to Ela runtime environment and
+several enhancements to the standard library.
+
+=Ela changes
+Ela runtime contains an important bug fixes that addresses an issues with class functions. In a previous versions class functions could
+fetch an incorrect result when beign partially applied and flipped. A related issue in a bug tracker is #1763.
+
+=Ela library changes
+Ela library contains multiple bug fixes and enhancements to standard `io` module and bug fixes in standard `integer` module and unsafe `file`
+module.
