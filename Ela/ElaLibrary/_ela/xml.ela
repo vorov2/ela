@@ -1,10 +1,47 @@
 open libXml#elalib@xml
+open generic record integer datetime string
 
-fromString # qualified
-fromString = xml.fromString
+class XmlAble a where
+  xmlSerialize a->_
 
-rec = fromString <[ <book xmlns:bk='urn:samples' bk:genre='novel'>
-                <title isbn='2'>Pride And Prejudice</title>
-                </book> ]>
+instance XmlAble Char String Integer Int Long Single Double Unit DateTime where
+  xmlSerialize = fmt ""
 
-rec.book.attr|>getField "xmlns:bk"
+toXmlString rec = toString $ children rec (fields rec)
+
+fromXmlString = xml.fromString
+
+attribute # private
+attribute "value'" _ = ""
+attribute nam val = " " +> nam +> "=\"" +> xmlSerialize val +> "\""
+
+attributes # private
+attributes rec [] = ""
+attributes rec (f::fs)
+  | not (val is Record) = attribute f val +> attributes rec fs
+  | else = attributes rec fs
+  where val = getField f rec
+
+children # private
+children rec [] = ""
+children rec (f::fs)
+  | val is Record = element f val +> children rec fs
+  | else = children rec fs
+  where val = getField f rec
+
+element # private
+element nam rec
+  | content = head +> ">" +> value +> childs +> "</" +> nam +> ">"
+  | else = head +> "/>"
+  where head = "<" +> nam +> attribs
+        fields = record.fields rec
+        attribs = toString $ attributes rec fields
+        value = body rec
+        childs = toString $ children rec fields
+        content = length value > 0 || length childs > 0
+
+body # private
+body rec
+  | isField "value'" rec = rec.value'
+  | else = ""
+
