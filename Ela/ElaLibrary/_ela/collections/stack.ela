@@ -1,0 +1,46 @@
+/* 
+  Module stack
+  Created in 2015 by Basil Voronkov
+*/
+
+/* Types */
+type Stack = Stack (List a) # private
+
+/* Instances */
+instance Show Stack where
+  show (Stack xs) = "stack" ++ show xs
+
+instance Default Stack where
+  default = empty
+
+instance Cat Stack where
+  (Stack xs) ++ (Stack ys) = Stack $ xs ++ ys
+
+instance Eq Stack where
+  (Stack xs) == (Stack ys) = xs == ys
+
+instance Seq Stack where 
+  head = peek
+  tail = pop
+  isnil (Stack []) = true
+  isnil _ = false
+
+instance Len Stack where 
+  length (Stack xs) = length xs
+
+instance Ix Stack where
+  getValue i (Stack xs) = i `getValue` xs
+
+instance ListLike Stack where
+  toList (Stack xs) = xs
+  fromList xs = Stack xs
+
+/* Functions */
+empty # qualified
+empty = Stack []
+
+push a (Stack xs) = Stack $ a::xs
+
+pop (Stack (_::xs)) = Stack xs
+
+peek (Stack (x::xs)) = x

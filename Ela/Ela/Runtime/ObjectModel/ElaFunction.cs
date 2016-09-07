@@ -287,7 +287,7 @@ namespace Ela.Runtime.ObjectModel
             return Captures != null;
         }
 
-        internal ElaFunction CloneFast()
+        internal ElaFunction CloneFull()
         {
             var pars = new ElaValue[Parameters.Length];
 

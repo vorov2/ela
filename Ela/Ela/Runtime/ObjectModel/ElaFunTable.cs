@@ -96,7 +96,7 @@ namespace Ela.Runtime.ObjectModel
                 if (ret.table)
                     ret = ((ElaFunTable)ret).GetFunction(val, ctx, contextPar);
 
-                ret = ret.CloneFast();
+                ret = ret.CloneFull();
                 ret.Flip = Flip;
                 ret.AppliedParameters = AppliedParameters;
                 
@@ -158,11 +158,6 @@ namespace Ela.Runtime.ObjectModel
             funs.Add(typeId, fun);
         }
 
-        public override ElaFunction Clone()
-        {
-            return this;
-        }
-
         public override string ToString(string format, IFormatProvider provider)
         {
             var sb = new StringBuilder();
@@ -218,7 +213,6 @@ namespace Ela.Runtime.ObjectModel
 
             return sb.ToString();
         }
-
 
         public override string GetFunctionName()
         {
