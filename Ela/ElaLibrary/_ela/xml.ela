@@ -7,12 +7,15 @@ class XmlAble a where
 instance XmlAble Char String Integer Int Long Single Double Unit DateTime where
   xmlSerialize = fmt ""
 
+type XmlSection = CData (String a)
+
 toXmlString rec = toString $ children rec (fields rec)
 
 fromXmlString = xml.fromString
 
 attribute # private
 attribute "value'" _ = ""
+attribute "children'" _ = ""
 attribute nam val = " " +> nam +> "=\"" +> xmlSerialize val +> "\""
 
 attributes # private
@@ -42,6 +45,9 @@ element nam rec
 
 body # private
 body rec
-  | isField "value'" rec = rec.value'
+  | isField "value'" rec = 
+    match rec.value' with
+      CData val = "<![CDATA[" ++ val ++ "]]>"
+      val = val
   | else = ""
 
