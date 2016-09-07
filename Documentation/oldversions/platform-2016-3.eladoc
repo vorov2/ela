@@ -1,0 +1,44 @@
+#title What's new? (Ela Platform 2016.3)
+
+=Overview
+Ela Platform 2016.3 is an iterative release that focuses on Ela standard library. It also comes with
+updated versions of Ela and Elide and expands Ela documentation.
+
+=Ela changes
+Ela compiler has the following changes:
+  * A bug fixed that could result in an internal compiler error. Ela compiler could crash instead of generating an appropriate error message when analysing pattern matching inside a do-notation with invalid patterns.
+
+=Ela library changes
+The biggest change in a standard library is an addition of a new `measure` module.
+This module implements units of measurement, which are typically used to indicate length,
+volume, mass, and so on. Units can be used to operate with compatible units (such as grams or kilograms)
+without the need of explicit convertion, which helps prevent programming errors:
+>>>open measure
+>>>g = measure.atom "g" //Define "grams" as a measurement unit
+>>>kg = measure.complex "kg" 1000 g //Define "kilograms" through grams
+>>>
+>>>//Build some literal values
+>>>literal'g = measure.value g //for grams
+>>>literal'k = measure.value kg //for kilograms
+>>>
+>>>//Perform standard operations with values
+>>>show $ 12.03k + 430g
+More details are available in module documentation://br
+Ela standard library has other changes and additions as well:
+  * A class `Num` is extended with a `~=` function which can be described as "almost equal" function. It can be useful when writing generic code that can compare integer and floats. For integers this function is always identical to regular equality function. This function is currently implemented for all Ela numeric types (Int, Integer, Long, Single, Double, Sym and Peano).
+  * Multiple functions are added to the `string` module including but not limited to: `join`, `words`, `unwords`, `lines`, `unlines`, etc.
+  * A new function `quotrem` is added to the `math` module.
+  * New functions `rndList` and `rndListIO` that create an infinite list of random numbers are added to the `random` module.
+  * Type `Maybe` now have an instance of class `Read`.
+
+=Elide changes
+Ela Platform 2016.3 comes with a new version of Elide that addresses a bug related to AST view generation
+and adds a support for displaying a do-notation inside an AST view.
+
+=Ela documentation
+Besides updates to the library reference this version of Ela Platform comes with notable updates in the
+language reference:
+  * An article _Records_ is expanded with a new section about pattern matching, a section that describes operations with records and a section that describes relationship between records and tuples.
+  * An article _Tuples_ is expanded with a new section about pattern matching and with new section about operations with tuples.
+  * An article _Lists_ is expanded with new sections about pattern matching and operations with lists.
+  * A new article _Arbitrary size integers_ is added to the language reference.
