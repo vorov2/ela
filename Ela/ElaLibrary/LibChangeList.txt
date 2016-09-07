@@ -1,3 +1,4 @@
+0.2.3.1:New:A new module 'object' is added.
 0.2.3.0:Release:Release of 0.2.3.0.
 0.2.2.8:Fix:A bug fixed in implementation of 'read' function in 'integer' module.
 0.2.2.7:New:A function 'writeLine' is added to 'io' module.

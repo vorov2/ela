@@ -34,6 +34,7 @@
     <doc name="monad" file="lib\monad.htm" />
     <doc name="io" file="lib\io.htm" />
     <doc name="state" file="lib\state.htm" />
+    <doc name="object" file="lib\object.htm" />
     <doc name="imperative" file="lib\imperative.htm" />
   </folder>
   <folder name="Language Reference">
