@@ -1,0 +1,109 @@
+/* 
+  Module object
+  Created in 2016 by Basil Voronkov
+*/
+open core record generic
+
+//Constants
+bf # private
+bf = "__base"
+
+err_field # private
+err_field = "Unknown field."
+
+//Types and instances
+//Entity supports following classes:
+//Eq Read RecordLike Show Name Len
+type Entity # private
+type Entity = Entity a
+  deriving Eq
+
+instance Len Entity where
+  length (Entity rec)
+    | hasBase rec = len + length rec.__base
+    | else = len
+    where len = length rec
+
+instance RecordLike Entity where
+  toRecord (Entity rec)@obj
+    | hasBase rec = rec ++ toRecord $ rec.__base
+    | else = rec
+  fromRecord rec = Entity $ rec
+
+instance Read Entity where
+  read str = Entity $ read str ::: Record
+
+instance Show Entity where
+  show obj = "object{" ++ showi obj ++ "}"
+
+showo # private
+showo sb _ [] = sb
+showo sb rec ("__base"::xs) = showo (sb +> showi base) rec xs
+  where base = rec.__base
+showo sb rec (x::xs)
+  | isnil xs = showo str rec xs
+  | else = showo (str +> ",") rec xs
+  where str = sb +> x +> "=" +> show (x `getField` rec)
+
+showi # private
+showi (Entity x) = toString $ showo ("" +> "") x (record.fields x)
+
+instance Name Entity where
+  getField fld (Entity rec) 
+    | fld `isField` rec = getField fld rec
+    | hasBase rec = getField fld rec.__base
+    | else = fail err_field
+  isField fld (Entity rec)
+    | fld `isField` rec = true
+    | hasBase rec = fld `isField` rec.__base
+    | else = false
+
+//Functions constructors
+new # qualified
+new = Entity
+
+from # qualified
+from proto rec = new (record.addField bf proto rec)
+
+rebase # qualified
+rebase proto (Entity rec) = Entity $ record.changeField bf proto rec
+
+//Reflection
+base # qualified
+base rec
+  | hasBase rec = Some $ rec.__base
+  | else = None
+
+isBase # qualified
+isBase proto (Entity rec)
+  | not $ hasBase rec = false
+  | rec.__base == proto = true
+  | else = isBase proto rec.__base
+
+hasBase # qualified
+hasBase (Entity rec) = bf `isField` rec
+hasBase rec = bf `isField` rec
+
+//Field manipulation
+changeField # qualified
+changeField fld val (Entity rec)
+  | fld `isField` rec = Entity $ record.changeField fld val rec
+  | hasBase rec = changeField fld val rec.__base
+  | else = fail err_field
+
+addField # qualified
+addField fld val (Entity rec) = Entity $ record.addField fld val rec
+
+addFields # qualified
+addFields fields (Entity rec) = Entity $ record.addFields fields rec
+
+fields # qualified
+fields (Entity rec)
+  | hasBase rec = record.fields rec ++ (fields rec.__base)
+  | else = record.fields rec
+
+field # qualified
+field (Entity rec) fld
+  | record.field rec fld = true
+  | hasBase rec = field rec.__base fld
+  | else = false

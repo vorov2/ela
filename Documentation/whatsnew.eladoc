@@ -1,13 +1,25 @@
-#title What's new? (Ela Platform 2016.4)
+#title What's new? (Ela Platform 2016.5)
 
 =Overview
-Ela Platform 2016.4 is an iterative release that contains an important bug to Ela runtime environment and
-several enhancements to the standard library.
-
-=Ela changes
-Ela runtime contains an important bug fixes that addresses an issues with class functions. In a previous versions class functions could
-fetch an incorrect result when beign partially applied and flipped. A related issue in a bug tracker is #1763.
+Ela Platform 2016.5 focuses on the enhancements to the standard library.
 
 =Ela library changes
-Ela library contains multiple bug fixes and enhancements to standard `io` module and bug fixes in standard `integer` module and unsafe `file`
-module.
+==Prototype based OOP
+Ela library now includes a new module `object` that implements prototype based OOP through delegation in Ela.//br
+An object oriented entity is presented in Ela using special type `Object`. Unlike other standard types `Object` is
+not exposed directly from the module of the same name and all operations with objects are performed using regular
+functions. For example, in order to create an instance of an object one should write:
+>>object.new {x = 1, y = 2}
+A function `new` constructs a new object from a given record literal.//br
+Prototype based OOP allows to use prototypes for objects (which can be seen as an alternative to inheritance in 
+class based OOP). In order to create an instance of an object with a given prototype one should write:
+>>prototype = object.new { x = 1, y = 2 }
+>>obj = object.from(prototype) { z = 3}
+You can than access fields from both object itself and it's prototype using regular syntax:
+>>obj.x //Return 1
+>>obj.z //Return 3
+Another handy feature is an ability to switch the prototype of a given object an runtime. One can do that like so:
+>>prototype1 = object.new { xx = 1, yy = 2 }
+>>obj1 = object.rebase(prototype1) obj
+Rebasing creates a new instance of an object.//br
+All instances of type `Object` support the following type classes: `Read`, `Name`, `Len`, `Show`, `Eq` and `RecordLike`.
