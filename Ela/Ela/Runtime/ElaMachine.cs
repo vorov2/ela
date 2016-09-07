@@ -1180,7 +1180,7 @@ namespace Ela.Runtime
                             }
 
                             var fun = (ElaFunction)right.Ref;
-                            fun = fun.Captures != null ? fun.CloneFast() : fun.Clone();
+                            fun = fun.Captures != null ? fun.CloneFull() : fun.Clone();
                             fun.Flip = !fun.Flip;
                             evalStack.Replace(new ElaValue(fun));
                         }
@@ -1196,7 +1196,7 @@ namespace Ela.Runtime
                             right = evalStack.Pop();
                                 
                             if (!o.table)
-                                o = o.CloneFast();
+                                o = o.CloneFull();
                             else
                                 o = ((ElaFunTable)o).GetFunction(right, ctx, thread.CallStack.Peek().Context);
 
@@ -1916,7 +1916,7 @@ namespace Ela.Runtime
             {
                 if (natFun.AppliedParameters < natFun.Parameters.Length)
                 {
-                    var newFun = natFun.CloneFast();
+                    var newFun = natFun.CloneFull();
                     newFun.Parameters[natFun.AppliedParameters] = stack.Peek();
                     newFun.AppliedParameters++;
                     stack.Replace(new ElaValue(newFun));

@@ -185,6 +185,7 @@
   <ItemGroup>
     <None Include="_ela\bench.ela" />
     <None Include="_ela\char.elaobj" />
+    <None Include="_ela\collections\stack.ela" />
     <None Include="_ela\core.ela" />
     <None Include="_ela\core.elaobj" />
     <None Include="_ela\espec.ela" />
@@ -197,7 +198,6 @@
     <None Include="_ela\math.ela" />
     <None Include="_ela\measure.ela" />
     <None Include="_ela\monad.ela" />
-    <None Include="_ela\number.elaobj" />
     <None Include="_ela\peano.ela" />
     <None Include="_ela\prelude.elaobj" />
     <None Include="_ela\random.ela" />
