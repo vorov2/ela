@@ -40,10 +40,11 @@ namespace Ela.Library.General
                 for (var i = 0; i < sxr.AttributeCount; i++)
                 {
                     sxr.MoveToAttribute(i);
-                    alist.Add(new ElaRecordField(sxr.Name, new ElaValue(sxr.Value)));
+                    //alist.Add(new ElaRecordField(sxr.Name, new ElaValue(sxr.Value)));
+                    list.Add(new ElaRecordField(sxr.Name, new ElaValue(sxr.Value)));
                 }
 
-                list.Add(new ElaRecordField("attr", new ElaValue(new ElaRecord(alist.ToArray()))));
+                //list.Add(new ElaRecordField("attr", new ElaValue(new ElaRecord(alist.ToArray()))));
             }
 
             var clist = new List<ElaRecordField>();
@@ -52,16 +53,16 @@ namespace Ela.Library.General
             while (sxr.Read())
             {
                 if (sxr.NodeType == XmlNodeType.Element)
-                    clist.Add(new ElaRecordField(sxr.Name, new ElaValue(ReadNode(sxr))));
+                    list.Add(new ElaRecordField(sxr.Name, new ElaValue(ReadNode(sxr))));
                 if (sxr.NodeType == XmlNodeType.Text || sxr.NodeType == XmlNodeType.CDATA)
                     sb.Append(sxr.ReadString());
             }
 
-            if (clist.Count > 0)
-                list.Add(new ElaRecordField("child", new ElaRecord(clist.ToArray())));
+            //if (clist.Count > 0)
+            //    list.Add(new ElaRecordField("child", new ElaRecord(clist.ToArray())));
 
             if (sb.Length > 0)
-                list.Add(new ElaRecordField("value", sb.ToString()));
+                list.Add(new ElaRecordField("value'", sb.ToString()));
 
             return new ElaRecord(list.ToArray());
         }
