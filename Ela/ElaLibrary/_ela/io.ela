@@ -42,6 +42,9 @@ readStr = mkIO (\_ -> readn ())
 
 readAny = mkIO (\_ -> gread $ readn())
 
+interact = do s <- readStr
+              putStr (f s)
+
 //File IO
 type FileMode = AppendMode | CreateMode | OpenMode | OpenCreateMode | TruncateMode
 type FileAccess = ReadAccess | WriteAccess | ReadWriteAccess

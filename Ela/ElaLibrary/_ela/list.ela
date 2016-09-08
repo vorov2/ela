@@ -155,7 +155,9 @@ take = take []
 takeWhile f (x::xs) 
   | f x  = x :: takeWhile f xs
   | else = []
-takeWhile f [] = []
+takeWhile _ [] = []
+
+takeWhileEnd f = reverse << takeWhile f << reverse
 
 skip 0 xs      = xs
 skip n (_::xs) = skip (n - 1) xs
@@ -167,10 +169,12 @@ drop n (_::xs)
   | n > 0 = drop (n - 1) xs
   | else  = fail "list.drop: negative argument"
 
-dropWhile p [] = []
+dropWhile _ [] = []
 dropWhile p (x::xs) 
   | p x  = dropWhile p xs
   | else = x::xs
+
+dropWhileEnd p = foldr (\x xs -> if p x && isnil xs then [] else x :: xs) []
 
 splitAt 0 xs = ([],xs)
 splitAt _ [] = ([],[])
@@ -181,6 +185,20 @@ splitAt n (x::xs) | n > 0 = (x::xs',xs2')
 splitHalf xs = go xs xs 
   where go (x::xs) (_::_::zs) = (x::us,vs) where (us,vs) = go xs zs
         go xs _ = ([],xs)
+
+splitWhen f xs = split [] xs
+  where split ys [] = [reverse ys]
+        split ys (x::xs)
+          | f x = reverse (x::ys) :: split [] xs
+          | else = split (x::ys) xs
+
+splitOn x = splitWhen (==x)
+
+chunksOf n = chunks n []
+  where chunks _ ys [] = [reverse ys]
+        chunks c ys (x::xs)
+          | c <= 0 = reverse ys :: chunks n [] (x::xs)
+          | else = chunks (c - 1) (x::ys) xs
 
 span p [] = ([],[])
 span p (x::xs')@xs 

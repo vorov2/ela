@@ -486,7 +486,7 @@ namespace Ela.Runtime.Classes
                 return String.Empty;
             }
 
-            ctx.NoOverload(value.GetTypeName(), "showf");
+            ctx.NoOverload(value.GetTypeName(), "show");
             return String.Empty;
         }
 

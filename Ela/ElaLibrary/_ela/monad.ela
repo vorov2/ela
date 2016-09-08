@@ -151,7 +151,6 @@ instance Failure Tuple
 
 
 /* Basic monadic functions */
-
 f =<< x = x >>= f
 
 f >=> g = \x -> f x >>= g
