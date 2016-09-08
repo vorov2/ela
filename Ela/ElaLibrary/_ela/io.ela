@@ -42,7 +42,7 @@ readStr = mkIO (\_ -> readn ())
 
 readAny = mkIO (\_ -> gread $ readn())
 
-interact = do s <- readStr
+interact f = do s <- readStr
               putStr (f s)
 
 //File IO

@@ -129,7 +129,7 @@ namespace Elide.Forms
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            if (Items.Count > 1 && e.X <= Dpi.ScaleX(16) + lastWidth)
+            if (Items.Count > 1 && e.X <= Dpi.ScaleX(16) + lastWidth && e.Y < Dpi.ScaleY(HEIGHT))
             {
                 if (hoverItem != 0)
                 {

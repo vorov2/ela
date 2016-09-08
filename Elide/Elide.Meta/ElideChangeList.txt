@@ -1,4 +1,10 @@
-﻿0.3.2.0:Release:Release of Elide 0.3.2.0.
+﻿0.3.3.0:Release:Release of Elide 0.3.3.0.
+0.3.2.5:Change:Now 'Stop Execution' and 'Make Object File' menu items has shortcuts.
+0.3.2.4:Change:A 'Windows' form is now resizable.
+0.3.2.3:New:Smart indentation is corrected to take into account do-notation.
+0.3.2.2:Fix:A bug fixed that could cause a dropdown with a current document name to be highlighted when a mouse pointer is not over it.
+0.3.2.1:New:Now 'About' dialog displays version of Ela which is currently used.
+0.3.2.0:Release:Release of Elide 0.3.2.0.
 0.3.1.2:New:Now AST generation can process do-notation.
 0.3.1.1:Fix:A bug fixed that could result Elide to crush when calling AST generation from a file that haven't been saved yet.
 0.3.1.0:Release:Release of Elide 0.3.1.0.

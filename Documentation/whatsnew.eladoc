@@ -1,7 +1,8 @@
 #title What's new? (Ela Platform 2016.5)
 
 =Overview
-Ela Platform 2016.5 focuses on the enhancements to the standard library.
+Ela Platform 2016.5 focuses on the enhancements to the standard library. It also ships a new version of Elide
+with minor fixes and enhancements.
 
 =Ela library changes
 ==Prototype based OOP

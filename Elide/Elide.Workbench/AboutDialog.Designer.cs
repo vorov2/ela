@@ -70,10 +70,10 @@
             this.tabControl.Controls.Add(this.generalPage);
             this.tabControl.Controls.Add(this.changeLogPage);
             this.tabControl.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.tabControl.Location = new System.Drawing.Point(296, 76);
+            this.tabControl.Location = new System.Drawing.Point(296, 87);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(389, 188);
+            this.tabControl.Size = new System.Drawing.Size(389, 177);
             this.tabControl.TabIndex = 2;
             // 
             // generalPage
@@ -82,7 +82,7 @@
             this.generalPage.Location = new System.Drawing.Point(4, 22);
             this.generalPage.Name = "generalPage";
             this.generalPage.Padding = new System.Windows.Forms.Padding(3);
-            this.generalPage.Size = new System.Drawing.Size(381, 162);
+            this.generalPage.Size = new System.Drawing.Size(381, 151);
             this.generalPage.TabIndex = 0;
             this.generalPage.Text = "General";
             this.generalPage.UseVisualStyleBackColor = true;
@@ -97,7 +97,7 @@
             this.infoBox.ReadOnly = true;
             this.infoBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.infoBox.ShowSelectionMargin = true;
-            this.infoBox.Size = new System.Drawing.Size(375, 156);
+            this.infoBox.Size = new System.Drawing.Size(375, 145);
             this.infoBox.TabIndex = 1;
             this.infoBox.Text = "";
             this.infoBox.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.infoBox_LinkClicked);
@@ -142,9 +142,9 @@
             this.progInfo.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.progInfo.Location = new System.Drawing.Point(295, 39);
             this.progInfo.Name = "progInfo";
-            this.progInfo.Size = new System.Drawing.Size(386, 34);
+            this.progInfo.Size = new System.Drawing.Size(386, 45);
             this.progInfo.TabIndex = 4;
-            this.progInfo.Text = "{0} (pronounced ɪˈlaɪd). Version {1} ({2}). {3}";
+            this.progInfo.Text = "{0} (pronounced ɪˈlaɪd). Version {1} ({2}). {3} {4}";
             // 
             // AboutDialog
             // 

@@ -78,14 +78,29 @@ namespace Elide.ElaCode
             sci.ExecCommand(2329);//NewLine
             var ln = sci.GetLine(sci.CurrentLine - 1).Text.ToUpper();
             var indent = 0;
+            var idx = -1;
 
             if (ln.TrimStart().StartsWith("WHERE"))
                 indent = sci.GetLineIndentation(sci.CurrentLine - 1) + 6;
+            else if (ln.TrimStart().StartsWith("DO"))
+                indent = sci.GetLineIndentation(sci.CurrentLine - 1) + 3;
+            else if ((idx = FindDo(ln)) != -1)
+                indent = sci.GetLineIndentation(sci.CurrentLine - 1) + idx + 3;
             else
                 indent = sci.GetLineIndentation(sci.CurrentLine - 1);
 
             sci.SetLineIndentation(sci.CurrentLine, indent);
             sci.CaretPosition = sci.GetPositionByColumn(sci.CurrentLine, indent);
+        }
+
+        private int FindDo(string ln)
+        {
+            var idx = ln.IndexOf("=");
+
+            if (idx != -1)
+                return ln.IndexOf("DO", idx);
+            else
+                return -1;
         }
 
         protected override void BuildAuxMenus(IMenuBuilder<MenuStrip> builder)
@@ -99,7 +114,7 @@ namespace Elide.ElaCode
                       .CloseMenu()
                   .Menu("&Build")
                       .Item("&Run", "F5", ElaFuns.Run, () => sci.GetTextLength() > 0 && !rs.IsRunning())
-                      .Item("S&top Execution", () => rs.AbortExecution(), rs.IsRunning)
+                      .Item("S&top Execution", "Shift+F5", () => rs.AbortExecution(), rs.IsRunning)
                       .Separator()
                       .Item("&Eval Selected", "Ctrl+F5", ElaFuns.RunSelected)
                       .Item("Send &Selection to Interactive", "Ctrl+F6", ElaFuns.EvaluateSelected)
@@ -107,7 +122,7 @@ namespace Elide.ElaCode
                       .Separator()
                       .Item("&Generate AST", ElaFuns.GenerateAst)
                       .Item("Generate &EIL", ElaFuns.GenerateEil)
-                      .Item("Make &Object File", ElaFuns.MakeObjectFile)
+                      .Item("Make &Object File", "Ctrl+F8", ElaFuns.MakeObjectFile)
                       .CloseMenu();
         }
 
