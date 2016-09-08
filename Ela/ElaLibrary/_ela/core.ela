@@ -4,6 +4,13 @@
 */
 open generic string
 
+/* Privates */
+pread # private
+pread xs fun = fun (gread <| head <| tail xs)
+
+aread cons str = pread xs <| cons <| head xs
+  where xs = words str
+
 /* Maybe */
 type Maybe = None | Some a
   deriving Eq Ord Show Default
@@ -17,11 +24,11 @@ instance Cat Maybe where
   la   ++ _  = la
 
 instance Read Maybe where
-  read str | len == 1 && head xs == "None" = None
-           | len == 2 && head xs == "Some" = Some (gread $ last xs)
+  read str | h == "None" = None
+           | h == "Some" = pread Some
            | else = fail "core.read: Unable to read literal."
     where xs = words str
-          len = length xs
+          h = head xs
 
 maybe n _ None = n
 maybe _ f (Some x) = f x
@@ -51,6 +58,11 @@ mapMaybe f (x::xs)
 type Either = Left a | Right a
   deriving Eq Ord Show
 
+instance Read Either where
+  read = aread cons
+    where cons "Left" = Left
+          cons "Right" = Right
+
 either f _ (Left x) = f x
 either _ g (Right y) = g y
 
@@ -76,6 +88,12 @@ partitionEithers xs = partition ([],[]) xs
 /* Or */
 type Or = Fst a | Snd a | Both a b
   deriving Eq Ord Show
+
+instance Read Or where
+  read = aread cons
+    where cons "Fst" = Fst
+          cons "Snd" = Snd
+          cons "Both" = Both
 
 orElse f _ _ (Fst a) = f a
 orElse _ f _ (Snd a) = f a
