@@ -3,17 +3,93 @@
 #category Ela Standard Library
 This module implements a simple XML processing library that treats XML documents as Ela records.
 
-=XmlAble type
+=XML support in Ela
+This library provides a basic support for XML processing. It allows to serialize a record to an XML
+string and to deserialize an XML string to a record. All XML attributes are processed as regular
+record fields, child elements - as elements of a linked list in a special field called `'children`,
+element value - as a value of a special field called `'value`.//br
+An XML element is presented two nested records like so:
+>>{ employee =
+>>    { name = "John Doe",
+>>      age = 43
+>>    }
+>>}
+A record above is equivalent to the following XML document:
+>><employee name="John Doe" age="43"/>
+A more complicated example. The following XML document:
+>><books>
+>>  <book title="Invitation to a beheading" author="Vladimir Nabokov">
+>>    <annotation>Annotation will be ready soon.</annotation>
+>>    <catalogInfo
+>>      id="3492045"
+>>      eid="RAMM04995"
+>>      />
+>>  </book>
+>></books>
+is equivalent to the following record:
+>>{
+>>  books = 
+>>  { children' = [
+>>      { book = 
+>>        { title="Invitation to a beheading",
+>>          author="Vladimir Nabokov",
+>>          children'= [
+>>            { annotation =
+>>              { value'="Annotation will be ready soon." }
+>>            },
+>>            { catalogInfo = 
+>>              { id="3492045",
+>>                eid="RAMM04995"
+>>              }
+>>            }
+>>          ]
+>>        } //book
+>>      }
+>>    ] //children'
+>>  } //books
+>>}
+XML namespaces are also supported. One would have to qualify the name of the elements with XML namespace
+prefix:
+>>rec = fromXmlString <[ <book xmlns:bk='urn:samples' bk:genre='novel'>
+>>                <title isbn='2'>Pride And Prejudice</title>
+>>                </book> ]>
+>>rec.book |> getField "xmlns:bk"
+
+=Types and classes
 
 #XmlAble
-This type is used to serialize Ela data types to a string that is valid in XML document. If a type
+This class is used to serialize Ela data types to a string that is valid in XML document. If a type
 doesn't support it, it cannot be used in a serialization context.
+
+#Sections
+This type is used to specify XML sections. Currently only `CDATA` section is supported. One can use it
+to specify that a value of an XML element should be serialized to XML using `CDATA`, e.g.:
+>>{ 'value = CData "Element content" }
 
 =Functions
 
 #fromXmlString str
-Takes a string as input and generates a record. All attributes are added directly
-as record fields. Value of XML elements can be accessed using special field `value'`.
+Takes a string as input and generates a record. All attributes are added directly as record fields.
+All child elements are added as a linked list to a special record field `'children` (starts with a
+prime character. Value of XML elements can be accessed using another special field - `'value`.//br
+For example, the following record:
+>>{ articles =
+>>    { children' =
+>>        [
+>>          { article =
+>>            {
+>>              'value = "Article content."
+>>            }
+>>          }
+>>        ]
+>>    }
+>>}
+would be create for the following XML document:
+>><articles>
+>>  <article>Article content.</article>
+>></articles>
 
 #toXmlString rec
-Takes a records and serializes it to an XML string.
+Takes a records and serializes it to an XML string. The record should be shaped according to a set of
+rules. All attributes are presented directly as record fields. All descendant elements are added to a
+linked list to a `children'` field. Element value is added to a `'value` field.

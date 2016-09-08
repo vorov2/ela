@@ -23,3 +23,20 @@ Another handy feature is an ability to switch the prototype of a given object an
 >>obj1 = object.rebase(prototype1) obj
 Rebasing creates a new instance of an object.//br
 All instances of type `Object` support the following type classes: `Read`, `Name`, `Len`, `Show`, `Eq` and `RecordLike`.
+==XML support in Ela
+A new `xml` module provides a basic support for XML processing. It allows to serialize a record to an XML
+string and to deserialize an XML string to a record. All XML attributes are processed as regular
+record fields, child elements - as elements of a linked list in a special field called `'children`,
+element value - as a value of a special field called `'value`.//br
+An XML element is presented two nested records like so:
+>>{ employee =
+>>    { name = "John Doe",
+>>      age = 43
+>>    }
+>>}
+A record above is equivalent to the following XML document:
+>><employee name="John Doe" age="43"/>
+==Other changes
+  * Types `Either` and `Or` from `core` module now support `Read` class.
+  * A new `interact` function is added to `io` module.
+  * Functions `splitWhen`, `splitOn`, `chunksOf`, `takeWhileEnd` and `dropWhileEnd` are added to `list` module.
