@@ -219,7 +219,7 @@ namespace Ela.Runtime
             else if (value is Delegate)
                 return new ElaValue(new DynamicDelegateFunction("<f>", (Delegate)value));
             else
-                throw new InvalidCastException();
+                throw new InvalidCastException(String.Format("Type '{0}' cannot be converted to Ela runtime value.", value.GetType().FullName));
         }
 
         public T Convert<T>()
