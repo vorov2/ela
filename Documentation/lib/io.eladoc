@@ -51,6 +51,10 @@ This action reads a string from a standard output and converts it to a specified
 >>    else "You're OK...")
 >>  putStr x
 
+#interact f
+This function takes a function `f`, reads a line from standard input, applies a function `f` to this line
+and passes the result of this application to standard output.
+
 =File IO
 #FileMode
 Specifies a mode in which file should be opened, e.g.:
