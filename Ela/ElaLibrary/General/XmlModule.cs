@@ -24,7 +24,15 @@ namespace Ela.Library.General
 
         public ElaRecord FromString(string xmlSource)
         {
-            return ReadTree(xmlSource);
+            try
+            {
+                return ReadTree(xmlSource);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
+
         }
 
         private ElaRecord ReadNode(XmlReader xr)
@@ -42,22 +50,22 @@ namespace Ela.Library.General
                 }
             }
 
-            var clist = new List<ElaRecordField>();
+            var clist = new List<ElaRecord>();
             var sb = new StringBuilder();
 
             while (sxr.Read())
             {
                 if (sxr.NodeType == XmlNodeType.Element)
-                    clist.Add(new ElaRecordField(sxr.Name, new ElaValue(ReadNode(sxr))));
+                    clist.Add(new ElaRecord(new ElaRecordField(sxr.Name, ReadNode(sxr))));
                 if (sxr.NodeType == XmlNodeType.Text || sxr.NodeType == XmlNodeType.CDATA)
                     sb.Append(sxr.ReadString());
             }
 
             if (clist.Count > 0)
-                list.Add(new ElaRecordField("children'", new ElaRecord(clist.ToArray())));
+                list.Add(new ElaRecordField("'children", ElaList.FromEnumerable(clist)));
 
             if (sb.Length > 0)
-                list.Add(new ElaRecordField("value'", sb.ToString()));
+                list.Add(new ElaRecordField("'value", sb.ToString()));
 
             return new ElaRecord(list.ToArray());
         }
