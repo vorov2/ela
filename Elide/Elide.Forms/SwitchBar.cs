@@ -8,21 +8,21 @@ using System.Windows.Forms;
 
 namespace Elide.Forms
 {
-	public sealed class SwitchBar : Control
+    public sealed class SwitchBar : Control
     {
         private ContextMenuStrip contextMenu;
         private int hoverItem = -1;
-		private int selItem = -1;
+        private int selItem = -1;
         private int currentWidth = 0;
 
         public SwitchBar()
-		{
-			SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer
-				| ControlStyles.UserPaint | ControlStyles.ResizeRedraw, true);
-			_items = new List<SwitchBarItem>();
+        {
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer
+                | ControlStyles.UserPaint | ControlStyles.ResizeRedraw, true);
+            _items = new List<SwitchBarItem>();
             contextMenu = new ContextMenuStrip();
             contextMenu.Closed += (o, e) => { hoverItem = -1; Refresh(); };
-		}		       
+        }		       
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -99,8 +99,8 @@ namespace Elide.Forms
             base.OnMouseLeave(e);
         }        
         
-		protected override void OnMouseClick(MouseEventArgs e)
-		{
+        protected override void OnMouseClick(MouseEventArgs e)
+        {
             if (e.X > ClientSize.Width - Dpi.ScaleX(17))
             {
                 OnCloseRequested(EventArgs.Empty);
@@ -130,15 +130,15 @@ namespace Elide.Forms
                 contextMenu.Renderer = new DocumentMenuRenderer(ClientSize.Width - Dpi.ScaleX(20));
                 contextMenu.Show(this, Dpi.ScaleX(3), Dpi.ScaleY(18));
             }
-		}
-        		
-		public event EventHandler<SwitchBarEventArgs> SelectedIndexChanged;
-		private void OnSelectedIndexChanged(SwitchBarEventArgs e)
-		{
-			var h = SelectedIndexChanged;
+        }
+                
+        public event EventHandler<SwitchBarEventArgs> SelectedIndexChanged;
+        private void OnSelectedIndexChanged(SwitchBarEventArgs e)
+        {
+            var h = SelectedIndexChanged;
 
-			if (h != null)
-				h(this, e);
+            if (h != null)
+                h(this, e);
         }
 
         public event EventHandler CloseRequested;
@@ -150,33 +150,33 @@ namespace Elide.Forms
                 h(this, e);
         }
                 
-		private List<SwitchBarItem> _items;
-		public List<SwitchBarItem> Items
-		{
-			get { return _items; }
-		}
+        private List<SwitchBarItem> _items;
+        public List<SwitchBarItem> Items
+        {
+            get { return _items; }
+        }
 
         public SwitchBarItem SelectedItem
         {
             get { return selItem == -1 ? null : Items[selItem]; }
         }
         
-		public int SelectedIndex
-		{
-			get { return selItem; }
-			set
-			{
-				if (value >= Items.Count)
-					throw new IndexOutOfRangeException();
+        public int SelectedIndex
+        {
+            get { return selItem; }
+            set
+            {
+                if (value >= Items.Count)
+                    throw new IndexOutOfRangeException();
 
-				if (selItem != value)
-				{
+                if (selItem != value)
+                {
                     selItem = value;
 
-					Refresh();
-					OnSelectedIndexChanged(new SwitchBarEventArgs(SelectedItem));
-				}
-			}
-		}
-	}
+                    Refresh();
+                    OnSelectedIndexChanged(new SwitchBarEventArgs(SelectedItem));
+                }
+            }
+        }
+    }
 }

@@ -21,7 +21,8 @@ namespace Elide.Workbench
         {
             Icon = WB.Form.Icon;
             header.Text = String.Format(header.Text, ElideInfo.Title);
-            progInfo.Text = String.Format(progInfo.Text, ElideInfo.Title, ElideInfo.Version, ElideInfo.VersionType, 
+            progInfo.Text = String.Format(progInfo.Text, ElideInfo.Title, ElideInfo.Version, ElideInfo.VersionType,
+                String.Format("{0}Using Ela version {1}", System.Environment.NewLine, Ela.ElaVersionInfo.Version),
                 System.Environment.NewLine + ElideInfo.Copyright);
             infoBox.Text =
 @"
@@ -59,7 +60,7 @@ This computer program uses the following open source components:
                             else
                             {
                                 var ver = line.Substring(0, line.IndexOf(':'));
-                                sb.Append(@" \par");
+                                if (sb.Length != 0) sb.Append(@" \par");
                                 sb.AppendFormat(@"\b Release of {0}\b0", ver);
                                 sb.Append(@" \par");
                             }
