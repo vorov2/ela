@@ -1471,7 +1471,7 @@ namespace Ela.Runtime
         #region Operations
         internal ElaValue ApiCall(int code, ElaValue left, ElaValue right, EvalStack stack, WorkerThread thread)
         {
-            if (left.TypeId == LAZ)
+            if (left.TypeId == LAZ && code != 17)
                 left = left.Ref.Force(left, thread.Context);
 
             if (right.Ref != null && right.TypeId == LAZ)
@@ -1482,13 +1482,10 @@ namespace Ela.Runtime
 
             switch ((Api)code)
             {
-                case Api.Classes:
-                    if (left.TypeId != INT)
-                    {
-                        thread.Context.InvalidType(TCF.GetShortForm(ElaTypeCode.Integer), left);
-                        break;
-                    }
-                    break;
+                case Api.Failure:
+                    return new ElaValue(new ElaFailure(left));
+                case Api.IsFailure:
+                    return new ElaValue(left.Ref is ElaFailure);
                 case Api.IsAlgebraic:
                     return new ElaValue(left.TypeId > SysConst.MAX_TYP);
                 case Api.CurrentContext:
@@ -1802,7 +1799,7 @@ namespace Ela.Runtime
 
                         return new ElaValue(-1);
                     }
-                    break;                
+                    break;
             }
 
             return new ElaValue(ElaObject.ElaInvalidObject.Instance);

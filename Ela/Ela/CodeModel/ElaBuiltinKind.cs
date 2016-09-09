@@ -33,6 +33,8 @@ namespace Ela.CodeModel
         Api14,
         Api15,
         Api16,
+        Api17,
+        Api18,
         
         /* Two arguments */
         Seq,
@@ -76,6 +78,6 @@ namespace Ela.CodeModel
         Api104,
         Api105,
         Api106,
-        Api107,
+        Api107
     }
 }

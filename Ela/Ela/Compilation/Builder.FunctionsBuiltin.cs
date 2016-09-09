@@ -246,6 +246,12 @@ namespace Ela.Compilation
                 case ElaBuiltinKind.Api16:
                     cw.Emit(Op.Api, 16);
                     break;
+                case ElaBuiltinKind.Api17:
+                    cw.Emit(Op.Api, 17);
+                    break;
+                case ElaBuiltinKind.Api18:
+                    cw.Emit(Op.Api, 18);
+                    break;
                 case ElaBuiltinKind.Api101:
                     cw.Emit(Op.Api2, 101);
                     break;
