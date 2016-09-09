@@ -1,3 +1,7 @@
+0.1.20.0:Release:Release of 0.1.20.0.
+0.1.19.8:New:A new article 'complex' about the new module of the same name is added.
+0.1.19.7:Change:An article 'math' is updated according to the module changes.
+0.1.19.6:New:A new article 'guid' about the new module of the same name is added.
 0.1.19.5:Change:An article 'list' is updated according to the module changes.
 0.1.19.4:Change:An article 'io' is updated according to the module changes.
 0.1.19.3:New:A new article 'xml' about the new module of the same name is added.

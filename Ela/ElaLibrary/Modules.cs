@@ -14,12 +14,12 @@ using Ela.Library.General;
 [assembly: ElaModule("libReflect", typeof(ReflectModule))]
 [assembly: ElaModule("libXml", typeof(XmlModule))]
 [assembly: ElaModule("libBigInteger", typeof(BigIntegerModule))]
-
+[assembly: ElaModule("libGuid", typeof(GuidModule))]
+[assembly: ElaModule("libComplex", typeof(ComplexModule))]
 
 [assembly: ElaModule("experimental", typeof(Experimental))]
 [assembly: ElaModule("debug", typeof(DebugModule))]
 //[assembly: ElaModule("StringBuilder", typeof(StringBuilderModule))]
-//[assembly: ElaModule("Guid", typeof(GuidModule))]
 //[assembly: ElaModule("Shell", typeof(ShellModule))]
 //[assembly: ElaModule("async", typeof(AsyncModule))]
 

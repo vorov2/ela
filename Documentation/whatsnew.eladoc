@@ -5,6 +5,13 @@ Ela Platform 2016.5 focuses on the enhancements to the standard library. It also
 with minor fixes and enhancements.
 
 =Ela library changes
+==Complex numbers
+Ela library now provides an implementation for complex numbers.//br
+Complex numbers are an algebraic type. For a complex number `z, `abs z` is a number with the magnitude of `z`, but
+oriented in the positive real direction, whereas `signum z` has the phase of `z`, but unit magnitude.//br
+Complex numbers can be constructed using a `(:+)` constructor like so:
+>>12.2 :+ 0
+Complex numbers support all the standard numeric operators such as addition, multiplication, division, etc.
 ==Prototype based OOP
 Ela library now includes a new module `object` that implements prototype based OOP through delegation in Ela.//br
 An object oriented entity is presented in Ela using special type `Object`. Unlike other standard types `Object` is
@@ -37,7 +44,15 @@ An XML element is presented two nested records like so:
 >>}
 A record above is equivalent to the following XML document:
 >><employee name="John Doe" age="43"/>
+==GUID type
+A new `guid` module is added to standard library. This module contains implementation of a GUID data 
+type, its instance and functions that operate with GUIDs. Type `Guid` is used to represent a global 
+unique identifier. It supports basic instances such as `Eq`, `Ord`, `Show`, `Read`, `Default` and 
+`Format`.
+
 ==Other changes
   * Types `Either` and `Or` from `core` module now support `Read` class.
   * A new `interact` function is added to `io` module.
   * Functions `splitWhen`, `splitOn`, `chunksOf`, `takeWhileEnd` and `dropWhileEnd` are added to `list` module.
+  * Instances of `Enum` class are added to `Single` and `Double` data types to standard `prelude`.
+  * Functions `isPrime`, `coprime`, `totient`, `primesR`, `goldbach` are added to `math` module.

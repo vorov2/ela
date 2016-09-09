@@ -13,6 +13,7 @@
     <doc name="prelude" file="lib\prelude.htm" />
     <doc name="number" file="lib\number.htm" />
     <doc name="integer" file="lib\integer.htm" />
+    <doc name="complex" file="lib\complex.htm" />
     <doc name="math" file="lib\math.htm" />
     <doc name="symbolic" file="lib\symbolic.htm" />
     <doc name="measure" file="lib\measure.htm" />
@@ -22,6 +23,7 @@
     <doc name="tuple" file="lib\tuple.htm" />
     <doc name="record" file="lib\record.htm" />
     <doc name="datetime" file="lib\datetime.htm" />
+    <doc name="guid" file="lib\guid.htm" />
     <doc name="thunk" file="lib\thunk.htm" />
     <doc name="random" file="lib\random.htm" />
     <doc name="generic" file="lib\generic.htm" />

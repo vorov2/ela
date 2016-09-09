@@ -140,11 +140,13 @@
     <Compile Include="General\BigIntegerModule.cs" />
     <Compile Include="General\CellModule.cs" />
     <Compile Include="General\CharModule.cs" />
+    <Compile Include="General\ComplexModule.cs" />
     <Compile Include="General\ConModule.cs" />
     <Compile Include="General\CoreModule.cs" />
     <Compile Include="General\DateTimeModule.cs" />
     <Compile Include="General\DebugModule.cs" />
     <Compile Include="General\Experimental.cs" />
+    <Compile Include="General\GuidModule.cs" />
     <Compile Include="General\IOModule.cs" />
     <Compile Include="General\RecordModule.cs" />
     <Compile Include="General\ReflectModule.cs" />
@@ -227,6 +229,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Collections\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

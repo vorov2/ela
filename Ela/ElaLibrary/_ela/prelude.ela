@@ -1,6 +1,6 @@
 /* 
   Ela standard prelude module
-  Created in 2011-2012 by Basil Voronkov
+  Created in 2011-2012, 2016 by Basil Voronkov
 */
 import lang
 
@@ -386,6 +386,10 @@ instance Enum where
 instance Enum Int Long where
   succ = (+ 1)
   pred = (- 1)
+
+instance Enum Single Double where
+  succ = (+ 1.0)
+  pred = (- 1.0)
 
 /* Bounded */
 class Bounded a where

@@ -7,45 +7,43 @@ namespace Ela.Library.General
 {
     public sealed class GuidModule : ForeignModule
     {
-        #region Construction
-        private static readonly ElaGuid emptyGuid = new ElaGuid(Guid.Empty);
-
         public GuidModule()
         {
 
         }
-        #endregion
 
-
-        #region Methods
         public override void Initialize()
         {
-            Add("empty", emptyGuid);
-            Add<ElaGuid>("guid", NewGuid);
-            Add<String,ElaVariant>("parse", Parse);
+            Add("empty", new Wrapper<Guid>(Guid.Empty));
+            Add<ElaUnit,Wrapper<Guid>>("new", NewGuid);
+            Add<String,ElaObject>("parse", Parse);
+            Add<Wrapper<Guid>,String>("toString", ToString);
+            Add<Wrapper<Guid>,Wrapper<Guid>,Int32>("compare", Compare);
         }
 
-
-        public ElaGuid NewGuid()
+        public Wrapper<Guid> NewGuid(ElaUnit _)
         {
-            return new ElaGuid(Guid.NewGuid());
+            return new Wrapper<Guid>(Guid.NewGuid());
         }
 
-
-        public ElaVariant Parse(string str)
+        public ElaObject Parse(string str)
         {
             var g = Guid.Empty;
 
-            try
-            {
-                g = new Guid(str);
-                return ElaVariant.Some(g);
-            }
-            catch (Exception)
-            {
-                return ElaVariant.None();
-            }
+            if (Guid.TryParse(str, out g))
+                return new Wrapper<Guid>(g);
+            else
+                return ElaUnit.Instance;
         }
-        #endregion
+
+        public string ToString(Wrapper<Guid> guid)
+        {
+            return guid.Value.ToString();
+        }
+
+        public int Compare(Wrapper<Guid> lho, Wrapper<Guid> rho)
+        {
+            return lho.Value.CompareTo(rho.Value);
+        }
     }
 }

@@ -35,8 +35,26 @@ An alias for divrem function.
 A list of prime numbers.
 
 #primes'all
-A lazy list of all prime numbers (requires an explicit content to be dispatched):
+A lazy list of all prime numbers (requires an explicit context to be dispatched):
 >>>take 10 primes'all ::: Int
+
+#primesR
+Given a range of integers by its lower and upper limit, constructs a list of all
+prime numbers in that range. 
+
+#isPrime n
+Checks if a given number is a prime.
+
+#coprime a b
+Determine whether two positive integer numbers are coprime. Two numbers are coprime if their greatest common divisor equals 1.
+
+#goldbach a
+A Goldbach's conjecture. Goldbach's conjecture says that every positive even number 
+greater than 2 is the sum of two prime numbers. This function finds the two prime numbers
+that sums up to a given even integer and returns a tuple with result. 
+
+#totient a
+Calculate Euler's totient function.
 
 #pythag 12 2
 Pythagorean theorem.

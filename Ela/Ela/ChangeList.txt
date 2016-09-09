@@ -1,3 +1,4 @@
+0.14.3.0:Release:Release of Ela 0.14.3.0.
 0.14.2.1:Fix:An error message "showf is not implemented for the given argument list" is corrected to reflect an actual function name from class 'Show'.
 0.14.2.0:Release:Release of Ela 0.14.2.0.
 0.14.1.1:Fix:A critical bug fixed in processing of class functions that could cause incorrect operations when partial applying/flipping order of parameters of class functions (Issue #1763).
