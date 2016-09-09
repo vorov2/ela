@@ -19,15 +19,7 @@ namespace Ela.Library.General
 
         public ElaRecord FromString(string xmlSource)
         {
-            try
-            {
-                return ReadTree(xmlSource);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.ToString());
-            }
-
+            return ReadTree(xmlSource);
         }
 
         private ElaRecord ReadNode(XmlReader xr)

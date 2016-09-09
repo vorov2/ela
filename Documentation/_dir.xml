@@ -38,6 +38,7 @@
     <doc name="state" file="lib\state.htm" />
     <doc name="object" file="lib\object.htm" />
     <doc name="xml" file="lib\xml.htm" />
+    <doc name="json" file="lib\json.htm" />
     <doc name="imperative" file="lib\imperative.htm" />
   </folder>
   <folder name="Language Reference">

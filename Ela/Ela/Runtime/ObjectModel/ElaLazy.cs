@@ -2,7 +2,7 @@
 
 namespace Ela.Runtime.ObjectModel
 {
-    public sealed class ElaLazy : ElaObject
+    public class ElaLazy : ElaObject
     {
         internal ElaLazy(ElaFunction function) : base(ElaTypeCode.Lazy)
         {
@@ -25,7 +25,7 @@ namespace Ela.Runtime.ObjectModel
             return Force().Ref.AsLong();
         }
 
-        internal ElaValue Force()
+        internal virtual ElaValue Force()
         {
             if (Value.Ref == null)
             {

@@ -19,17 +19,9 @@ namespace Ela.Library.General
 
         public ElaRecord FromString(string jsonSource)
         {
-            try
-            {
-                var serializer = new JavaScriptSerializer();
-                var jsonObject = serializer.DeserializeObject(jsonSource);
-                return BuildRecord(jsonObject as Dictionary<String,Object>);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.ToString());
-            }
-
+            var serializer = new JavaScriptSerializer();
+            var jsonObject = serializer.DeserializeObject(jsonSource);
+            return BuildRecord(jsonObject as Dictionary<String,Object>);
         }
 
         private ElaRecord BuildRecord(Dictionary<String,Object> dict)

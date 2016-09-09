@@ -30,13 +30,11 @@ Changes a value of a field `fld` to `val` in a record `rec`. This function alway
 new record:
 >>>changeField "y" 42 {x=1,y=2}
 
-==Indexing
+==Reflection
 
 #field n rec
 Returns a name of a record field at index `n`.
 >>>field 1 {x=1,y=2}
-
-==Reflection
 
 #fields
 Returns a list of fields in a given record:

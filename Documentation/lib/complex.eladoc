@@ -8,6 +8,9 @@ This module contains implementation of complex numbers.
 Complex numbers are an algebraic type. For a complex number `z`, `abs z` is a number with the magnitude of `z`, but
 oriented in the positive real direction, whereas `signum z` has the phase of `z`, but unit magnitude.
 
+#Complex
+This type is used to represent a complex number. It should be constructed with two values of type `Double`.
+
 =Functions
 
 #magnitude a

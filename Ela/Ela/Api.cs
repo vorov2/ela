@@ -23,7 +23,8 @@ namespace Ela
         ConsCreate = 15,
 
         CurrentContext = 16,
-        Classes = 17,
+        IsFailure = 17,
+        Failure = 18,
 
         ConsParamIndex = 101,
         ConsParamValue = 102,
@@ -31,6 +32,6 @@ namespace Ela
         ConsCodeByIndex = 104,
         ConsParamExist = 105,
         RecordField = 106,
-        ConsNameIndex = 107,
+        ConsNameIndex = 107
     }
 }
