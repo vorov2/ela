@@ -11,11 +11,6 @@ namespace Ela.Library.General
 {
     public sealed class XmlModule : ForeignModule
     {
-        public sealed class ElaXmlDocument : ElaObject
-        {
-            
-        }
-
         public override void Initialize()
         {
             Add<String,ElaRecord>("fromString", FromString);

@@ -16,6 +16,7 @@ using Ela.Library.General;
 [assembly: ElaModule("libBigInteger", typeof(BigIntegerModule))]
 [assembly: ElaModule("libGuid", typeof(GuidModule))]
 [assembly: ElaModule("libComplex", typeof(ComplexModule))]
+[assembly: ElaModule("libJson", typeof(JsonModule))]
 
 [assembly: ElaModule("experimental", typeof(Experimental))]
 [assembly: ElaModule("debug", typeof(DebugModule))]

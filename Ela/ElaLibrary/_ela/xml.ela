@@ -1,17 +1,20 @@
 open libXml#elalib@xml
-open generic record integer datetime string
+open generic record integer datetime string guid
 
 class XmlAble a where
   xmlSerialize a->_
 
-instance XmlAble Char String Integer Int Long Single Double Unit DateTime where
+instance XmlAble Char String Integer Int Bool Long Single Double DateTime Guid where
   xmlSerialize = fmt ""
+
+instance XmlAble Unit where
+  xmlSerialize _ = ""
 
 type XmlSection = CData (String a)
 
-toXmlString rec = toString $ descendants rec (fields rec)
+toXmlString !rec = toString $ descendants rec (fields rec)
 
-fromXmlString = xml.fromString
+fromXmlString !str = xml.fromString str
 
 attribute # private
 attribute "'value" _ = ""
