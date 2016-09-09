@@ -188,11 +188,13 @@
     <None Include="_ela\bench.ela" />
     <None Include="_ela\char.elaobj" />
     <None Include="_ela\collections\stack.ela" />
+    <None Include="_ela\complex.ela" />
     <None Include="_ela\core.ela" />
     <None Include="_ela\core.elaobj" />
     <None Include="_ela\espec.ela" />
     <None Include="_ela\generic.ela" />
     <None Include="_ela\generic.elaobj" />
+    <None Include="_ela\guid.ela" />
     <None Include="_ela\integer.ela" />
     <None Include="_ela\io.ela" />
     <None Include="_ela\list.ela" />
