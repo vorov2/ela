@@ -134,6 +134,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +149,7 @@
     <Compile Include="General\Experimental.cs" />
     <Compile Include="General\GuidModule.cs" />
     <Compile Include="General\IOModule.cs" />
+    <Compile Include="General\JsonModule.cs" />
     <Compile Include="General\RecordModule.cs" />
     <Compile Include="General\ReflectModule.cs" />
     <Compile Include="General\XmlModule.cs" />
@@ -197,6 +199,7 @@
     <None Include="_ela\guid.ela" />
     <None Include="_ela\integer.ela" />
     <None Include="_ela\io.ela" />
+    <None Include="_ela\json.ela" />
     <None Include="_ela\list.ela" />
     <None Include="_ela\list.elaobj" />
     <None Include="_ela\math.ela" />

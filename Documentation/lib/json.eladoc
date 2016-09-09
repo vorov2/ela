@@ -1,0 +1,26 @@
+#file json.ela
+#title json
+#category Ela Standard Library
+This module implements a simple JSON processing library that treats JSON objects as Ela records.
+
+=JSON support in Ela
+This library provides a basic support for XML processing. As soon as JSON notation as Ela record
+literals are almost identical the mapping from Ela records to JSON objects (and vice versa) is pretty
+intuitive.//br
+In the current version this library always encloses key names in quotes when generating
+JSON documents. An instance of `Unit` type is translated as `null` and serialization of other data
+types is controlled through `JsonAble` class.
+
+=Types and classes
+
+#JsonAble
+This class is used to serialize Ela data types to a string that is valid in JSON document. If a type
+doesn't support it, it cannot be used in a serialization context.
+
+=Functions
+
+#fromJsonString str
+Takes a string as input with JSON document and generates a record.
+
+#toJsonString rec
+Takes a record and serializes it to a JSON string.

@@ -35,7 +35,7 @@ instance Default Guid where
   default = empty
 
 instance Show Guid where 
-  show (Guid x) = gd.toString x
+  show (Guid !x) = gd.toString x
 
 instance Read Guid where
   read str
@@ -44,4 +44,4 @@ instance Read Guid where
     where val = parse str
 
 instance Format Guid where
-  fmt _ (Guid x) = gd.toString x
+  fmt _ (Guid !x) = gd.toString x

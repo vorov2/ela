@@ -44,6 +44,13 @@ An XML element is represented with two nested records like so:
 >>}
 A record above is equivalent to the following XML document:
 >><employee name="John Doe" age="43"/>
+==JSON support in Ela
+A new `json` library provides a basic support for XML processing. As soon as JSON notation as Ela record
+literals are almost identical the mapping from Ela records to JSON objects (and vice versa) is pretty
+intuitive.//br
+In the current version this library always encloses key names in quotes when generating
+JSON documents. An instance of `Unit` type is translated as `null` and serialization of other data
+types is controlled through `JsonAble` class.
 ==GUID type
 A new `guid` module is added to standard library. This module contains implementation of a GUID data 
 type, its instance and functions that operate with GUIDs. Type `Guid` is used to represent a global 

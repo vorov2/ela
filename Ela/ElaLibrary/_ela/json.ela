@@ -1,0 +1,49 @@
+/*
+  Module json
+  Created by Basil Voronkov in 2016
+*/
+import libJson#elalib@js
+open integer record guid string datetime
+
+/* Classes and instances */
+class JsonAble a where
+  jsonSerialize a->_
+
+instance JsonAble Int Long Single Double Bool where
+  jsonSerialize = fmt ""
+
+instance JsonAble DateTime Guid Char String Integer where
+  jsonSerialize v = "\"" ++ fmt "" v ++ "\""
+
+instance JsonAble Unit where
+  jsonSerialize _ = "null"
+
+/* Functions */
+fromJsonString !str = js.fromString str
+
+toJsonString = children
+
+($) # private
+($) = getField
+
+children # private
+children rec = "{ " +> children rec (fields rec) +> " }"
+  where children rec [] = ""
+        children rec (f::[]) = key f +> append (f$rec)
+        children rec (f::fs) = key f +> append (f$rec) +> ", " +> children rec fs
+        key f = "\"" +> f +> "\": "
+        append val
+          | val is List = showlist val
+          | val is Record = children val (fields val)
+          | else = jsonSerialize val
+                
+
+showlist # private
+showlist [] = "[]"
+showlist xs = "[" +> showlist xs +> "]"
+  where showlist (x::[]) = append x
+        showlist (x::xs) = append x +> "," +> showlist xs
+        append x
+          | x is List = showlist x
+          | x is Record = children x (fields x)
+          | else = jsonSerialize x
