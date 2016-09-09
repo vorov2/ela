@@ -11,8 +11,8 @@ namespace Ela.Library.Collections
     {
         #region Construction
         public static readonly ElaMap Empty = new ElaMap(AvlTree.Empty);
-		private const string TYPENAME = "map";
-		
+        private const string TYPENAME = "map";
+        
         internal ElaMap(AvlTree tree)
         {
             Tree = tree;
@@ -21,19 +21,13 @@ namespace Ela.Library.Collections
 
 
         #region Methods
-        public override ElaPatterns GetSupportedPatterns()
+        protected override string GetTypeName()
         {
-            return ElaPatterns.None;
+            return TYPENAME;
         }
 
 
-        protected override string GetTypeName()
-		{
-			return TYPENAME;
-		}
-
-
-		public ElaMap Add(ElaValue key, ElaValue value)
+        public ElaMap Add(ElaValue key, ElaValue value)
         {
             return new ElaMap(Tree.Add(key, value));
         }
@@ -63,28 +57,6 @@ namespace Ela.Library.Collections
             return ((IEnumerable<ElaValue>)this).GetEnumerator();
         }
 
-        protected override string Show(ElaValue @this, ShowInfo info, ExecutionContext ctx)
-        {
-            var sb = new StringBuilder();
-            sb.Append("map");
-            sb.Append('{');
-            var c = 0;
-
-            foreach (var e in Tree.Enumerate())
-            {
-                if (c++ > 0)
-                    sb.Append(',');
-
-                sb.Append(e.Key.Show(info, ctx));
-                sb.Append('=');
-                sb.Append(e.Value.Show(info, ctx));
-            }
-
-            sb.Append('}');
-            return sb.ToString();
-        }
-
-
         protected override ElaValue GetValue(ElaValue index, ExecutionContext ctx)
         {
             var res = Tree.Search(index);
@@ -102,16 +74,6 @@ namespace Ela.Library.Collections
         protected override ElaValue GetLength(ExecutionContext ctx)
         {
             return new ElaValue(Length);
-        }
-
-
-        protected override ElaValue Convert(ElaValue @this, ElaTypeInfo type, ExecutionContext ctx)
-        {
-            if (type.ReflectedTypeCode == ElaTypeCode.Record)
-                return new ElaValue(ConvertToRecord());
-
-            ctx.ConversionFailed(@this, type.ReflectedTypeName);
-            return Default();
         }
 
 

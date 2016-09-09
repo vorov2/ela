@@ -1,6 +1,6 @@
 /*
   Module 'math'
-  Created in 2015 by Basil Voronkov
+  Created in 2015-2016 by Basil Voronkov
 */
 open number list
 
@@ -47,8 +47,30 @@ primes !max = sieve [2u..max]
 //A lazy list of all prime numbers
 primes'all = & sieve [2u..]
 
+//Given a range of integers by its lower and upper limit, constructs a list of all prime numbers in that range. 
+primesR !a b = takeWhile (<= b) <| dropWhile (< a) <| primes'all
+
+//Checks if a given number is a prime
+isPrime !n 
+  | n < 4u = n > 1u
+  | else = all ((<>0u)<<mod n) $ 2u::3u::[x + i \\ x <- [6d,12d..s], i <- [-1u,1u]]
+           where s = floor <| sqrt <| toDouble n
+
+//Determine whether two given numbers are coprime
+coprime !a b = gcd a b == 1u
+
+//Goldbach's conjecture
+goldbach !n = head [(x,y) \\ x <- pr, y <- pr | x + y == n]
+    where pr = primesR 2u (n - 2u)
+
 //Pythagorean theorem
 pythag !a b = sqrt $ a ** 2u + b ** 2u
+
+//Calculate Euler's totient function
+totient !a
+  | a == 1u = 1u
+  | else = length $ filter (coprime a) [1u .. a - 1u]
+  where coprime a b = gcd a b == 1u
 
 //Van der Corput Sequence
 vdc !bs n = vdc' 0u 1u n

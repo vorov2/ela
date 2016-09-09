@@ -1,3 +1,8 @@
+0.2.4.0:Release:Release of 0.2.4.0.
+0.2.3.12:New:A new module 'complex' is added.
+0.2.3.11:New:Functions 'isPrime', 'coprime', 'totient', 'primesR', 'goldbach' are added to 'math' module.
+0.2.3.10:New:Instances of 'Enum' are added for 'Single' and 'Double' types.
+0.2.3.9:New:A new module 'guid' is added.
 0.2.3.8:New:New 'takeWhileEnd' and 'dropWhileEnd' functions are added to module 'list'.
 0.2.3.7:New:A 'chunksOf' function is added to module 'list'.
 0.2.3.6:New:New 'splitOn' and 'splitWhen' functions are added to module 'list'.
