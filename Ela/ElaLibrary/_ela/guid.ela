@@ -1,0 +1,47 @@
+/* 
+  Module guid
+  Created in 2016 by Basil Voronkov
+*/
+import libGuid#elalib@gd
+open core monad io string
+
+/* Construction */
+type Guid = Guid a # private
+
+empty # qualified
+empty = Guid gd.empty
+
+new # qualified
+new = mkIO (\() -> Guid (gd.new ()))
+
+parse # qualified
+parse !str
+  | val is Unit = None
+  | else = Some val
+  where val = Guid $ gd.parse str
+
+/* Instances */
+instance Eq Guid where
+  x == y = compare x y == EQ
+
+instance Ord Guid where
+  compare (Guid x) (Guid y)
+    | res > 0 = GT
+    | res < 0 = LT
+    | else = EQ
+    where res = gd.compare x y
+
+instance Default Guid where
+  default = empty
+
+instance Show Guid where 
+  show (Guid x) = gd.toString x
+
+instance Read Guid where
+  read str
+    | val is Unit = fail "guid.read: Unable to read GUID from a string."
+    | else = fromSome val
+    where val = parse str
+
+instance Format Guid where
+  fmt _ (Guid x) = gd.toString x
