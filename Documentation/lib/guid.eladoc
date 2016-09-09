@@ -1,0 +1,26 @@
+#file guid.ela
+#title guid
+#category Ela Standard Library
+This module contains implementation of a GUID data type, its instance and functions that operate with GUIDs. 
+
+=Guid
+
+#Guid
+This type is used to represent a global unique identifier. It supports basic instances such as `Eq`,
+`Ord`, `Show`, `Read`, `Default` and `Format`.
+
+==Construction
+
+#empty
+A constant with an empty GUID. This constant requires a qualified access. You can also access an
+empty GUID through a polymorphic `default` constant.
+
+#new
+Returns a newly generated GUID through `IO` monad. This member requires a qualified access. It can be
+used in conjunction with monad operators or in do-notation.
+
+#parse str
+Parses an input string into `Guid` and returns `Some` if parse is a success, otherwise - `None`.
+This function requires a qualified access.//br
+You can also use generic `read` function for parsing, however `read` function would fail if a GUID
+cannot be parse from a string.

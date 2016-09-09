@@ -36,7 +36,7 @@ A new `xml` module provides a basic support for XML processing. It allows to ser
 string and to deserialize an XML string to a record. All XML attributes are processed as regular
 record fields, child elements - as elements of a linked list in a special field called `'children`,
 element value - as a value of a special field called `'value`.//br
-An XML element is presented two nested records like so:
+An XML element is represented with two nested records like so:
 >>{ employee =
 >>    { name = "John Doe",
 >>      age = 43

@@ -1,0 +1,38 @@
+#file complex.ela
+#title complex
+#category Ela Standard Library
+This module contains implementation of complex numbers. 
+
+=Complex numbers
+
+Complex numbers are an algebraic type. For a complex number `z`, `abs z` is a number with the magnitude of `z`, but
+oriented in the positive real direction, whereas `signum z` has the phase of `z`, but unit magnitude.
+
+=Functions
+
+#magnitude a
+The nonnegative magnitude of a complex number.
+
+#phase a
+The phase of a complex number, in the range `(-pi, pi)`. If the magnitude 
+is zero, then so is the phase.
+
+#realPart a
+Extracts the real part of a complex number.
+
+#imagPart a
+Extracts the imaginary part of a complex number.
+
+#conjugate a
+The conjugate of a complex number.
+
+#mkPolar r theta
+Form a complex number from polar components of magnitude and phase.
+
+#cis theta
+The function `cis t` is a complex value with magnitude `1` and phase `t` (`modulo 2*pi`).
+
+#polar z
+The function `polar` takes a complex number and returns `a` (magnitude, phase) pair
+in canonical form: the magnitude is nonnegative, and the phase in the range `(-pi, pi)`;
+if the magnitude is zero, then so is the phase.
