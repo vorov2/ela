@@ -1,0 +1,60 @@
+open string generic monad io
+
+type Class # private
+type Class =
+  | NilClass
+  | Class (Record a) (Class b)
+  deriving Eq Default
+
+instance RecordLike Class where
+  toRecord (Class a _) = a
+  fromRecord a = object a
+
+instance Show Class where
+  show NilClass = ""
+  show (Class a NilClass) = "object" ++ show a
+  show (Class a b) = "object" ++ show a ++ "+=" + show b
+
+instance Name Class where
+  getField fld NilClass = fail (format "Name.getField: Unknown field \"{0}\"." fld)
+  getField fld cls = field cls fld cls
+    where
+      field cls fld (Class a b)
+        | fld `isField` a = let f = getField fld a in
+              if f is Fun then f cls else f
+        | else = field cls fld b
+  isField fld NilClass = false
+  isField fld (Class a b) 
+    | fld `isField` a = true
+    | else = isField fld b
+
+object rec = Class rec NilClass
+
+(Class a _) += b = Class a b
+(Class a _) -- = Class a NilClass
+
+basemath = object {
+         nam = "basemath"
+        ,sum = \this x y -> x + y //base implementation
+        ,sub = \this x y -> x - y
+        ,div = \this x y -> x / y
+        ,mul = \this x y -> x * y
+        ,getNam = \this -> this.nam
+      }
+
+//An this is a derived object
+mathext = object {
+             nam = "mathext"
+            ,pow = \this x y -> x ** y
+            ,sum = \this x y -> x + y + y //override
+          }
+          += basemath
+
+do
+  putLn $ basemath.getNam
+  putLn $ mathext.getNam
+  putLn $ basemath.sum 3 2
+  putLn $ mathext.sum 3 2
+  putLn $ mathext.sub 3 2
+  putLn $ mathext.pow 3 2
+
