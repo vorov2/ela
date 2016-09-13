@@ -14,6 +14,7 @@ using Ela.Library.General;
 [assembly: ElaModule("libReflect", typeof(ReflectModule))]
 [assembly: ElaModule("libXml", typeof(XmlModule))]
 [assembly: ElaModule("libBigInteger", typeof(BigIntegerModule))]
+[assembly: ElaModule("libMoney", typeof(MoneyModule))]
 [assembly: ElaModule("libGuid", typeof(GuidModule))]
 [assembly: ElaModule("libComplex", typeof(ComplexModule))]
 [assembly: ElaModule("libJson", typeof(JsonModule))]

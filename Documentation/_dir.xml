@@ -12,6 +12,7 @@
     </folder>
     <doc name="prelude" file="lib\prelude.htm" />
     <doc name="number" file="lib\number.htm" />
+    <doc name="money" file="lib\money.htm" />
     <doc name="integer" file="lib\integer.htm" />
     <doc name="complex" file="lib\complex.htm" />
     <doc name="math" file="lib\math.htm" />

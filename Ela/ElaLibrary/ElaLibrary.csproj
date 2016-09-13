@@ -150,6 +150,7 @@
     <Compile Include="General\GuidModule.cs" />
     <Compile Include="General\IOModule.cs" />
     <Compile Include="General\JsonModule.cs" />
+    <Compile Include="General\MoneyModule.cs" />
     <Compile Include="General\RecordModule.cs" />
     <Compile Include="General\ReflectModule.cs" />
     <Compile Include="General\XmlModule.cs" />
@@ -205,12 +206,15 @@
     <None Include="_ela\math.ela" />
     <None Include="_ela\measure.ela" />
     <None Include="_ela\monad.ela" />
+    <None Include="_ela\money.ela" />
     <None Include="_ela\number.elaobj" />
     <None Include="_ela\object.ela" />
     <None Include="_ela\peano.ela" />
     <None Include="_ela\prelude.elaobj" />
     <None Include="_ela\random.ela" />
+    <None Include="_ela\random.elaobj" />
     <None Include="_ela\record.elaobj" />
+    <None Include="_ela\reflect.elaobj" />
     <None Include="_ela\state.ela" />
     <None Include="_ela\string.elaobj" />
     <None Include="_ela\symbolic.ela" />

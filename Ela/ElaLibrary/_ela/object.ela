@@ -2,108 +2,85 @@
   Module object
   Created in 2016 by Basil Voronkov
 */
-open core record generic
-
-//Constants
-bf # private
-bf = "__base"
-
-err_field # private
-err_field = "Unknown field."
+open core record string generic monad io
 
 //Types and instances
-//Entity supports following classes:
-//Eq Read RecordLike Show Name Len
-type Entity # private
-type Entity = Entity a
-  deriving Eq
+type Class # private
+type Class =
+  | NilClass
+  | Class (Record a) (Class b)
+  deriving Eq Default
 
-instance Len Entity where
-  length (Entity rec)
-    | hasBase rec = len + length rec.__base
-    | else = len
-    where len = length rec
+instance RecordLike Class where
+  toRecord (Class a _) = a
+  fromRecord a = new a
 
-instance RecordLike Entity where
-  toRecord (Entity rec)@obj
-    | hasBase rec = rec ++ toRecord $ rec.__base
-    | else = rec
-  fromRecord rec = Entity $ rec
+instance Show Class where
+  show NilClass = ""
+  show (Class a NilClass) = "object" ++ show a
+  show (Class a b) = "object" ++ show a ++ "+=" + show b
 
-instance Read Entity where
-  read str = Entity $ read str ::: Record
+instance Name Class where
+  getField fld NilClass = fail (format "Name.getField: Unknown field \"{0}\"." fld)
+  getField fld cls = field cls fld cls
+    where
+      field (Class a b) fld cls
+        | fld `isField` a = let f = getField fld a in
+              if f is Fun then f cls else f
+        | else = field b fld cls
+  isField fld NilClass = false
+  isField fld (Class a b) 
+    | fld `isField` a = true
+    | else = isField fld b
 
-instance Show Entity where
-  show obj = "object{" ++ showi obj ++ "}"
+instance Len Class where
+  length NilClass = 0
+  length (Class a b) = length a + length b
 
-showo # private
-showo sb _ [] = sb
-showo sb rec ("__base"::xs) = showo (sb +> showi base) rec xs
-  where base = rec.__base
-showo sb rec (x::xs)
-  | isnil xs = showo str rec xs
-  | else = showo (str +> ",") rec xs
-  where str = sb +> x +> "=" +> show (x `getField` rec)
+instance Read Class where
+  read str = Class (read str ::: Record) NilClass
 
-showi # private
-showi (Entity x) = toString $ showo ("" +> "") x (record.fields x)
-
-instance Name Entity where
-  getField fld (Entity rec) 
-    | fld `isField` rec = getField fld rec
-    | hasBase rec = getField fld rec.__base
-    | else = fail err_field
-  isField fld (Entity rec)
-    | fld `isField` rec = true
-    | hasBase rec = fld `isField` rec.__base
-    | else = false
-
-//Functions constructors
+//Construction functions
 new # qualified
-new = Entity
+new rec = Class rec NilClass
 
 from # qualified
-from proto rec = new (record.addField bf proto rec)
+from (Class _ _)@b rec = Class rec b
 
 rebase # qualified
-rebase proto (Entity rec) = Entity $ record.changeField bf proto rec
+rebase (Class rec _) (Class _ _)@b = Class rec b
+
+debase # qualified
+debase a = rebase a NilClass
 
 //Reflection
 base # qualified
-base rec
-  | hasBase rec = Some $ rec.__base
-  | else = None
+base (Class _ NilClass) = None
+base (Class _ b) = Some b
 
 isBase # qualified
-isBase proto (Entity rec)
-  | not $ hasBase rec = false
-  | rec.__base == proto = true
-  | else = isBase proto rec.__base
+isBase NilClass _= false
+isBase (Class _ _)@hb (Class _ b)
+  | hb == b = true
+  | else = isBase hb b
 
 hasBase # qualified
-hasBase (Entity rec) = bf `isField` rec
-hasBase rec = bf `isField` rec
+hasBase (Class _ NilClass) = false
+hasBase _ = true
 
 //Field manipulation
 changeField # qualified
-changeField fld val (Entity rec)
-  | fld `isField` rec = Entity $ record.changeField fld val rec
-  | hasBase rec = changeField fld val rec.__base
-  | else = fail err_field
+changeField fld _ NilClass = fail (format "Name.getField: Unknown field \"{0}\"." fld)
+changeField fld val (Class rec b)
+  | fld `isField` rec = Class (record.changeField fld val rec) b
+  | else = changeField fld val b
 
 addField # qualified
-addField fld val (Entity rec) = Entity $ record.addField fld val rec
+addField fld val (Class rec b) = Class (record.addField fld val rec) b
 
 addFields # qualified
-addFields fields (Entity rec) = Entity $ record.addFields fields rec
+addFields fields (Class rec b) = Class (record.addFields fields rec) b
 
 fields # qualified
-fields (Entity rec)
-  | hasBase rec = record.fields rec ++ (fields rec.__base)
-  | else = record.fields rec
-
-field # qualified
-field (Entity rec) fld
-  | record.field rec fld = true
-  | hasBase rec = field rec.__base fld
-  | else = false
+fields (Class rec NilClass) = rec.fields rec 
+fields (Class rec b) = record.fields rec ++ fields b

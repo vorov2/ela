@@ -4,8 +4,8 @@
 This module contains implementations of prototype based OOP (through delegation) in Ela.
 
 =Type object
-An object oriented entity is presented in Ela using special type `Object`. Unlike other standard types `Object` is
-not exposed directly from the module of the same name and all operations with objects are performed using regular
+An object oriented entity is presented in Ela using special internal type. Unlike other standard types this type is
+not exposed directly from the module and all operations with objects are performed using regular
 functions. For example, in order to create an instance of an object one should write:
 >>object.new {x = 1, y = 2}
 A function `new` constructs a new object from a given record literal.//br
@@ -18,9 +18,35 @@ You can than access fields from both object itself and it's prototype using regu
 >>obj.z //Return 3
 Another handy feature is an ability to switch the prototype of a given object an runtime. One can do that like so:
 >>prototype1 = object.new { xx = 1, yy = 2 }
->>obj1 = object.rebase(prototype1) obj
-Rebasing creates a new instance of an object.//br
-All instances of type `Object` support the following type classes: `Read`, `Name`, `Len`, `Show`, `Eq` and `RecordLike`.
+>>obj1 = object.rebase obj prototype1
+Rebasing creates a new instance of an object. You can also "debase" an existing object (remove the prototype from it)
+like so:
+>>object.debase obj
+Objects also have a notion of "this" which should be similar to readers with OOP background. One can describe "this" as
+reference to an object itself which is available in functions defined as fields of this object. In many languages (such
+as C#) a "this" reference is implicitly passed to methods as the first parameter. In Ela however you would have to explicitly
+declare it in a function signature. Consider this as an example:
+>>>//Base object
+>>>a = new {
+>>>     nam = "a"
+>>>    ,sum = \this x y -> x + y //base implementation of sum
+>>>    ,sub = \this x y -> x - y
+>>>    ,div = \this x y -> x / y
+>>>    ,mul = \this x y -> x * y
+>>>    ,getNam = \this -> this.nam
+>>>  }
+>>>//And this is a derived object
+>>>b = from(a) {
+>>>     nam = "b"
+>>>    ,pow = \this x y -> x ** y
+>>>    ,sum = \this x y -> x + y + y //override
+>>>  }
+>>>
+>>>(a.getNam, b.getNam, a.sum 3 2, b.sum 3 2, b.sub 3 2, b.pow 3 2)
+As you can see in the code above a function `getNam` is not overriden in object `b`, however it can return both `"a"` and `"b"` depending
+on the way it is called. When you call through `a` object it returns `"a"`, when you call it through `b` object it returns `"b"`, because
+a reference to `b` is passed as `this` argument to this function.//br
+All instances of type `Object` support the following type classes: `Read`, `Name`, `Default`, `Len`, `Show`, `Eq` and `RecordLike`.
 
 =Functions
 
@@ -37,40 +63,40 @@ This function creates a new object using a given prototype `proto`:
 >>obj = object.from(prototype) { z = 3}
 This function requires a qualified access.
 
-#rebase proto rec
-This functions changes a prototype of a given object `rec` to a new prototype `proto`:
+#rebase obj proto
+This functions changes a prototype of a given object `obj` to a new prototype `proto`:
 >>prototype1 = object.new { xx = 1, yy = 2 }
->>obj1 = object.rebase(prototype1) obj
+>>obj1 = object.rebase obj prototype1
 This function requires a qualified access.
+
+#debase obj
+Removes a prototype from a given object. This function requires a qualified access.
 
 ==Reflection functions
 
 #base rec
 Returns `Maybe.Some` with an instance of a prototype of a given object `rec` if a prototype is present, otherwise - `Maybe.None`. This function requires a qualified access.
 
-#isBase proto rec
-Returns `true` if a given object `proto` is a prototype for a given object `rec`, otherwise - `false`. This function requires a qualified access.
+#isBase proto obj
+Returns `true` if a given object `proto` is a prototype for a given object `obj`, otherwise - `false`. This function requires a qualified access.
 
-#hasBase rec
-Returns `true` if a given object `rec` has a prototype, otherwise - `false`. This function requires a qualified access.
+#hasBase obj
+Returns `true` if a given object `obj` has a prototype, otherwise - `false`. This function requires a qualified access.
 
 ==Field manipulations
 
 Field manipulation functions are similar to those which are implemented in `record` module.
 
-#fields rec
-Returns a list of all fields from an object `rec`, including fields of its prototype. This function requires a qualified access.
+#fields obj
+Returns a list of all fields from an object `obj`, including fields of its prototype. This function requires a qualified access.
 
-#field fld rec
-Returns `true` if a field `fld` is present in object `rec` (or its prototype), otherwise - `false`. This function requires a qualified access.
+#changeField fld val obj
+Changes a value of a field `fld` to `val` in an object `obj` (or in its prototype).
 
-#changeField fld val rec
-Changes a value of a field `fld` to `val` in an object `rec` (or in its prototype).
+#addField fld val obj
+Adds a field `fld` with value `val` to an object `obj`.
 
-#addField fld val rec
-Adds a field `fld` with value `val` to an object `rec`.
-
-#addFields fields rec
-Adds fields from record `fields` to an object `rec`.
+#addFields fields obj
+Adds fields from record `fields` to an object `obj`.
 
 

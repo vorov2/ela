@@ -1,0 +1,97 @@
+﻿/* 
+  Module money
+  Created in 2016 by Basil Voronkov
+*/
+import libMoney#elalib@bi
+open string number
+
+//Type
+type Money = Money a # private
+  deriving Absolute Principal Numeral
+
+//Literal
+literal'm s = Money $ bi.parse s
+
+//Classes
+class MoneyLike a where
+  toMoney a->_
+  fromMoney _->a
+
+//Basic instances
+instance Default Money where
+  default = 0m
+
+instance Eq Money where
+  (Money x) == (Money y) = bi.equals x y
+
+instance Ord Money where
+  (Money x) > (Money y) = bi.greater x y
+  (Money x) < (Money y) = bi.lesser x y
+
+instance Enum Money where
+  succ = (+ 1m)
+  pred = (- 1m)
+
+instance Show Money where
+  show (Money x) = bi.show x ""
+
+instance Read Money where
+  read !s = Money $ bi.parse s
+
+//Math instances
+instance Additive Money where
+  (Money x) + (Money y) = Money $ bi.add x y
+  (Money x) - (Money y) = Money $ bi.subtract x y
+  negate (Money x) = Money $ bi.negate x
+
+instance Ring Money where
+  (Money x) *  (Money y) = Money $ bi.multiply x y
+  (Money x) ** (Money y) = Money $ bi.pow x y
+
+instance Field Money where
+  (Money x) / (Money y) = Money $ bi.divide x y
+
+instance Modulo Money where
+  mod (Money x) (Money y) = Money $ bi.mod x y
+  rem (Money x) (Money y) = Money $ bi.rem x y
+
+//xLike instances
+instance DoubleLike Money where
+  toDouble (Money x) = bi.toDouble x
+  fromDouble x = Money $ bi.fromDouble x
+
+instance SingleLike Money where
+  toSingle (Money x) = bi.toSingle x
+  fromSingle x = Money $ bi.fromSingle x
+
+instance MoneyLike Double where
+  toMoney x = Money $ bi.fromDouble x
+  fromMoney (Money x) = bi.toDouble x
+
+instance MoneyLike Single where
+  toMoney x = Money $ bi.fromSingle x
+  fromMoney (Money x) = bi.toSingle x
+
+instance MoneyLike Money where
+  toMoney = id
+  fromMoney = id
+
+//Module 'string' instances
+instance Format Money where
+  fmt (Money x) !f = bi.show x f
+
+//Module 'number' instances
+instance Num Money where
+  zero = 0m
+  one = 1m
+  (~=) = (==)
+
+instance Fractional Money where
+  truncate (Money x) = Money $ bi.truncate x
+  round (Money x) = Money $ bi.round x
+  ceiling (Money x) = Money $ bi.ceiling x
+  floor (Money x) = Money $ bi.floor x
+
+//Functions
+parse # qualified
+parse !s = Money $ bi.parse s
