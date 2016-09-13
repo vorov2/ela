@@ -1,4 +1,7 @@
 0.2.4.0:Release:Release of 0.2.4.0.
+0.2.3.16:New:A new module 'money' is added.
+0.2.3.15:New:Now `random` library is shipped both as source code file and as an object file.
+0.2.3.14:New:Now `reflect` library is shipped both as soure code file and as an object file.
 0.2.3.13:New:A new module 'json' is added.
 0.2.3.12:New:A new module 'complex' is added.
 0.2.3.11:New:Functions 'isPrime', 'coprime', 'totient', 'primesR', 'goldbach' are added to 'math' module.

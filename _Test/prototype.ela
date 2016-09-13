@@ -1,5 +1,10 @@
-open string generic monad io
+/* 
+  Module object
+  Created in 2016 by Basil Voronkov
+*/
+open core record string generic monad io
 
+//Types and instances
 type Class # private
 type Class =
   | NilClass
@@ -8,7 +13,7 @@ type Class =
 
 instance RecordLike Class where
   toRecord (Class a _) = a
-  fromRecord a = object a
+  fromRecord a = new a
 
 instance Show Class where
   show NilClass = ""
@@ -19,42 +24,65 @@ instance Name Class where
   getField fld NilClass = fail (format "Name.getField: Unknown field \"{0}\"." fld)
   getField fld cls = field cls fld cls
     where
-      field cls fld (Class a b)
+      field (Class a b) fld cls
         | fld `isField` a = let f = getField fld a in
               if f is Fun then f cls else f
-        | else = field cls fld b
+        | else = field b fld cls
   isField fld NilClass = false
   isField fld (Class a b) 
     | fld `isField` a = true
     | else = isField fld b
 
-object rec = Class rec NilClass
+instance Len Class where
+  length NilClass = 0
+  length (Class a b) = length a + length b
 
-(Class a _) += b = Class a b
-(Class a _) -- = Class a NilClass
+instance Read Class where
+  read str = Class (read str ::: Record) NilClass
 
-basemath = object {
-         nam = "basemath"
-        ,sum = \this x y -> x + y //base implementation
-        ,sub = \this x y -> x - y
-        ,div = \this x y -> x / y
-        ,mul = \this x y -> x * y
-        ,getNam = \this -> this.nam
-      }
+//Construction functions
+new # qualified
+new rec = Class rec NilClass
 
-//An this is a derived object
-mathext = object {
-             nam = "mathext"
-            ,pow = \this x y -> x ** y
-            ,sum = \this x y -> x + y + y //override
-          }
-          += basemath
+from # qualified
+from (Class _ _)@b rec = Class rec b
 
-do
-  putLn $ basemath.getNam
-  putLn $ mathext.getNam
-  putLn $ basemath.sum 3 2
-  putLn $ mathext.sum 3 2
-  putLn $ mathext.sub 3 2
-  putLn $ mathext.pow 3 2
+rebase # qualified
+rebase (Class rec _) (Class _ _)@b = Class rec b
+
+debase # qualified
+debase a = rebase a NilClass
+
+//Reflection
+base # qualified
+base (Class _ NilClass) = None
+base (Class _ b) = Some b
+
+isBase # qualified
+isBase NilClass _= false
+isBase (Class _ _)@hb (Class _ b)
+  | hb == b = true
+  | else = isBase hb b
+
+hasBase # qualified
+hasBase (Class _ NilClass) = false
+hasBase _ = true
+
+//Field manipulation
+changeField # qualified
+changeField fld _ NilClass = fail (format "Name.getField: Unknown field \"{0}\"." fld)
+changeField fld val (Class rec b)
+  | fld `isField` rec = Class (record.changeField fld val rec) b
+  | else = changeField fld val b
+
+addField # qualified
+addField fld val (Class rec b) = Class (record.addField fld val rec) b
+
+addFields # qualified
+addFields fields (Class rec b) = Class (record.addFields fields rec) b
+
+fields # qualified
+fields (Class rec NilClass) = rec.fields rec 
+fields (Class rec b) = record.fields rec ++ fields b
+
 

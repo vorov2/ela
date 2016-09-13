@@ -7,27 +7,27 @@ using Ela.Debug;
 
 namespace Ela.Linking
 {
-	public sealed class ObjectFileReader : ObjectFile
-	{
-		public ObjectFileReader(ModuleFileInfo file) : base(file)
-		{
+    public sealed class ObjectFileReader : ObjectFile
+    {
+        public ObjectFileReader(ModuleFileInfo file) : base(file)
+        {
 
-		}
+        }
 
-		public CodeFrame Read()
-		{
-			using (var bw = new BinaryReader(new FileInfo(File.FullName).OpenRead()))
-				return Read(bw);
-		}
+        public CodeFrame Read()
+        {
+            using (var bw = new BinaryReader(new FileInfo(File.FullName).OpenRead()))
+                return Read(bw);
+        }
         
-		private CodeFrame Read(BinaryReader bw)
-		{
-			var frame = new CodeFrame();
-			frame.GlobalScope = new Scope(false, null);
-			var v = bw.ReadInt32();
+        private CodeFrame Read(BinaryReader bw)
+        {
+            var frame = new CodeFrame();
+            frame.GlobalScope = new Scope(false, null);
+            var v = bw.ReadInt32();
 
-			if (v != Version)
-				throw new ElaLinkerException(Strings.GetMessage("InvalidObjectFile", Version), null);
+            if (v != Version)
+                throw new ElaLinkerException(Strings.GetMessage("InvalidObjectFile", Version), null);
 
             bw.ReadInt32(); //Version: Major
             bw.ReadInt32(); //Version: Minor
@@ -37,28 +37,28 @@ namespace Ela.Linking
 
             var c = bw.ReadInt32();
 
-			for (var i = 0; i < c; i++)
-			{
-				var alias = bw.ReadString();
-				var modName = bw.ReadString();
-				var dllName = bw.ReadString();
+            for (var i = 0; i < c; i++)
+            {
+                var alias = bw.ReadString();
+                var modName = bw.ReadString();
+                var dllName = bw.ReadString();
                 dllName = dllName.Length == 0 ? null : dllName;
                 var qual = bw.ReadBoolean();
                 var pl = bw.ReadInt32();
                 var list = new string[pl];
 
-				for (var j = 0; j < pl; j++)
-					list[j] = bw.ReadString();
+                for (var j = 0; j < pl; j++)
+                    list[j] = bw.ReadString();
 
                 var lh = bw.ReadInt32();
-				frame.AddReference(alias, new ModuleReference(frame, modName, dllName, list, 0, 0, qual, lh));
-			}
+                frame.AddReference(alias, new ModuleReference(frame, modName, dllName, list, 0, 0, qual, lh));
+            }
 
-			c = bw.ReadInt32();
+            c = bw.ReadInt32();
 
-			for (var i = 0; i < c; i++)
-				frame.GlobalScope.Locals.Add(bw.ReadString(),
-					new ScopeVar((ElaVariableFlags)bw.ReadInt32(), bw.ReadInt32(), bw.ReadInt32()));
+            for (var i = 0; i < c; i++)
+                frame.GlobalScope.Locals.Add(bw.ReadString(),
+                    new ScopeVar((ElaVariableFlags)bw.ReadInt32(), bw.ReadInt32(), bw.ReadInt32()));
 
             c = bw.ReadInt32();
 
@@ -67,26 +67,26 @@ namespace Ela.Linking
                     bw.ReadString(), bw.ReadInt32(), bw.ReadInt32(), bw.ReadInt32(), bw.ReadInt32(),
                     bw.ReadInt32()));
 
-			c = bw.ReadInt32();
+            c = bw.ReadInt32();
 
-			for (var i = 0; i < c; i++)
-			{
-				var l = new MemoryLayout(bw.ReadInt32(), bw.ReadInt32(), bw.ReadInt32());
-				frame.Layouts.Add(l);
-			}
+            for (var i = 0; i < c; i++)
+            {
+                var l = new MemoryLayout(bw.ReadInt32(), bw.ReadInt32(), bw.ReadInt32());
+                frame.Layouts.Add(l);
+            }
 
-			c = bw.ReadInt32();
+            c = bw.ReadInt32();
 
-			for (var i = 0; i < c; i++)
-				frame.Strings.Add(bw.ReadString());
+            for (var i = 0; i < c; i++)
+                frame.Strings.Add(bw.ReadString());
 
-			c = bw.ReadInt32();
+            c = bw.ReadInt32();
 
-			for (var i = 0; i < c; i++)
-			{
-				var opCode = (Op)bw.ReadByte();
-				frame.Ops.Add(opCode);
-				frame.OpData.Add(OpSizeHelper.OpSize[(Int32)opCode] > 1 ? bw.ReadInt32() : 0);
+            for (var i = 0; i < c; i++)
+            {
+                var opCode = (Op)bw.ReadByte();
+                frame.Ops.Add(opCode);
+                frame.OpData.Add(OpSizeHelper.OpSize[(Int32)opCode] > 1 ? bw.ReadInt32() : 0);
             }
 
             c = bw.ReadInt32();
@@ -176,7 +176,7 @@ namespace Ela.Linking
                 frame.Symbols = sym;
             }
 
-			return frame;
-		}
-	}
+            return frame;
+        }
+    }
 }
