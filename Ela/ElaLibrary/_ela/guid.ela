@@ -39,7 +39,7 @@ instance Show Guid where
 
 instance Read Guid where
   read str
-    | val is Unit = fail "guid.read: Unable to read GUID from a string."
+    | val is Unit = error "guid.read: Unable to read GUID from a string."
     | else = fromSome val
     where val = parse str
 

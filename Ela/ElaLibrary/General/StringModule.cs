@@ -20,7 +20,7 @@ namespace Ela.Library.General
         public override void Initialize()
         {
             Add<String,IEnumerable<ElaString>,String>("format", Format);
-            Add<String,ElaTuple>("getFormats", GetFormats);
+            Add<String,ElaObject>("getFormats", GetFormats);
 
             Add<String,String>("upper", ToUpper);
             Add<String,String>("lower", ToLower);
@@ -53,7 +53,7 @@ namespace Ela.Library.General
             return String.Format(format, objs.ToArray());
         }
 
-        public static ElaTuple GetFormats(string format)
+        public static ElaObject GetFormats(string format)
         {
             try
             {
@@ -137,7 +137,7 @@ namespace Ela.Library.General
             }
             catch (Exception)
             {
-                throw new FormatException("Invalid format string.");
+                return ElaUnit.Instance;
             }
         }
 

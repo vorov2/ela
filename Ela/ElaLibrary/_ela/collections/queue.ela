@@ -45,11 +45,11 @@ enqueue e (Queue f b) = enq f b
         enq f b  = Queue f (e::b)
 
 dequeue (Queue f b) = deq f b
-  where deq [] [] = fail "queue.dequeue: Empty queue."
+  where deq [] [] = error "queue.dequeue: Empty queue."
         deq (_::[]) [] = empty
         deq (_::[]) ys = Queue (reverse ys) []
         deq xs ys = Queue (tail xs) ys
 
 peek (Queue f b) = peek' f b
-  where peek' [] [] = fail "queue.peek: Empty queue."
+  where peek' [] [] = error "queue.peek: Empty queue."
         peek' (x::_) _ = x

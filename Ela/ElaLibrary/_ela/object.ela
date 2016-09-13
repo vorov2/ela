@@ -21,7 +21,7 @@ instance Show Class where
   show (Class a b) = "object" ++ show a ++ "+=" + show b
 
 instance Name Class where
-  getField fld NilClass = fail (format "Name.getField: Unknown field \"{0}\"." fld)
+  getField fld NilClass = error (format "Name.getField: Unknown field \"{0}\"." fld)
   getField fld cls = field cls fld cls
     where
       field (Class a b) fld cls
@@ -70,7 +70,7 @@ hasBase _ = true
 
 //Field manipulation
 changeField # qualified
-changeField fld _ NilClass = fail (format "Name.getField: Unknown field \"{0}\"." fld)
+changeField fld _ NilClass = error (format "Name.getField: Unknown field \"{0}\"." fld)
 changeField fld val (Class rec b)
   | fld `isField` rec = Class (record.changeField fld val rec) b
   | else = changeField fld val b

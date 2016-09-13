@@ -199,7 +199,14 @@ namespace Ela.Library.General
 
         public long Parse(string format, string value)
         {
-            return DateTime.ParseExact(value, String.IsNullOrEmpty(format) ? DEFAULT_FORMAT : format, Culture).Ticks;
+            try
+            {
+                return DateTime.ParseExact(value, String.IsNullOrEmpty(format) ? DEFAULT_FORMAT : format, Culture).Ticks;
+            }
+            catch
+            {
+                return -1;
+            }
         }
 
 

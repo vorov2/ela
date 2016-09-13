@@ -226,6 +226,7 @@ namespace Ela.Compilation
                     {
                         var s = (ElaTry)exp;
                         CompileTryExpression(s, map, hints);
+                        AddWarning(ElaCompilerWarning.TryDeprecated, exp);
                     }
                     break;
                 case ElaNodeType.Comprehension:

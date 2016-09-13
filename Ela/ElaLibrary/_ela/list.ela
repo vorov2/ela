@@ -40,16 +40,16 @@ map' f (x::xs) = f x :: (& map' f xs)
 map' _ []      = []
 
 foldl1 f (x::xs) = foldl f x xs
-foldl1 _ [] = fail "list.foldl1: Empty list."
+foldl1 _ [] = error "list.foldl1: Empty list."
 
 foldr1 f (x::xs) = foldr f x xs
-foldr1 _ [] = fail "list.foldr1: Empty list."
+foldr1 _ [] = error "list.foldr1: Empty list."
 
 foldl1' f (x::xs) = foldl' f x xs
-foldl1' _ [] = fail "list.foldl1': Empty list."
+foldl1' _ [] = error "list.foldl1': Empty list."
 
 foldr1' f (x::xs) = foldr' f x xs
-foldr1' _ [] = fail "list.foldr1': Empty list."
+foldr1' _ [] = error "list.foldr1': Empty list."
 
 fold f xs = foldr f [] xs
 
@@ -167,7 +167,7 @@ drop 0 xs = xs
 drop _ [] = []
 drop n (_::xs) 
   | n > 0 = drop (n - 1) xs
-  | else  = fail "list.drop: negative argument"
+  | else  = error "list.drop: negative argument"
 
 dropWhile _ [] = []
 dropWhile p (x::xs) 
@@ -179,7 +179,7 @@ dropWhileEnd p = foldr (\x xs -> if p x && isnil xs then [] else x :: xs) []
 splitAt 0 xs = ([],xs)
 splitAt _ [] = ([],[])
 splitAt n (x::xs) | n > 0 = (x::xs',xs2')
-                  | else = fail "list.splitAt: negative argument"
+                  | else = error "list.splitAt: negative argument"
                   where (xs',xs2') = splitAt (n - 1) xs
 
 splitHalf xs = go xs xs 
