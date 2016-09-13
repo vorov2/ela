@@ -51,7 +51,7 @@ instance Union where
   join xs
     | num == 1  = let v = consParamValue 0 xs in
                   if consCode v <> cc
-                    then fail "Union.join: Invalid type."
+                    then error "Union.join: Invalid type."
                     else cc `consCreate` (consParamValue 0 v)
     | num == 2  = cat xs
     | else = xs
@@ -66,13 +66,13 @@ cat xs
 instance Union Maybe where
   join (Some a)
     | a is Maybe = a
-    | else = fail "Union Maybe.join: Expected Maybe."
+    | else = error "Union Maybe.join: Expected Maybe."
   join None = None
 
 instance Union Either where
   join (Right a)
     | a is Either = a
-    | else = fail "Union Either.join: Expected Either."
+    | else = error "Union Either.join: Expected Either."
   join (Left a) = Left a
 
 instance Union List where

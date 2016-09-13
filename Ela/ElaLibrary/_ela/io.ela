@@ -15,7 +15,7 @@ instance Pointed IO where
 instance Union IO where
   join (IO a) 
     | a is IO = mkIO $ execIO a
-    | else = fail $ "Union IO.join: Expected IO. Got " ++ (typeName a) ++ "."
+    | else = error $ "Union IO.join: Expected IO. Got " ++ (typeName a) ++ "."
 
 instance Functor IO where
   fmap f x = mkIO (f $ execIO x)

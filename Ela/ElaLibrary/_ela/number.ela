@@ -169,7 +169,7 @@ instance Transcendental Double where
 
 instance Principal where
   gcd !x y
-    | x == 0u && y == 0u = fail "Principal.gcd: gcd 0 0 is undefined"
+    | x == 0u && y == 0u = error "Principal.gcd: gcd 0 0 is undefined"
     | else = gcd' (abs x) (abs y)
     where gcd' x y
             | y == 0u = x

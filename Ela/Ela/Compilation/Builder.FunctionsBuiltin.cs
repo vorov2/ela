@@ -41,6 +41,7 @@ namespace Ela.Compilation
             switch (kind)
             {
                 case ElaBuiltinKind.Fail:
+                    AddWarning(ElaCompilerWarning.FailDeprecated, exp);
                     cw.Emit(Op.Throw);
                     break;
                 case ElaBuiltinKind.Seq:

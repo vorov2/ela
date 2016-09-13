@@ -112,11 +112,14 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FailDeprecated" xml:space="preserve">
+    <value>The function 'fail' is deprecated since Ela 0.15. Please use function 'error' from standard prelude instead.</value>
+  </data>
   <data name="FunctionInvalidType" xml:space="preserve">
     <value>An expression {0} doesn't evaluate to a function reference.</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="SectionAmbiguity" xml:space="preserve">
     <value>Ambiguous expression ({0}). It is interpreted as a negative number. Did you mean a right section for a binary operator?</value>
+  </data>
+  <data name="TryDeprecated" xml:space="preserve">
+    <value>The 'try/with' construct is deprecated since Ela 0.15. Please use a combination of functions 'error' and 'isError' from standard prelude.</value>
   </data>
   <data name="TypeClassAmbiguity" xml:space="preserve">
     <value>A name '{0}' in a pattern {1} can correspond to both type and class. A type is considered.</value>

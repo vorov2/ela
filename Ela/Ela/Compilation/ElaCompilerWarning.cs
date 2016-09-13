@@ -24,5 +24,9 @@ namespace Ela.Compilation
         NegationAmbiguity = 407,
 
         SectionAmbiguity = 408,
+
+        FailDeprecated = 409,
+
+        TryDeprecated = 410
 	}
 }

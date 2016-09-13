@@ -95,11 +95,11 @@ type List
 
 last (x::[]) = x
 last (_::xs) = last xs
-last []      = fail "prelude.last: Empty list."
+last []      = error "prelude.last: Empty list."
 
 init (x::[])   = []
 init (x::xs)   = x :: init xs
-init []        = fail "prelude.init: Empty list."
+init []        = error "prelude.init: Empty list."
 
 map f (x::xs) = f x :: map f xs
 map _ []      = []
@@ -197,7 +197,7 @@ gread = lang.readLiteral
 
 instance Read Unit where
   read "()" = ()
-  read _ = fail "prelude.read: Invalid literal."
+  read _ = error "prelude.read: Invalid literal."
 
 instance Read String where
   read = id
@@ -225,19 +225,19 @@ instance Read Double where
 instance Read List where
   read str = match gread str with
                 x | x is List = x
-                  | else = fail "prelude.read: Invalid literal."
+                  | else = error "prelude.read: Invalid literal."
 
 
 instance Read Tuple where
   read str = match gread str with
                 x | x is Tuple = x
-                  | else = fail "prelude.read: Invalid literal."
+                  | else = error "prelude.read: Invalid literal."
 
 
 instance Read Record where
   read str = match gread str with
                 x | x is Record = x
-                  | else = fail "prelude.read: Invalid literal."
+                  | else = error "prelude.read: Invalid literal."
 
 instance Read Ordering where
   read "LT" = LT
@@ -315,7 +315,7 @@ instance Ord where
 
 instance Ord Tuple where 
   compare tup1 tup2 
-    | length tup2 <> len = fail "Ord.compare: Tuples should be of the same length."
+    | length tup2 <> len = error "Ord.compare: Tuples should be of the same length."
     | else = fold 0
     where 
       len = length tup1
@@ -375,7 +375,7 @@ instance Enum where
   enumFromTo max fst snd
     | snd < fst = genLt [] fst (snd-fst)
     | snd > fst = genGt [] fst (snd-fst)
-    | else = fail "Enum.enumFromTo: Invalid second element."
+    | else = error "Enum.enumFromTo: Invalid second element."
     where genLt xs e step
             | e < max = listReverse xs
             | else = genLt (e::xs) (e+step) step
@@ -424,7 +424,7 @@ class Ix(Ix) a where
 
 instance Ix List where
   getValue n xs = get 0 xs
-    where get _ [] = fail "Ix.getValue: Index is out of range."
+    where get _ [] = error "Ix.getValue: Index is out of range."
           get i (x::xs) | i == n = x
                         | else = get (i+1) xs
 
@@ -647,7 +647,10 @@ instance StringLike Char where
 force = __internal force
 seq   = __internal seq
 fail  = __internal fail
-undefined = & fail "Undefined."
+error = __internal error
+isError = __internal api17
+
+undefined = error "Undefined."
 
 /* Combinators */
 id x = x//I
@@ -695,7 +698,7 @@ eqLists _ [] = false
 
 eqTuples # private 
 eqTuples tup1 tup2 
-  | length tup2 <> len = fail "prelude: Tuples should be of the same length."
+  | length tup2 <> len = error "prelude: Tuples should be of the same length."
   | else = fold 0
   where 
     len = length tup1

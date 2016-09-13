@@ -52,10 +52,11 @@ report f prf (tests, failed) =
                            | else = all' f xs (i + 1) s
 
 runAssert # private
-runAssert f n =
-  try asr f n with
-      v = (n, false, ": Error occured: " ++ v)
-  where asr f n =
+runAssert f n
+  | isError res = (n, false, "Error occured")
+  | else = res
+  where res = asr f n
+        asr f n =
           match f assert with
                 Some x = (n, false, x)
                 None = (n, true, "")

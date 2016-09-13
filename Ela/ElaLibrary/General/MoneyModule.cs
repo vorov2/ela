@@ -77,8 +77,8 @@ namespace Ela.Library.General
         {
             var bi = default(Decimal);
 
-            if (!Decimal.TryParse(str, NumberStyles.Integer, Culture.NumberFormat, out bi))
-                return new M(0m);
+            if (!Decimal.TryParse(str, NumberStyles.Number, Culture.NumberFormat, out bi))
+                return new M(-1m);
 
             return new M(bi);
         }
