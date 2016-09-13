@@ -1,0 +1,27 @@
+#file money.ela
+#title money
+#category Ela Standard Library
+This module contains implementation of money data type, its instances, classes and functions. Money data type can be
+used for financial calculation.
+
+=Money
+
+#Money
+This type is used to represent a money type. In the current implementation this type is mapped to
+.NET Framework type `System.Decimal`.
+
+=Classes
+#MoneyLike
+This class defines `fromMoney` and `toMoney` function that can be used for data conversions. Module `money` already
+comes with instances of this class for `Double` and `Single` data types.
+
+=Functions
+
+#literal'm x
+This function is used for the literal form of `Money` type and can also be called directly (or rebound to a different name).
+>>12m
+
+#parse s
+This function can be used to create an instance of `Money` type from string:
+>>x = parse "12.2"
+This function always requires a qualified access.
