@@ -197,6 +197,9 @@ namespace Ela.Compilation
                 case ElaBuiltinKind.HasField:
                     cw.Emit(Op.Hasfld);
                     break;
+                case ElaBuiltinKind.Error:
+                    cw.Emit(Op.Throw);
+                    break;
                 /* Api */
                 case ElaBuiltinKind.Api1:
                     cw.Emit(Op.Api, 1);

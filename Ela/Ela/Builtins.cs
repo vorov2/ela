@@ -57,6 +57,7 @@ namespace Ela
                 case "genmaxbound": return ElaBuiltinKind.GenMaxBound;
                 case "genminbound": return ElaBuiltinKind.GenMinBound;
                 case "gendefault": return ElaBuiltinKind.GenDefault;
+                case "error": return ElaBuiltinKind.Error;
 
                 case "api1": return ElaBuiltinKind.Api1;
                 case "api2": return ElaBuiltinKind.Api2;

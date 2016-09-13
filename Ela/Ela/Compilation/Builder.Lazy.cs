@@ -32,11 +32,15 @@ namespace Ela.Compilation
             Label funSkipLabel;
             int address;
             LabelMap newMap;
+            var lazyError = (hints & Hints.LazyError) == Hints.LazyError;
 
-            CompileFunctionProlog(null, 1, exp.Line, exp.Column, out funSkipLabel, out address, out newMap);            
-            var ed = CompileExpression(exp, newMap, Hints.Scope | Hints.FunBody, null);
+            CompileFunctionProlog(null, 1, exp.Line, exp.Column, out funSkipLabel, out address, out newMap);
+            var ed = CompileExpression(exp, newMap, Hints.Scope | Hints.FunBody | (lazyError ? Hints.LazyError : Hints.None), null);
             CompileFunctionEpilog(null, 1, address, funSkipLabel);
             cw.Emit(Op.Newlazy);
+
+            if (lazyError)
+                cw.Emit(Op.Api, 18);
             
             return ed;
         }
