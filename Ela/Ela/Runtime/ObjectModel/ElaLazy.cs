@@ -145,6 +145,8 @@ namespace Ela.Runtime.ObjectModel
             get { return Function == null; }
         }
 
+        internal bool IsError;
+
         internal ElaFunction Function;
 
         private ElaValue _value;

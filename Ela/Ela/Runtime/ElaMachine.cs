@@ -1471,7 +1471,7 @@ namespace Ela.Runtime
         #region Operations
         internal ElaValue ApiCall(int code, ElaValue left, ElaValue right, EvalStack stack, WorkerThread thread)
         {
-            if (left.TypeId == LAZ && code != 17)
+            if (left.TypeId == LAZ && code != 18 && code != 17)
                 left = left.Ref.Force(left, thread.Context);
 
             if (right.Ref != null && right.TypeId == LAZ)
@@ -1483,9 +1483,10 @@ namespace Ela.Runtime
             switch ((Api)code)
             {
                 case Api.Failure:
-                    return new ElaValue(new ElaFailure(left));
+                    ((ElaLazy)left.Ref).IsError = true;
+                    return left;
                 case Api.IsFailure:
-                    return new ElaValue(left.Ref is ElaFailure);
+                    return new ElaValue(left.Ref is ElaLazy && ((ElaLazy)left.Ref).IsError);
                 case Api.IsAlgebraic:
                     return new ElaValue(left.TypeId > SysConst.MAX_TYP);
                 case Api.CurrentContext:

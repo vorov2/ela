@@ -98,24 +98,34 @@ namespace Ela.Compilation
                 if ((sv.Flags & ElaVariableFlags.Builtin) == ElaVariableFlags.Builtin)
                 {
                     var kind = (ElaBuiltinKind)sv.Data;
-                    var pars = BuiltinParams(kind);
 
-                    //We inline built-ins only when all arguments are provided
-                    //If this is not the case a built-in is compiled into a function in-place
-                    //and than called.
-                    if (len != pars)
+                    //We have a special treatment for "error" function. It is compiled as a lazy expression
+                    if (kind == ElaBuiltinKind.Error && (hints & Hints.LazyError) != Hints.LazyError)
                     {
-                        AddLinePragma(bf);
-                        CompileBuiltin(kind, v.Target, map, bf.Name);
-
-                        if (v.FlipParameters)
-                            cw.Emit(Op.Flip);
-
-                        for (var i = 0; i < len; i++)
-                            cw.Emit(Op.Call);
+                        var newHints = hints | Hints.LazyError;
+                        CompileLazyExpression(v, map, newHints);
                     }
                     else
-                        CompileBuiltinInline(kind, v.Target, map, hints);
+                    {
+                        var pars = BuiltinParams(kind);
+
+                        //We inline built-ins only when all arguments are provided
+                        //If this is not the case a built-in is compiled into a function in-place
+                        //and than called.
+                        if (len != pars)
+                        {
+                            AddLinePragma(bf);
+                            CompileBuiltin(kind, v.Target, map, bf.Name);
+
+                            if (v.FlipParameters)
+                                cw.Emit(Op.Flip);
+
+                            for (var i = 0; i < len; i++)
+                                cw.Emit(Op.Call);
+                        }
+                        else
+                            CompileBuiltinInline(kind, v.Target, map, hints);
+                    }
 
                     return ed;
                 }
