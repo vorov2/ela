@@ -26,7 +26,7 @@ instance Cat Maybe where
 instance Read Maybe where
   read str | h == "None" = None
            | h == "Some" = pread Some
-           | else = error "core.read: Unable to read literal."
+           | else = &fail "core.read: Unable to read literal."
     where xs = words str
           h = head xs
 

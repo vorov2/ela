@@ -15,5 +15,7 @@ namespace Ela.Compilation
 		Builtin = 4,
 
         FastCall = 5,
+
+        BuiltinError = 6
 	}
 }

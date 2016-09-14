@@ -21,7 +21,7 @@ test_sg xs t When = test_apply t xs When
 test_sg xs t After = test_apply t xs After
 test_sg xs t (Pred pred) = test_pred t xs pred
 test_sg xs t Given = test_given t xs
-test_sg xs t err = error (format "Unexpected word: {0}." (name err))
+test_sg xs t err = &fail (format "Unexpected word: {0}." (name err))
   where 
     name w 
       | w is Fun = funName w

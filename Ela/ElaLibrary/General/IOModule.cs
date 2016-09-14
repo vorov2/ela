@@ -56,14 +56,14 @@ namespace Ela.Library.General
             Add<String,String,String,ElaObject>("openFile", OpenFile);
             Add<FileWrapper,ElaUnit>("closeFile", CloseFile);
             Add<String,FileWrapper,ElaUnit>("writeString", WriteString);
-            Add<FileWrapper,ElaValue>("readLine", ReadLine);
-            Add<FileWrapper, String>("readLines", ReadLines);
-            Add<String, String, ElaUnit>("writeLine", WriteLine);
-            Add<String, String, ElaUnit>("writeText", WriteText);
-            Add<String, ElaUnit>("truncateFile", TruncateFile);
+            Add<FileWrapper,ElaObject>("readLine", ReadLine);
+            Add<FileWrapper,ElaObject>("readLines", ReadLines);
+            Add<String, String, ElaObject>("writeLine", WriteLine);
+            Add<String, String, ElaObject>("writeText", WriteText);
+            Add<String, ElaObject>("truncateFile", TruncateFile);
         }
 
-        public FileWrapper OpenFile(string file, string mode, string acc)
+        public ElaObject OpenFile(string file, string mode, string acc)
         {
             var fm = mode == "AppendMode" ? FileMode.Append :
                 mode == "CreateMode" ? FileMode.Create :
@@ -73,12 +73,24 @@ namespace Ela.Library.General
             var fa = acc == "ReadAccess" ? FileAccess.Read :
                 acc == "WriteAccess" ? FileAccess.Write :
                 FileAccess.ReadWrite;
-            return new FileWrapper(File.Open(file, fm, fa));
+
+            try
+            {
+                return Result(true, new FileWrapper(File.Open(file, fm, fa)));
+            }
+            catch (Exception ex)
+            {
+                return Result(false, new ElaString(ex.Message));
+            }
         }
 
         public ElaUnit CloseFile(FileWrapper fs)
         {
-            fs.Dispose();
+            try
+            {
+                fs.Dispose();
+            }
+            catch { }
             return ElaUnit.Instance;
         }
 
@@ -92,43 +104,76 @@ namespace Ela.Library.General
             return ElaUnit.Instance;
         }
         
-        public ElaValue ReadLine(FileWrapper fs)
+        public ElaObject ReadLine(FileWrapper fs)
         {
-            if (fs.Reader == null)
-                fs.Reader = new StreamReader(fs.Stream);
+            try
+            {
+                if (fs.Reader == null)
+                    fs.Reader = new StreamReader(fs.Stream);
 
-            var line = fs.Reader.ReadLine();
-            return line != null ? new ElaValue(line) : new ElaValue(ElaUnit.Instance);
+                var line = fs.Reader.ReadLine();
+                return Result(true, line != null ? (ElaObject)new ElaString(line) : ElaUnit.Instance);
+            }
+            catch (Exception ex)
+            {
+                return Result(false, new ElaString(ex.Message));
+            }
         }
 
-        public string ReadLines(FileWrapper fs)
+        public ElaObject ReadLines(FileWrapper fs)
         {
-            fs.Reader = new StreamReader(fs.Stream);
-            fs.Stream.Seek(0, SeekOrigin.Begin);
-            return fs.Reader.ReadToEnd() ?? String.Empty;
+            try
+            {
+                fs.Reader = new StreamReader(fs.Stream);
+                fs.Stream.Seek(0, SeekOrigin.Begin);
+                return Result(true, new ElaString(fs.Reader.ReadToEnd() ?? String.Empty));
+            }
+            catch (Exception ex)
+            {
+                return Result(false, new ElaString(ex.Message));
+            }
         }
 
         //Deprecated?
-        public ElaUnit WriteLine(string line, string file)
+        public ElaObject WriteLine(string line, string file)
         {
-            using (var sw = new StreamWriter(File.Open(file, FileMode.Append)))
-                sw.WriteLine(line);
-
-            return ElaUnit.Instance;
+            try
+            {
+                using (var sw = new StreamWriter(File.Open(file, FileMode.Append)))
+                    sw.WriteLine(line);
+                return Result(true, ElaUnit.Instance);
+            }
+            catch (Exception ex)
+            {
+                return Result(false, new ElaString(ex.Message));
+            }
         }
 
-        public ElaUnit WriteText(string text, string file)
+        public ElaObject WriteText(string text, string file)
         {
-            using (var sw = new StreamWriter(File.Open(file, FileMode.Create)))
-                sw.WriteLine(text);
-
-            return ElaUnit.Instance;
+            try
+            {
+                using (var sw = new StreamWriter(File.Open(file, FileMode.Create)))
+                    sw.WriteLine(text);
+                return Result(true, ElaUnit.Instance);
+            }
+            catch (Exception ex)
+            {
+                return Result(false, new ElaString(ex.Message));
+            }
         }
 
-        public ElaUnit TruncateFile(string file)
+        public ElaObject TruncateFile(string file)
         {
-            File.Open(file, FileMode.Create).Close();
-            return ElaUnit.Instance;
+            try
+            {
+                File.Open(file, FileMode.Create).Close();
+                return Result(true, ElaUnit.Instance);
+            }
+            catch (Exception ex)
+            {
+                return Result(false, new ElaString(ex.Message));
+            }
         }
     }
 }

@@ -1,22 +1,25 @@
-0.2.4.19:Change:Now instead of raising an exception functions 'formatfn' and 'format' from 'string' module use 'error'.
-0.2.4.18:Change:Function 'parse' from 'money' module now returns 'error' if a parse is unsuccessful.
-0.2.4.17:Change:Function 'parse' from 'datetime' module now returns 'error' if a parse is unsuccessful.
-0.2.4.16:Change:Module 'collecctions.queue' is updated, 'fail' function is replaced everywhere with new 'error' function.
-0.2.4.15:Change:Module 'test' is updated, usage of 'try/with' construct is removed.
-0.2.4.14:Change:New functions 'error' and 'isError' are added to standard prelude.
-0.2.4.13:Change:Implementation of 'undefined' in module 'prelude' is changed to use 'error' function instead of 'fail'. Also explicit laziness is removed.
-0.2.4.12:Change:Module 'prelude' is updated, 'fail' function is replaced everywhere with new 'error' function.
-0.2.4.11:Change:Module 'peano' is updated, 'fail' function is replaced everywhere with new 'error' function.
-0.2.4.10:Change:Module 'object' is updated, 'fail' function is replaced everywhere with new 'error' function.
-0.2.4.9:Change:Module 'number' is updated, 'fail' function is replaced everywhere with new 'error' function.
-0.2.4.8:Change:Module 'monad' is updated, 'fail' function is replaced everywhere with new 'error' function.
-0.2.4.7:Change:Module 'measure' is updated, 'fail' function is replaced everywhere with new 'error' function.
-0.2.4.6:Change:Module 'list' is updated, 'fail' function is replaced everywhere with new 'error' function.
-0.2.4.5:Change:Module 'io' is updated, 'fail' function is replaced everywhere with new 'error' function.
-0.2.4.4:Change:Module 'guid' is updated, 'fail' function is replaced everywhere with new 'error' function.
-0.2.4.3:Change:Module 'generic' is updated, 'fail' function is replaced everywhere with new 'error' function.
-0.2.4.2:Change:Module 'espec' is updated, 'fail' function is replaced everywhere with new 'error' function.
-0.2.4.1:Change:Module 'core' is updated, 'fail' function is replaced everywhere with new 'error' function.
+0.3.0.0:Release:Release of 0.3.0.0.
+0.2.4.21:Change:Now 'writeText' function in 'file' module returns '&fail' instead of raising an exception.
+0.2.4.20:Change:Now 'writeLines' function in 'file' module returns '&fail' instead of raising an exception.
+0.2.4.19:Change:Now 'readLines' function in 'file' module returns '&fail' instead of raising an exception when a fail cannot be read or closed.
+0.2.4.18:Change:Now instead of raising an exception functions 'formatfn' and 'format' from 'string' module use '&fail'.
+0.2.4.17:Change:Function 'parse' from 'money' module now returns '&fail' if a parse is unsuccessful.
+0.2.4.16:Change:Function 'parse' from 'datetime' module now returns '&fail' if a parse is unsuccessful.
+0.2.4.15:Change:Module 'collecctions.queue' is updated, 'fail' function is replaced everywhere with '&fail' function.
+0.2.4.14:Change:Module 'test' is updated, usage of 'try/with' construct is removed.
+0.2.4.13:Change:New function 'isError' is added to standard prelude.
+0.2.4.12:Change:Module 'prelude' is updated, 'fail' function is replaced everywhere with '&fail' function.
+0.2.4.11:Change:Module 'peano' is updated, 'fail' function is replaced everywhere with '&fail' function.
+0.2.4.10:Change:Module 'object' is updated, 'fail' function is replaced everywhere with '&fail' function.
+0.2.4.9:Change:Module 'number' is updated, 'fail' function is replaced everywhere with '&fail' function.
+0.2.4.8:Change:Module 'monad' is updated, 'fail' function is replaced everywhere with '&fail' function.
+0.2.4.7:Change:Module 'measure' is updated, 'fail' function is replaced everywhere with '&fail' function.
+0.2.4.6:Change:Module 'list' is updated, 'fail' function is replaced everywhere with '&fail' function.
+0.2.4.5:Change:Module 'io' is updated, 'fail' function is replaced everywhere with '&fail' function.
+0.2.4.4:Change:Module 'guid' is updated, 'fail' function is replaced everywhere with '&fail' function.
+0.2.4.3:Change:Module 'generic' is updated, 'fail' function is replaced everywhere with '&fail' function.
+0.2.4.2:Change:Module 'espec' is updated, 'fail' function is replaced everywhere with '&fail' function.
+0.2.4.1:Change:Module 'core' is updated, 'fail' function is replaced everywhere with '&fail' function.
 0.2.4.0:Release:Release of 0.2.4.0.
 0.2.3.16:New:A new module 'money' is added.
 0.2.3.15:New:Now `random` library is shipped both as source code file and as an object file.

@@ -1,16 +1,14 @@
-#title What's new? (Ela Platform 2016.6)
+#title Exceptions
+#category Language Reference
 
-=Overview
-This release focuses on a redesign of exception handling in Ela. It also comes with an update to Ela standard library.
+=Introduction
+This article discusses raising and handling errors in Ela. 
 
-=Ela changes
-==Deprecation of try/with construct
-Starting from Ela 0.15 `try/with` construct is deprecated. You can still use it in your code, but Ela compiler would
-generate a warning. However, you can still use `fail` function to raise errors. Also a new error handling strategy is
-introduced with this release of Ela and Ela standard library.
-==Handling errors
-Raising an error with `fail` function would cause a program to terminate immediately, unless you use a deprecated
-`try/with` construct. However, as long as Ela support non-strict execution, one can use a deferred failure strategy
+=Raising errors in Ela
+In order to raise in error in Ela one should use a `fail` function that is declared in `prelude` like so:
+>>fail "Unexpected error."
+Doing so would cause a program to terminate immediately with the exception message specified as a first argument
+to `fail` function. However, as long as Ela support non-strict execution, one can use a deferred failure strategy
 by explicitly marking the `fail` function as lazy:
 >>&fail "Unexpected error."
 In this case an error would be raised only if you try to operate with the value returned by `fail` function. For example,
@@ -19,6 +17,8 @@ the following code wouldn't raise an error:
 However, the following code would terminate a program with an exception:
 >>x = &fail "Unexpected error."
 >>y = x * 2
+
+=Handling errors
 Sometimes you might need to check if an applied function was a success or a failure (e.g. returned a deferred "fail" like
 shown in a previous section). In order to that you can use `isError` function, defined in a standard prelude like so:
 >>_ /. 0 = &fail "Division by zero."
@@ -28,6 +28,3 @@ shown in a previous section). In order to that you can use `isError` function, d
 In the example above an error is not raised and `isError` function returns `true`.//br
 You can a deferred `fail` in conjunction with `inError` function as a functional replacement for structured exception handling from
 imperative languages.
-
-=Ela library changes
-All modules in Ela library is updated to use new error handling strategy.

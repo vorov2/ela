@@ -24,8 +24,8 @@ namespace Ela
 
         CurrentContext = 16,
         IsFailure = 17,
-        Failure = 18,
-
+        MakeFailure = 18,
+        
         ConsParamIndex = 101,
         ConsParamValue = 102,
         ConsParamName = 103,

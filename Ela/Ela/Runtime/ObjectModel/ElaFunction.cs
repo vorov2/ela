@@ -13,6 +13,7 @@ namespace Ela.Runtime.ObjectModel
         internal static readonly ElaValue[] emptyParams = new ElaValue[0];
         private const string DEF_NAME = "<f>";
         internal bool table;
+        internal bool error;
          
         protected ElaFunction() : this(1)
         {

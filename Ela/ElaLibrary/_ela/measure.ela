@@ -76,7 +76,7 @@ joinByResult = joinBy (\_ res -> res)
 joinBy # private
 joinBy mut fn (MValue (UAtom m1) value1) (MValue (UAtom m2) value2)
   | m1 == m2 = mut m1 $ fn value1 value2
-  | else = error $ failure_string m1 m2
+  | else = &fail (failure_string m1 m2)
 joinBy mut fn x (MValue (UComplex _ _ _) _)@y = joinBy mut fn x $ expand y
 joinBy mut fn (MValue (UComplex _ _ _) _)@x y = joinBy mut fn (expand x) y
 
@@ -85,10 +85,10 @@ convert origvalue unit  = _convert (expand origvalue) unit
   where
     _convert value (UAtom m) 
       | value.measure.name == m = value
-      | else = error $ failure_string origvalue.measure.name m
+      | else = &fail (failure_string origvalue.measure.name m)
     _convert value (UComplex m cvalue (UAtom mn))@tar
       | value.measure.name == mn = MValue tar (value.value / cvalue)
-      | else = error $ failure_string origvalue.measure.name mn
+      | else = &fail (failure_string origvalue.measure.name mn)
     _convert value (UComplex m cvalue (UComplex mi _ _)@tar)@fin
       | value.measure.name == mi = MValue fin (value.value / cvalue)
       | else = _convert (_convert value tar) fin

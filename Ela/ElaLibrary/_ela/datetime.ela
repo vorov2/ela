@@ -24,7 +24,7 @@ today = mkIO (\() -> DateTime (dt.today ()))
 
 parse # qualified
 parse !fmt !str
-  | res == -1 = error "Unable to parse DateTime."
+  | res == -1 = &fail "Unable to parse DateTime."
   | else = DateTime res
   where res = dt.parse fmt str
 

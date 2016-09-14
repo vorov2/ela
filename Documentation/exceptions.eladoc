@@ -2,7 +2,8 @@
 #category Language Reference
 
 =Introduction
-This article discusses exception handling in Ela. 
+Note: *As* *of* *Ela* *0.15* *exceptions* *are* *obsolete,* *please* *refer* *to* *"Errors"* *article* *for* *a* *new* *error* *handling* *strategy.*//br
+This article discusses exception handling in Ela.
 
 =Exceptions in Ela
 Ela provides a support for so called resumable exceptions that can be raised using `fail` statement and handled

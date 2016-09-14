@@ -9,7 +9,7 @@ namespace Ela.Compilation
 
         Left = 0x01,
 
-        LazyError = 0x02,
+        __Reserved1 = 0x02,
 
         Scope = 0x04,
 

@@ -146,5 +146,10 @@ namespace Ela.Linking
             scope.Locals.Add(name, new ScopeVar(ElaVariableFlags.None, locals.Count, -1));
             locals.Add(value);
         }
+
+        protected ElaTuple Result(bool flag, ElaObject value)
+        {
+            return new ElaTuple(new ElaValue(flag), new ElaValue(value));
+        }
     }
 }

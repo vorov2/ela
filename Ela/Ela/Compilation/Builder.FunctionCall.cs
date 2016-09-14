@@ -71,7 +71,7 @@ namespace Ela.Compilation
             //Compile arguments to which a function is applied
             for (var i = 0; i < len; i++)
                 CompileExpression(v.Parameters[len - i - 1], map, Hints.None, v);
-
+            
             //If this a tail call and we effectively call the same function we are currently in,
             //than do not emit an actual function call, just do a goto. (Tail recursion optimization).
             if (tail && map.FunctionName != null && map.FunctionName == v.GetName() &&
@@ -98,35 +98,26 @@ namespace Ela.Compilation
                 if ((sv.Flags & ElaVariableFlags.Builtin) == ElaVariableFlags.Builtin)
                 {
                     var kind = (ElaBuiltinKind)sv.Data;
+                    var pars = BuiltinParams(kind);
 
-                    //We have a special treatment for "error" function. It is compiled as a lazy expression
-                    if (kind == ElaBuiltinKind.Error && (hints & Hints.LazyError) != Hints.LazyError)
+                    //We inline built-ins only when all arguments are provided
+                    //If this is not the case a built-in is compiled into a function in-place
+                    //and than called.
+                    if (len != pars)
                     {
-                        var newHints = hints | Hints.LazyError;
-                        CompileLazyExpression(v, map, newHints);
+                        AddLinePragma(bf);
+                        CompileBuiltin(kind, v.Target, map, bf.Name);
+
+                        if (v.FlipParameters)
+                            cw.Emit(Op.Flip);
+
+                        for (var i = 0; i < len; i++)
+                            cw.Emit(Op.Call);
                     }
                     else
-                    {
-                        var pars = BuiltinParams(kind);
+                        CompileBuiltinInline(kind, v.Target, map, hints);
 
-                        //We inline built-ins only when all arguments are provided
-                        //If this is not the case a built-in is compiled into a function in-place
-                        //and than called.
-                        if (len != pars)
-                        {
-                            AddLinePragma(bf);
-                            CompileBuiltin(kind, v.Target, map, bf.Name);
-
-                            if (v.FlipParameters)
-                                cw.Emit(Op.Flip);
-
-                            for (var i = 0; i < len; i++)
-                                cw.Emit(Op.Call);
-                        }
-                        else
-                            CompileBuiltinInline(kind, v.Target, map, hints);
-                    }
-
+                    ed = new ExprData(DataKind.BuiltinError, sv.Data); 
                     return ed;
                 }
                 else

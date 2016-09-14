@@ -1,4 +1,8 @@
-0.1.20.1:Chnage:An article 'prelude' is updated according to the module changes.
+0.1.21.0:Release:Release of 0.1.21.0.
+0.1.20.4:New:A new article 'errors' is added to the language reference.
+0.1.20.3:New:A new document 'Whats new' that contains platform changes overview is added.
+0.1.20.2:Change:An article 'exceptions' is updated according to the language changes.
+0.1.20.1:Change:An article 'prelude' is updated according to the module changes.
 0.1.20.0:Release:Release of 0.1.20.0.
 0.1.19.10:New:A new article 'money' about the new module of the same name is added.
 0.1.19.9:New:A new article 'json' about the new module of the same name is added.
