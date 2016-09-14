@@ -5,6 +5,38 @@ conc alg
   | else = alg
   where val = consParamValue 0 alg
 
+
+
+instance Seq where
+  head !alg
+    | pars == 1 = default
+    | pars == 2 = 
+        let par1 = consParamValue 0 alg in
+        let par2 = consParamValue 1 alg in
+        let val
+              | par1 == default = par1
+              | else = par2
+        in val
+    | else = &fail "Unable to obtain head."
+    where pars = consParamNumber alg
+  tail !alg
+    | pars == 1 =
+        let val = consParamValue 0 in
+        let ret
+              | typeCode ret == typeCode alg = ret
+              | else = default //sic!!!
+        in ret
+    | pars == 2 = 
+        let par1 = consParamValue 0 alg in
+        let par2 = consParamValue 1 alg in
+        let val
+              | par1 == default = par2 
+              | else = par1
+        in val
+    | else = &fail "Unable to obtain tail."
+    where pars = consParamNumber alg
+  isnil !alg = alg == default
+
 //Classes
 class Monoid a where
   mempty a
@@ -15,37 +47,45 @@ instance Monoid where
   mconcat !xss = foldr mappend mempty $ xss
 
 //Types and instances
-type Endo = Endo appEndo
-  deriving Eq Show
+type Endo = EmptyEndo | Endo appEndo
+  deriving Eq Show Name Seq Default
 
 instance Monoid Endo where
-  mempty = Endo id
+  mempty = default
   Endo f `mappend` Endo g = Any (f << g)
-  mconcat = conc
+  //mconcat = conc
 
-type Any = Any a
-  deriving Eq Show
+type Any = EmptyAny | Any getAny
+  deriving Eq Show Name Seq Default
 
 instance Monoid Any where
-  mempty = Any false
+  mempty = default
   Any x `mappend` Any y = Any (x || y)
-  mconcat = conc
+  //mconcat = conc
 
-type All = All a
-  deriving Eq Show
+type All = EmptyAll | All getAll
+  deriving Eq Show Name Seq Default
 
 instance Monoid All where
-  mempty = All true
+  mempty = default
   Any x `mappend` All y = All (x && y)
-  mconcat = conc
+  //mconcat = conc
 
-type Sum = Sum a
-  deriving Eq Show
+type Sum = EmptySum | Sum getSum
+  deriving Eq Show Name Seq Default
 
 instance Monoid Sum where
-  mempty = Sum 0
+  mempty = default
   mappend (Sum x) (Sum y) = Sum (x + y)
-  mconcat = conc
+  //mconcat = conc
+
+type Product = EmptyProduct | Product getProduct
+  deriving Eq Show Name Seq Default
+
+instance Monoid Product where
+  mempty = default
+  mappend (Product x) (Product y) = Product (x * y)
+  //mconcat = conc
 
 
 mconcat $ Sum (Sum 5)
