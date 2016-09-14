@@ -9,7 +9,12 @@ conc alg
 
 instance Seq where
   head !alg
-    | pars == 1 = default
+    | pars == 1 =
+        let val = consParamValue 0 alg in
+        let ret
+              | typeCode val == typeCode alg = default
+              | else = alg
+        in ret
     | pars == 2 = 
         let par1 = consParamValue 0 alg in
         let par2 = consParamValue 1 alg in
@@ -21,10 +26,10 @@ instance Seq where
     where pars = consParamNumber alg
   tail !alg
     | pars == 1 =
-        let val = consParamValue 0 in
+        let val = consParamValue 0 alg in
         let ret
-              | typeCode ret == typeCode alg = ret
-              | else = default //sic!!!
+              | typeCode val == typeCode alg = val
+              | else = default
         in ret
     | pars == 2 = 
         let par1 = consParamValue 0 alg in
@@ -75,7 +80,9 @@ type Sum = EmptySum | Sum getSum
   deriving Eq Show Name Seq Default
 
 instance Monoid Sum where
-  mempty = default
+  mempty = EmptySum
+  mappend EmptySum y = y
+  mappend x EmptySum = x
   mappend (Sum x) (Sum y) = Sum (x + y)
   //mconcat = conc
 
