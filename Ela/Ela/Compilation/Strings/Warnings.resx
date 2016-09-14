@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FailDeprecated" xml:space="preserve">
-    <value>The function 'fail' is deprecated since Ela 0.15. Please use function 'error' from standard prelude instead.</value>
-  </data>
   <data name="FunctionInvalidType" xml:space="preserve">
     <value>An expression {0} doesn't evaluate to a function reference.</value>
   </data>

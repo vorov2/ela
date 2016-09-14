@@ -41,7 +41,6 @@ namespace Ela.Compilation
             switch (kind)
             {
                 case ElaBuiltinKind.Fail:
-                    AddWarning(ElaCompilerWarning.FailDeprecated, exp);
                     cw.Emit(Op.Throw);
                     break;
                 case ElaBuiltinKind.Seq:
@@ -197,9 +196,6 @@ namespace Ela.Compilation
                     break;
                 case ElaBuiltinKind.HasField:
                     cw.Emit(Op.Hasfld);
-                    break;
-                case ElaBuiltinKind.Error:
-                    cw.Emit(Op.Throw);
                     break;
                 /* Api */
                 case ElaBuiltinKind.Api1:

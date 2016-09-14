@@ -110,7 +110,7 @@ namespace Ela.Linking
         internal int AddModule(string name, CodeFrame module, bool qual, int logicHandle)
         {
             var hdl = 0;
-
+            
             if (!moduleMap.TryGetValue(name, out hdl))
             {
                 moduleMap.Add(name, hdl = modules.Count);

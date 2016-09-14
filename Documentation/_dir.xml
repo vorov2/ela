@@ -56,6 +56,7 @@
     <doc name="Lazy Evaluation" file="thunks.htm"/>
     <doc name="Pattern Matching" file="patternmatching.htm"/>
     <doc name="Exceptions" file="exceptions.htm"/>
+    <doc name="Errors" file="errors.htm"/>
     <doc name="Modules" file="modules.htm"/>
     <doc name="User Types" file="types.htm"/>
     <doc name="Classes" file="classes.htm"/>
@@ -63,6 +64,7 @@
     <doc name="Operator Priority" file="operatorpriority.htm" />    
   </folder>
   <folder name="Older Versions">
+    <doc name="Platform 2016.5" file="oldversions/platform-2016-5.htm" />
     <doc name="Platform 2016.4" file="oldversions/platform-2016-4.htm" />
     <doc name="Platform 2016.3" file="oldversions/platform-2016-3.htm" />
     <doc name="Platform 2016.2" file="oldversions/platform-2016-2.htm" />

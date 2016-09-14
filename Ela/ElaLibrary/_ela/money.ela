@@ -1,4 +1,4 @@
-﻿/* 
+/* 
   Module money
   Created in 2016 by Basil Voronkov
 */
@@ -95,6 +95,6 @@ instance Fractional Money where
 //Functions
 parse # qualified
 parse !s
-  | isError res = error "Unable to parse Money."
+  | isError res = &fail "Unable to parse Money."
   | else = Money res
   where res = bi.parse s

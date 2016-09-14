@@ -221,6 +221,7 @@
     <None Include="_ela\tuple.ela" />
     <None Include="_ela\tuple.elaobj" />
     <None Include="_ela\xml.ela" />
+    <None Include="_ela\_build.bat" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -141,7 +141,7 @@ instance StringLike where
 //(Partial) Only for algebraic, open types are welcome
 instance TupleLike where
   toTuple a
-    | len == 0 = error "TupleLike.toTuple: Type constructor has no parameters."
+    | len == 0 = &fail "TupleLike.toTuple: Type constructor has no parameters."
     | len == 1 = (consParamValue 0 a,)
     | len == 2 = (consParamValue 0 a,consParamValue 1 a)
     | len == 3 = (consParamValue 0 a,consParamValue 1 a,consParamValue 2 a)

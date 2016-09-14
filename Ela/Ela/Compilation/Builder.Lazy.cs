@@ -32,17 +32,17 @@ namespace Ela.Compilation
             Label funSkipLabel;
             int address;
             LabelMap newMap;
-            var lazyError = (hints & Hints.LazyError) == Hints.LazyError;
 
             CompileFunctionProlog(null, 1, exp.Line, exp.Column, out funSkipLabel, out address, out newMap);
-            var ed = CompileExpression(exp, newMap, Hints.Scope | Hints.FunBody | (lazyError ? Hints.LazyError : Hints.None), null);
+            var ed = CompileExpression(exp, newMap, Hints.Scope | Hints.FunBody, null);
             CompileFunctionEpilog(null, 1, address, funSkipLabel);
-            cw.Emit(Op.Newlazy);
 
-            if (lazyError)
+            if (ed.Type == DataKind.BuiltinError)
                 cw.Emit(Op.Api, 18);
+
+            cw.Emit(Op.Newlazy);
             
-            return ed;
+            return default(ExprData);
         }
 
         //This methods tries to optimize lazy section. It would only work when a lazy

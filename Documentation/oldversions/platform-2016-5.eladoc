@@ -1,0 +1,93 @@
+#title What's new? (Ela Platform 2016.5)
+
+=Overview
+Ela Platform 2016.5 focuses on the enhancements to the standard library. It also ships a new version of Elide
+with minor fixes and enhancements.
+
+=Ela library changes
+==Complex numbers
+Ela library now provides an implementation for complex numbers.//br
+Complex numbers are an algebraic type. For a complex number `z, `abs z` is a number with the magnitude of `z`, but
+oriented in the positive real direction, whereas `signum z` has the phase of `z`, but unit magnitude.//br
+Complex numbers can be constructed using a `(:+)` constructor like so:
+>>12.2 :+ 0
+Complex numbers support all the standard numeric operators such as addition, multiplication, division, etc.
+==Money data type
+Ela library now provides an implementation of money fractional type which is mapped directly to `System.Decimal`.
+Numbers of type `money` supports all the basic mathematical operations including classes `Additive`, `Field`, `Ring`,
+`Modulo` and `Fractional`. Also this module provides a literal form for `money` type:
+>>12.2m
+==Prototype based OOP
+Ela library now includes a new module `object` that implements prototype based OOP through delegation in Ela.//br
+An object oriented entity is presented in Ela using special internal type. Unlike other standard types this type is
+not exposed directly from the module and all operations with objects are performed using regular
+functions. For example, in order to create an instance of an object one should write:
+>>object.new {x = 1, y = 2}
+A function `new` constructs a new object from a given record literal.//br
+Prototype based OOP allows to use prototypes for objects (which can be seen as an alternative to inheritance in 
+class based OOP). In order to create an instance of an object with a given prototype one should write:
+>>prototype = object.new { x = 1, y = 2 }
+>>obj = object.from(prototype) { z = 3}
+You can than access fields from both object itself and it's prototype using regular syntax:
+>>obj.x //Return 1
+>>obj.z //Return 3
+Another handy feature is an ability to switch the prototype of a given object an runtime. One can do that like so:
+>>prototype1 = object.new { xx = 1, yy = 2 }
+>>obj1 = object.rebase obj prototype1
+Rebasing creates a new instance of an object. You can also "debase" an existing object (remove the prototype from it)
+like so:
+>>object.debase obj
+Objects also have a notion of "this" which should be similar to readers with OOP background. One can describe "this" as
+reference to an object itself which is available in functions defined as fields of this object. In many languages (such
+as C#) a "this" reference is implicitly passed to methods as the first parameter. In Ela however you would have to explicitly
+declare it in a function signature:
+>>a = new {
+>>     nam = "a"
+>>    ,sum = \this x y -> x + y
+>>    ,sub = \this x y -> x - y
+>>    ,div = \this x y -> x / y
+>>    ,mul = \this x y -> x * y
+>>    ,getNam = \this -> this.nam
+>>  }
+All instances of type `Object` support the following type classes: `Read`, `Name`, `Default`, `Len`, `Show`, `Eq` and `RecordLike`.
+For more information please refer to the module documentation.
+==XML support in Ela
+A new `xml` module provides a basic support for XML processing. It allows to serialize a record to an XML
+string and to deserialize an XML string to a record. All XML attributes are processed as regular
+record fields, child elements - as elements of a linked list in a special field called `'children`,
+element value - as a value of a special field called `'value`.//br
+An XML element is represented with two nested records like so:
+>>{ employee =
+>>    { name = "John Doe",
+>>      age = 43
+>>    }
+>>}
+A record above is equivalent to the following XML document:
+>><employee name="John Doe" age="43"/>
+==JSON support in Ela
+A new `json` library provides a basic support for XML processing. As soon as JSON notation as Ela record
+literals are almost identical the mapping from Ela records to JSON objects (and vice versa) is pretty
+intuitive.//br
+In the current version this library always encloses key names in quotes when generating
+JSON documents. An instance of `Unit` type is translated as `null` and serialization of other data
+types is controlled through `JsonAble` class.
+==GUID type
+A new `guid` module is added to standard library. This module contains implementation of a GUID data 
+type, its instance and functions that operate with GUIDs. Type `Guid` is used to represent a global 
+unique identifier. It supports basic instances such as `Eq`, `Ord`, `Show`, `Read`, `Default` and 
+`Format`.
+
+==Other changes
+  * Types `Either` and `Or` from `core` module now support `Read` class.
+  * A new `interact` function is added to `io` module.
+  * Functions `splitWhen`, `splitOn`, `chunksOf`, `takeWhileEnd` and `dropWhileEnd` are added to `list` module.
+  * Instances of `Enum` class are added to `Single` and `Double` data types to standard `prelude`.
+  * Functions `isPrime`, `coprime`, `totient`, `primesR`, `goldbach` are added to `math` module.
+  * Now `random` library is shipped both as source code file and as an object file.
+  * Now `reflect` library is shipped both as soure code file and as an object file.
+=Elide changes
+Elide contains minor enhancements for smart indenting, a redesigned resizable "Windows" form, shortcuts for
+Build/Stop Execution and Build/Make Object File menu items and a bug fix (of a bug that could cause a dropdown
+with a current document name to be highlighted when a mouse pointer is not over it). Also "About" dialog now
+display both Elide and Ela version which is currently used by Elide.
+

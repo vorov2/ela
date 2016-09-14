@@ -420,19 +420,19 @@ Defines a `toRecord` type cast function.
 #fail x
 Raises an exception with the specified details:
 >>fail "An unexpected error occured!"
-This function is deprecated since Ela 0.15.
-
-#error str
-Returns an unevaluated entity represented an error with a description passed with string `str`.
-Fetching a result using this function won't cause a program to fail immediately, however any
-attempt to operate with it will cause program to terminate. Using this function is essentially
-the same as applying deprecated `fail` function like so:
->>& fail "Error message."
-However, one can query the result returned by `error` function and check if it is error using
-`isError` function.
+This would cause a program to terminate immediately with the exception message specified as a first argument
+to the `fail` function. However, one can explicitly define a deferred failure like so:
+>>x = &fail "An unexpected error occured!"
+In this case a program would terminate only if you try to perform strict operations with `x`.
 
 #isError obj
-Checks if a given value is an error returned by `error` function. Returns either `true` of `false`.
+Checks if a given value is an error returned by `error` function:
+>>_ /. 0 = &fail "Division by zero."
+>>x /. y = x / y
+>>res = 12 /. 0
+>>isError res
+This function returns either `true` of `false` and can be used in conjunction with a deferred
+failure `&fail "[message]"` like in an example above.
 
 #force x
 Forces a given expression if this is a thunk. Otherwise works as an identity function:

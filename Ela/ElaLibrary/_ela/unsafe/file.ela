@@ -1,17 +1,33 @@
 /* 
   "Dirty" io module
-  Created in 2012 by Basil Voronkov
+  Created in 2012, 2016 by Basil Voronkov
 */
 import libIO#elalib@io
 
-readLines !fl = 
-  let fh = io.openFile fl "OpenMode" "ReadAccess" in
-  let str = io.readLines fh in
-  io.closeFile fh `seq` str
+readLines !fl
+  | not flag = &fail fh
+  | else = readLines1 ()
+  where (flag,fh) = io.openFile fl "OpenMode" "ReadAccess"
+        readLines1 ()
+          | not flag = &fail str
+          | else = readLines2 ()
+          where (flag,str) = io.readLines fh
+                readLines2 ()
+                  | not flag = &fail res
+                  | else = str
+                  where (flag,res) = io.closeFile fh
 
-writeLines xs fl = io.truncateFile fl `seq` write (force xs)
-  where f = force fl
-        write (x::xs) = io.writeLine x f `seq` write xs
+writeLines !xs !fl
+  | not flag = &fail res1
+  | else = write xs
+  where (flag,res1) = io.truncateFile fl
+        write (x::xs)
+          | not flag = &fail res
+          | else = write xs
+          where (flag,res) = io.writeLine x fl
         write [] = ()
 
-writeText str fl = io.writeText (force str) (force fl)
+writeText !str !fl
+  | not flag = &fail str
+  | else = ()
+  where (flag,res) = io.writeText str fl

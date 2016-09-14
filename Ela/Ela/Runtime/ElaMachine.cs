@@ -1482,11 +1482,12 @@ namespace Ela.Runtime
 
             switch ((Api)code)
             {
-                case Api.Failure:
-                    ((ElaLazy)left.Ref).IsError = true;
+                case Api.MakeFailure:
+                    ((ElaFunction)left.Ref).error = true;
                     return left;
                 case Api.IsFailure:
-                    return new ElaValue(left.Ref is ElaLazy && ((ElaLazy)left.Ref).IsError);
+                    var th = left.Ref as ElaLazy;
+                    return new ElaValue(th != null && th.Function != null && th.Function.error);
                 case Api.IsAlgebraic:
                     return new ElaValue(left.TypeId > SysConst.MAX_TYP);
                 case Api.CurrentContext:

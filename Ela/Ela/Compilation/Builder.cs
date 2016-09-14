@@ -377,8 +377,7 @@ namespace Ela.Compilation
                 case ElaNodeType.Juxtaposition:
                     {
                         var v = (ElaJuxtaposition)exp;
-
-                        CompileFunctionCall(v, map, hints);
+                        exprData = CompileFunctionCall(v, map, hints);
 
                         if ((hints & Hints.Left) == Hints.Left)
                             AddValueNotUsed(v);

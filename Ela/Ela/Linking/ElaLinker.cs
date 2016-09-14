@@ -477,7 +477,7 @@ namespace Ela.Linking
         {
             if (Assembly.ModuleCount == 0)
                 Assembly.AddModule(file, frame, mod.RequireQuailified, mod.LogicalHandle);
-
+            
             var ret = default(CodeFrame);
 
             //Check if an entry module is already precompiled
