@@ -1,0 +1,10 @@
+
+class Foldable a where
+  fold a->_
+  foldl _->a->a
+  foldr _->a->a
+  foldMap _->a->a
+
+instance Foldable where
+  fold = foldMap id
+  foldl = 

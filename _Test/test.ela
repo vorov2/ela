@@ -1,10 +1,18 @@
-open generic
+open list
 
-x $$ 0 = &fail "Division by zero."
-x $$ y = x / y
+class Monoid a where
+  mempty a
+  mappend a->a->a
+  mconcat a->a
 
-res = 12 $$ 0
+instance Monoid where
+  mconcat xss = foldr mappend mempty $ xss
 
-isError res
+instance Monoid List where
+  mempty = []
+  mappend = (++)
+  mconcat xss = [x \\ xs <- xss, x <- xs]
+
+//mconcat $ map (\x -> map (*x) [1..10]) [1..10]
 
 
