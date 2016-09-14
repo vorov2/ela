@@ -1,0 +1,67 @@
+open list generic core
+
+conc alg
+  | typeCode val == typeCode alg = conc val
+  | else = alg
+  where val = consParamValue 0 alg
+
+//Classes
+class Monoid a where
+  mempty a
+  mappend a->a->_
+  mconcat a->_
+
+instance Monoid where
+  mconcat !xss = foldr mappend mempty $ xss
+
+//Types and instances
+type Endo = Endo appEndo
+  deriving Eq Show
+
+instance Monoid Endo where
+  mempty = Endo id
+  Endo f `mappend` Endo g = Any (f << g)
+  mconcat = conc
+
+type Any = Any a
+  deriving Eq Show
+
+instance Monoid Any where
+  mempty = Any false
+  Any x `mappend` Any y = Any (x || y)
+  mconcat = conc
+
+type All = All a
+  deriving Eq Show
+
+instance Monoid All where
+  mempty = All true
+  Any x `mappend` All y = All (x && y)
+  mconcat = conc
+
+type Sum = Sum a
+  deriving Eq Show
+
+instance Monoid Sum where
+  mempty = Sum 0
+  mappend (Sum x) (Sum y) = Sum (x + y)
+  mconcat = conc
+
+
+mconcat $ Sum (Sum 5)
+
+
+
+
+instance Monoid List where
+  mempty = []
+  mappend = (++)
+  mconcat xss = [x \\ xs <- xss, x <- xs]
+
+instance Monoid Maybe where
+  mempty = None
+  None `mappend` m = m
+  m `mappend` None = m
+  Some m1 `mappend` Some m2 = Some (m1 `mappend` m2)
+
+
