@@ -1,7 +1,0 @@
-open number
-
-//This function divides two passed values and handles exceptions
-sum x y = try x `div` y with
-              m = "You can't divide these values! " ++ m
-
-sum 2 0
