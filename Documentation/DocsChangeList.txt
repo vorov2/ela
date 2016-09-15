@@ -1,4 +1,6 @@
 0.1.22:0:Release:Release of 0.1.22.0.
+0.1.21.5:Change:A new code sample 'errors.ela' is added as a replacement for 'exceptions.ela'.
+0.1.21.4:Change:An 'exceptions.ela' sample is now removed.
 0.1.21.3:Change:An article 'functions' is updated according to the language changes.
 0.1.21.2:Change:An article 'bindings' is updated according to the language changes.
 0.1.21.1:Change:An article 'guid' is updated according to the module changes.
