@@ -6,7 +6,7 @@
     <sample file="tuples.ela" name="Tuples" description="This file contains samples that illustrate how to work with tuples in Ela." />
     <sample file="lists.ela" name="Lists" description="Linked lists are a fundamental data sturcture in Ela. This sample explains how to work with lists." />
     <sample file="functionfefinition.ela" name="Function Definition" description="This sample explains how to define functions in Ela." />
-    <sample file="exceptions.ela" name="Exceptions" description="An example of structured exception handling in Ela." />
+    <sample file="errors.ela" name="Errors" description="An example of error handling in Ela." />
   </folder>
   <folder name="Imperative" description="This folder contains imperative code samples in Ela.">
     <sample file="guessnumber.ela" name="Guess Number (Console IO)" description="Guess the number game that demonstrates imperative code in Ela that involves console input/output and user interaction." />

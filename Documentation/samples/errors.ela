@@ -1,0 +1,10 @@
+open number
+
+//Here we implement a division function
+//A construct '&fail ...' doesn't terminate a program immediately. It's execution
+//is deferred until your try to perform any operation with its result.
+_ /. 0 = &fail "Division by zero."
+x /. y = x / y
+
+res = 2 /. 0 //Doesn't raise an error
+isError res //Returns 'true'
