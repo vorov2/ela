@@ -5,6 +5,8 @@ namespace Ela.Compilation
 {
     internal sealed class LabelMap
     {
+        internal static readonly LabelMap Empty = new LabelMap();
+
         internal LabelMap()
         {
             
@@ -46,5 +48,7 @@ namespace Ela.Compilation
         internal Scope FunctionScope { get; set; }
 
         internal int? Context { get; private set; }
+
+        internal bool NoWarnings { get; set; }
     }
 }

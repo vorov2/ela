@@ -35,7 +35,7 @@ namespace Ela.Compilation
             cw.Emit(Op.Nop);
 
             if ((hints & Hints.Left) == Hints.Left)
-                AddValueNotUsed(n);
+                AddValueNotUsed(map, n);
         }
 
         //Used to compile a 'match' expression.
@@ -46,7 +46,7 @@ namespace Ela.Compilation
             CompileSimpleMatch(n.Entries.Equations, map, hints, n.Expression);
 
             if ((hints & Hints.Left) == Hints.Left)
-                AddValueNotUsed(n);
+                AddValueNotUsed(map, n);
         }
 
         //This method contains main compilation logic for 'match' expressions and for 'try' expressions. 
@@ -54,7 +54,7 @@ namespace Ela.Compilation
         //A 'mexp' (matched expression) parameter can be null and is used for additional validation only.
         private void CompileSimpleMatch(IEnumerable<ElaEquation> bindings, LabelMap map, Hints hints, ElaExpression mexp)
         {
-            ValidateOverlapSimple(bindings, mexp);
+            ValidateOverlapSimple(map, bindings, mexp);
 
             var failLab = cw.DefineLabel();
             var endLab = cw.DefineLabel();
@@ -141,7 +141,7 @@ namespace Ela.Compilation
         //Argument patNum contains number of patterns that should be in each.
         private void CompileFunctionMatch(int patNum, IEnumerable<ElaEquation> bindings, LabelMap map, Hints hints)
         {
-            ValidateOverlapComplex(bindings);
+            ValidateOverlapComplex(map, bindings);
             
             var failLab = cw.DefineLabel();
             var endLab = cw.DefineLabel();
@@ -757,11 +757,11 @@ namespace Ela.Compilation
 
                 return AddVariable(varName, exp, ElaVariableFlags.None, -1);
             }
-		}
+        }
 
         //Performs validation of overlapping for simple case of pattern matching 
         //(such as 'match' expression with a single pattern per entry).
-        private void ValidateOverlapSimple(IEnumerable<ElaEquation> seq, ElaExpression mexp)
+        private void ValidateOverlapSimple(LabelMap map, IEnumerable<ElaEquation> seq, ElaExpression mexp)
         {
             var lst = new List<ElaExpression>();
             
@@ -769,7 +769,7 @@ namespace Ela.Compilation
             {
                 foreach (var o in lst)
                     if (!e.Left.CanFollow(o))
-                        AddWarning(ElaCompilerWarning.MatchEntryNotReachable, e.Left, FormatNode(e.Left), FormatNode(o));
+                        AddWarning(map, ElaCompilerWarning.MatchEntryNotReachable, e.Left, FormatNode(e.Left), FormatNode(o));
 
                 lst.Add(e.Left);
             }
@@ -777,7 +777,7 @@ namespace Ela.Compilation
 
         //Performs validation of overlapping for complex case of pattern matchine
         //(such as when pattern matching is done in a function definition).
-        private void ValidateOverlapComplex(IEnumerable<ElaEquation> seq)
+        private void ValidateOverlapComplex(LabelMap map, IEnumerable<ElaEquation> seq)
         {
             var lst = new List<ElaJuxtaposition>();
 
@@ -799,7 +799,7 @@ namespace Ela.Compilation
                     }
 
                     if (!can)
-                        AddWarning(ElaCompilerWarning.MatchEntryNotReachable, jx, FormatNode(jx), FormatNode(ojx));
+                        AddWarning(map, ElaCompilerWarning.MatchEntryNotReachable, jx, FormatNode(jx), FormatNode(ojx));
                 }
 
                 lst.Add(jx);

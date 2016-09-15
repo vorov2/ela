@@ -90,7 +90,7 @@ namespace Ela.Compilation
                     ((ElaPrimitive)v.Parameters[0]).Value.IsNegative())
                 {
                     var par = ((ElaPrimitive)v.Parameters[0]).Value.ToString();
-                    AddWarning(ElaCompilerWarning.NegationAmbiguity, v, bf.Name, par);
+                    AddWarning(map, ElaCompilerWarning.NegationAmbiguity, v, bf.Name, par);
                     AddHint(ElaCompilerHint.AddSpaceApplication, v, bf.Name, par, par.TrimStart('-'));
                 }
 
@@ -144,7 +144,7 @@ namespace Ela.Compilation
             //It means that we are trying to call "not a function". Ela is a dynamic language, still it's worth to generate
             //a warning in such a case.
             if (ed.Type == DataKind.VarType)
-                AddWarning(ElaCompilerWarning.FunctionInvalidType, v.Target, FormatNode(v.Target));
+                AddWarning(map, ElaCompilerWarning.FunctionInvalidType, v.Target, FormatNode(v.Target));
 
             AddLinePragma(v);
 

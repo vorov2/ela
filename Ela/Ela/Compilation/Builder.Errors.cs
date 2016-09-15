@@ -39,15 +39,17 @@ namespace Ela.Compilation
             }
         }
 
-        private void AddWarning(ElaCompilerWarning warning, ElaExpression exp, params object[] args)
+        private void AddWarning(LabelMap map, ElaCompilerWarning warning, ElaExpression exp, params object[] args)
         {
-            AddWarning(warning, exp.Line, exp.Column, args);
+            AddWarning(map, warning, exp.Line, exp.Column, args);
         }
 
         //Warnings can be ignored or generated as errors
-        private void AddWarning(ElaCompilerWarning warning, int line, int col, params object[] args)
+        private void AddWarning(LabelMap map, ElaCompilerWarning warning, int line, int col, params object[] args)
         {
-            if (options.WarningsAsErrors)
+            if (map.NoWarnings)
+                return;
+            else if (options.WarningsAsErrors)
                 AddError((ElaCompilerError)warning, line, col, args);
             else if (!options.NoWarnings)
                 Errors.Add(new ElaMessage(Strings.GetWarning(warning, args), MessageType.Warning,
@@ -73,9 +75,9 @@ namespace Ela.Compilation
         
         //This method generate a warning and hint and when a value is not used and 
         //pops this value from the top of the stack.
-        private void AddValueNotUsed(ElaExpression exp)
+        private void AddValueNotUsed(LabelMap map, ElaExpression exp)
         {
-            AddWarning(ElaCompilerWarning.ValueNotUsed, exp, FormatNode(exp));
+            AddWarning(map, ElaCompilerWarning.ValueNotUsed, exp, FormatNode(exp));
             AddHint(ElaCompilerHint.UseIgnoreToPop, exp, FormatNode(exp, true));
             cw.Emit(Op.Pop);
         }

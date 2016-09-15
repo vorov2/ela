@@ -181,7 +181,7 @@ namespace Ela.Compilation
                         CompileBuiltin(v.Kind, v, map, map.BindingName);
 
                         if ((hints & Hints.Left) == Hints.Left)
-                            AddValueNotUsed(exp);
+                            AddValueNotUsed(map, exp);
                     }
                     break;
                 case ElaNodeType.Generator:
@@ -189,7 +189,7 @@ namespace Ela.Compilation
                         CompileGenerator((ElaGenerator)exp, map, hints);
 
                         if ((hints & Hints.Left) == Hints.Left)
-                            AddValueNotUsed(exp);
+                            AddValueNotUsed(map, exp);
                     }
                     break;
                 case ElaNodeType.TypeCheck:
@@ -204,7 +204,7 @@ namespace Ela.Compilation
                         CompileRange(exp, r, map, hints);
 
                         if ((hints & Hints.Left) == Hints.Left)
-                            AddValueNotUsed(r);
+                            AddValueNotUsed(map, r);
                     }
                     break;
                 case ElaNodeType.LazyLiteral:
@@ -226,7 +226,7 @@ namespace Ela.Compilation
                     {
                         var s = (ElaTry)exp;
                         CompileTryExpression(s, map, hints);
-                        AddWarning(ElaCompilerWarning.TryDeprecated, exp);
+                        AddWarning(map, ElaCompilerWarning.TryDeprecated, exp);
                     }
                     break;
                 case ElaNodeType.Comprehension:
@@ -245,7 +245,7 @@ namespace Ela.Compilation
                         }
 
                         if ((hints & Hints.Left) == Hints.Left)
-                            AddValueNotUsed(c);
+                            AddValueNotUsed(map, c);
                     }
                     break;
                 case ElaNodeType.Match:
@@ -261,7 +261,7 @@ namespace Ela.Compilation
                         exprData = new ExprData(DataKind.FunParams, pc);
 
                         if ((hints & Hints.Left) == Hints.Left)
-                            AddValueNotUsed(exp);
+                            AddValueNotUsed(map, exp);
                     }
                     break;
                 case ElaNodeType.Condition:
@@ -308,7 +308,7 @@ namespace Ela.Compilation
                         }
 
                         if ((hints & Hints.Left) == Hints.Left)
-                            AddValueNotUsed(exp);
+                            AddValueNotUsed(map, exp);
                     }
                     break;
                 case ElaNodeType.ListLiteral:
@@ -352,7 +352,7 @@ namespace Ela.Compilation
                             PushVar(scopeVar);
 
                         if ((hints & Hints.Left) == Hints.Left)
-                            AddValueNotUsed(v);
+                            AddValueNotUsed(map, v);
 
                         //Add some hints if we know how this name is initialized
                         if ((scopeVar.VariableFlags & ElaVariableFlags.Function) == ElaVariableFlags.Function)
@@ -380,7 +380,7 @@ namespace Ela.Compilation
                         exprData = CompileFunctionCall(v, map, hints);
 
                         if ((hints & Hints.Left) == Hints.Left)
-                            AddValueNotUsed(v);
+                            AddValueNotUsed(map, v);
                     }
                     break;
                 case ElaNodeType.UnitLiteral:

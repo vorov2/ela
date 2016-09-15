@@ -16,9 +16,9 @@ new = mkIO (\() -> Guid (gd.new ()))
 
 parse # qualified
 parse !str
-  | val is Unit = None
-  | else = Some val
-  where val = Guid $ gd.parse str
+  | val is Unit = &fail "Unable to parse GUID."
+  | else = Guid $ val
+  where val = gd.parse str
 
 /* Instances */
 instance Eq Guid where

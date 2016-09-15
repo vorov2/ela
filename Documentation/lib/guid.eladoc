@@ -20,7 +20,7 @@ Returns a newly generated GUID through `IO` monad. This member requires a qualif
 used in conjunction with monad operators or in do-notation.
 
 #parse str
-Parses an input string into `Guid` and returns `Some` if parse is a success, otherwise - `None`.
+Parses an input string into `Guid` and returns an instance of `Guid` if parse is a success, otherwise fails
+(using a deferred fail, e.g. `&fail`).
 This function requires a qualified access.//br
-You can also use generic `read` function for parsing, however `read` function would fail if a GUID
-cannot be parse from a string.
+You can also use generic `read` function for parsing.
