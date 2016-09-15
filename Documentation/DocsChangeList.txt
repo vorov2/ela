@@ -1,3 +1,7 @@
+0.1.22:0:Release:Release of 0.1.22.0.
+0.1.21.3:Change:An article 'functions' is updated according to the language changes.
+0.1.21.2:Change:An article 'bindings' is updated according to the language changes.
+0.1.21.1:Change:An article 'guid' is updated according to the module changes.
 0.1.21.0:Release:Release of 0.1.21.0.
 0.1.20.4:New:A new article 'errors' is added to the language reference.
 0.1.20.3:New:A new document 'Whats new' that contains platform changes overview is added.

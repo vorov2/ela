@@ -20,7 +20,7 @@ namespace Ela.Compilation
             }
 
             if ((hints & Hints.Left) == Hints.Left)
-                AddValueNotUsed(exp);
+                AddValueNotUsed(map, exp);
 
             return ed;
         }

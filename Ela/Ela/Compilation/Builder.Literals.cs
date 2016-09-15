@@ -14,11 +14,11 @@ namespace Ela.Compilation
             PushPrimitive(p, p.Value);
 
             if ((hints & Hints.Left) == Hints.Left)
-                AddValueNotUsed(p);
+                AddValueNotUsed(map, p);
 
             if (p.Parens && p.Value.IsNegative())
             {
-                AddWarning(ElaCompilerWarning.SectionAmbiguity, p, p.Value.ToString());
+                AddWarning(map, ElaCompilerWarning.SectionAmbiguity, p, p.Value.ToString());
                 AddHint(ElaCompilerHint.AddSpaceSection, p, p.Value.ToString().TrimStart('-'));
             }
 
@@ -98,7 +98,7 @@ namespace Ela.Compilation
             }
 
             if ((hints & Hints.Left) == Hints.Left)
-                AddValueNotUsed(p);
+                AddValueNotUsed(map, p);
 
             return new ExprData(DataKind.VarType, (Int32)ElaTypeCode.Record);
         }
@@ -118,7 +118,7 @@ namespace Ela.Compilation
             }
 
             if ((hints & Hints.Left) == Hints.Left)
-                AddValueNotUsed(p);
+                AddValueNotUsed(map, p);
 
             return new ExprData(DataKind.VarType, (Int32)ElaTypeCode.List);
         }
@@ -129,7 +129,7 @@ namespace Ela.Compilation
             CompileTupleParameters(v, v.Parameters, map);
 
             if ((hints & Hints.Left) == Hints.Left)
-                AddValueNotUsed(v);
+                AddValueNotUsed(map, v);
 
             return new ExprData(DataKind.VarType, (Int32)ElaTypeCode.Tuple);
         }

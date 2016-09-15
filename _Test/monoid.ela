@@ -1,11 +1,31 @@
-open list generic core
+open list generic core reflect
+open unsafe.console
+
+a `seq` b =
+  let c = force a in
+  force b
 
 conc alg
   | typeCode val == typeCode alg = conc val
   | else = alg
   where val = consParamValue 0 alg
 
+type Do = Done | Do value (Fun op)
+  deriving Seq Default
 
+instance Show Do where
+  show Done = "Done"
+  show (Do value op) = "Do (" ++ show value ++ funName op ++ ")"
+
+type List = Nil | val : (List next)
+  deriving Seq Show Default Eq
+
+instance Seq Maybe
+
+genList 0 = Nil
+genList len = len : genList (len - 1)
+
+list.sum $ genList 10
 
 instance Seq where
   head !alg
@@ -16,12 +36,12 @@ instance Seq where
               | else = alg
         in ret
     | pars == 2 = 
-        let par1 = consParamValue 0 alg in
-        let par2 = consParamValue 1 alg in
-        let val
-              | par1 == default = par1
-              | else = par2
-        in val
+        let val1 = consParamValue 0 alg in
+        let val2 = consParamValue 1 alg in
+        let ret
+              | typeCode val1 == typeCode alg = val2
+              | else = val1
+        in ret
     | else = &fail "Unable to obtain head."
     where pars = consParamNumber alg
   tail !alg
@@ -32,31 +52,29 @@ instance Seq where
               | else = default
         in ret
     | pars == 2 = 
-        let par1 = consParamValue 0 alg in
-        let par2 = consParamValue 1 alg in
-        let val
-              | par1 == default = par2 
-              | else = par1
-        in val
+        let val1 = consParamValue 0 alg in
+        let val2 = consParamValue 1 alg in
+        let ret
+              | typeCode val1 == typeCode alg = val1 
+              | else = val2
+        in ret
     | else = &fail "Unable to obtain tail."
     where pars = consParamNumber alg
   isnil !alg = alg == default
 
 //Classes
 class Monoid a where
-  mempty a
   mappend a->a->_
   mconcat a->_
 
 instance Monoid where
-  mconcat !xss = foldr mappend mempty $ xss
+  mconcat (x :: !xs)@xss = foldr mappend (default ::: x) <| xss
 
 //Types and instances
 type Endo = EmptyEndo | Endo appEndo
   deriving Eq Show Name Seq Default
 
 instance Monoid Endo where
-  mempty = default
   Endo f `mappend` Endo g = Any (f << g)
   //mconcat = conc
 
@@ -64,7 +82,6 @@ type Any = EmptyAny | Any getAny
   deriving Eq Show Name Seq Default
 
 instance Monoid Any where
-  mempty = default
   Any x `mappend` Any y = Any (x || y)
   //mconcat = conc
 
@@ -72,7 +89,6 @@ type All = EmptyAll | All getAll
   deriving Eq Show Name Seq Default
 
 instance Monoid All where
-  mempty = default
   Any x `mappend` All y = All (x && y)
   //mconcat = conc
 
@@ -80,7 +96,6 @@ type Sum = EmptySum | Sum getSum
   deriving Eq Show Name Seq Default
 
 instance Monoid Sum where
-  mempty = EmptySum
   mappend EmptySum y = y
   mappend x EmptySum = x
   mappend (Sum x) (Sum y) = Sum (x + y)
@@ -90,23 +105,19 @@ type Product = EmptyProduct | Product getProduct
   deriving Eq Show Name Seq Default
 
 instance Monoid Product where
-  mempty = default
   mappend (Product x) (Product y) = Product (x * y)
   //mconcat = conc
 
 
-mconcat $ Sum (Sum 5)
+//mconcat $ [Some $ Sum 2,None, Some $ Sum 3]
 
 
 
 
 instance Monoid List where
-  mempty = []
   mappend = (++)
-  mconcat xss = [x \\ xs <- xss, x <- xs]
 
 instance Monoid Maybe where
-  mempty = None
   None `mappend` m = m
   m `mappend` None = m
   Some m1 `mappend` Some m2 = Some (m1 `mappend` m2)

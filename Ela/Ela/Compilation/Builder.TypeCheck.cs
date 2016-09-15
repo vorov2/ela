@@ -57,7 +57,7 @@ namespace Ela.Compilation
             cw.Emit(Op.Nop);
 
             if ((hints & Hints.Left) == Hints.Left)
-                AddValueNotUsed(n);
+                AddValueNotUsed(map, n);
         }
 
         //This method check if a given name (qualified or not, prefix may be null) is a type or class
@@ -73,7 +73,7 @@ namespace Ela.Compilation
             //to be a type and compile further.
             if (isType && isClass)
             {
-                AddWarning(ElaCompilerWarning.TypeClassAmbiguity, exp, prefix == null ? name : prefix + "." + name, FormatNode(exp));
+                AddWarning(LabelMap.Empty, ElaCompilerWarning.TypeClassAmbiguity, exp, prefix == null ? name : prefix + "." + name, FormatNode(exp));
 
                 //This hint suggests to use prefix, it is stupid to generate it, if we have a prefix already.
                 if (prefix == null)

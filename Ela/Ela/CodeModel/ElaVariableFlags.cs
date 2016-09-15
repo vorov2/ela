@@ -41,6 +41,8 @@ namespace Ela.CodeModel
 
         PartiallyApplied = 1 << 16, //??
 
-        Clean = 1 << 17
+        Clean = 1 << 17,
+
+        NoWarnings = 1 << 18
     }
 }

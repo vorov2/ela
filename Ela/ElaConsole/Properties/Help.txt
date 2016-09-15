@@ -62,7 +62,7 @@ Syntax: elac [filename] [options]
 
 -disOpt			Disable all compiler optimizations.
 
--warnaserr		Threat all compiler warnings as errors.
+-warnaserr		Treat all compiler warnings as errors.
 
 -nowarn			Suppress all compiler warnings.
  
@@ -85,7 +85,7 @@ or -rc			object file available.
 			
 -skipCheck		Skip date stamp check for the object files (.elaobj).
 
--linkWarnaserr		Threat all linker warnings as errors.
+-linkWarnaserr		Treat all linker warnings as errors.
 
 -linkNowarn		Suppress all linker warnings.
 

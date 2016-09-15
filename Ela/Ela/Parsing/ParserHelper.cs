@@ -34,6 +34,8 @@ namespace Ela.Parsing
                 return flags | ElaVariableFlags.Private;
             else if (attribute == "qualified")
                 return flags | ElaVariableFlags.Qualified;
+            else if (attribute == "nowarnings")
+                return flags | ElaVariableFlags.NoWarnings;
             else
             {
                 AddError(ElaParserError.UnknownAttribute, attribute);

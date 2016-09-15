@@ -21,10 +21,15 @@ namespace Ela.Compilation
 
             //Target can be null in a case of an anonymous function (lambda)
             var name = fc.Target != null ? fc.Target.GetName() : String.Empty;
+            var sv = name != null ? GetVariable(name, dec.Line, dec.Column) : default(ScopeVar);
 
             StartFun(name, pars);
             var funSkipLabel = Label.Empty;
             var map = new LabelMap();
+
+            if ((sv.VariableFlags & ElaVariableFlags.NoWarnings) == ElaVariableFlags.NoWarnings)
+                map.NoWarnings = true; //Do not generate warning in this function
+
             var startLabel = cw.DefineLabel();
 
             //Functions are always compiled in place, e.g. when met. Therefore a 'goto'

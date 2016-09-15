@@ -105,3 +105,4 @@ No additional keywords or declaration constructs are required:
 Currently Ela supports the following attributes in binding headers: 
 |private |A binding is private and not included in the module export list (valid only on global bindings). 
 |qualified |A binding will not be imported automatically and should be always qualified with a module alias. 
+|nowarnings |Suppress all warnings for the function.

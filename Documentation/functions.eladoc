@@ -19,8 +19,8 @@ any keywords at top level.
 
 =Headers
 Functions in Ela (as well as other bindings) can have an optional header, used to specify attributes such as `private`
-(not included in module export list) and `qualified` (included in module export list but always requires qualified 
-access):
+(not included in module export list), `qualified` (included in module export list but always requires qualified 
+access) and `nowarnings` (suppress all warnings):
 >>sum # private
 >>sum x = x+y
 
