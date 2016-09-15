@@ -9,8 +9,5 @@
 //A more traditional way to do this is to call console IO functions explicitly which
 //is also possible in Ela using IO monad:
 
-//open console
-//writen "Hello, world!"
-
 //open monad io
 //do putStrLn "Hello, world!" ::: IO
