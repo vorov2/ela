@@ -1,0 +1,38 @@
+open monad io string
+
+moveLeft  (x::l,r) = (l,x::r)
+moveRight (l,x::r) = (x::l,r) 
+ 
+matchLeft ('['::_,_)@d = d
+matchLeft (']'::_,_)@d = matchLeft <| moveLeft <| matchLeft <| moveLeft <| d
+matchLeft d           = matchLeft <| moveLeft <| d
+ 
+matchRight (_,']'::_)@d = moveRight <| d
+matchRight (_,'['::_)@d = matchRight <| matchRight <| moveRight <| d
+matchRight d           = matchRight <| moveRight  <| d
+ 
+pad ([],[]) = ([0],[0])
+pad ([],r)  = ([0],r)
+pad (l,[])  = (l,[0])
+pad d       = d
+ 
+modify f (l,x::r) = (l,(f x)::r)
+subtract x y = x - y
+ 
+exec (_,[])    _         _  = []
+exec (_,'>'::_)@p d         cs = exec (moveRight p) (pad <| moveRight <| d) cs
+exec (_,'<'::_)@p d         cs = exec (moveRight p) (pad <| moveLeft  <| d) cs
+exec (_,'+'::_)@p d         cs = exec (moveRight p) (modify (+ 1) d) cs
+exec (_,'-'::_)@p d         cs = exec (moveRight p) (modify (- 1) d) cs
+exec (_,','::_)@p d     (c::cs) = exec (moveRight p) (modify (const c) d) cs
+exec (_,'.'::_)@p (_,x::_)@d cs = x :: exec (moveRight p) d cs
+exec (_,'['::_)@p (_,0::_)@d cs = exec (matchRight $ moveRight $ p) d cs
+exec (_,'['::_)@p d         cs = exec (moveRight p) d cs
+exec (_,']'::_)@p (_,0::_)@d cs = exec (moveRight p) d cs
+exec (_,']'::_)@p d         cs = exec (matchLeft $ moveLeft $ p) d cs
+ 
+run s = exec ([],s) ([0],[0])
+ 
+dialog = run << toList
+
+run ",[>+<-.>." ::: IO
