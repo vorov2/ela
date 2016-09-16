@@ -1,7 +1,8 @@
 #title What's new? (Ela Platform 2016.6)
 
 =Overview
-This release focuses on a redesign of exception handling in Ela. It also comes with an update to Ela standard library.
+This release focuses on a redesign of exception handling in Ela. It also comes with an update
+to Ela standard library and documentation.
 
 =Ela changes
 ==Deprecation of try/with construct
