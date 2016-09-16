@@ -14,7 +14,6 @@ CHARACTERS
     stringChar = ANY - '"' - '\\' - cr - lf.
     char = ANY - "'" - '\\' - cr - lf.
     op = "!%&+-.,:<=>?$@^|$~`\\;#".
-    op2 = "!%&+-.,:_<=>?$@^|$~`\\;#".
     parens = "[]{}()".
     literal = ucase + lcase.
     literalLimited = literal - "ABCDEFabcdef".
@@ -52,7 +51,6 @@ TOKENS
                     )  
                 "'".
     operatorTok = op { op }.
-    operatorTok2 = "_" {op2} op.
     
     parenTok = parens { parens }.
     
@@ -96,11 +94,12 @@ PRODUCTIONS
             | realTok (. Add(t.pos, t.val.Length, TextStyle.Style9); .)
             | stringTok (. Add(t.pos, t.val.Length, TextStyle.Style7); .)
             | charTok (. Add(t.pos, t.val.Length, TextStyle.Style8); .)
-            | (operatorTok|"*"|"/"|"*/"|operatorTok2)
+            | (operatorTok|"*"|"/"|"*/")
                 (. Add(t.pos, t.val.Length, TextStyle.Style4); .)
             | "true" (. Add(t.pos, t.val.Length, TextStyle.Style5); .)
             | "false" (. Add(t.pos, t.val.Length, TextStyle.Style5); .)
             | parenTok
+            | "_"
         ).
         
     Keywords = 
