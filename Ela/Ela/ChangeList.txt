@@ -1,4 +1,7 @@
 0.15.0.0:Release:Release of Ela 0.15.0.0.
+0.14.3.6:New:Now it is possible to use (#) as an operator symbol in Ela.
+0.14.3.5:New:Now it is possible to use (;) as an operator symbol in Ela.
+0.14.3.4:New:Now it is possible to use comma (,) as an operator symbol in Ela.
 0.14.3.3:New:Ela now supports a new 'nowarnings' function attribute that supresses all warnings.
 0.14.3.2:New:A support for operation that allows to check if a value is a deffered failure (e.g. '&fail "Error.") is added.
 0.14.3.1:New:Now Ela compiler raises a warning about deprecation of 'try/with' construct from standard prelude.
