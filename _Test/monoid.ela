@@ -1,9 +1,15 @@
 open list generic core reflect
 open unsafe.console
 
-a `seq` b =
-  let c = force a in
-  force b
+//a `seq` !b = force a
+
+(|.) = seq
+
+hello'world () =
+     writen "Hello"
+  |. writen "world"
+  |. writen "and"
+  |. writen "goodbye"
 
 conc alg
   | typeCode val == typeCode alg = conc val
@@ -25,7 +31,7 @@ instance Seq Maybe
 genList 0 = Nil
 genList len = len : genList (len - 1)
 
-list.sum $ genList 10
+//list.sum $ genList 10
 
 instance Seq where
   head !alg
