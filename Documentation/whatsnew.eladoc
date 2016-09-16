@@ -51,4 +51,6 @@ All modules in Ela library are updated to use new error handling strategy. Also 
 
 =Documentation changes
 Documentation in this release is updated according to the language changes. Also documentation now including additional
-code samples such as _Caeasar_ _cypher_, _RPN_ _Calculator_, _ABC_ _Blocks_ and _Langton's_ _Ant_.
+code samples such as _Caeasar_ _cypher_, _RPN_ _Calculator_, _ABC_ _Blocks_ and _Langton's_ _Ant_. A _Prototype_ code
+sample is now decomissioned (one can take at complete implementation of prototype based OOP in `object` module). Additionally
+code samples directory is reorganized.
