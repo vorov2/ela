@@ -19,9 +19,8 @@ internal sealed partial class Parser {
 	public const int _stringTok = 5;
 	public const int _charTok = 6;
 	public const int _operatorTok = 7;
-	public const int _operatorTok2 = 8;
-	public const int _parenTok = 9;
-	public const int _NL = 10;
+	public const int _parenTok = 8;
+	public const int _NL = 9;
 	public const int maxT = 41;
 
 	const bool T = true;
@@ -99,35 +98,35 @@ internal sealed partial class Parser {
 
 	
 	void Comment() {
-		Expect(11);
+		Expect(10);
 		var pos = t.pos; 
 		while (StartOf(1)) {
 			Get();
 		}
-		Expect(12);
+		Expect(11);
 		Add(pos, t.pos - pos + t.val.Length, TextStyle.MultilineStyle1); 
 		
 	}
 
 	void SingleLineComment() {
-		Expect(13);
+		Expect(12);
 		var pos = t.pos; 
 		while (StartOf(2)) {
 			Get();
 		}
-		Expect(10);
+		Expect(9);
 		Add(pos, t.pos - pos + t.val.Length, TextStyle.Style6); 
 		TryAddTask(pos + 2, t.pos - pos);
 		
 	}
 
 	void VerbatimString() {
-		Expect(14);
+		Expect(13);
 		var pos = t.pos; 
 		while (StartOf(3)) {
 			Get();
 		}
-		Expect(15);
+		Expect(14);
 		Add(pos, t.pos - pos + t.val.Length, TextStyle.MultilineStyle2); 
 	}
 
@@ -163,14 +162,12 @@ internal sealed partial class Parser {
 			Add(t.pos, t.val.Length, TextStyle.Style8); 
 			break;
 		}
-		case 7: case 8: case 12: case 16: case 17: {
+		case 7: case 11: case 15: case 16: {
 			if (la.kind == 7) {
 				Get();
+			} else if (la.kind == 15) {
+				Get();
 			} else if (la.kind == 16) {
-				Get();
-			} else if (la.kind == 17) {
-				Get();
-			} else if (la.kind == 12) {
 				Get();
 			} else {
 				Get();
@@ -178,17 +175,21 @@ internal sealed partial class Parser {
 			Add(t.pos, t.val.Length, TextStyle.Style4); 
 			break;
 		}
+		case 17: {
+			Get();
+			Add(t.pos, t.val.Length, TextStyle.Style5); 
+			break;
+		}
 		case 18: {
 			Get();
 			Add(t.pos, t.val.Length, TextStyle.Style5); 
 			break;
 		}
-		case 19: {
+		case 8: {
 			Get();
-			Add(t.pos, t.val.Length, TextStyle.Style5); 
 			break;
 		}
-		case 9: {
+		case 19: {
 			Get();
 			break;
 		}
@@ -293,23 +294,23 @@ internal sealed partial class Parser {
 			Keywords();
 			break;
 		}
-		case 14: {
+		case 13: {
 			VerbatimString();
 			break;
 		}
-		case 11: {
+		case 10: {
 			Comment();
 			break;
 		}
-		case 13: {
+		case 12: {
 			SingleLineComment();
 			break;
 		}
-		case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9: case 12: case 16: case 17: case 18: case 19: {
+		case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 11: case 15: case 16: case 17: case 18: case 19: {
 			Primary();
 			break;
 		}
-		case 10: {
+		case 9: {
 			Get();
 			break;
 		}
@@ -337,10 +338,10 @@ internal sealed partial class Parser {
 	
 	static readonly bool[,] set = {
 		{T,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x},
-		{x,T,T,T, T,T,T,T, T,T,T,T, x,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,x},
-		{x,T,T,T, T,T,T,T, T,T,x,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,x},
-		{x,T,T,T, T,T,T,T, T,T,T,T, T,T,T,x, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,x},
-		{x,T,T,T, T,T,T,T, T,T,T,T, T,T,T,x, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,x,x}
+		{x,T,T,T, T,T,T,T, T,T,T,x, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,x},
+		{x,T,T,T, T,T,T,T, T,x,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,x},
+		{x,T,T,T, T,T,T,T, T,T,T,T, T,T,x,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,x},
+		{x,T,T,T, T,T,T,T, T,T,T,T, T,T,x,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,x,x}
 
 	};
 } // end Parser
@@ -365,18 +366,18 @@ internal sealed class Errors {
 			case 5: s = "stringTok expected"; break;
 			case 6: s = "charTok expected"; break;
 			case 7: s = "operatorTok expected"; break;
-			case 8: s = "operatorTok2 expected"; break;
-			case 9: s = "parenTok expected"; break;
-			case 10: s = "NL expected"; break;
-			case 11: s = "\"/*\" expected"; break;
-			case 12: s = "\"*/\" expected"; break;
-			case 13: s = "\"//\" expected"; break;
-			case 14: s = "\"<[\" expected"; break;
-			case 15: s = "\"]>\" expected"; break;
-			case 16: s = "\"*\" expected"; break;
-			case 17: s = "\"/\" expected"; break;
-			case 18: s = "\"true\" expected"; break;
-			case 19: s = "\"false\" expected"; break;
+			case 8: s = "parenTok expected"; break;
+			case 9: s = "NL expected"; break;
+			case 10: s = "\"/*\" expected"; break;
+			case 11: s = "\"*/\" expected"; break;
+			case 12: s = "\"//\" expected"; break;
+			case 13: s = "\"<[\" expected"; break;
+			case 14: s = "\"]>\" expected"; break;
+			case 15: s = "\"*\" expected"; break;
+			case 16: s = "\"/\" expected"; break;
+			case 17: s = "\"true\" expected"; break;
+			case 18: s = "\"false\" expected"; break;
+			case 19: s = "\"_\" expected"; break;
 			case 20: s = "\"let\" expected"; break;
 			case 21: s = "\"where\" expected"; break;
 			case 22: s = "\"open\" expected"; break;
