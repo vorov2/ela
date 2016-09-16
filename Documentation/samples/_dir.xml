@@ -18,11 +18,15 @@
     <sample file="ycombinator.ela" name="Y Combinator" description="Implementation of lazy Y combinator in Ela which is used to compute factorials and Fibonacci numbers implemented as stateless (with no recursion) functions."></sample>
     <sample file="infinitefilter.ela" name="Filtering infinite list" description="Filtering an infinite list in Ela using non-strict filter' function." />
   </folder>
-  <folder name="Misc" description="Misc samples">
+  <folder name="Advanced" description="Samples that demonstrated advanced applications of Ela">
     <sample file="amb.ela" name="Amb operator" description="An example of Amb operator implementation. The Amb operator takes a number of words as input and concatenates them so that each subsequent word starts with the letter that ends a previous word." />
     <sample file="levenshtein.ela" name="Levenshtein Distance" description="In information theory and computer science, the Levenshtein distance is a metric for measuring the amount of difference between two sequences (i.e. an edit distance). This code sample calculates the difference between two strings." />
     <sample file="quicksort.ela" name="Quick Sort" description="An implementation of quick sort algorythm in Ela." />
     <sample file="prototype.ela" name="Prototype OOP" description="This code sample demonstrates how prototype based OOP through delegation can be simulated in a functional manner." />
     <sample file="linq.ela" name="LINQ" description="This code sample contains implementation of Linq-style lazy functions." />
+    <sample file="calculator.ela" name="RPN Calculator" description="This sample demonstrates a stack-based evaluator for an expression in reverse Polish notation (RPN)." />
+    <sample file="cypher.ela" name="Caesar Cypher" description="This code sample implements Ceasar cypher - both encoding and decoding." />
+    <sample file="ant.ela" name="Langton's Ant" description="Langton's ant is a cellular automaton that models an ant sitting on a plane of cells." />
+    <sample file="abc.ela" name="ABC Blocks" description="In this code sample we have a collection of ABC blocks (like the ones we have we were kids)..." />
   </folder>
 </samples>
