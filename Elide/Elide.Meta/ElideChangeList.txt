@@ -1,4 +1,6 @@
-﻿0.3.3.0:Release:Release of Elide 0.3.3.0.
+﻿0.3.4.0:Release:Release of Elide 0.3.4.0.
+0.3.3.1:Change:Ela highlighting is updated according to the language changes.
+0.3.3.0:Release:Release of Elide 0.3.3.0.
 0.3.2.5:Change:Now 'Stop Execution' and 'Make Object File' menu items has shortcuts.
 0.3.2.4:Change:A 'Windows' form is now resizable.
 0.3.2.3:New:Smart indentation is corrected to take into account do-notation.

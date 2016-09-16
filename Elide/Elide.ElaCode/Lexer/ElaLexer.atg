@@ -13,7 +13,7 @@ CHARACTERS
     verbatimChar = ANY.
     stringChar = ANY - '"' - '\\' - cr - lf.
     char = ANY - "'" - '\\' - cr - lf.
-    op = "!%&+-.:<=>?$@^|$~`\\".
+    op = "!%&+-.,:<=>?$@^|$~`\\".
     parens = "[]{}()".
     literal = ucase + lcase.
     literalLimited = literal - "ABCDEFabcdef".
