@@ -19,11 +19,11 @@ CHARACTERS
     verbatimChar2 = ANY - '>'.
     stringChar = ANY - '"' - '\\' - newLine.
     char = ANY - "'" - '\\' - newLine.
-    op = "!%&*+-.:/\\<=>?@^|~$".
-    op2 = "!%&*+-.:/\\<=?@^|~$".
-    op3 = "!%&*+-.:/\\=>?@^~$".
-    op4 = "!%&*+-.:/\\<=?@^|~$".
-    op5 = "!%&*+-.:/\\<=?@^|~$".
+    op = "!%&*+-.,:;#/\\<=>?@^|~$".
+    op2 = "!%&*+-.,:;#/\\<=?@^|~$".
+    op3 = "!%&*+-.,:;#/\\=>?@^~$".
+    op4 = "!%&*+-.,:;#/\\<=?@^|~$".
+    op5 = "!%&*+-.,:;#/\\<=?@^|~$".
 
 TOKENS
     ident = lcase { letter | digit | "'" }
@@ -65,7 +65,7 @@ TOKENS
         | "<" [ op3 { op } ]
         ).
     operatorTok2 = "^" { op }.
-    operatorTok3 = "@" { op }.
+    operatorTok3 = ("@"|"#") { op }.
     operatorTok4 = (
         "+" { op }
         | "-" [
@@ -73,13 +73,13 @@ TOKENS
                 | op4 { op }
             ]
         ).
-    operatorTok5 = ("*"|"/"|"%") { op }.		
+    operatorTok5 = ("*"|"/"|"%") { op }.
     operatorTok6 = ("<<" { op } | ":" {op}).
     operatorTok7 = ">>" { op }.
     operatorTok8 = ("~"|"!"|"?") { op }
                    | "." op { op }.
     operatorTok9 = "<|" { op }.
-    operatorTok10 = ("|>"|"$") { op }.
+    operatorTok10 = ("|>"|"$"|","|";") { op }.
     operatorTok11 = "|" op5 { op }.
     operatorTok12 = "&" { op }.
     
@@ -444,13 +444,13 @@ PRODUCTIONS
             
     /* Expr */
                 
-    /* <| $ */
+    /* <| */
     OpExpr1<out ElaExpression exp> =
         (. 
             var op = String.Empty; 
             exp = null;
             var ot = t; 
-        .)				
+        .)
         (
             (
                 OpExpr2<out exp>
@@ -475,7 +475,7 @@ PRODUCTIONS
             )
         ).
         
-    /* |> */		
+    /* $ |> */		
     OpExpr2<out ElaExpression exp> =
         (. 
             var op = String.Empty; 
