@@ -30,6 +30,8 @@ priorities in order, starting from the loose operators. A notation `{op}` is use
 symbols is allowed here. For example, priroty of operators `=|` and `=||` is the same. 
 |*Operator Symbols*  |*Priority* |*Associativity* 
 |`<| {op}`           | 0         |Right 
+|`, {op}`            | 1         |Left 
+|`; {op}`            | 1         |Left 
 |`$ {op}`            | 1         |Left 
 |`|> {op}`           | 1         |Left
 |`| {op}`            | 2         |Left 
@@ -39,6 +41,7 @@ symbols is allowed here. For example, priroty of operators `=|` and `=||` is the
 |`> {op}`            | 4         |Left 
 |`^ {op}`            | 5         |Left 
 |`@ {op}`            | 6         |Right 
+|`# {op}`            | 6         |Right 
 |`+ {op}`            | 7         |Left 
 |`- {op}`            | 7         |Left 
 |`* {op}`            | 8         |Left 
