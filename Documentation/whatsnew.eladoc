@@ -47,7 +47,8 @@ If an operator starts with a `(;)` it has the same priority as `(,)` and left as
 If an operator starts with a `(#)` it has the same priority as `(@)` and right associativity.
 
 =Ela library changes
-All modules in Ela library are updated to use new error handling strategy. Also library contains minor bug fixes.
+All modules in Ela library are updated to use new error handling strategy. Also library contains minor bug fixes, including fixes in
+functions `readLines` and `readAllLines` in `io` module.
 
 =Documentation changes
 Documentation in this release is updated according to the language changes. Also documentation now including additional

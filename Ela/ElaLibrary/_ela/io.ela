@@ -50,9 +50,13 @@ type FileMode = AppendMode | CreateMode | OpenMode | OpenCreateMode | TruncateMo
 type FileAccess = ReadAccess | WriteAccess | ReadWriteAccess
 type FileStream = FileStream a # private
 
-openFile fn mode acc = mkIO (\_ -> FileStream $ unsafeIO.openFile fn ms as)
+openFile fn mode acc = mkIO (\_ -> openf (consName mode) (consName acc))
   where ms = consName mode
         as = consName acc
+        openf ms as
+          | flag = FileStream fh
+          | else = &fail fh
+          where (flag,fh) = unsafeIO.openFile fn ms as
 
 readFile fn mode = openFile fn mode ReadAccess
 
@@ -60,20 +64,26 @@ writeFile fn mode = openFile fn mode WriteAccess
 
 closeFile (FileStream f) = mkIO (\_ -> unsafeIO.closeFile f)
 
-readLine (FileStream f) = mkIO (\_ -> unsafeIO.readLine f)
+readLine (FileStream f) = mkIO (\_ ->
+  let (flag,res) = unsafeIO.readLine f in if flag then res else &fail res)
 
-readAllStr (FileStream f) = mkIO (\_ -> unsafeIO.readLines f)
+readAllStr (FileStream f) = mkIO (\_ ->
+  let (flag,res) = unsafeIO.readLines f in if flag then res else &fail res)
 
 readAllLines = readLines (\_ -> true)
 
-readLines pred fh = return $ read (\_ -> execIO $ readLine fh)
+readLines pred fh = readLines (\_ -> readLine fh) []
   where
-    read fun | res is Unit = []
-             | pred res = res :: read fun
-             | else = read fun
-             where res = fun()
+    readLines fun xs = do
+      res <- readLine fh
+      if res is Unit
+        then return xs
+        else if pred res 
+        then readLines pred (res :: xs)
+        else readLines pred xs
 
-writeStr str (FileStream f) = mkIO (\_ -> unsafeIO.writeString str f)
+writeStr str (FileStream f) = mkIO (\_ ->
+  let (flag,res) = unsafeIO.writeString str f in if flag then res else &fail res)
 
 writeLine str = writeStr (str ++ "\r\n")
 
