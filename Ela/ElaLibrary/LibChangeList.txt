@@ -1,4 +1,7 @@
 0.3.0.0:Release:Release of 0.3.0.0.
+0.2.4.26:Fix:A function 'forever' from 'io' module now works correctly.
+0.2.4.25:Change:Functions 'zipWithM_', 'replicateM_' and 'foldM_' from 'io' module are decomissioned. One can use regular versions of these functions instead ('zipWithM', 'replicateM' and 'foldM').
+0.2.4.24:Change:Functions 'sequence_', 'mapM_' and 'forM_' from 'io' module are decomissioned. One can use regular versions of these functions instead ('sequence', 'mapM' and 'forM').
 0.2.4.23:Change:Module 'io' is updated according to the new error handling strategy.
 0.2.4.22:Fix:Function 'parse' from 'guid' module now returns '&fail' or 'Guid' instead of 'Maybe'.
 0.2.4.21:Change:Now 'writeText' function in 'file' module returns '&fail' instead of raising an exception.

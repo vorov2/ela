@@ -165,11 +165,7 @@ f >=> g = \x -> f x >>= g
 
 mapM f = sequence << fmap f
 
-mapM_ f = foldr ((>>-) << f) (return ())
-
 forM = flip mapM
-
-forM_ = flip mapM_
 
 sequence [] = return []
 sequence (!m::ms) = do
@@ -177,9 +173,7 @@ sequence (!m::ms) = do
   xs <- sequence ms
   return (x::xs)
 
-sequence_ f = foldr (>>-) (return ()) f
-
-forever a = let a' = a >>- a' in a'
+forever a = do a; forever a
 
 void x = () <$ x
 
@@ -201,17 +195,10 @@ mapAndUnzipM f xs = sequence (map f xs) >>= return << unzip
 
 zipWithM f xs ys = sequence (zipWith f xs ys)
 
-zipWithM_ f xs ys =  sequence_ (zipWith f xs ys)
-
 foldM f z0 xs = foldr f' return xs z0
   where f' x k z = f z x >>= k
 
-foldM_ f a xs = foldM f a xs >>- return ()
-
 replicateM n x = sequence (replicate n x)
-
-replicateM_ n x = sequence_ (replicate n x)
-
 
 /* Conditional execution of monadic expressions */
 guard true = return ()
