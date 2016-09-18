@@ -121,21 +121,12 @@ A flipped version of `(>=>)` function.
 #mapM f
 Map each element of a structure to a monadic action, evaluate these actions from left to right, and collect the results.
 
-#mapM_ f
-Map each element of a structure to a monadic action, evaluate these actions from left to right, and ignore the results.
-
 #forM f
 This function is `mapM` with its arguments flipped.
-
-#forM_ f
-This function is `mapM_` with its arguments flipped.
 
 #sequence d
 Evaluate each monadic action in the structure from left to right, and collect the results.
 For a version that ignores the results see `sequence_`.
-
-#sequence_ d
-Evaluate each monadic action in the structure from left to right, and ignore the results.
 
 #forever act
 Takes an action `act` and executes it infinitely, e.g.:
@@ -163,20 +154,11 @@ data structures or a state-transforming monad.
 #zipWithM
 Generalizes `zipWith`.
 
-#zipWithM_
-Generalizes `zipWith` function (discards the results).
-
 #foldM
 Monadic fold over the elements of a structure, associating to the left, i.e. from left to right.
 
-#foldM_
-Acts like `foldM` but discards the result.
-
 #replicateM n act
 Performs an actions `act` `n` times, gathering the results.
-
-#replicateM_ n act
-Performs an actions `act` `n` times and discards the result.
 
 
 ==Conditional execution
