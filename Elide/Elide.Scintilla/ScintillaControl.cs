@@ -891,10 +891,11 @@ namespace Elide.Scintilla
 			get { return Ref.Send(Sci.SCI_GETLINECOUNT); }
 		}
 
-		public int FistVisibleLine
-		{
-			get { return Ref.Send(Sci.SCI_GETFIRSTVISIBLELINE); }
-		}
+        public int FistVisibleLine
+        {
+            get { return Ref.Send(Sci.SCI_GETFIRSTVISIBLELINE); }
+            set { Ref.Send(Sci.SCI_SETFIRSTVISIBLELINE, value); }
+        }
 
 		public int LinesOnScreen
 		{
@@ -1189,9 +1190,14 @@ namespace Elide.Scintilla
             Ref.Send(Sci.SCI_CLEARSELECTIONS);
         }
         
-        public void AddSelection(int caret, int anchor)
+        public void AddSelection(int caret, int anchor, bool main = false)
         {
-            Ref.Send(Sci.SCI_ADDSELECTION, caret, anchor);
+            var count = SelectionsCount;
+            Ref.Send(count == 0 ? 
+                Sci.SCI_SETSELECTION : Sci.SCI_ADDSELECTION, caret, anchor);
+
+            if (main)
+                Ref.Send(Sci.SCI_SETMAINSELECTION, count);
         }
 
         public void DuplicateSelection()

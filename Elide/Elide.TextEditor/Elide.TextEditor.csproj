@@ -111,6 +111,7 @@
     <Compile Include="SearchScope.cs" />
     <Compile Include="TextDocument.cs" />
     <Compile Include="TextLocation.cs" />
+    <Compile Include="TextSelection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Elide.Common\Elide.Common.csproj">

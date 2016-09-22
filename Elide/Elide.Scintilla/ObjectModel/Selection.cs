@@ -31,27 +31,24 @@ namespace Elide.Scintilla.ObjectModel
 
         public int CaretPosition
         {
-            get { return sref.Send(Sci.SCI_GETSELECTIONNCARET); }
-            set { sref.Send(Sci.SCI_SETSELECTIONNCARET, value); }
+            get { return sref.Send(Sci.SCI_GETSELECTIONNCARET, Number); }
         }
 
         public int Start
         {
-            get { return sref.Send(Sci.SCI_GETSELECTIONSTART); }
-            set { sref.Send(Sci.SCI_SETSELECTIONSTART, value); }
+            get { return sref.Send(Sci.SCI_GETSELECTIONNSTART, Number); }
         }
 
         public int End
         {
-            get { return sref.Send(Sci.SCI_GETSELECTIONEND); }
-            set { sref.Send(Sci.SCI_SETSELECTIONEND, value); }
+            get { return sref.Send(Sci.SCI_GETSELECTIONNEND, Number); }
         }
 
         public string Text
         {
             get
             {
-                var len = sref.Send(Sci.SCI_GETSELECTIONEND) - sref.Send(Sci.SCI_GETSELECTIONSTART) + 1;
+                var len = sref.Send(Sci.SCI_GETSELECTIONNEND, Number) - sref.Send(Sci.SCI_GETSELECTIONNSTART, Number) + 1;
                 var ptr = Marshal.AllocHGlobal(len);
 
                 try
@@ -68,11 +65,6 @@ namespace Elide.Scintilla.ObjectModel
                 {
                     Marshal.FreeHGlobal(ptr);
                 }
-            }
-            set 
-            {
-                var buffer = Encoding.UTF8.GetBytes(value);
-                sref.Send(Sci.SCI_REPLACESEL, Sci.NIL, buffer); 
             }
         }
     }

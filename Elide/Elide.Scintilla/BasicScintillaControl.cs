@@ -270,7 +270,7 @@ namespace Elide.Scintilla
             if (h != null)
                 h(this, EventArgs.Empty);
         }
-        
+
         internal EditorRef Ref { get; private set; }
     }
 }
