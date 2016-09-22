@@ -4,6 +4,7 @@ using Elide.Core;
 using Elide.Environment;
 using Elide.Scintilla;
 using Elide.Scintilla.ObjectModel;
+using System.Collections.Generic;
 
 namespace Elide.TextEditor
 {
@@ -31,6 +32,11 @@ namespace Elide.TextEditor
             }
         }
 
+        public override void Close()
+        {
+            DocumentClosed(this);
+        }
+
         internal void ChangeFile(FileInfo fileInfo)
         {
             FileInfo = fileInfo;
@@ -42,5 +48,11 @@ namespace Elide.TextEditor
         }
 
         public override bool IsDirty { get; set; }
+
+        internal int FirstVisibleLine { get; set; }
+
+        internal IEnumerable<TextSelection> Selections { get; set; }
+
+        internal event Action<TextDocument> DocumentClosed;
     }
 }

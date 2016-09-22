@@ -220,6 +220,9 @@ namespace Elide.Workbench
         {
             var old = activeDocument;
             
+            if (old != null)
+                old.Close();
+            
             if (doc == null)
             {
                 activeDocument = null;

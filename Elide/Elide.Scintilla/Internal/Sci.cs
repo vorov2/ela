@@ -316,6 +316,7 @@ namespace Elide.Scintilla.Internal
 		internal const int SCI_FINDTEXT = 2150;
 		internal const int SCI_FORMATRANGE = 2151;
 		internal const int SCI_GETFIRSTVISIBLELINE = 2152;
+        internal const int SCI_SETFIRSTVISIBLELINE = 2613;
 		internal const int SCI_GETLINE = 2153;
 		internal const int SCI_GETLINECOUNT = 2154;
 		internal const int SCI_SETMARGINLEFT = 2155;

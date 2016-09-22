@@ -28,6 +28,11 @@ namespace Elide.Environment
             _isAlive = false;
         }
 
+        public virtual void Close()
+        {
+
+        }
+
         private FileInfo _fileInfo;
         public FileInfo FileInfo
         {

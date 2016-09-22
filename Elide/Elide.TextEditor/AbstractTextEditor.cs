@@ -145,9 +145,16 @@ namespace Elide.TextEditor
 
         public void OpenDocument(Document doc)
         {
-            sci.AttachDocument(((TextDocument)doc).GetSciDocument());
+            var newDoc = (TextDocument)doc;
+            sci.AttachDocument(newDoc.GetSciDocument());
             try { sci.Select(); }
             catch { }
+            sci.FistVisibleLine = newDoc.FirstVisibleLine;
+            
+            if (newDoc.Selections != null)
+                foreach (var s in newDoc.Selections)
+                    sci.AddSelection(s.End, s.Start, s.Main);
+            
             OnDocumentOpened((T)doc);
         }
 
@@ -193,6 +200,7 @@ namespace Elide.TextEditor
 
         public void CloseDocument(Document doc)
         {
+            ((TextDocument)doc).DocumentClosed -= txtDoc_DocumentClosed;
             documents.Remove((T)doc);
             doc.Dispose();
         }
@@ -206,11 +214,20 @@ namespace Elide.TextEditor
                 ReadDocumentFile(sci, fileInfo);
 
             var txtDoc = fileInfo != null ? Reflect.Create<T>(fileInfo, sciDoc) : Reflect.Create<T>(title, sciDoc);
+            txtDoc.DocumentClosed += txtDoc_DocumentClosed;
             OnDocumentCreateInstance((T)txtDoc);
             documents.Add((T)txtDoc);
             sci.Select();
             OnDocumentOpened((T)txtDoc);
             return txtDoc;
+        }
+
+        private void txtDoc_DocumentClosed(TextDocument obj)
+        {
+            obj.FirstVisibleLine = sci.FistVisibleLine;
+            obj.Selections = sci.GetSelections().Select(s =>
+                new TextSelection { End = s.End, Start = s.Start, Main = s.MainSelection })
+                .ToList();
         }
 
         protected virtual void OnDocumentCreateInstance(T doc)
