@@ -164,6 +164,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TracePointListener.cs" />
     <None Include="elac.exe.config" />
     <Compile Include="IndentHelper.cs" />
     <Compile Include="InteractiveCommands.cs" />

@@ -25,7 +25,7 @@ namespace Ela.Runtime.ObjectModel
             return Force().Ref.AsLong();
         }
 
-        internal virtual ElaValue Force()
+        public virtual ElaValue Force()
         {
             if (Value.Ref == null)
             {

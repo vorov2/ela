@@ -1,4 +1,5 @@
 0.3.0.0:Release:Release of 0.3.0.0.
+0.2.4.27:Fix:A function 'regFun' from 'test' module didn't work correctly (Issue #1765).
 0.2.4.26:Fix:A function 'forever' from 'io' module now works correctly.
 0.2.4.25:Change:Functions 'zipWithM_', 'replicateM_' and 'foldM_' from 'io' module are decomissioned. One can use regular versions of these functions instead ('zipWithM', 'replicateM' and 'foldM').
 0.2.4.24:Change:Functions 'sequence_', 'mapM_' and 'forM_' from 'io' module are decomissioned. One can use regular versions of these functions instead ('sequence', 'mapM' and 'forM').

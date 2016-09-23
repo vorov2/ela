@@ -1,0 +1,18 @@
+
+test arg = let foo = 12 
+  in foo * perform arg
+  where perform arg =
+          let x = 2 in
+          let y = 3 in
+          let z = x + y in
+          ##[trace 1]# z + arg
+
+sum a b =
+  let c = a + b in
+  ##[trace 2]# c
+
+xs = 1::xs
+
+sum 12 4 => test 4
+
+

@@ -23,7 +23,7 @@ assert =
 funData # private 
 funData mod fun = (moduleName mod ++ "." ++ funName fun, fun)
 
-regFun fun xs = funData fun :: xs
+regFun fun xs = funData asmMainModule fun :: xs
 
 regFuns mod xs = xs ++ (vals |> filter isFun |> map (funData mod))
   where vals = map ("value"`getField`) (moduleExportList mod)

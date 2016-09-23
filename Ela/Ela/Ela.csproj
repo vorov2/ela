@@ -189,8 +189,10 @@
     <Compile Include="Api.cs" />
     <Compile Include="Builtins.cs" />
     <Compile Include="CodeModel\ElaContext.cs" />
+    <Compile Include="CodeModel\ElaDebugAction.cs" />
     <Compile Include="CodeModel\ElaDoAssignment.cs" />
     <Compile Include="CodeModel\ElaDoNotation.cs" />
+    <Compile Include="CodeModel\ElaDebugPoint.cs" />
     <Compile Include="Compilation\Builder.DoNotation.cs" />
     <Compile Include="Compilation\ConstructorData.cs" />
     <Compile Include="CodeModel\ElaAs.cs" />
@@ -220,6 +222,7 @@
     <Compile Include="Debug\Breakpoint.cs" />
     <Compile Include="Debug\CallFrame.cs" />
     <Compile Include="Debug\CallStack.cs" />
+    <Compile Include="Debug\ITracePointListener.cs" />
     <Compile Include="Debug\DebugInfo.cs" />
     <Compile Include="Debug\DebugReader.cs" />
     <Compile Include="Debug\DebugWriter.cs" />
@@ -232,6 +235,7 @@
     <Compile Include="Debug\StackPoint.cs" />
     <Compile Include="Debug\SymGenerator.cs" />
     <Compile Include="Debug\SymTables.cs" />
+    <Compile Include="Debug\TraceVar.cs" />
     <Compile Include="Debug\VarSym.cs" />
     <Compile Include="Linking\LangModule.cs" />
     <Compile Include="ModuleFileInfo.cs" />

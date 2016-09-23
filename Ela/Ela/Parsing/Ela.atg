@@ -136,6 +136,30 @@ PRODUCTIONS
         )
         [ As<ref exp> ].		
         
+    DebugExpr<out ElaExpression exp> = 
+        (
+            "##["
+            (. var dp = new ElaDebugPoint(t); exp = dp; .)
+            ident 
+            (. 
+                var nam = t.val;
+                                
+                if (nam == "trace")
+                    dp.Action = ElaDebugAction.TracePoint;
+            .)
+            [
+                (. var sb = new StringBuilder(); .)
+                ANY (. sb.Append(t.val); .)
+                {
+                    (. sb.Append(' '); .)
+                    ANY
+                    (. sb.Append(t.val); .)
+                }
+                (. dp.Data = sb.ToString(); .)
+            ]
+            "]#"
+        ).
+
     Attribute<ref ElaExpression head> =
         (. 
             scanner.InjectBlock(); 
@@ -976,7 +1000,13 @@ PRODUCTIONS
         (. exp = null; .)
         ( 
             EmbExpr<out exp>
-            | LetBinding<out exp>			
+            | LetBinding<out exp>
+            | ( 
+                DebugExpr<out exp> 
+                (. var texp = exp; .)
+                Expr<out exp>
+                (. ((ElaDebugPoint)texp).Expression = exp; exp = texp; .)
+              )
         ).
         
     Builtin<out ElaExpression exp> = 

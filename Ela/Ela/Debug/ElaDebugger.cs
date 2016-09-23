@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Ela.Linking;
 using Ela.Runtime;
 using Ela.Compilation;
@@ -60,6 +61,58 @@ namespace Ela.Debug
 
 			return retval;
 		}
+        
+        internal IEnumerable<TraceVar> ObtainTraceVars(WorkerThread thread, Ela.Runtime.CallStack stack)
+        {
+            var sym = thread.Module.Symbols;
+            var mem = stack.Peek();
+            var locals = mem.Locals;
+            var captures = mem.Captures;
+
+            var off = thread.Offset;
+            var dr = new DebugReader(sym);
+            var scope = dr.FindScopeSym(off);
+            var vars = dr.FindVarSyms(off, scope).ToList();
+
+            var alls = new FastList<ElaValue[]>();
+            alls.AddRange(captures);
+            alls.Add(locals);
+            var count = alls.Count - 1;
+            var locs = alls[count];
+            var varcount = 0;
+
+            do
+            {
+                for (var i = 0; i < vars.Count; i++)
+                {
+                    var v = vars[i];
+
+                    if ((Ela.CodeModel.ElaVariableFlags)v.Flags != Ela.CodeModel.ElaVariableFlags.Context)
+                    {
+                        var val = locs[v.Address];
+                        varcount++;
+                        yield return new TraceVar(v.Name, val, locs == locals);
+
+                        if (varcount == locs.Length)
+                        {
+                            locs = alls[--count];
+                            varcount = 0;
+                        }
+                    }
+                }
+
+                var ns = dr.GetScopeSymByIndex(scope.ParentIndex);
+
+                if (ns.Index != scope.Index)
+                {
+                    scope = ns;
+                    vars = dr.FindVarSyms(off, scope).ToList();
+                }
+                else
+                    scope = null;
+            }
+            while (scope != null);
+        }
 		#endregion
 
 

@@ -78,6 +78,9 @@ namespace Ela.CodeModel
 
         ClassMember,
 
-        Newtype
+        Newtype,
+
+
+        DebugPoint
     }
 }

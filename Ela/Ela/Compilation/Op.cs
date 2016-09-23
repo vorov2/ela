@@ -100,6 +100,8 @@ namespace Ela.Compilation
         Br,
         Brtrue,
         Brfalse,
-        Newfun
+        Newfun,
+
+        Trace
     }
 }

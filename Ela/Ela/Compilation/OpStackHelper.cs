@@ -102,7 +102,8 @@ namespace Ela.Compilation
 			0, //Br
 			-1, //Brtrue
 			-1, //Brfalse
-			0, //Newfun			
+			0, //Newfun		
+	        0, //Trace
 		};
     }
 }

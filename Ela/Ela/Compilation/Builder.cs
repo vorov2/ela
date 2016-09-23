@@ -111,6 +111,21 @@ namespace Ela.Compilation
 
             switch (exp.Type)
             {
+                case ElaNodeType.DebugPoint:
+                    var dp = (ElaDebugPoint)exp;
+                        
+                    if (debug)
+                    {
+                        if (dp.Action == ElaDebugAction.TracePoint)
+                        {
+                            var str = dp.Data ?? String.Empty;
+                            cw.Emit(Op.Trace, AddString(str));
+                        }
+
+                        AddLinePragma(exp);
+                    }                       
+ 
+                    return CompileExpression(dp.Expression, map, hints, parent);                    
                 case ElaNodeType.DoNotation:
                     CompileDoNotation((ElaDoNotation)exp, map, hints);
                     break;

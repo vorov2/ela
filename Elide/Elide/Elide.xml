@@ -106,6 +106,7 @@
             <add key="MultilineStyle2" display="Multiline String" fore="Maroon" />
             <add key="Style8" display="Char" fore="Maroon" />
             <add key="Style9" display="Number" fore="Red" />
+            <add key="Style10" display="Debug Point" fore="Black" back="Yellow" />
             <add key="Annotation1" display="Errors" fore="Black" back="Pink" font="Segoe UI" size="9" />
             <add key="CallTip" display="Call Tips" fore="Black" back="Cornsilk" font="Segoe UI" size="9" />
             <add key="BraceMatch" display="Brace Match" back="Silver" />
@@ -171,6 +172,8 @@
         <add key="ErrorList" title="Errors" shortcut="Ctrl+Alt+E" type="Elide.CodeWorkbench.Views.ErrorListView,Elide.CodeWorkbench" kind="Output" />
         <add key="TaskList" title="Tasks" shortcut="Ctrl+Alt+T" type="Elide.CodeWorkbench.Views.TaskListView,Elide.CodeWorkbench" />
         <add key="Console" title="Console" shortcut="Ctrl+Alt+C" type="Elide.Console.ConsoleView,Elide.Console" kind="Output" />
+        <add key="Debug" title="Trace" shortcut="Ctrl+Alt+D" type="Elide.ElaCode.Views.DebugView,Elide.ElaCode" kind="Output" />
+
         <add key="Outline" title="Outline" shortcut="Ctrl+Alt+U" type="Elide.CodeWorkbench.Views.OutlineView,Elide.CodeWorkbench" />
         <add key="Documentation" title="Documentation Library" type="Elide.CodeWorkbench.Documentation.DocumentationView,Elide.CodeWorkbench" kind="Help" />
         <add key="CodeSamples" title="Code Samples" type="Elide.CodeWorkbench.CodeSamples.CodeSamplesView,Elide.CodeWorkbench" kind="Help" />

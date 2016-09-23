@@ -7,6 +7,8 @@ using Elide.ElaCode.ObjectModel;
 using Elide.Environment;
 using System.Threading;
 using System.IO;
+using Elide.ElaCode.Views;
+using Elide.Environment.Views;
 
 namespace Elide.ElaCode
 {
@@ -24,6 +26,9 @@ namespace Elide.ElaCode
             try
             {
                 var em = new ElaMachine(asm.Assembly);
+                em.AddTracePointListener(new ElaTraceListener(App));
+                var grid = (DebugView)App.GetService<IViewService>().GetView("Debug");
+                grid.ClearItems();
                 var res = em.Run().ReturnValue;
                 return res.TypeCode == ElaTypeCode.Unit ? String.Empty : em.PrintValue(res);
             }

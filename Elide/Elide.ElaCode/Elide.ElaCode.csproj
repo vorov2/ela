@@ -134,6 +134,7 @@
     <Compile Include="ElaEditor.cs" />
     <Compile Include="ElaFunctions.cs" />
     <Compile Include="ElaReferenceResolver.cs" />
+    <Compile Include="ElaTraceListener.cs" />
     <Compile Include="FoldingManager.cs" />
     <Compile Include="Images\_NS.cs" />
     <Compile Include="Lexer\ElaLexer.cs" />
@@ -173,6 +174,16 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Views\InteractiveView.cs" />
+    <Compile Include="Views\DebugViewService.cs" />
+    <Compile Include="Views\DebugView.cs" />
+    <Compile Include="Views\DebugViewGrid.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\DebugViewGrid.designer.cs">
+      <DependentUpon>DebugViewGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TraceItem.cs" />
+    <Compile Include="Views\TraceShowFlag.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Elide.CodeEditor\Elide.CodeEditor.csproj">
@@ -244,6 +255,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\InteractiveControl.resx">
       <DependentUpon>InteractiveControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\DebugViewGrid.resx">
+      <DependentUpon>DebugViewGrid.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
