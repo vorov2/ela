@@ -388,7 +388,10 @@ namespace ElaConsole
                 try
                 {
                     if (vm == null)
+                    {
                         vm = new ElaMachine(asm);
+                        vm.AddTracePointListener(new TracePointListener());
+                    }
                     else
                     {
                         vm.RefreshState();

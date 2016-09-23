@@ -102,7 +102,8 @@ namespace Ela.Compilation
 			5, //Br
 			5, //Brtrue
 			5, //Brfalse
-			5, //Newfun			
+			5, //Newfun		
+	        5, //Trace
 		};
     }
 }

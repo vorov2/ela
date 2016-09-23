@@ -15,9 +15,16 @@ namespace Ela.Debug
 		}
 		#endregion
 
+        #region Methods
+        public override string ToString()
+        {
+            return String.Format("Index={0};Parent={1};Start={2};End={3}",
+                Index, ParentIndex, StartOffset, EndOffset);
+        }
+        #endregion
 
-		#region Properties
-		public int Index { get; private set; }
+        #region Properties
+        public int Index { get; private set; }
 
 		public int ParentIndex { get; private set; }
 

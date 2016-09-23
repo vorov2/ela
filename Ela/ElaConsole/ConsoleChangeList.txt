@@ -1,3 +1,7 @@
+0.10.0.0:Release:Release of Ela Console 0.10.0.
+0.9.9.3:New:Console now supports trace listeners infrastructure.
+0.9.9.2:Fix:Minor typos fixes in help and messages.
+0.9.9.1:Fix:Ela console now correctly idenfities path of modules when compiling code to object files.
 0.9.9.0:Release:Release of Ela Console 0.9.9.
 0.9.8.1:Change:Now compiled for .NET 4.0.
 0.9.8.0:Release:Release of Ela Console 0.9.8.

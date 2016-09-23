@@ -361,10 +361,7 @@ namespace Ela.Runtime
                 case ElaTypeCode.Lazy:
                     return Ref.Force(this, ElaObject.DummyContext).Ref;
                 default:
-                    if (Ref == null)
-                        throw new InvalidOperationException();
-                    else
-                        return Ref;
+                    return Ref;
             }
         }
         

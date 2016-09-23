@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Ela.Compilation;
 using Ela.Debug;
 using Ela.Linking;
@@ -16,6 +17,7 @@ namespace Ela.Runtime
         internal ElaValue[][] modules;
         private readonly CodeAssembly asm;
         private int lastOffset;
+        private List<ITracePointListener> traceListeners;
 
         public ElaMachine(CodeAssembly asm)
         {
@@ -76,8 +78,7 @@ namespace Ela.Runtime
             if (ex != null)
                 throw ex;
         }
-
-
+        
         public string PrintValue(ElaValue val)
         {
             if (val.Ref == null)
@@ -106,8 +107,7 @@ namespace Ela.Runtime
             else
                 return ret;
         }
-
-
+        
         public ExecutionResult Run()
         {
             MainThread.Offset = MainThread.Offset == 0 ? 0 : MainThread.Offset;
@@ -151,21 +151,18 @@ namespace Ela.Runtime
             return new ExecutionResult(ret);
         }
 
-
         public ExecutionResult Run(int offset)
         {
             MainThread.Offset = offset;
             return Run();
         }
-
-
+        
         public ExecutionResult Resume()
         {
             RefreshState();
             return Run(lastOffset);
         }
-
-
+        
         public void Recover()
         {
             if (modules.Length > 0)
@@ -181,8 +178,7 @@ namespace Ela.Runtime
                 }
             }
         }
-
-
+        
         public void RefreshState()
         {
             if (modules.Length > 0)
@@ -211,8 +207,7 @@ namespace Ela.Runtime
             if (asm != null)
                 BuildFunTable();
         }
-
-
+        
         private void BuildFunTable()
         {
             cls = asm.Cls.ToArray();
@@ -239,6 +234,14 @@ namespace Ela.Runtime
             {
                 throw Exception("InvalidVariableAddress");
             }
+        }
+
+        public void AddTracePointListener(ITracePointListener listener)
+        {
+            if (traceListeners == null)
+                traceListeners = new List<ITracePointListener>();
+
+            traceListeners.Add(listener);
         }
         #endregion
 
@@ -1445,6 +1448,9 @@ namespace Ela.Runtime
                     case Op.Leave:
                         callStack.Peek().CatchMark = null;
                         break;
+                    case Op.Trace:
+                        Trace(frame.Strings[opd], thread, callStack);
+                        break;
                     #endregion
                 }
                 #endregion
@@ -1467,8 +1473,20 @@ namespace Ela.Runtime
         }
         #endregion
 
-
         #region Operations
+        private void Trace(string tracePoint, WorkerThread thread, CallStack stack)
+        {
+            if (traceListeners == null)
+                return;
+
+            var lineSym = new DebugReader(thread.Module.Symbols).FindLineSym(thread.Offset - 1);
+            var deb = new ElaDebugger(asm);
+            var vars = deb.ObtainTraceVars(thread, stack);
+            
+            foreach (var li in traceListeners)
+                li.Trace(tracePoint, lineSym, vars);
+        }
+
         internal ElaValue ApiCall(int code, ElaValue left, ElaValue right, EvalStack stack, WorkerThread thread)
         {
             if (left.TypeId == LAZ && code != 18 && code != 17)

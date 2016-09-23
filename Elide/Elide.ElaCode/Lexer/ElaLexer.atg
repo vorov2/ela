@@ -83,8 +83,11 @@ PRODUCTIONS
         "<[" (. var pos = t.pos; .) {ANY} ("]>")
         (. Add(pos, t.pos - pos + t.val.Length, TextStyle.MultilineStyle2); .).
 
-    //Thunk = 
-    //	"(&" (. if (la.val != null && la.val != "" && la.val[0] != '&') Add(t.pos + 1, 1, TextStyle.Style10); .).
+    DebugPoint = 
+        "##[" 
+        (. var pos = t.pos; .)
+        {ANY} "]#"
+        (. Add(pos, t.pos - pos + t.val.Length, TextStyle.Style10); .).
                         
     Primary = 
         (
@@ -106,7 +109,7 @@ PRODUCTIONS
         ( "let" | "where" | "open" | "import" | "in" | "is" | "if" | "then" | "else" | "match" | "try" | "with" | "__internal" | "class" | "instance" | "type" | "data" | "fail" | "deriving" | "opentype" | "do"  )
         (. Add(t.pos, t.val.Length, TextStyle.Style2); .).
         
-    Code = Keywords | VerbatimString | Comment | SingleLineComment | Primary | NL.// | Thunk.
+    Code = Keywords | VerbatimString | Comment | SingleLineComment | Primary | NL | DebugPoint.
     
     Ela = Code { Code }.
 

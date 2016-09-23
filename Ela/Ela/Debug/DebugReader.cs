@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
+using Ela.Runtime;
+using Ela.CodeModel;
 
 namespace Ela.Debug
 {
@@ -131,13 +134,17 @@ namespace Ela.Debug
 
             var scope = default(ScopeSym);
 
-			for (var i = 0; i < Symbols.Scopes.Count; i++)
-			{
-				var s = Symbols.Scopes[i];
+            for (var i = 0; i < Symbols.Scopes.Count; i++)
+            {
+                var s = Symbols.Scopes[i];
 
-				if (offset >= s.StartOffset && offset <= s.EndOffset)
-					scope = s;
-			}
+                if (offset >= s.StartOffset && offset <= s.EndOffset
+                    && (scope == null || s.ParentIndex > scope.ParentIndex))
+                    scope = s;
+            }
+
+            if (scope == null)
+                scope = Symbols.Scopes[0];
 
 			return scope;
         }

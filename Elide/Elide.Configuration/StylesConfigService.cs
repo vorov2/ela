@@ -34,7 +34,18 @@ namespace Elide.Configuration
 
         protected override IEnumerable<StyleItemConfig> FindStyleItems(string groupKey)
         {
-            return Config().Styles[groupKey];
+            var seq = Config().Styles[groupKey].ToList();
+            var group = Groups.FirstOrDefault(g => g.Key == groupKey);
+
+            if (group != null)
+            {
+                var missings = group.StyleItems.Except(seq);
+
+                if (missings.Any())
+                    seq.AddRange(missings);
+            }
+
+            return seq;
         }
 
         private StylesConfig Config()

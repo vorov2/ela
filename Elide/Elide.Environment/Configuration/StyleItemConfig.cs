@@ -22,6 +22,12 @@ namespace Elide.Environment.Configuration
             return DisplayName;
         }
 
+        public override bool Equals(object obj)
+        {
+            var si = obj as StyleItemConfig;
+            return si != null && si.Type == Type && si.DisplayName == DisplayName;
+        }
+
         public string Type { get; set; }
 
         public string DisplayName { get; set; }
