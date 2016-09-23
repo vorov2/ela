@@ -12,6 +12,7 @@ sum a b =
   ##[trace 2]# c
 
 xs = 1::xs
+a = a + 1
 
 sum 12 4 => test 4
 
