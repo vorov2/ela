@@ -89,7 +89,7 @@ Converts a given peano number to a linked list (and vice versa). A function `toL
 a lazy list, and it is possible to convert an infinity to a linked list:
 >>>take 10 <| toList infinity
 A function `fromList` is defined like so:
->>fromList xs = fromInt <| length xs
+>>fromList = fromInt << sum
 
 ===LongLike
 Converts a given peano number to a 64-bit integer (and vice versa). A function `toLong` is strict and 
