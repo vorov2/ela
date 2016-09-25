@@ -51,8 +51,8 @@ instance Ord Peano where
 instance Enum Peano where
   succ a = a + one ::: Peano
   pred a = a - one ::: Peano
-  enumFrom fst snd = map' fromInt [(toInt fst),(toInt snd)..]
-  enumFromTo max fst snd = map fromInt [(toInt fst),(toInt snd)..(toInt max)]
+  enumFrom fst snd = map' fromInt [(toInt fst),(toInt snd)..] ::: Peano
+  enumFromTo max fst snd = map fromInt [(toInt fst),(toInt snd)..(toInt max)] ::: Peano
 
 instance Additive Peano where
   x+y = add x y
@@ -74,7 +74,7 @@ instance Integral Peano where
 instance Absolute Peano where
   abs = id
   signum Zero = Zero
-  signum (Succ _) = one ::: Peano
+  signum (Succ a) = one ::: Peano
 
 instance IntLike Peano where
   toInt = toIntegral 0
@@ -116,8 +116,8 @@ multiply Zero _ = Zero
 multiply _ Zero = Zero
 multiply (Succ x) y = add y (& multiply x y)
 
-power b Zero = one ::: Peano
-power b e = p e one ::: Peano
+power !b Zero = one
+power !b e = p e one
   where p Zero r = r
         p n r = p (n `subtract` one) (r `multiply` b)
 
