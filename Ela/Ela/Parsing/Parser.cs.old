@@ -389,8 +389,10 @@ internal sealed partial class Parser {
 		} else if (la.kind == 49) {
 			DebugExpr(out exp);
 			var texp = exp; 
-			Expr(out exp);
-			((ElaDebugPoint)texp).Expression = exp; exp = texp; 
+			if (StartOf(3)) {
+				Expr(out exp);
+				((ElaDebugPoint)texp).Expression = exp; exp = texp; 
+			}
 		} else SynErr(73);
 	}
 

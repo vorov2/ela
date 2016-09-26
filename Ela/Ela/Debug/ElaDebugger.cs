@@ -93,7 +93,7 @@ namespace Ela.Debug
                         varcount++;
                         yield return new TraceVar(v.Name, val, locs == locals);
 
-                        if (varcount == locs.Length)
+                        if (varcount == locs.Length && i < vars.Count - 1)
                         {
                             locs = alls[--count];
                             varcount = 0;

@@ -123,9 +123,13 @@ namespace Ela.Compilation
                         }
 
                         AddLinePragma(exp);
-                    }                       
- 
-                    return CompileExpression(dp.Expression, map, hints, parent);                    
+                    }
+
+                    if (dp.Expression != null)
+                        return CompileExpression(dp.Expression, map, hints, parent);
+                    else
+                        cw.Emit(Op.Pushunit);
+                    break;
                 case ElaNodeType.DoNotation:
                     CompileDoNotation((ElaDoNotation)exp, map, hints);
                     break;

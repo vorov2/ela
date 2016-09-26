@@ -1004,8 +1004,10 @@ PRODUCTIONS
             | ( 
                 DebugExpr<out exp> 
                 (. var texp = exp; .)
-                Expr<out exp>
-                (. ((ElaDebugPoint)texp).Expression = exp; exp = texp; .)
+                [
+                    Expr<out exp>
+                    (. ((ElaDebugPoint)texp).Expression = exp; exp = texp; .)
+                ]
               )
         ).
         
