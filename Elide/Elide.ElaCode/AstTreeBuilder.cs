@@ -46,6 +46,12 @@ namespace Elide.ElaCode
 
             switch (exp.Type)
             {
+                case ElaNodeType.DebugPoint:
+                    var @deb = (ElaDebugPoint)exp;
+                    var debNode = par.Simple(exp, String.Format("trace: {0}", @deb.Data));
+                    if (@deb.Expression != null)
+                        PopulateNodes(debNode, @deb.Expression);
+                    break;
                 case ElaNodeType.DoNotation:
                     var @do = (ElaDoNotation)exp;
                     var doNode = par.Simple(@do, "do");

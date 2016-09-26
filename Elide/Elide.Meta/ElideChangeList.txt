@@ -1,4 +1,6 @@
 ﻿0.4.0.0:Release:Release of Elide 0.4.0.0.
+0.3.3.6:Change:Ela "Symbol finder" is updated to take into account new "trace points" feature.
+0.3.3.5:Change:AST builder is updated to take into account new "trace points" feature.
 0.3.3.4:New:A new view 'Trace' is added that shows all trace points that were executed during program run.
 0.3.3.3:Change:Now Elide highlights trace points (it is also possible to configure highlighting through standard 'Fonts and colors' dialog).
 0.3.3.2:New:Now Elide remembers the scroll position and all selections made in open files.
