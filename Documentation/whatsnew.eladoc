@@ -109,6 +109,10 @@ now Elide remembers the scroll position and all selections made in open files.//
 Also Elide now includes a new `Trace` view (implemented as an "output" view in the bottom of the screen). This view display data from
 trace points in the application and allows filtered based on the local/captured flag.
 
+=Ela Console changes
+Ela Platform 2016.6 is shipped with Ela Console 0.10, a new version of Ela core utility. This version contains several important fixes
+and a support for the new trace listeners infrastructure.
+
 =Documentation changes
 Documentation in this release is updated according to the language changes. Also documentation now including additional
 code samples such as _Caeasar_ _cypher_, _RPN_ _Calculator_, _ABC_ _Blocks_ and _Langton's_ _Ant_. A _Prototype_ code
