@@ -71,6 +71,9 @@ namespace Elide.ElaCode
 
             switch (expr.Type)
             {
+                case ElaNodeType.DebugPoint:
+                    FindName(name, doc, ((ElaDebugPoint)expr).Expression, syms);
+                    break;
                 case ElaNodeType.As:
                     {
                         var a = (ElaAs)expr;
