@@ -45,6 +45,58 @@ If an operator starts with a `(,)` it has one of the lowest priorities (the same
 among other operators and left associativity.//br
 If an operator starts with a `(;)` it has the same priority as `(,)` and left associativity.//br
 If an operator starts with a `(#)` it has the same priority as `(@)` and right associativity.
+==Debugger directives
+Ela 0.15 includes an experimental feature - debugger directives. Currently the only supported directive is `trace`:
+>>sum a b =
+>>  let c = a + b in
+>>  ##[trace Point name]# c
+It creates a so called "trace point". It is possible to specify an optional name for a trace point (like in an example above)
+or to create a nameless trace point like so: `##[trace]#`.//br
+This directive is processed as a regular Ela expression but is only compiled in debug mode (if you use Ela Console `elac.exe`,
+you have to specify `-debug` command line key). When compiled a trace directive captures all local and captured values.//br
+Ela virtual machine now allows to register trace point listeners using a new public method `AddTracePointListener`:
+>var vm = new ElaMachine(asm);
+>vm.AddTracePointListener(new TracePointListener());
+A trace point listener should implement an interface `Ela.Debug.ITracePointListener`:
+>public interface ITracePointListener
+>{
+>    void Trace(string tracePoint, LineSym line, IEnumerable<TraceVar> vars);
+>}
+Ela virtual machine than executes all registered listeners in all passing a name a trace point, line information and a list of
+all captured variables.//br
+Both Ela Console (`elac.exe`) and Elide register their own trace point listeners. Elide provides a new `Trace` view and Ela Console
+prints captured data to the standard output. For example, if we execute a function `sum` from a code sample above like so: `sum 12 4`,
+the following data would be printed to console:
+>*********************************************************
+>Trace point: Point name (Line: 11; Column: 7; Offset: 73)
+>*********************************************************
+>Locals:
+>c = 16
+>a = 12
+>b = 4
+>
+>Captured:
+>prelude = [module:prelude:3]
+>sum = sum:*->*->*
+>********************************************************
+Currently trace points capture both local and non local variables (such as those declared in a outer function or in a global scope).//br
+When a trace point listener is called captured values are not forced by Ela runtime environment. However, in the current implementation
+both Elide and Ela Console try to force all thunks. For example, execution of the following code:
+>>xs = 1::xs
+>>a = a + 1
+>>##[trace spec]#
+in Ela Console would produce the following result:
+>**************************************************
+>Trace point: spec (Line: 4; Column: 1; Offset: 26)
+>**************************************************
+>Locals:
+>prelude = [module:prelude:3]
+>xs = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] (lazy)
+>a = <evaluation timeout>
+>**************************************************
+As you can see Ela Console determines that one of the values is a lazy list and takes only the first 20 values of it - as a result there is
+no non-termination in spite of the fact that list in infinite. However it cannot resolve a cycle definition of `a` and its evalution times out.//br
+When compiled without additional debug information (without `-debug` switch in Ela Console) trace points are simply ignored by Ela compiler.
 
 =Ela library changes
 All modules in Ela library are updated to use new error handling strategy. Also library contains minor bug fixes, including fixes in
@@ -53,7 +105,9 @@ functions `readLines`, `readAllLines`, `forever` in `io` module, refactorings in
 
 =Elide changes
 Ela Platform 2016.6 comes with a new version of Elide which offers an updated syntax highlighting for Ela as well as a new feature - 
-now Elide remembers the scroll position and all selections made in open files.
+now Elide remembers the scroll position and all selections made in open files.//br
+Also Elide now includes a new `Trace` view (implemented as an "output" view in the bottom of the screen). This view display data from
+trace points in the application and allows filtered based on the local/captured flag.
 
 =Documentation changes
 Documentation in this release is updated according to the language changes. Also documentation now including additional

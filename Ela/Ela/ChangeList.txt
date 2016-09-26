@@ -1,4 +1,5 @@
 0.15.0.0:Release:Release of Ela 0.15.0.0.
+0.15.3.11:Change:Logic in Ela linker reponsible for lookup modules in startup directory now looks for the directory where an executable assembly is located.
 0.15.3.10:New:Ela machine now allows to register trace point listeners which can capture trace points.
 0.14.3.9:New:Ela debugger is enhanced with the support for obtaining variable names and values based on the current call stack.
 0.14.3.8:New:Now Ela supports debugger instructions in the code in the form "##[name data ]#" where "name" is a name of an instruction and "data" is any additional data that this instruction might need. Currently only "trace" instruction is supported with an ability to specify a name for trace point in the "data" clause.
