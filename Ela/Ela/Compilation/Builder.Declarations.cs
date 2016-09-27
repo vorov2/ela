@@ -41,7 +41,7 @@ namespace Ela.Compilation
                     //Here we automatically eta expand functions defined through partial application
                     if (partial)
                         EtaExpand(s.Left.GetName(), s.Right, map, s.Arguments);
-                    else if (CompileFunction(s))
+                    else if (CompileFunction(s, map))
                         CurrentScope.AddFlags(nm, ElaVariableFlags.Clean); //A function is clean
                 }
                 else

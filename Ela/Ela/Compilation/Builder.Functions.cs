@@ -14,7 +14,7 @@ namespace Ela.Compilation
         //Main method used to compile functions. Can compile regular named functions, 
         //named functions in-place (FunFlag.Inline) and type constructors (FunFlag.Newtype).
         //Return 'true' if a function is clean (no no-inits references).
-        private bool CompileFunction(ElaEquation dec)
+        private bool CompileFunction(ElaEquation dec, LabelMap oldMap)
         {
             var fc = (ElaJuxtaposition)dec.Left;
             var pars = fc.Parameters.Count;
@@ -27,7 +27,7 @@ namespace Ela.Compilation
             var funSkipLabel = Label.Empty;
             var map = new LabelMap();
 
-            if ((sv.VariableFlags & ElaVariableFlags.NoWarnings) == ElaVariableFlags.NoWarnings)
+            if ((sv.VariableFlags & ElaVariableFlags.NoWarnings) == ElaVariableFlags.NoWarnings || oldMap.NoWarnings)
                 map.NoWarnings = true; //Do not generate warning in this function
 
             var startLabel = cw.DefineLabel();
@@ -192,7 +192,7 @@ namespace Ela.Compilation
             if (exp.Type != ElaNodeType.Equation)
                 CompileExpression(exp, map, Hints.None, null);
             else
-                CompileFunction((ElaEquation)exp);
+                CompileFunction((ElaEquation)exp, map);
 
             //Functions are curried so generate a call for each argument
             for (var i = 0; i < args; i++)

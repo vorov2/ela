@@ -55,7 +55,7 @@ namespace Ela.Library.General
         {
             Add<String,String,String,ElaObject>("openFile", OpenFile);
             Add<FileWrapper,ElaUnit>("closeFile", CloseFile);
-            Add<String,FileWrapper,ElaUnit>("writeString", WriteString);
+            Add<String,FileWrapper,ElaObject>("writeString", WriteString);
             Add<FileWrapper,ElaObject>("readLine", ReadLine);
             Add<FileWrapper,ElaObject>("readLines", ReadLines);
             Add<String, String, ElaObject>("writeLine", WriteLine);
@@ -94,14 +94,21 @@ namespace Ela.Library.General
             return ElaUnit.Instance;
         }
 
-        public ElaUnit WriteString(string str, FileWrapper fs)
+        public ElaObject WriteString(string str, FileWrapper fs)
         {
-            if (fs.Writer == null)
-                fs.Writer = new StreamWriter(fs.Stream);
+            try
+            {
+                if (fs.Writer == null)
+                    fs.Writer = new StreamWriter(fs.Stream);
 
-            fs.Writer.Write(str);
-            fs.Writer.Flush();
-            return ElaUnit.Instance;
+                fs.Writer.Write(str);
+                fs.Writer.Flush();
+                return Result(true, ElaUnit.Instance);
+            }
+            catch (Exception ex)
+            {
+                return Result(false, new ElaString(ex.Message));
+            }
         }
         
         public ElaObject ReadLine(FileWrapper fs)

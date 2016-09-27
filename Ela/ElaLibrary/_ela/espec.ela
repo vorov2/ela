@@ -10,7 +10,21 @@ type EndOfTest = EndOfTest
 
 type Word = When a | After a | Pred a | Given a | Fun a | Other | Test a
 
+instance Show Word where
+  show (Test a) = "Test " ++ show a
+  show Other = "Other"
+  show (When a) = "When" ++ sshow a
+  show (After a) = "After" ++ sshow a
+  show (Given a) = "Given " ++ sshow a
+  show (Pred a) = "Pred" ++ sshow a
+  show (Fun a) = "Fun" ++ sshow a
+
+sshow a
+  | a is List = showLazy a 
+  | else = show a
+
 type Result = Success | Failed a | Error a
+  deriving Show
 
 /* Words */
 test = test_sg []
@@ -66,7 +80,7 @@ after = After ()
 given = Given ()
 
 /* Execution */
-exec # private
+exec # private nowarnings
 exec z [] = z
 exec z (x::xs) = exec (eval z x) xs
   where eval (_,lst) (Test n) = () => Test n :: lst
@@ -82,7 +96,10 @@ exec z (x::xs) = exec (eval z x) xs
             where res = evalPred pred fn x arg
         evalFun fn (x::xs) = evalFun (fn x) xs
         evalFun fn _ = fn
-        evalPred p fn x y = try test p fn x y with e = Error e
+        evalPred p fn x y
+          | isError res = try force res with msg = Error msg
+          | else = res
+          where res = test p fn x y
         test p fn x y | p (fn x y) = Success | else = Failed x
 
 execTests # private
