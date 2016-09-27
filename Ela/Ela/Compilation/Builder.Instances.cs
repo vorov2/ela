@@ -304,7 +304,7 @@ namespace Ela.Compilation
                 else if (s.GetArgumentNumber() < args)
                     EtaExpand(null, s, map, args);
                 else
-                    CompileFunction(s);
+                    CompileFunction(s, map);
             }
 
             AddLinePragma(s);

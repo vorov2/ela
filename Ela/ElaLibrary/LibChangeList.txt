@@ -1,4 +1,5 @@
 0.3.0.0:Release:Release of 0.3.0.0.
+0.2.4.30:Change:Module 'espec' is updated to use new error handling strategy.
 0.2.4.29:Change:Implementation of 'fromList' in module 'peano' is changed. Now is sums all elements of a given list.
 0.2.4.28:Fix:A bug in instance of class 'Enum' in 'peano' module is fixed.
 0.2.4.27:Fix:A function 'regFun' from 'test' module didn't work correctly (Issue #1765).

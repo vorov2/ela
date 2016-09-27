@@ -5,7 +5,7 @@ test1 =
   test "Primitives equality"
   given 2
     when (+) 20
-    should be 22
+    should be 220
     should lesser 24
   given 12
     should be 12
@@ -445,14 +445,14 @@ test15 =
     when (-) (10,20,30,40)
     should be (1,2,3,4)
     when negate
-    should be (-1,-2,-3,-4)
+    should be (-1, -2, -3, -4)
   given (1,2,3)
     when toList
     should be [1,2,3]
   given 2
     when dup
     should be (2,2)
-
+ 
 test16 =
   test "Records"
   given {lang="Ela",dev="Basil"}
@@ -788,3 +788,4 @@ test24 =
     should be (3,4,5)
   given [char.upper x \\ x <- ['a'..'d']]
     should be ['A','B','C','D']
+    

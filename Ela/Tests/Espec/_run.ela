@@ -3,11 +3,24 @@ open basic
 open monad io
 
 res = []
-  |> addTests basic
+  |> addTest test1
+  |> addTest test2
   |> run
+  //|> filterT
   |> formatResultHtm
 
 do
-  fh <- openFile "C:\\testresult.htm" OpenCreateMode WriteAccess
+  fh <- openFile "C:\\_test\\testresult.htm" OpenCreateMode WriteAccess
   writeStr res fh
   closeFile fh
+
+filterT [] = []
+filterT (x::xs)
+  | ok = x :: filterT xs
+  | else = filterT xs
+  where
+    ok = filterI x
+    filterI [] = false
+    filterI (Pred(_,_,_,Failed _)::_) = true
+    filterI (Pred(_,_,_,Error _)::xs) = true
+    filterI (_::xs) = filterI xs
