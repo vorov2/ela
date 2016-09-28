@@ -11,13 +11,13 @@ type EndOfTest = EndOfTest
 type Word = When a | After a | Pred a | Given a | Fun a | Other | Test a
 
 instance Show Word where
-  show (Test a) = "Test " ++ show a
+  show (Test a) = "Test"
   show Other = "Other"
-  show (When a) = "When" ++ sshow a
-  show (After a) = "After" ++ sshow a
-  show (Given a) = "Given " ++ sshow a
-  show (Pred a) = "Pred" ++ sshow a
-  show (Fun a) = "Fun" ++ sshow a
+  show (When a) = "When"
+  show (After a) = "After"
+  show (Given a) = "Given"
+  show (Pred a) = "Pred"
+  show (Fun a) = "Fun"
 
 sshow a
   | a is List = showLazy a 
@@ -124,6 +124,25 @@ same f g
     funModule f == funModule g && funHandle f == funHandle g
   | else = false
 
+/* Result filtering */
+takeFailed = takeOn onlyFailed
+
+takeOn p [] = []
+takeOn p (x::xs)
+  | check p x = x :: takeOn p xs
+  | else = [Other] :: takeOn p xs
+
+onlyFailed (Failed _) _ = true
+onlyFailed (Error _) _ = true
+onlyFailed Success xs = xs
+
+check # private
+check p = foldr p' false
+  where p' (Pred(_,_,_,(Failed a)@res)) = p res
+        p' (Pred(_,_,_,(Error a)@res)) = p res
+        p' (Pred(_,_,_,Success)) = p Success
+        p' _ = id
+
 /* Format result as string */
 stat # private
 stat f e [] = (f,e)
@@ -137,12 +156,14 @@ report formatter xs = (f, e, toString <| formatter "" f e xs)
 
 report_stat # private
 report_stat sb _ _ [] = sb
-report_stat sb f e (x::xs) = report_stat (sb +> (item x) +> "\r\n") f e xs
-  where item (Test n) = format "\r\nTest \"{0}\" (failed {1}, errors {2}):" n f e
+report_stat sb f e (x::xs) = report_stat (sb +> (if str == "" then "" else str +> "\r\n")) f e xs
+  where str = item x
+        item (Test n) = format "\r\nTest \"{0}\" (failed {1}, errors {2}):" n f e
         item (Given x) = format "  given {0}" (safeShow x)
         item (Pred (nm,fnm,val,res)) = format "    {0} {1} {2} -> {3}" nm fnm (safeShow val) (result res)
         item (When (fn,args,res)) = format "    when {0}{1} -> {2}" fn (itemDo args) (safeShow res)
         item (After (fn,args,res)) = format "    after {0}{1} -> {2}" fn (itemDo args) (safeShow res)
+        item Other = ""
         itemDo [] = ""
         itemDo (y::ys) = " " ++ (safeShow y) ++ itemDo ys
         result Success = "success"
@@ -161,6 +182,7 @@ report_stathtm sb f e (x::xs) = report_stathtm (sb +> (item x)) f e xs
                                     fn (itemDo args) (safeShow res)
         item (After (fn,args,res)) = format "<div class='br4'><span class='key'>after</span> {0}{1}<span class='out'> -> {2}</span></div>" 
                                      fn (itemDo args) (safeShow res)
+        item Other = ""
         itemDo [] = ""
         itemDo (y::ys) = " " ++ (safeShow y) ++ itemDo ys
         result Success = "<span class='ok'>success</span>"

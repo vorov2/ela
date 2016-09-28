@@ -5,7 +5,7 @@ test1 =
   test "Primitives equality"
   given 2
     when (+) 20
-    should be 220
+    should be 22
     should lesser 24
   given 12
     should be 12
@@ -788,4 +788,3 @@ test24 =
     should be (3,4,5)
   given [char.upper x \\ x <- ['a'..'d']]
     should be ['A','B','C','D']
-    
