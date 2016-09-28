@@ -191,6 +191,28 @@ use `when` word instead of `after`.
 This word introduces a value in a test specification:
 >>given 42
 
+==Filtering test results
+
+You can filter out the test results (e.g. show only failed tests) using the following
+functions:
+
+#takeOn p xs
+Keep the test result only if it satisfies the given predicate `p`. For example, this is
+how the standard `onlyFailed` predicate is implemented:
+>>onlyFailed (Failed _) _ = true
+>>onlyFailed (Error _) _ = true
+>>onlyFailed Success xs = xs
+As you see this predicate accepts a list element as a first argument and a list. It should
+return true for a test with a desired result (which should be included in the list) or return
+a second argument
+
+#onlyFailed x xs
+A default predicate for filtering test.
+
+#takeFailed xs
+This fuction is defined as follows:
+>>takeFailed = takeOn onlyFailed
+
 ==Running and formatting
 
 #run xs

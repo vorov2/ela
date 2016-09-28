@@ -1,4 +1,5 @@
 0.1.22.0:Release:Release of 0.1.22.0.
+0.1.21.11:Change:An article 'espec' is updated according to the module changes.
 0.1.21.10:Change:An article 'peano' is updated according to the module changes.
 0.1.21.9:Change:An article 'io' is updated according to the module changes.
 0.1.21.8:Fix:Functions 'readLines' and 'readAllLines' from 'io' now work correctly.

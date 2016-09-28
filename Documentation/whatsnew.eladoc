@@ -101,7 +101,8 @@ When compiled without additional debug information (without `-debug` switch in E
 =Ela library changes
 All modules in Ela library are updated to use new error handling strategy. Also library contains minor bug fixes, including fixes in
 functions `readLines`, `readAllLines`, `forever` in `io` module, refactorings in `io` module, fix in `test` module 
-(in function `regFun`, issue #1765).
+(in function `regFun`, issue #1765).//br
+Also this release of Ela library includes functions `takeBy`, `takeFailed` and `onlyFailed` in `espec` module for filtering test results.
 
 =Elide changes
 Ela Platform 2016.6 comes with a new version of Elide which offers an updated syntax highlighting for Ela as well as a new feature - 
