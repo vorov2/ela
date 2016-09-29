@@ -20,7 +20,7 @@ namespace Ela
         {
             get
             {
-                var idx = FullName.IndexOf('.');
+                var idx = FullName.LastIndexOf('.');
                 if (idx != -1)
                     return FullName.Substring(idx);
                 else

@@ -97,6 +97,9 @@ in Ela Console would produce the following result:
 As you can see Ela Console determines that one of the values is a lazy list and takes only the first 20 values of it - as a result there is
 no non-termination in spite of the fact that list is infinite. However it cannot resolve a cycle definition of `a` and its evalution times out.//br
 When compiled without additional debug information (without `-debug` switch in Ela Console) trace points are simply ignored by Ela compiler.
+==Linker changes
+Ela 0.15 comes with a new version of linker that contains important bug fix (Issue #1766, incorrect treatment of '.' in the names of folders) and an enhancement in module lookup logic (now linker first
+tries to locate referenced module not in the startup directory of the linker itself but in the directory where a main module is located).
 
 =Ela library changes
 All modules in Ela library are updated to use new error handling strategy. Also library contains minor bug fixes, including fixes in

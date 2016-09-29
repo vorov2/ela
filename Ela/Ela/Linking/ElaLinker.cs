@@ -679,7 +679,14 @@ namespace Ela.Linking
         
         public CompilerOptions CompilerOptions { get; private set; }
 
-        public ModuleFileInfo RootFile { get; private set; }
+        private ModuleFileInfo _rootFile;
+        public ModuleFileInfo RootFile
+        {
+            get { return _rootFile; }
+            private set { 
+                _rootFile = value; 
+            }
+        }
 
         internal List<ElaMessage> Messages { get; private set; }
 
