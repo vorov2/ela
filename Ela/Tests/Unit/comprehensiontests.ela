@@ -45,11 +45,11 @@ listMultiple2 {eq} =
   where li = [{id=x.id,n=x.n,y=y} \\ x <- [{id=1,n='a'},{id=2,n='b'}], y <- [1..10] | x.id == y]
 
 listLazy1 {eqt} =
-  eqt (match li with 2::4::6::xs = true; _ = false;;)
+  eqt (match li with 2::4::6::xs = true; _ = false; ;)
   where li = [& x \\ x <- [1..] | x % 2 == 0]
 
 listLazy2 {eqt} =
-  eqt (match li with (1,499)::(1,498)::(1,497)::xs = true; _ = false;;)
+  eqt (match li with (1,499)::(1,498)::(1,497)::xs = true; _ = false; ;)
   where li = [& (x,y) \\ x <- [1..], y <- [1000,999..] | y < 500]
 
 compOperator {eqt} =

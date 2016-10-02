@@ -5,13 +5,13 @@ simple {eq,eqt} =
   where t = (& 2 + 2)
      
 lazyList {eqt} =
-  eqt (match lst with 0::1::xs = true; _ = false;;)
+  eqt (match lst with 0::1::xs = true; _ = false; ;)
   where make n = n :: (& make (n + 1))
         lst = make 0
            
 lazyList2 {eqt} =
-  (eqt <| (match xs with 1::2::3::_ = true; _ = false;;))
-  `seq` (eqt <| (match xs with 1::2::3::1::2::3::_ = true; _ = false;;))
+  (eqt <| (match xs with 1::2::3::_ = true; _ = false; ;))
+  `seq` (eqt <| (match xs with 1::2::3::1::2::3::_ = true; _ = false; ;))
   where cycle xs = xs ++ (& cycle xs)
         xs = cycle [1,2,3]
 
@@ -170,7 +170,7 @@ tupleAdd {eq} =
         tup5 = (& (3,4,5) )
 
 tupleSub {eq} = 
-    eq (tup1 - tup2) (-2,-2,-2)
+    eq (tup1 - tup2) (-2, -2, -2)
   `seq` eq (tup3 - tup4) (0,0,0)
   `seq` eq (tup5 - tup3) (2,2,2)
   where tup1 = (& (1,2,3) )
