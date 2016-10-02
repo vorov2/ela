@@ -1234,9 +1234,10 @@ PRODUCTIONS
     
     IncludeStatElement<bool qual> =
         (
-            (. var inc = new ElaModuleInclude(t) { RequireQualified=qual }; .)
+            (. var inc = new ElaModuleInclude { RequireQualified=qual }; .)
             Qualident<inc.Path>
             (.
+                inc.SetLinePragma(t.line, t.col);
                 var name = inc.Path[inc.Path.Count - 1];
                 inc.Path.RemoveAt(inc.Path.Count - 1);
                 inc.Alias = inc.Name = name;
@@ -1265,10 +1266,14 @@ PRODUCTIONS
         
     ImportName<out ElaImportedVariable imp> =
         (. 
-            imp = new ElaImportedVariable(t); 
+            imp = default(ElaImportedVariable); 
         .)
         (
-            (ident|variantTok) (. imp.Name = imp.LocalName = t.val; .)
+            (ident|variantTok) 
+            (. 
+                imp = new ElaImportedVariable(t);
+                imp.Name = imp.LocalName = t.val; 
+            .)
             [ 
                 (ident|variantTok) 
                 (. 

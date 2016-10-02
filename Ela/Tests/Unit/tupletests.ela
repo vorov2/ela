@@ -34,8 +34,8 @@ simpleMath {eq} =
   `seq` eq ((4,5)-(2,1)) (2,4)
   
 unary {eq} =
-    eq (negate (2,1)) (-2,-1)
-  `seq` eq (negate (21,4.2)) (-21,-4.2)
+    eq (negate (2,1)) (-2, -1)
+  `seq` eq (negate (21,4.2)) (-21, -4.2)
 
 succPred {eq} =
     eq (succ (1,2)) (2,3)

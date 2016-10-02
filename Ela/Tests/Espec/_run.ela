@@ -5,26 +5,7 @@ open monad io
 res = []
   |> addTests basic
   |> run
-  |> takeFailed
+  //|> takeFailed
   |> formatResult
 
 show res
-
-
-takeFailed = takeOn onlyFailed
-
-takeOn p [] = []
-takeOn p (x::xs)
-  | check p x = x :: takeOn p xs
-  | else = [Other] :: takeOn p xs
-
-onlyFailed (Failed _) _ = true
-onlyFailed (Error _) _ = true
-onlyFailed Success xs = xs
-
-check # private
-check p = foldr p' false
-  where p' (Pred(_,_,_,(Failed a)@res)) = p res
-        p' (Pred(_,_,_,(Error a)@res)) = p res
-        p' (Pred(_,_,_,Success)) = p Success
-        p' _ = id

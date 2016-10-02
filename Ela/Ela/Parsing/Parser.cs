@@ -1391,8 +1391,9 @@ internal sealed partial class Parser {
 	}
 
 	void IncludeStatElement(bool qual) {
-		var inc = new ElaModuleInclude(t) { RequireQualified=qual }; 
+		var inc = new ElaModuleInclude { RequireQualified=qual }; 
 		Qualident(inc.Path);
+		inc.SetLinePragma(t.line, t.col);
 		var name = inc.Path[inc.Path.Count - 1];
 		inc.Path.RemoveAt(inc.Path.Count - 1);
 		inc.Alias = inc.Name = name;
@@ -1447,14 +1448,16 @@ internal sealed partial class Parser {
 	}
 
 	void ImportName(out ElaImportedVariable imp) {
-		imp = new ElaImportedVariable(t); 
+		imp = default(ElaImportedVariable); 
 		
 		if (la.kind == 1) {
 			Get();
 		} else if (la.kind == 2) {
 			Get();
 		} else SynErr(107);
+		imp = new ElaImportedVariable(t);
 		imp.Name = imp.LocalName = t.val; 
+		
 		if (la.kind == 1 || la.kind == 2) {
 			if (la.kind == 1) {
 				Get();

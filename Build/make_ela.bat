@@ -12,3 +12,4 @@ copy "%ELAPATH%ela\elaconsole\elac.exe.config" c:\ela-platform\ela\
 )
 
 @echo Done
+pause
