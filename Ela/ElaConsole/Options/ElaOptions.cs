@@ -41,7 +41,7 @@ namespace ElaConsole.Options
 		public bool Silent { get; set; }
 				
 		[CommandLineOption("time", "t")]
-		public bool ShowTime { get; set; }
+		public int ShowTime { get; set; }
 
 		[CommandLineOption("help", "h")]
 		public bool ShowHelp { get; set; }

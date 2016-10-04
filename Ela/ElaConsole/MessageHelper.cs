@@ -30,7 +30,7 @@ namespace ElaConsole
                 return IncompatibleOptions("-silent", "-eil");
             else if (opt.Silent && opt.ShowHelp)
                 return IncompatibleOptions("-silent", "-help");
-            else if (opt.ShowTime && String.IsNullOrEmpty(opt.FileName))
+            else if (opt.ShowTime != 0 && String.IsNullOrEmpty(opt.FileName))
                 return NotInteractiveOption("-time");
             else if (opt.LunchInteractive && String.IsNullOrEmpty(opt.FileName))
                 return RequireFileOption("-inter");
@@ -156,7 +156,6 @@ namespace ElaConsole
 
         internal void PrintExecuteSecondTime()
         {
-            Console.WriteLine();
             Console.WriteLine("Execution finished. Executing second time, measuring time...");
         }
 

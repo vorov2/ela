@@ -36,7 +36,8 @@ Syntax: elac [filename] [options]
  
 -help or -h		Show information about Ela Console switches.
 
--time or -t		Show execution time.
+-time [<times>]         Show execution time. You can optionally specify
+or -t [<times>]         number of times the code should be executed.
 
 -compile or -c		Do not execute code but compile it into Ela Object 
 			File (.elaobj).

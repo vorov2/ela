@@ -398,18 +398,27 @@ namespace ElaConsole
                         vm.Recover();
                     }
 
-                    if (opt.ShowTime && !interactive)
+                    if (opt.ShowTime != 0 && !interactive)
                         Warmup(asm); //GIT
                     
                     var os = lastOffset;
                     lastOffset = mod.Ops.Count;
                     var sw = new Stopwatch();
                     sw.Start();
-                    var exer = vm.Run(os);
-                    sw.Stop();
+                    var exer = default(ExecutionResult);
+                        
+                    if (opt.ShowTime != 0)
+                    {
+                        for (var i = 0; i < opt.ShowTime; i++)
+                            exer = vm.Run(os);
 
-                    if (opt.ShowTime && !interactive)
-                        Console.WriteLine("Execution time: {0}", sw.Elapsed);
+                        sw.Stop();
+                    }
+                    else
+                        exer = vm.Run(os);
+
+                    if (opt.ShowTime != 0 && !interactive)
+                        Console.WriteLine("Executed: {0} time(s). Execution time: {1}", opt.ShowTime, sw.Elapsed);
 
                     if (exer.ReturnValue.TypeCode != ElaTypeCode.None && exer.ReturnValue.TypeCode != ElaTypeCode.Unit)
                         Console.WriteLine(vm.PrintValue(exer.ReturnValue));

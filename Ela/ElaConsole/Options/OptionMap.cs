@@ -45,7 +45,9 @@ namespace ElaConsole.Options
                 {
                     var obj = value == null ? true : ChangeType(value, pi.PropertyType);
 
-                    if (value == null && pi.PropertyType != typeof(Boolean))
+                    if (value == null && pi.PropertyType == typeof(Int32))
+                        obj = 1;
+                    else if (value == null && pi.PropertyType != typeof(Boolean))
                         throw new ElaOptionException(key, ElaOptionError.InvalidFormat);
 
                     if (value is String)
