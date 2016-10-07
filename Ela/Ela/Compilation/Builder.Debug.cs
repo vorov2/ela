@@ -44,7 +44,7 @@ namespace Ela.Compilation
             CurrentScope = new Scope(fun, CurrentScope);
 
             if (debug)
-                pdb.StartScope(cw.Offset, line, col);
+                pdb.StartScope(cw.Offset, line, col, fun);
         }
         
         //Called when a lexical scope ends.

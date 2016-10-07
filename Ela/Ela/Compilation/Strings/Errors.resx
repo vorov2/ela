@@ -169,7 +169,7 @@
     <value>A function '{0}' signature is invalid. Type parameter should be used in a signature at least once.</value>
   </data>
   <data name="InvalidPattern" xml:space="preserve">
-    <value>Invalid pattern {0}.</value>
+    <value>Invalid pattern '{0}'.</value>
   </data>
   <data name="InvalidProgram" xml:space="preserve">
     <value>Invalid program body.</value>

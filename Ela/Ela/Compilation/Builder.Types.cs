@@ -114,7 +114,7 @@ namespace Ela.Compilation
             {
                 tc = (Int32)TCF.GetTypeCode(v.Name);
                 tc = tc == 0 ? -1 : tc;
-                sca = AddVariable("$$" + v.Name, v, flags | ElaVariableFlags.ClosedType, tc);
+                sca = AddVariable("$$" + v.Name, v, flags | ElaVariableFlags.ClosedType | ElaVariableFlags.CompilerGenerated, tc);
                 var sv = GetVariable("$$" + v.Name, v.Line, v.Column);
                 
                 //OK, type is built-in
@@ -132,7 +132,7 @@ namespace Ela.Compilation
                 if (!v.Opened)
                     tf |= ElaVariableFlags.ClosedType;
 
-                sca = v.Extends ? AddVariable() : AddVariable("$$" + v.Name, v, tf, -1);
+                sca = v.Extends ? AddVariable() : AddVariable("$$" + v.Name, v, tf|ElaVariableFlags.CompilerGenerated, -1);
             }
 
             //Type is already declared within the same module (types from different
@@ -250,7 +250,7 @@ namespace Ela.Compilation
 
             //To prevent redundant errors
             CurrentScope.Locals.Remove("$$$$" + name);
-            var ab = AddVariable("$$$$" + name, exp, flags, -1);
+            var ab = AddVariable("$$$$" + name, exp, flags|ElaVariableFlags.CompilerGenerated, -1);
             cw.Emit(Op.Ctorid, frame.InternalConstructors.Count - 1);
             PopVar(ab);
         }
@@ -388,7 +388,7 @@ namespace Ela.Compilation
                 if (bangs[i])
                 {
                     CurrentScope.Locals.Remove("$-!" + i + name); //To prevent redundant errors
-                    AddVariable("$-!" + i + name, juxta, ElaVariableFlags.None, -1);
+                    AddVariable("$-!" + i + name, juxta, ElaVariableFlags.CompilerGenerated, -1);
                 }
             }
 
@@ -402,7 +402,7 @@ namespace Ela.Compilation
                 if (!sv.IsEmpty())
                 {
                     CurrentScope.Locals.Remove("$-" + i + name); //To prevent redundant errors
-                    var av = AddVariable("$-" + i + name, juxta, ElaVariableFlags.None, -1);
+                    var av = AddVariable("$-" + i + name, juxta, ElaVariableFlags.CompilerGenerated, -1);
 
                     //This ScopeVar was obtained in a different scope, we have to patch it here
                     if ((sv.Flags & ElaVariableFlags.External) == ElaVariableFlags.External)
@@ -422,8 +422,8 @@ namespace Ela.Compilation
             CurrentScope.Locals.Remove("$-" + name); 
             CurrentScope.Locals.Remove("$--" + name);
             //We add special variables that can be used lately to inline this constructor call.
-            var consVar = AddVariable("$-" + name, juxta, flags, len);
-            var typeVar = AddVariable("$--" + name, juxta, flags, len);
+            var consVar = AddVariable("$-" + name, juxta, flags|ElaVariableFlags.CompilerGenerated, len);
+            var typeVar = AddVariable("$--" + name, juxta, flags|ElaVariableFlags.CompilerGenerated, len);
             cw.Emit(Op.Ctorid, ctid);
             PopVar(consVar);
             PushVar(sca);

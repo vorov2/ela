@@ -48,11 +48,17 @@ namespace Ela.Compilation
             
             cw.MarkLabel(startLabel);
 
+            if (dec.Right == null)
+            {
+                AddError(ElaCompilerError.InvalidFunctionDeclaration, dec, dec);
+                return false;
+            }
+
             //We start a real (VM based) lexical scope for a function.
             StartScope(true, dec.Right.Line, dec.Right.Column);
 
             //We add a special 'context' variable; it is not initialized
-            AddVariable("context", dec, ElaVariableFlags.Context, -1);
+            AddVariable("context", dec, ElaVariableFlags.Context|ElaVariableFlags.CompilerGenerated, -1);
 
             //StartSection create a real lexical scope.
             StartSection();

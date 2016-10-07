@@ -43,6 +43,8 @@ namespace Ela.CodeModel
 
         Clean = 1 << 17,
 
-        NoWarnings = 1 << 18
+        NoWarnings = 1 << 18,
+
+        CompilerGenerated = 1 << 19
     }
 }
