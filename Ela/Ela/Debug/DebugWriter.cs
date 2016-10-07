@@ -16,7 +16,7 @@ namespace Ela.Debug
 			Symbols = new DebugInfo();
 			scopes = new FastStack<ScopeSym>();
 			funs = new FastStack<FunSym>();
-			var glob = new ScopeSym(0, 0, 0, 0, 0) { EndOffset = Int32.MaxValue };
+			var glob = new ScopeSym(0, 0, 0, 0, 0, true) { EndOffset = Int32.MaxValue };
 			scopes.Push(glob);
 			Symbols.Scopes.Add(glob);
 		}
@@ -39,10 +39,10 @@ namespace Ela.Debug
 		}
 
 
-		internal void StartScope(int offset, int line, int col)
+		internal void StartScope(int offset, int line, int col, bool runtimeScope)
 		{
             var index = ++scopeCount;
-			scopes.Push(new ScopeSym(index, scopes.Peek().Index, offset, line, col));
+            scopes.Push(new ScopeSym(index, scopes.Peek().Index, offset, line, col, runtimeScope));
 		}
 
 

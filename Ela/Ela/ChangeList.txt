@@ -1,3 +1,7 @@
+0.15.1.0:Release:Release of Ela 0.15.1.0.
+0.15.0.3:Fix:Ela debugger could crash on some trace points, incorrectly resolving runtime values.
+0.15.0.2:Fix:Ela compiler could crash in a case of invalid member function declaration.
+0.15.0.1:Change:The way how explicit and implicit contexts are managed is changed. Now an implicit context (such as the one applied with a bang pattern) has the same effect as an explicit context (set using (:::) operator) and can override it.
 0.15.0.0:Release:Release of Ela 0.15.0.0.
 0.14.3.13:Fix:Now line pragma information is generated correctly for module import/open directives.
 0.14.3.12:Fix:Ela linker could incorrectly identify module path and load incorrect module when a module directory name contains a dot (Issue #1766).

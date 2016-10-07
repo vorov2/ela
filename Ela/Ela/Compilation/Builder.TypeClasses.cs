@@ -22,7 +22,7 @@ namespace Ela.Compilation
             }
 
             //We create a special variable that will be initialized with a global unique ID of this class
-            var sa = AddVariable("$$$" + s.Name, s, ElaVariableFlags.None, (Int32)tc);
+            var sa = AddVariable("$$$" + s.Name, s, ElaVariableFlags.CompilerGenerated, (Int32)tc);
             cw.Emit(Op.Classid, AddString(s.Name));
             PopVar(sa);
 
