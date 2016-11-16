@@ -1,3 +1,6 @@
+0.1.23.0:Release:Release of 0.1.23.0.
+0.1.22.2:New:An article 'nat' about the module with the same name is added.
+0.1.22.1:New:A new document 'Whats new' that contains platform changes overview is added.
 0.1.22.0:Release:Release of 0.1.22.0.
 0.1.21.11:Change:An article 'espec' is updated according to the module changes.
 0.1.21.10:Change:An article 'peano' is updated according to the module changes.

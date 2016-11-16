@@ -50,9 +50,9 @@ is equivalent to the following record:
 >>}
 XML namespaces are also supported. One would have to qualify the name of the elements with XML namespace
 prefix:
->>rec = fromXmlString <[ <book xmlns:bk='urn:samples' bk:genre='novel'>
->>                <title isbn='2'>Pride And Prejudice</title>
->>                </book> ]>
+>>rec = fromXmlString <[ &lt;book xmlns:bk='urn:samples' bk:genre='novel'&gt;
+>>                &lt;title isbn='2'&gt;Pride And Prejudice&lt;/title&gt;
+>>                &lt;/book&gt; ]>
 >>rec.book |> getField "xmlns:bk"
 
 =Types and classes

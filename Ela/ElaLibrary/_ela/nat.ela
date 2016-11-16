@@ -1,0 +1,108 @@
+/* 
+  Module uint
+  Created in 2016 by Basil Voronkov
+*/
+import lang
+open string number integer
+
+//Type
+type Nat = Nat a # private
+  deriving Absolute Principal Numeral
+
+_zero # private
+_zero = 0n
+
+_one # private
+_one = 1n
+
+convert # private
+convert x
+  | x < 0 = fail "nat: Natural number should be greater than 0."
+  | else = Nat x
+
+//Literal
+literal'n s = convert << lang.readInt64 s $ 0L
+
+//Classes
+class NatLike a where
+  toNat a->_
+  fromNat _->a
+
+//Basic instances
+instance Default Nat where
+  default = _zero
+
+instance Eq Nat where
+  (Nat x) == (Nat y) = x == y
+
+instance Ord Nat where
+  (Nat x) > (Nat y) = x > y
+  (Nat x) < (Nat y) = x < y
+
+instance Enum Nat where
+  succ = (+ _one)
+  pred = (- _one)
+
+instance Show Nat where
+  show (Nat x) = fmt "" x ++ "n"
+
+instance Read Nat where
+  read !s = literal'n s
+
+//Math instances
+instance Additive Nat where
+  (Nat x) + (Nat y) = Nat (x + y)
+  (Nat x) - (Nat y)
+    | res < 0 = res
+    | else = Nat res
+    where res = x - y
+  negate (Nat x) = negate x
+
+instance Ring Nat where
+  (Nat x) *  (Nat y) = Nat (x * y)
+  (Nat x) ** (Nat y) = Nat (x ** y)
+
+instance Field Nat where
+  (Nat x) / (Nat y) = Nat (x / y)
+
+instance Modulo Nat where
+  mod (Nat x) (Nat y) = Nat $ mod x y
+  rem (Nat x) (Nat y) = Nat $ rem x y
+
+//xLike instances
+instance IntLike Nat where
+  toInt (Nat x) = toInt x
+  fromInt = convert << toLong
+
+instance LongLike Nat where
+  toLong (Nat x) = x
+  fromLong = convert
+
+instance NatLike Int where
+  toNat x = convert << toLong x
+  fromNat (Nat x) = toInt x
+
+instance NatLike Long where
+  toNat = convert
+  fromNat (Nat x) = x
+
+instance NatLike Nat where
+  toNat = id
+  fromNat = id
+
+//Module 'string' instances
+instance Format Nat where
+  fmt f (Nat x) = fmt f x
+
+//Module 'number' instances
+instance Num Nat where
+  zero = _zero
+  one  = _one
+  (~=) = (==)
+
+instance Integral Nat where
+  (Nat x) `quot` (Nat y) = Nat (x `quot` y)
+
+//Functions
+parse # qualified
+parse = literal'n
