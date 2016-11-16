@@ -79,7 +79,7 @@ instance LongLike Nat where
   fromLong = convert
 
 instance NatLike Int where
-  toNat x = convert << toLong x
+  toNat x = convert $ toLong x
   fromNat (Nat x) = toInt x
 
 instance NatLike Long where
