@@ -207,6 +207,7 @@
     <None Include="_ela\measure.ela" />
     <None Include="_ela\monad.ela" />
     <None Include="_ela\money.ela" />
+    <None Include="_ela\nat.ela" />
     <None Include="_ela\number.elaobj" />
     <None Include="_ela\object.ela" />
     <None Include="_ela\peano.ela" />

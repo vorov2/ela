@@ -1,0 +1,38 @@
+#file nat.ela
+#title nat
+#category Ela Standard Library
+This module contains implementation of natural numbers, its instances, classes and functions. 
+
+=Nat
+
+#Nat
+This type is used to represent a natural number. In the current implementation it is based on the Ela `Long` type.
+Natural numbers are whole number that are equal or greater than zero. A attempt to instantiate a natural number using
+a negative value (or to negate it using `negate` function) would raise an error:
+>>-12n
+However, calculations involving natural numbers that result in a negative number would fetch a number of `Long` data type:
+>>>12n - 10n
+and
+>>>10n - 12n 
+
+=Classes
+#NatLike
+This class defines `fromNat` and `toNat` functions that can be used for data conversions. Module `nat` already
+comes with instances of this class for `Int` and `Long` data types.
+
+=Notes on instances
+===Additive
+This is a instance for `Additive` class from standard prelude. Its instance defines all functions from this class - 
+addition `(+)`, subtraction `(-)` and `negate`. However, function `negate` always raises an error as long as natural
+numbers cannot be negative.
+
+=Functions
+
+#literal'n x
+This function is used for the literal form of `Nat` type and can also be called directly (or rebound to a different name).
+>>12n
+
+#parse s
+This function can be used to create an instance of `Nat` type from string:
+>>x = parse "12"
+This function always requires a qualified access.

@@ -12,6 +12,7 @@
     </folder>
     <doc name="prelude" file="lib\prelude.htm" />
     <doc name="number" file="lib\number.htm" />
+    <doc name="nat" file="lib\nat.htm" />
     <doc name="money" file="lib\money.htm" />
     <doc name="integer" file="lib\integer.htm" />
     <doc name="complex" file="lib\complex.htm" />
@@ -64,6 +65,7 @@
     <doc name="Operator Priority" file="operatorpriority.htm" />    
   </folder>
   <folder name="Older Versions">
+    <doc name="Platform 2016.6" file="oldversions/platform-2016-6.htm" />
     <doc name="Platform 2016.5" file="oldversions/platform-2016-5.htm" />
     <doc name="Platform 2016.4" file="oldversions/platform-2016-4.htm" />
     <doc name="Platform 2016.3" file="oldversions/platform-2016-3.htm" />

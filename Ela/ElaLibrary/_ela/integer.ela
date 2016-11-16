@@ -78,7 +78,7 @@ instance IntegerLike Integer where
 
 //Module 'string' instances
 instance Format Integer where
-  fmt (Integer x) !f = bi.show x f
+  fmt !f (Integer x) = bi.show x f
 
 //Module 'number' instances
 instance Num Integer where

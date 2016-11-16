@@ -1,3 +1,6 @@
+0.3.1.0:Release:Release of 0.3.1.0.
+0.3.0.2:New:A new module 'nat' that implements natural numbers is added.
+0.3.0.1:Fix:A bug in 'fmt' function in 'integer' module is fixed (incorrect order of arguments).
 0.3.0.0:Release:Release of 0.3.0.0.
 0.2.4.31:New:Functions 'takeBy', 'onlyFailed' and 'takeFailed' for filtering test results are added to the 'espec' module.
 0.2.4.30:Change:Module 'espec' is updated to use new error handling strategy.
