@@ -1,3 +1,4 @@
+0.10.1.0:Release:Release of Ela Console 0.10.1.
 0.10.0.1:New:Now '-time' (or '-t') switch allows to specify how many time the code should be executed before measuring execution time, e.g. 'elac.exe mycode.ela -t 100'.
 0.10.0.0:Release:Release of Ela Console 0.10.0.
 0.9.9.3:New:Console now supports trace listeners infrastructure.
