@@ -1729,7 +1729,7 @@ namespace Ela.Runtime
                             if (cd.Parameters == null)
                                 return modules[cd.ModuleId][cd.ConsAddress];
                             else
-                                thread.Context.Fail(ElaRuntimeError.UnableCreateConstructor, cd.Name, "Constructor has parameters");
+                                thread.Context.Fail(ElaRuntimeError.UnableCreateConstructor, cd.Name, "Constructor has parameters.");
                         }
                     }
                     break;

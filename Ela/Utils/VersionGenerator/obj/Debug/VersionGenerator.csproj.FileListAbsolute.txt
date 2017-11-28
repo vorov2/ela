@@ -1,0 +1,7 @@
+C:\repos\ela\Dependencies\vgen.exe.config
+C:\repos\ela\Dependencies\vgen.exe
+C:\repos\ela\Dependencies\vgen.pdb
+C:\repos\ela\Ela\Utils\VersionGenerator\obj\Debug\VersionGenerator.csprojResolveAssemblyReference.cache
+C:\repos\ela\Ela\Utils\VersionGenerator\obj\Debug\VersionGenerator.csproj.CoreCompileInputs.cache
+C:\repos\ela\Ela\Utils\VersionGenerator\obj\Debug\vgen.exe
+C:\repos\ela\Ela\Utils\VersionGenerator\obj\Debug\vgen.pdb

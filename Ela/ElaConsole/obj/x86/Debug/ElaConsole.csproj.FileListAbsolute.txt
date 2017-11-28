@@ -1,0 +1,7 @@
+C:\repos\ela\Ela\bin\Debug\elac.exe.config
+C:\repos\ela\Ela\bin\Debug\elac.exe
+C:\repos\ela\Ela\bin\Debug\elac.pdb
+C:\repos\ela\Ela\ElaConsole\obj\x86\Debug\ElaConsole.csprojResolveAssemblyReference.cache
+C:\repos\ela\Ela\ElaConsole\obj\x86\Debug\ElaConsole.csproj.CoreCompileInputs.cache
+C:\repos\ela\Ela\ElaConsole\obj\x86\Debug\elac.exe
+C:\repos\ela\Ela\ElaConsole\obj\x86\Debug\elac.pdb
