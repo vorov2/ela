@@ -219,7 +219,6 @@
     <Compile Include="Compilation\TerminationException.cs" />
     <Compile Include="Compilation\InstanceData.cs" />
     <Compile Include="Compilation\TypeClass.cs" />
-    <Compile Include="Debug\Breakpoint.cs" />
     <Compile Include="Debug\CallFrame.cs" />
     <Compile Include="Debug\CallStack.cs" />
     <Compile Include="Debug\ITracePointListener.cs" />
@@ -430,12 +429,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Parsing\Strings\Errors.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Strings.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Errors.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Runtime\Strings\Errors.resx">

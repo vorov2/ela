@@ -1,0 +1,7 @@
+C:\repos\ela\Elide\bin\SciLexer.dll
+C:\repos\ela\Elide\bin\Elide.TextEditor.dll
+C:\repos\ela\Elide\bin\Elide.TextEditor.pdb
+C:\repos\ela\Elide\Elide.TextEditor\obj\x86\Release\Elide.TextEditor.csprojResolveAssemblyReference.cache
+C:\repos\ela\Elide\Elide.TextEditor\obj\x86\Release\Elide.TextEditor.csproj.CoreCompileInputs.cache
+C:\repos\ela\Elide\Elide.TextEditor\obj\x86\Release\Elide.TextEditor.dll
+C:\repos\ela\Elide\Elide.TextEditor\obj\x86\Release\Elide.TextEditor.pdb

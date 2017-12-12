@@ -1,0 +1,10 @@
+C:\repos\ela\Elide\bin\SciLexer.dll
+C:\repos\ela\Elide\bin\Elide.ElaObject.dll
+C:\repos\ela\Elide\bin\Elide.ElaObject.pdb
+C:\repos\ela\Elide\Elide.ElaObject\obj\x86\Release\Elide.ElaObject.csprojResolveAssemblyReference.cache
+C:\repos\ela\Elide\Elide.ElaObject\obj\x86\Release\Elide.ElaObject.Configuration.ObjectFilePage.resources
+C:\repos\ela\Elide\Elide.ElaObject\obj\x86\Release\Elide.ElaObject.ObjectFileViewer.resources
+C:\repos\ela\Elide\Elide.ElaObject\obj\x86\Release\Elide.ElaObject.csproj.GenerateResource.Cache
+C:\repos\ela\Elide\Elide.ElaObject\obj\x86\Release\Elide.ElaObject.csproj.CoreCompileInputs.cache
+C:\repos\ela\Elide\Elide.ElaObject\obj\x86\Release\Elide.ElaObject.dll
+C:\repos\ela\Elide\Elide.ElaObject\obj\x86\Release\Elide.ElaObject.pdb

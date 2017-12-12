@@ -1,0 +1,213 @@
+﻿<configuration>
+    <services>
+        <add key="DaemonService" interface="Elide.Main.IDaemonService,Elide.Main" type="Elide.Main.DaemonService,Elide.Main" />
+        <add key="OutputInputService" interface="Elide.Main.IOutputInputService,Elide.Main" type="Elide.Main.OutputInputService,Elide.Main" />
+        <add key="PathService" interface="Elide.Main.IPathService,Elide.Main" type="Elide.Main.PathService,Elide.Main" />
+        
+        <add key="ConfigService" interface="Elide.Environment.Configuration.IConfigService,Elide.Environment" type="Elide.Configuration.ConfigService,Elide.Configuration">
+            <add key="configs" />
+        </add>
+        <add key="StylesConfigService" interface="Elide.Environment.Configuration.IStylesConfigService,Elide.Environment" type="Elide.Configuration.StylesConfigService,Elide.Configuration">
+            <add key="styles" />
+        </add>
+        <add key="ConfigDialogService" interface="Elide.Environment.Configuration.IConfigDialogService,Elide.Environment" type="Elide.Configuration.ConfigDialogService,Elide.Configuration"/>
+        <add key="MenuService" interface="Elide.Environment.IMenuService,Elide.Environment" type="Elide.Workbench.MenuService,Elide.Workbench" />
+        <add key="EnvironmentService" interface="Elide.Environment.IEnvironmentService,Elide.Environment" type="Elide.Workbench.EnvironmentService,Elide.Workbench" />
+        <add key="DialogService" interface="Elide.Environment.IDialogService,Elide.Environment" type="Elide.Workbench.DialogService,Elide.Workbench" />
+        <add key="BrowserService" interface="Elide.Environment.IBrowserService,Elide.Environment" type="Elide.Workbench.BrowserService,Elide.Workbench" />
+        <add key="EditorService" interface="Elide.Environment.Editors.IEditorService,Elide.Environment" type="Elide.Workbench.EditorService,Elide.Workbench">
+            <add key="editors" />
+        </add>
+        <add key="StatusBarService" interface="Elide.Environment.IStatusBarService,Elide.Environment" type="Elide.Workbench.StatusBarService,Elide.Workbench" />
+        <add key="DocumentService" interface="Elide.Environment.IDocumentService,Elide.Environment" type="Elide.Workbench.DocumentService,Elide.Workbench" />
+        <add key="FileService" interface="Elide.Environment.IFileService,Elide.Environment" type="Elide.Workbench.FileService,Elide.Workbench" />
+        <add key="RecentFilesService" interface="Elide.Environment.IRecentFilesService,Elide.Environment" type="Elide.Workbench.RecentFilesService,Elide.Workbench" />
+        <add key="PrintService" interface="Elide.Environment.IPrintService,Elide.Environment" type="Elide.Workbench.PrintService,Elide.Workbench" />
+        <add key="ViewService" interface="Elide.Environment.Views.IViewService,Elide.Environment" type="Elide.Workbench.ViewService,Elide.Workbench">
+            <add key="views" />
+        </add>
+        <add key="OutputService" interface="Elide.Environment.Views.IOutputService,Elide.Environment" type="Elide.Workbench.Views.OutputService,Elide.Workbench" />
+        <add key="AutoSaveService" interface="Elide.Environment.IAutoSaveService,Elide.Environment" type="Elide.Workbench.AutoSaveService,Elide.Workbench" />        
+        
+        <add key="DocumentNavigatorService" interface="Elide.TextEditor.IDocumentNavigatorService,Elide.TextEditor" type="Elide.TextWorkbench.DocumentNavigatorService,Elide.TextWorkbench" />
+        <add key="ResultGridService" interface="Elide.TextEditor.IResultGridService,Elide.TextEditor" type="Elide.TextWorkbench.Views.ResultGridService,Elide.TextWorkbench" />
+        <add key="TextConfigService" interface="Elide.TextEditor.Configuration.ITextConfigService,Elide.TextEditor" type="Elide.TextWorkbench.Configuration.TextConfigService,Elide.TextWorkbench">
+            <add key="textConfigs"/>
+        </add>
+        <add key="SearchService" interface="Elide.TextEditor.ISearchService,Elide.TextEditor" type="Elide.TextWorkbench.SearchService,Elide.TextWorkbench" />
+        <add key="BookmarkService" interface="Elide.TextEditor.IBookmarkService,Elide.TextEditor" type="Elide.TextWorkbench.Views.BookmarkService,Elide.TextWorkbench" />
+        <add key="GotoDialogService" interface="Elide.TextEditor.IGotoDialogService,Elide.TextEditor" type="Elide.TextWorkbench.GotoDialogService,Elide.TextWorkbench" />
+
+        <add key="ConsoleService" interface="Elide.CodeEditor.Views.IConsoleService,Elide.CodeEditor" type="Elide.Console.ConsoleService,Elide.Console" />
+        <add key="ErrorListService" interface="Elide.CodeEditor.Views.IErrorListService,Elide.CodeEditor" type="Elide.CodeWorkbench.Views.ErrorListService,Elide.CodeWorkbench" />
+        <add key="TaskListService" interface="Elide.CodeEditor.Views.ITaskListService,Elide.CodeEditor" type="Elide.CodeWorkbench.Views.TaskListService,Elide.CodeWorkbench">
+            <add key="taskProviders" />
+        </add>
+        <add key="BackgroundCompilerService" interface="Elide.CodeEditor.Infrastructure.IBackgroundCompilerService,Elide.CodeEditor" type="Elide.CodeEditor.Infrastructure.BackgroundCompilerService,Elide.CodeEditor">
+            <add key="compilers" />
+        </add>
+        <add key="CodeBuilderService" interface="Elide.CodeEditor.Infrastructure.ICodeBuilderService,Elide.CodeEditor" type="Elide.CodeWorkbench.CodeBuilderService,Elide.CodeWorkbench">
+            <add key="builders" />
+        </add>
+        <add key="CodeParserService" interface="Elide.CodeEditor.Infrastructure.ICodeParserService,Elide.CodeEditor" type="Elide.CodeWorkbench.CodeParserService,Elide.CodeWorkbench">
+          <add key="parsers" />
+        </add>
+        <add key="CodeRunnerService" interface="Elide.CodeEditor.Infrastructure.ICodeRunnerService,Elide.CodeEditor" type="Elide.CodeWorkbench.CodeRunnerService,Elide.CodeWorkbench">
+            <add key="runners" />
+        </add>
+        <add key="CodeLexerService" interface="Elide.CodeEditor.Infrastructure.ICodeLexerService,Elide.CodeEditor" type="Elide.CodeEditor.Infrastructure.CodeLexerService,Elide.CodeEditor">
+            <add key="lexers" />
+        </add>
+        <add key="ReferenceResolverService" interface="Elide.CodeEditor.Infrastructure.IReferenceResolverService,Elide.CodeEditor" type="Elide.CodeEditor.Infrastructure.ReferenceResolverService,Elide.CodeEditor">
+            <add key="resolvers" />
+        </add>
+        <add key="AutocompleteService" interface="Elide.CodeEditor.IAutocompleteService,Elide.CodeEditor" type="Elide.CodeWorkbench.AutocompleteService,Elide.CodeWorkbench" />
+        <add key="OutlinerSerivce" interface="Elide.CodeEditor.IOutlinerService,Elide.CodeEditor" type="Elide.CodeWorkbench.OutlinerService,Elide.CodeWorkbench" />
+        <add key="SymbolSearchService" interface="Elide.CodeEditor.ISymbolSearchService,Elide.CodeEditor" type="Elide.CodeWorkbench.SymbolSearchService,Elide.CodeWorkbench" />
+    </services>
+
+    <configs>
+        <add key="WorkbenchConfig" type="Elide.Workbench.Configuration.WorkbenchConfig,Elide.Workbench" category="Environment" displayName="General" widget="Elide.Workbench.Configuration.WorkbenchConfigPage,Elide.Workbench" position="0" />        
+        <add key="StylesConfig" type="Elide.Environment.Configuration.StylesConfig,Elide.Environment" category="Environment" displayName="Fonts and Colors" widget="Elide.Configuration.StylesPage,Elide.Configuration" position="10" />
+      
+        <add key="FileExplorerConfig" type="Elide.Workbench.Configuration.FileExplorerConfig,Elide.Workbench" category="Views" displayName="File Explorer" widget="Elide.Workbench.Configuration.FileExplorerConfigPage,Elide.Workbench" position="0" />
+        <add key="OutputConfig" type="Elide.Workbench.Configuration.OutputConfig,Elide.Workbench" category="Views" displayName="Output" widget="Elide.Workbench.Configuration.OutputConfigPage,Elide.Workbench" position="10" />
+        <add key="ConsoleConfig" type="Elide.Console.Configuration.ConsoleConfig,Elide.Console" category="Views" displayName="Console" widget="Elide.Console.Configuration.ConsoleConfigPage,Elide.Console" position="20" />
+        <add key="InteractiveConfig" type="Elide.ElaCode.Configuration.InteractiveConfig,Elide.ElaCode" category="Views" displayName="Interactive" widget="Elide.ElaCode.Configuration.InteractiveConfigPage,Elide.ElaCode" position="30" />
+      
+        <add key="TextEditorsConfig" type="Elide.TextEditor.Configuration.TextEditorsConfig,Elide.TextEditor" category="Editors" displayName="Text Editor (All)" widget="Elide.TextWorkbench.Configuration.TextEditorConfigPage,Elide.TextWorkbench" position="0"/>
+        <add key="PlainTextConfig" type="Elide.PlainText.Configuration.PlainTextConfig,Elide.PlainText" category="Editors" displayName="Plain Text Editor" widget="Elide.PlainText.Configuration.PlainTextConfigPage,Elide.PlainText" position="10" />
+        <add key="ElaObjectConfig" type="Elide.ElaObject.Configuration.ElaObjectConfig,Elide.ElaObject" category="Editors" displayName="Ela Object Editor" widget="Elide.ElaObject.Configuration.ObjectFilePage,Elide.ElaObject" position="100" />
+        <add key="ElaEditorConfig" type="Elide.CodeEditor.CodeEditorConfig,Elide.CodeEditor" category="Editors" displayName="Ela Code Editor" widget="Elide.ElaCode.Configuration.ElaEditorConfigPage,Elide.ElaCode" position="20" />
+        
+        <add key="ElaCompilerConfig" type="Elide.ElaCode.Configuration.CompilerConfig,Elide.ElaCode" category="Ela" displayName="Compiler Settings" widget="Elide.ElaCode.Configuration.CompilerConfigPage,Elide.ElaCode" position="0" />
+        <add key="ElaLinkerConfig" type="Elide.ElaCode.Configuration.LinkerConfig,Elide.ElaCode" category="Ela" displayName="Linker Settings" widget="Elide.ElaCode.Configuration.LinkerConfigPage,Elide.ElaCode" position="10" />
+        <add key="EilGeneratorConfig" type="Elide.ElaCode.Configuration.EilGeneratorConfig,Elide.ElaCode" category="Ela" displayName="EIL Generator" widget="Elide.ElaCode.Configuration.EilGeneratorConfigPage,Elide.ElaCode" position="20" />
+        
+    </configs>
+
+    <styles>
+        <add key="PlainText" display="Plain Text Editor">
+            <add key="Default" font="Consolas" size="10" fore="Black" back="White" bold="false" italic="false" underline="false" />
+            <add key="Hyperlink" display="Link" fore="Blue" underline="true" />
+            <add key="Style1" display="Bold text" bold="true" />
+            <add key="Style2" display="Italic text" italic="true" />
+        </add>
+        <add key="ElaCode" display="Ela Code Editor">
+            <add key="Default" font="Consolas" size="10" fore="Black" back="White" bold="false" italic="false" underline="false" />
+            <add key="Style1" display="Identifier" />
+            <add key="Style2" display="Keyword" fore="Blue" />
+            <add key="Style3" display="Variant" fore="Navy" bold="true" />
+            <add key="Style4" display="Operator" fore="Purple" bold="true" />
+            <add key="Style5" display="Literal" fore="Teal" bold="true" />
+            <add key="MultilineStyle1" display="Multiline Comment" fore="Green" />
+            <add key="Style6" display="Singleline Comment" fore="Green" />
+            <add key="Style7" display="String" fore="Maroon" />
+            <add key="MultilineStyle2" display="Multiline String" fore="Maroon" />
+            <add key="Style8" display="Char" fore="Maroon" />
+            <add key="Style9" display="Number" fore="Red" />
+            <add key="Style10" display="Debug Point" fore="Black" back="Yellow" />
+            <add key="Annotation1" display="Errors" fore="Black" back="Pink" font="Segoe UI" size="9" />
+            <add key="CallTip" display="Call Tips" fore="Black" back="Cornsilk" font="Segoe UI" size="9" />
+            <add key="BraceMatch" display="Brace Match" back="Silver" />
+            <add key="BraceBad" display="Brace Missing" back="Pink" />
+        </add>
+        <add key="EilCode" display="EIL Code Editor">
+            <add key="Default" font="Consolas" size="10" fore="Black" back="White" bold="false" italic="false" underline="false" />
+            <add key="Style1" display="Identifier" />
+            <add key="Style2" display="Keyword" fore="Blue" />
+            <add key="Style3" display="Operator" />
+            <add key="Style4" display="Singleline Comment" fore="Green" />
+            <add key="Style5" display="String" fore="Maroon" />
+            <add key="Style6" display="Number" fore="Red" />
+            <add key="Style7" display="Op Code Offset" fore="Gray" />
+            <add key="Style8" display="Address" fore="Magenta" />
+        </add>
+        <add key="Output" display="Output">
+            <add key="Default" font="Consolas" size="8" fore="Black" back="White" bold="false" italic="false" underline="false" />
+            <add key="MultilineStyle1" display="Header" bold="true" />
+            <add key="MultilineStyle2" display="Error" fore="Red" />
+            <add key="MultilineStyle3" display="Warning" fore="Blue" />
+            <add key="MultilineStyle4" display="Important" italic="true" />
+        </add>
+        <add key="Console" display="Console">
+            <add key="Default" font="Consolas" size="8" fore="Black" back="White" bold="false" italic="false" underline="false" />
+            <add key="Style1" display="Header" bold="true" />
+        </add>
+        <add key="Interactive" display="Interactive">
+            <add key="Default" font="Consolas" size="8" fore="Black" back="White" bold="false" italic="false" underline="false" />
+            <add key="Style1" display="Header" bold="true" />
+            <add key="Style5" display="Prompt" bold="true" fore="Gray" />
+            <add key="Style6" display="Code" fore="Blue"/>
+            <add key="Style2" display="Error" fore="Red" />
+            <add key="Style3" display="Warning" fore="Olive" />
+            <add key="Style4" display="Hint" fore="Green" />            
+        </add>
+    </styles>
+
+    <editors>
+        <add key="PlainText" type="Elide.PlainText.PlainTextEditor,Elide.PlainText" documentType="Elide.PlainText.PlainTextDocument,Elide.PlainText" displayName="&amp;Plain Text File" fileExtension=".txt" fileExtensionDescription="Plain Text Files" flags="Default" />
+        <add key="ObjectFile" type="Elide.ElaObject.ObjectFileEditor,Elide.ElaObject" documentType="Elide.ElaObject.ObjectFileDocument,Elide.ElaObject" displayName="&amp;Ela Object File" fileExtension=".elaobj" fileExtensionDescription="Ela Object Files" flags="Hidden" />
+        <add key="EilCode" type="Elide.EilCode.EilEditor,Elide.EilCode" documentType="Elide.EilCode.EilDocument,Elide.EilCode" displayName="E&amp;IL File" fileExtension=".eil" fileExtensionDescription="EIL Code Files" flags="Hidden" />
+        <add key="ElaCode" type="Elide.ElaCode.ElaEditor,Elide.ElaCode" documentType="Elide.ElaCode.ElaDocument,Elide.ElaCode" displayName="&amp;Ela Code File" fileExtension=".ela" fileExtensionDescription="Ela Code Files" flags="Main" />
+        <add key="WelcomePage" type="Elide.WelcomePage.WelcomePageEditor,Elide.WelcomePage" documentType="Elide.WelcomePage.WelcomePageDocument,Elide.WelcomePage" displayName="Welcome Page" fileExtension="" fileExtensionDescription="Welcome Page" flags="Hidden,HiddenEverywhere" />
+        <add key="HelpViewer" type="Elide.HelpViewer.HelpEditor,Elide.HelpViewer" documentType="Elide.HelpViewer.HelpDocument,Elide.HelpViewer" displayName="Documentation File" fileExtension=".htm" fileExtensionDescription="Documentation File" flags="Hidden" />
+    </editors>
+
+
+    <textConfigs>
+        <add key="PlainText" display="Plain Text Editor" />
+        <add key="EilCode" display="EIL Code Editor"  />
+        <add key="ElaCode" display="Ela Code Editor" options="RestrictTabs,RestrictWordWrap" indentMode="Smart" />
+    </textConfigs>
+    
+    <views>
+        <add key="Explorer" title="File Explorer" shortcut="Ctrl+Alt+X" type="Elide.Workbench.Views.ExplorerView,Elide.Workbench" />
+        <add key="OpenFiles" title="Open Files" shortcut="Ctrl+Alt+F" type="Elide.Workbench.Views.OpenFilesView,Elide.Workbench" />
+        <add key="Output" title="Output" shortcut="Ctrl+Alt+O" type="Elide.Workbench.Views.OutputView,Elide.Workbench" kind="Output" />
+        
+        <add key="ResultGrid" title="Results" shortcut="Ctrl+Alt+R" type="Elide.TextWorkbench.Views.ResultGridView,Elide.TextWorkbench" kind="Output" />
+        <add key="Bookmarks" title="Bookmarks" shortcut="Ctrl+Alt+B" type="Elide.TextWorkbench.Views.BookmarkView,Elide.TextWorkbench" />
+
+        <add key="ErrorList" title="Errors" shortcut="Ctrl+Alt+E" type="Elide.CodeWorkbench.Views.ErrorListView,Elide.CodeWorkbench" kind="Output" />
+        <add key="TaskList" title="Tasks" shortcut="Ctrl+Alt+T" type="Elide.CodeWorkbench.Views.TaskListView,Elide.CodeWorkbench" />
+        <add key="Console" title="Console" shortcut="Ctrl+Alt+C" type="Elide.Console.ConsoleView,Elide.Console" kind="Output" />
+        <add key="Debug" title="Trace" shortcut="Ctrl+Alt+D" type="Elide.ElaCode.Views.DebugView,Elide.ElaCode" kind="Output" />
+
+        <add key="Outline" title="Outline" shortcut="Ctrl+Alt+U" type="Elide.CodeWorkbench.Views.OutlineView,Elide.CodeWorkbench" />
+        <add key="Documentation" title="Documentation Library" type="Elide.CodeWorkbench.Documentation.DocumentationView,Elide.CodeWorkbench" kind="Help" />
+        <add key="CodeSamples" title="Code Samples" type="Elide.CodeWorkbench.CodeSamples.CodeSamplesView,Elide.CodeWorkbench" kind="Help" />
+
+        <add key="ElaInteractive" title="Interactive" shortcut="Ctrl+Alt+I" type="Elide.ElaCode.Views.InteractiveView,Elide.ElaCode" kind="Output" />
+        <add key="ElaAST" title="Syntax Tree (AST)" shortcut="Ctrl+Alt+A" type="Elide.ElaCode.Views.AstView,Elide.ElaCode" />
+    </views>
+
+    <builders>
+        <add key="ElaCodeBuilder" type="Elide.ElaCode.ElaCodeBuilder,Elide.ElaCode" />      
+    </builders>
+
+    <parsers>
+        <add key="ElaCodeParser" type="Elide.ElaCode.ElaCodeParser,Elide.ElaCode" />
+    </parsers>
+  
+    <runners>
+        <add key="ElaCodeRunner" type="Elide.ElaCode.ElaCodeRunner,Elide.ElaCode" />
+    </runners>
+
+    <lexers>
+        <add key="ElaCode" type="Elide.ElaCode.Lexer.ElaLexer,Elide.ElaCode" />
+        <add key="EilCode" type="Elide.EilCode.Lexer.EilLexer,Elide.EilCode" />
+    </lexers>
+
+    <compilers>
+        <add key="ElaBackgroundCompiler" editorKey="ElaCode" type="Elide.ElaCode.ElaBackgroundCompiler,Elide.ElaCode" />
+    </compilers>
+  
+    <resolvers>
+        <add key="ElaReferenceResolver" type="Elide.ElaCode.ElaReferenceResolver,Elide.ElaCode" />
+    </resolvers>
+
+    <taskProviders>
+        <add key="ElaTaskProvider" editorKey="ElaCode" type="Elide.ElaCode.TaskProvider,Elide.ElaCode" />
+    </taskProviders>
+</configuration>

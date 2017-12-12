@@ -48,7 +48,7 @@ namespace Elide.ElaCode
             {
                 var src = ((ITextEditor)editor).GetContent(doc);
                 var p = new ElaParser();
-                var res = p.Parse(src);
+                var res = p.Parse(new StringBuffer(src));
 
                 if (res.Success)
                 {

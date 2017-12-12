@@ -1,0 +1,7 @@
+C:\repos\ela\Elide\bin\SciLexer.dll
+C:\repos\ela\Elide\bin\Elide.CodeEditor.dll
+C:\repos\ela\Elide\bin\Elide.CodeEditor.pdb
+C:\repos\ela\Elide\Elide.CodeEditor\obj\x86\Release\Elide.CodeEditor.csprojResolveAssemblyReference.cache
+C:\repos\ela\Elide\Elide.CodeEditor\obj\x86\Release\Elide.CodeEditor.csproj.CoreCompileInputs.cache
+C:\repos\ela\Elide\Elide.CodeEditor\obj\x86\Release\Elide.CodeEditor.dll
+C:\repos\ela\Elide\Elide.CodeEditor\obj\x86\Release\Elide.CodeEditor.pdb

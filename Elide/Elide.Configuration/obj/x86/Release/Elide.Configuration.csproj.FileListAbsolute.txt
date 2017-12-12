@@ -1,0 +1,10 @@
+C:\repos\ela\Elide\bin\SciLexer.dll
+C:\repos\ela\Elide\bin\Elide.Configuration.dll
+C:\repos\ela\Elide\bin\Elide.Configuration.pdb
+C:\repos\ela\Elide\Elide.Configuration\obj\x86\Release\Elide.Configuration.csprojResolveAssemblyReference.cache
+C:\repos\ela\Elide\Elide.Configuration\obj\x86\Release\Elide.Configuration.ConfigDialog.resources
+C:\repos\ela\Elide\Elide.Configuration\obj\x86\Release\Elide.Configuration.StylesPage.resources
+C:\repos\ela\Elide\Elide.Configuration\obj\x86\Release\Elide.Configuration.csproj.GenerateResource.Cache
+C:\repos\ela\Elide\Elide.Configuration\obj\x86\Release\Elide.Configuration.csproj.CoreCompileInputs.cache
+C:\repos\ela\Elide\Elide.Configuration\obj\x86\Release\Elide.Configuration.dll
+C:\repos\ela\Elide\Elide.Configuration\obj\x86\Release\Elide.Configuration.pdb

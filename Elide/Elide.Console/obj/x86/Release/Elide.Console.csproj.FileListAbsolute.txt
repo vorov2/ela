@@ -1,0 +1,11 @@
+C:\repos\ela\Elide\bin\SciLexer.dll
+C:\repos\ela\Elide\bin\Elide.Console.dll
+C:\repos\ela\Elide\bin\Elide.Console.pdb
+C:\repos\ela\Elide\Elide.Console\obj\x86\Release\Elide.Console.csprojResolveAssemblyReference.cache
+C:\repos\ela\Elide\Elide.Console\obj\x86\Release\Elide.Console.Configuration.ConsoleConfigPage.resources
+C:\repos\ela\Elide\Elide.Console\obj\x86\Release\Elide.Console.ConsoleControl.resources
+C:\repos\ela\Elide\Elide.Console\obj\x86\Release\Elide.Console.ConsoleSearchForm.resources
+C:\repos\ela\Elide\Elide.Console\obj\x86\Release\Elide.Console.csproj.GenerateResource.Cache
+C:\repos\ela\Elide\Elide.Console\obj\x86\Release\Elide.Console.csproj.CoreCompileInputs.cache
+C:\repos\ela\Elide\Elide.Console\obj\x86\Release\Elide.Console.dll
+C:\repos\ela\Elide\Elide.Console\obj\x86\Release\Elide.Console.pdb

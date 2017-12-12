@@ -109,36 +109,6 @@ namespace Ela.Debug
             }
             while (scope != null);
 
-            //do
-            //{
-            //    for (var i = 0; i < vars.Count; i++)
-            //    {
-            //        var v = vars[i];
-            //        var val = locs[v.Address];
-            //        varcount++;
-                        
-            //        if (((ElaVariableFlags)v.Flags & ElaVariableFlags.CompilerGenerated) != ElaVariableFlags.CompilerGenerated)
-            //            ret.Add(new TraceVar(v.Name, val, locs == locals));
-
-            //        if (varcount == locs.Length || i < vars.Count - 1)
-            //        {
-            //            locs = alls[--count];
-            //            varcount = 0;
-            //        }
-            //    }
-
-            //    var ns = dr.GetScopeSymByIndex(scope.ParentIndex);
-
-            //    if (ns.Index != scope.Index)
-            //    {
-            //        scope = ns;
-            //        vars = dr.FindVarSyms(off, scope).ToList();
-            //    }
-            //    else
-            //        scope = null;
-            //}
-            //while (scope != null);
-
             return ret;
         }
 		#endregion

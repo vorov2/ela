@@ -1,4 +1,7 @@
-﻿0.4.0.0:Release:Release of Elide 0.4.0.0.
+﻿0.4.1.0:Release:Release of Elide 0.4.1.0.
+0.4.0.1:Change:Elide is updated according to Ela changes.
+0.4.0.1:Change:Elide is updated to use a new version of internal parser generator (Coco/R).
+0.4.0.0:Release:Release of Elide 0.4.0.0.
 0.3.3.6:Change:Ela "Symbol finder" is updated to take into account new "trace points" feature.
 0.3.3.5:Change:AST builder is updated to take into account new "trace points" feature.
 0.3.3.4:New:A new view 'Trace' is added that shows all trace points that were executed during program run.

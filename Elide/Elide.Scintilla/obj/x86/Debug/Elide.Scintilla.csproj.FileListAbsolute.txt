@@ -1,0 +1,7 @@
+C:\repos\bin\SciLexer.dll
+C:\repos\bin\Elide.Scintilla.dll
+C:\repos\bin\Elide.Scintilla.pdb
+C:\repos\ela\Elide\Elide.Scintilla\obj\x86\Debug\Elide.Scintilla.csprojResolveAssemblyReference.cache
+C:\repos\ela\Elide\Elide.Scintilla\obj\x86\Debug\Elide.Scintilla.csproj.CoreCompileInputs.cache
+C:\repos\ela\Elide\Elide.Scintilla\obj\x86\Debug\Elide.Scintilla.dll
+C:\repos\ela\Elide\Elide.Scintilla\obj\x86\Debug\Elide.Scintilla.pdb

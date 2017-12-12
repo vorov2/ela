@@ -4,11 +4,11 @@ SET "ELAPATH=..\"
 
 @echo.
 @echo 1. Build Elide
-"C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\devenv.exe" "%ELAPATH%elide\elide.sln" /build Release
+"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe" "%ELAPATH%elide\elide.sln" /build Release
 
 @echo.
 @echo 2. Build Ela
-"C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\devenv.exe" "%ELAPATH%ela\ela.sln" /build Release
+"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe" "%ELAPATH%ela\ela.sln" /build Release
 
 @echo.
 @echo 3. Prepare target directory
@@ -59,7 +59,7 @@ del c:\ela-platform\elide\ela.dll /Q
 
 @echo.
 @echo 10. Build version info
-set rn=2016.7
+set rn=2017.1
 for /f "delims=" %%a in ('pver.exe c:\ela-platform\lib_log.txt') do @set lib_v=%%a 
 for /f "delims=" %%a in ('pver.exe c:\ela-platform\ela_log.txt') do @set ela_v=%%a
 for /f "delims=" %%a in ('pver.exe c:\ela-platform\elac_log.txt') do @set elac_v=%%a 
@@ -77,7 +77,7 @@ for /f "delims=" %%a in ('pver.exe c:\ela-platform\docs_log.txt') do @set docs_v
 @echo ^<tr^>^<td^>Ela Interactive Console (elac.exe)^</td^>^<td^>.NET 4.0+/Mono 2.8+^</td^>^<td^>%elac_v% ^</td^>^</tr^> >> c:\ela-platform\readme.htm
 @echo ^<tr^>^<td^>elide^</td^>^<td^>Ela Integrated Development Environment (elide.exe)^</td^>^<td^>.NET 4.0+ (Windows only)^</td^>^<td^>%elide_v% ^</td^>^</tr^> >> c:\ela-platform\readme.htm
 @echo ^<tr^>^<td^>lib^</td^>^<td^>Ela standard library^</td^>^<td^>.NET 4.0+/Mono 2.8+^</td^>^<td^>%lib_v% ^</td^>^</tr^> >> c:\ela-platform\readme.htm
-@echo ^</table^>^<p^>This is a binary release. Source code is available at ^<a href="https://ela.codeplex.com/"^>https://ela.codeplex.com/^</a^>.^</p^>^<p^>Platform generated at %DATE%.^</p^>^</body^>^</html^> >> c:\ela-platform\readme.htm
+@echo ^</table^>^<p^>This is a binary release. Source code is available at ^<a href="https://github.com/vorov2/ela"^>https://github.com/vorov2/ela^</a^>.^</p^>^<p^>Platform generated at %DATE%.^</p^>^</body^>^</html^> >> c:\ela-platform\readme.htm
 
 @echo.
 @echo Make completed

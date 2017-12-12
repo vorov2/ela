@@ -8,11 +8,10 @@ C:\repos\ela\Ela\Ela\obj\x86\Debug\Ela.Linking.Strings.Errors.resources
 C:\repos\ela\Ela\Ela\obj\x86\Debug\Ela.Linking.Strings.Messages.resources
 C:\repos\ela\Ela\Ela\obj\x86\Debug\Ela.Linking.Strings.Warnings.resources
 C:\repos\ela\Ela\Ela\obj\x86\Debug\Ela.Parsing.Strings.Errors.resources
-C:\repos\ela\Ela\Ela\obj\x86\Debug\Ela.Properties.Strings.resources
-C:\repos\ela\Ela\Ela\obj\x86\Debug\Ela.Properties.Errors.resources
 C:\repos\ela\Ela\Ela\obj\x86\Debug\Ela.Runtime.Strings.Errors.resources
 C:\repos\ela\Ela\Ela\obj\x86\Debug\Ela.Runtime.Strings.Messages.resources
 C:\repos\ela\Ela\Ela\obj\x86\Debug\Ela.csproj.GenerateResource.Cache
 C:\repos\ela\Ela\Ela\obj\x86\Debug\Ela.csproj.CoreCompileInputs.cache
 C:\repos\ela\Ela\Ela\obj\x86\Debug\Ela.dll
 C:\repos\ela\Ela\Ela\obj\x86\Debug\Ela.pdb
+C:\repos\ela\Ela\Ela\obj\x86\Debug\Ela.csprojResolveAssemblyReference.cache

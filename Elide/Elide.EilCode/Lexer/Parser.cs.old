@@ -555,6 +555,7 @@ internal sealed partial class Parser {
 		la.val = "";		
 		Get();
 		Eil();
+		Expect(0);
 
     Expect(0);
 	}
@@ -721,4 +722,3 @@ public class FatalError: Exception {
 }
 
 }
-

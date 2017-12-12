@@ -1,0 +1,9 @@
+C:\repos\ela\Elide\bin\SciLexer.dll
+C:\repos\ela\Elide\bin\Elide.WelcomePage.dll
+C:\repos\ela\Elide\bin\Elide.WelcomePage.pdb
+C:\repos\ela\Elide\Elide.WelcomePage\obj\x86\Debug\Elide.WelcomePage.csprojResolveAssemblyReference.cache
+C:\repos\ela\Elide\Elide.WelcomePage\obj\x86\Debug\Elide.WelcomePage.WelcomePageView.resources
+C:\repos\ela\Elide\Elide.WelcomePage\obj\x86\Debug\Elide.WelcomePage.csproj.GenerateResource.Cache
+C:\repos\ela\Elide\Elide.WelcomePage\obj\x86\Debug\Elide.WelcomePage.csproj.CoreCompileInputs.cache
+C:\repos\ela\Elide\Elide.WelcomePage\obj\x86\Debug\Elide.WelcomePage.dll
+C:\repos\ela\Elide\Elide.WelcomePage\obj\x86\Debug\Elide.WelcomePage.pdb

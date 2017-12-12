@@ -1,3 +1,5 @@
+0.1.24.0:Release:Release of 0.1.24.0.
+0.1.23.1:New:A new document 'Whats new' that contains platform changes overview is added.
 0.1.23.0:Release:Release of 0.1.23.0.
 0.1.22.2:New:An article 'nat' about the module with the same name is added.
 0.1.22.1:New:A new document 'Whats new' that contains platform changes overview is added.

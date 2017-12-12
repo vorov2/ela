@@ -1,0 +1,7 @@
+C:\repos\ela\Elide\bin\SciLexer.dll
+C:\repos\ela\Elide\bin\Elide.EilCode.dll
+C:\repos\ela\Elide\bin\Elide.EilCode.pdb
+C:\repos\ela\Elide\Elide.EilCode\obj\x86\Release\Elide.EilCode.csprojResolveAssemblyReference.cache
+C:\repos\ela\Elide\Elide.EilCode\obj\x86\Release\Elide.EilCode.csproj.CoreCompileInputs.cache
+C:\repos\ela\Elide\Elide.EilCode\obj\x86\Release\Elide.EilCode.dll
+C:\repos\ela\Elide\Elide.EilCode\obj\x86\Release\Elide.EilCode.pdb

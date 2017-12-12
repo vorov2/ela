@@ -1,0 +1,9 @@
+C:\repos\bin\SciLexer.dll
+C:\repos\bin\Elide.PlainText.dll
+C:\repos\bin\Elide.PlainText.pdb
+C:\repos\ela\Elide\Elide.PlainText\obj\x86\Debug\Elide.PlainText.csprojResolveAssemblyReference.cache
+C:\repos\ela\Elide\Elide.PlainText\obj\x86\Debug\Elide.PlainText.Configuration.PlainTextConfigPage.resources
+C:\repos\ela\Elide\Elide.PlainText\obj\x86\Debug\Elide.PlainText.csproj.GenerateResource.Cache
+C:\repos\ela\Elide\Elide.PlainText\obj\x86\Debug\Elide.PlainText.csproj.CoreCompileInputs.cache
+C:\repos\ela\Elide\Elide.PlainText\obj\x86\Debug\Elide.PlainText.dll
+C:\repos\ela\Elide\Elide.PlainText\obj\x86\Debug\Elide.PlainText.pdb

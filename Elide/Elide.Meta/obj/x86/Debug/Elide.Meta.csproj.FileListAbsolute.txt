@@ -1,0 +1,5 @@
+C:\repos\ela\Elide\Elide.Meta\bin\x86\Debug\Elide.Meta.dll
+C:\repos\ela\Elide\Elide.Meta\bin\x86\Debug\Elide.Meta.pdb
+C:\repos\ela\Elide\Elide.Meta\obj\x86\Debug\Elide.Meta.csproj.CoreCompileInputs.cache
+C:\repos\ela\Elide\Elide.Meta\obj\x86\Debug\Elide.Meta.dll
+C:\repos\ela\Elide\Elide.Meta\obj\x86\Debug\Elide.Meta.pdb

@@ -1,0 +1,12 @@
+C:\repos\ela\Elide\bin\SciLexer.dll
+C:\repos\ela\Elide\bin\Elide.TextWorkbench.dll
+C:\repos\ela\Elide\bin\Elide.TextWorkbench.pdb
+C:\repos\ela\Elide\Elide.TextWorkbench\obj\x86\Debug\Elide.TextWorkbench.csprojResolveAssemblyReference.cache
+C:\repos\ela\Elide\Elide.TextWorkbench\obj\x86\Debug\Elide.TextWorkbench.Configuration.TextEditorConfigPage.resources
+C:\repos\ela\Elide\Elide.TextWorkbench\obj\x86\Debug\Elide.TextWorkbench.Dialogs.GotoDialog.resources
+C:\repos\ela\Elide\Elide.TextWorkbench\obj\x86\Debug\Elide.TextWorkbench.Dialogs.SearchDialog.resources
+C:\repos\ela\Elide\Elide.TextWorkbench\obj\x86\Debug\Elide.TextWorkbench.Views.ResultListGrid.resources
+C:\repos\ela\Elide\Elide.TextWorkbench\obj\x86\Debug\Elide.TextWorkbench.csproj.GenerateResource.Cache
+C:\repos\ela\Elide\Elide.TextWorkbench\obj\x86\Debug\Elide.TextWorkbench.csproj.CoreCompileInputs.cache
+C:\repos\ela\Elide\Elide.TextWorkbench\obj\x86\Debug\Elide.TextWorkbench.dll
+C:\repos\ela\Elide\Elide.TextWorkbench\obj\x86\Debug\Elide.TextWorkbench.pdb

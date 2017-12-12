@@ -16,7 +16,7 @@ namespace Elide.ElaCode
         public Tuple<ICompiledUnit,IEnumerable<MessageItem>> Compile(CodeDocument doc, string source)
         {
             var par = new ElaParser();
-            var parRes = par.Parse(source);
+            var parRes = par.Parse(new StringBuffer(source));
             var msg = new List<MessageItem>();
             var unit = doc.Unit;
             Func<ElaMessage,MessageItem> project = m => new MessageItem(

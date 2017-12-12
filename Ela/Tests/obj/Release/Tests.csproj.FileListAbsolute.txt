@@ -1,0 +1,5 @@
+C:\repos\ela\Ela\Tests\bin\Release\Tests.dll
+C:\repos\ela\Ela\Tests\bin\Release\Tests.pdb
+C:\repos\ela\Ela\Tests\obj\Release\Tests.csproj.CoreCompileInputs.cache
+C:\repos\ela\Ela\Tests\obj\Release\Tests.dll
+C:\repos\ela\Ela\Tests\obj\Release\Tests.pdb

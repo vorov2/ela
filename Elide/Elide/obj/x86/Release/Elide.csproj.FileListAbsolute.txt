@@ -1,0 +1,8 @@
+C:\repos\ela\Elide\bin\SciLexer.dll
+C:\repos\ela\Elide\bin\Elide.xml
+C:\repos\ela\Elide\bin\Elide.exe
+C:\repos\ela\Elide\bin\Elide.pdb
+C:\repos\ela\Elide\Elide\obj\x86\Release\Elide.csprojResolveAssemblyReference.cache
+C:\repos\ela\Elide\Elide\obj\x86\Release\Elide.csproj.CoreCompileInputs.cache
+C:\repos\ela\Elide\Elide\obj\x86\Release\Elide.exe
+C:\repos\ela\Elide\Elide\obj\x86\Release\Elide.pdb

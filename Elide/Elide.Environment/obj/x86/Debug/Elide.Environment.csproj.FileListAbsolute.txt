@@ -1,0 +1,7 @@
+C:\repos\bin\SciLexer.dll
+C:\repos\bin\Elide.Environment.dll
+C:\repos\bin\Elide.Environment.pdb
+C:\repos\ela\Elide\Elide.Environment\obj\x86\Debug\Elide.Environment.csprojResolveAssemblyReference.cache
+C:\repos\ela\Elide\Elide.Environment\obj\x86\Debug\Elide.Environment.csproj.CoreCompileInputs.cache
+C:\repos\ela\Elide\Elide.Environment\obj\x86\Debug\Elide.Environment.dll
+C:\repos\ela\Elide\Elide.Environment\obj\x86\Debug\Elide.Environment.pdb

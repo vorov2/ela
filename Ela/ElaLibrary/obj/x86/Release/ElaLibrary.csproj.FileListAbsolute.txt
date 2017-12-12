@@ -1,0 +1,6 @@
+C:\repos\ela\Ela\bin\elalib.dll
+C:\repos\ela\Ela\bin\elalib.pdb
+C:\repos\ela\Ela\ElaLibrary\obj\x86\Release\ElaLibrary.csprojResolveAssemblyReference.cache
+C:\repos\ela\Ela\ElaLibrary\obj\x86\Release\ElaLibrary.csproj.CoreCompileInputs.cache
+C:\repos\ela\Ela\ElaLibrary\obj\x86\Release\elalib.dll
+C:\repos\ela\Ela\ElaLibrary\obj\x86\Release\elalib.pdb

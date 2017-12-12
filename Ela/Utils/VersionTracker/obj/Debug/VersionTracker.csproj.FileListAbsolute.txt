@@ -8,3 +8,4 @@ C:\repos\ela\Ela\Utils\VersionTracker\obj\Debug\VersionTracker.csproj.GenerateRe
 C:\repos\ela\Ela\Utils\VersionTracker\obj\Debug\VersionTracker.csproj.CoreCompileInputs.cache
 C:\repos\ela\Ela\Utils\VersionTracker\obj\Debug\VersionTracker.exe
 C:\repos\ela\Ela\Utils\VersionTracker\obj\Debug\VersionTracker.pdb
+C:\repos\ela\Ela\Utils\VersionTracker\obj\Debug\VersionTracker.csprojResolveAssemblyReference.cache

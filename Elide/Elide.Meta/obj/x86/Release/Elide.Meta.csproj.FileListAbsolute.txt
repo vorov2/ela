@@ -1,0 +1,6 @@
+C:\repos\ela\Elide\bin\Elide.Meta.dll
+C:\repos\ela\Elide\bin\Elide.Meta.pdb
+C:\repos\ela\Elide\Elide.Meta\obj\x86\Release\Elide.Meta.csprojResolveAssemblyReference.cache
+C:\repos\ela\Elide\Elide.Meta\obj\x86\Release\Elide.Meta.csproj.CoreCompileInputs.cache
+C:\repos\ela\Elide\Elide.Meta\obj\x86\Release\Elide.Meta.dll
+C:\repos\ela\Elide\Elide.Meta\obj\x86\Release\Elide.Meta.pdb

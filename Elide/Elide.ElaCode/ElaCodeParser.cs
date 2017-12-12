@@ -38,7 +38,7 @@ namespace Elide.ElaCode
             logger.WriteBuildInfo("Ela", ElaVersionInfo.Version);
 
             var parser = new ElaParser();
-            var res = parser.Parse(source);//doc.FileInfo == null ? new ModuleFileInfo(doc.Title) : doc.FileInfo.ToModuleFileInfo());
+            var res = parser.Parse(new StringBuffer(source));//doc.FileInfo == null ? new ModuleFileInfo(doc.Title) : doc.FileInfo.ToModuleFileInfo());
             var messages = res.Messages.Take(100).ToList();
             logger.WriteMessages(messages.Select(m =>
                 new MessageItem(

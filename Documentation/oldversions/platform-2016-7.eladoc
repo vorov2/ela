@@ -1,0 +1,23 @@
+#title What's new? (Ela Platform 2016.7)
+
+=Overview
+This is a stabiliation release that ships several important fixes to Ela. It also comes with an updates standard library.
+
+=Ela changes
+Ela Platform 2016.7 comes with a new version of Ela - 0.15.1. This version has several important fixes. First of all a bug
+with trace points is fixed that could result in incorrect traces or event a crush. An important bug is fixed that could cause
+Ela compiler to crush in a case of an incorrectly declarared member functon instead of generating an appropriate error message.
+Also the way how explicit and implicit contexts are managed is changed. Now an implicit context (such as the one applied with a
+bang pattern) has the same effect as an explicit context (set using `(:::)` operator) and can override it.
+
+=Ela library changes
+Ela library now includes a new `Nat` data type (module `nat`) - an implementation of natural numbers in Ela. In the current
+implementation natural numbers are based on the Ela `Long` type.\\br
+Natural numbers are whole number that are equal or greater than zero. A attempt to instantiate a natural number using
+a negative value (or to negate it using `negate` function) would raise an error:
+>>>open nat
+>>-12n
+However, calculations involving natural numbers that result in a negative number would fetch a number of `Long` data type:
+>>>12n - 10n
+and
+>>>10n - 12n 

@@ -1,0 +1,6 @@
+C:\repos\ela\Elide\bin\Elide.Common.dll
+C:\repos\ela\Elide\bin\Elide.Common.pdb
+C:\repos\ela\Elide\Elide.Common\obj\x86\Release\Elide.Common.csprojResolveAssemblyReference.cache
+C:\repos\ela\Elide\Elide.Common\obj\x86\Release\Elide.Common.csproj.CoreCompileInputs.cache
+C:\repos\ela\Elide\Elide.Common\obj\x86\Release\Elide.Common.dll
+C:\repos\ela\Elide\Elide.Common\obj\x86\Release\Elide.Common.pdb

@@ -1,0 +1,16 @@
+C:\repos\ela\Elide\bin\SciLexer.dll
+C:\repos\ela\Elide\bin\Elide.ElaCode.dll
+C:\repos\ela\Elide\bin\Elide.ElaCode.pdb
+C:\repos\ela\Elide\Elide.ElaCode\obj\x86\Release\Elide.ElaCode.csprojResolveAssemblyReference.cache
+C:\repos\ela\Elide\Elide.ElaCode\obj\x86\Release\Elide.ElaCode.Configuration.CompilerConfigPage.resources
+C:\repos\ela\Elide\Elide.ElaCode\obj\x86\Release\Elide.ElaCode.Configuration.InteractiveConfigPage.resources
+C:\repos\ela\Elide\Elide.ElaCode\obj\x86\Release\Elide.ElaCode.Configuration.ElaEditorConfigPage.resources
+C:\repos\ela\Elide\Elide.ElaCode\obj\x86\Release\Elide.ElaCode.Configuration.LinkerConfigPage.resources
+C:\repos\ela\Elide\Elide.ElaCode\obj\x86\Release\Elide.ElaCode.Configuration.EilGeneratorConfigPage.resources
+C:\repos\ela\Elide\Elide.ElaCode\obj\x86\Release\Elide.ElaCode.Views.AstControl.resources
+C:\repos\ela\Elide\Elide.ElaCode\obj\x86\Release\Elide.ElaCode.Views.InteractiveControl.resources
+C:\repos\ela\Elide\Elide.ElaCode\obj\x86\Release\Elide.ElaCode.Views.DebugViewGrid.resources
+C:\repos\ela\Elide\Elide.ElaCode\obj\x86\Release\Elide.ElaCode.csproj.GenerateResource.Cache
+C:\repos\ela\Elide\Elide.ElaCode\obj\x86\Release\Elide.ElaCode.csproj.CoreCompileInputs.cache
+C:\repos\ela\Elide\Elide.ElaCode\obj\x86\Release\Elide.ElaCode.dll
+C:\repos\ela\Elide\Elide.ElaCode\obj\x86\Release\Elide.ElaCode.pdb
