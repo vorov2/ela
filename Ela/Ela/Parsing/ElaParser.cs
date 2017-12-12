@@ -13,11 +13,6 @@ namespace Ela.Parsing
         
         }
 
-        public ParserResult Parse(string source)
-        {
-            return InternalParse(source);
-        }
-
         public ParserResult Parse(ModuleFileInfo file)
         {
             return Parse(new FileInfo(file.FullName));
@@ -25,24 +20,13 @@ namespace Ela.Parsing
 
         public ParserResult Parse(FileInfo file)
         {
-            using (var fs = file.Open(FileMode.Open, FileAccess.Read))
-                return InternalParse(fs);
+            var str = File.ReadAllText(file.FullName);
+            return Parse(new StringBuffer(str));
         }
 
-        public ParserResult Parse(Stream stream)
+        public ParserResult Parse(SourceBuffer buffer)
         {
-            return InternalParse(stream);
-        }
-
-        private ParserResult InternalParse(string source)
-        {
-            using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(source)))
-                return InternalParse(ms);
-        }
-
-        private ParserResult InternalParse(Stream stream)
-        {
-            var p = new Parser(new Scanner(stream));
+            var p = new Parser(new Scanner(buffer));
             p.Parse();
             return new ParserResult(p.Program, p.errors.ErrorList.Count == 0, p.errors.ErrorList);
         }

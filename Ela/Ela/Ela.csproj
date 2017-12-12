@@ -239,6 +239,10 @@
     <Compile Include="Debug\VarSym.cs" />
     <Compile Include="Linking\LangModule.cs" />
     <Compile Include="ModuleFileInfo.cs" />
+    <Compile Include="Parsing\Map.cs" />
+    <Compile Include="Parsing\SourceBuffer.cs" />
+    <Compile Include="Parsing\StringBuffer.cs" />
+    <Compile Include="Parsing\Token.cs" />
     <Compile Include="Runtime\CallStack.cs" />
     <Compile Include="Runtime\Classes\UnitInstance.cs" />
     <Compile Include="Runtime\ObjectModel\ElaConstant.cs" />

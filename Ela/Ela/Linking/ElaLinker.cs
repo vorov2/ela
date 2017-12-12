@@ -572,7 +572,7 @@ namespace Ela.Linking
         internal ParserResult Parse(ModuleFileInfo file, string source)
         {
             var elap = new ElaParser();
-            var res = source != null ? elap.Parse(source) : elap.Parse(file);
+            var res = source != null ? elap.Parse(new StringBuffer(source)) : elap.Parse(file);
             AddMessages(res.Messages, file);
             return res;
         }

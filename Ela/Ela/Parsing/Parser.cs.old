@@ -225,13 +225,13 @@ internal sealed partial class Parser {
 				ParamList(out list, out comp, out rng);
 				if (list != null)
 				{
-				    var listExp = new ElaListLiteral(ot) { Values = list };
-				    exp = listExp;
+				   var listExp = new ElaListLiteral(ot) { Values = list };
+				   exp = listExp;
 				}	
 				else if (comp != null)
-				    exp = comp;
+				   exp = comp;
 				else if (rng != null)
-				    exp = rng;
+				   exp = rng;
 				
 			}
 			if (exp == null)
@@ -299,7 +299,7 @@ internal sealed partial class Parser {
 		var nam = t.val;
 		               
 		if (nam == "trace")
-		    dp.Action = ElaDebugAction.TracePoint;
+		   dp.Action = ElaDebugAction.TracePoint;
 		
 		if (StartOf(4)) {
 			var sb = new StringBuilder(); 
@@ -320,7 +320,7 @@ internal sealed partial class Parser {
 		var flags = ElaVariableFlags.None;
 		
 		if (head.Type != ElaNodeType.NameReference)
-		    AddError(ElaParserError.InvalidAttribute, head.ToString());
+		   AddError(ElaParserError.InvalidAttribute, head.ToString());
 		
 		Expect(51);
 		Expect(1);
@@ -533,8 +533,8 @@ internal sealed partial class Parser {
 		}
 		if (list == null && comp == null && rng == null && exp != null)
 		{
-		    list = new List<ElaExpression>();
-		    list.Add(exp);
+		   list = new List<ElaExpression>();
+		   list.Add(exp);
 		}
 		
 	}
@@ -905,8 +905,8 @@ internal sealed partial class Parser {
 				fc.Parameters.Add(exp);			
 				
 				if (cexp != null)
-				    fc.Parameters.Add(cexp);
-				                
+				   fc.Parameters.Add(cexp);
+				               
 				exp = fc;
 				
 			}
@@ -1019,20 +1019,20 @@ internal sealed partial class Parser {
 		var cexp = default(ElaExpression);
 		
 		if (exp.Type == ElaNodeType.Juxtaposition)
-		    mi = (ElaJuxtaposition)exp;
+		   mi = (ElaJuxtaposition)exp;
 		
 		while (StartOf(20)) {
 			AccessExpr(out cexp);
 			if (mi == null)
 			{
-			    mi = new ElaJuxtaposition(ot) { Target = exp };
-			    exp = mi;
+			   mi = new ElaJuxtaposition(ot) { Target = exp };
+			   exp = mi;
 			}
 			else
-			    mi.Parens = false;
+			   mi.Parens = false;
 			
-			    if (mi != null)
-			        mi.Parameters.Add(cexp); 
+			if (mi != null)
+			   mi.Parameters.Add(cexp); 
 			
 		}
 		if (la.kind == 61) {
@@ -1333,20 +1333,20 @@ internal sealed partial class Parser {
 			if (left != null && left.Type == ElaNodeType.Header)
 			   AddError(ElaParserError.InvalidAttributeWhere);
 			
-			    var letb = new ElaLetBinding();                    
-			    if (cb != null) letb.SetLinePragma(cb.Line, cb.Column);                    
-			    letb.Equations = cb;
-			        
-			    if (right != null)
-			    {
-			        letb.Expression = right;
-			        right = letb;
-			    }
-			    else
-			    {
-			        letb.Expression = left;
-			        left = letb;
-			    }
+			var letb = new ElaLetBinding();                    
+			if (cb != null) letb.SetLinePragma(cb.Line, cb.Column);                    
+			letb.Equations = cb;
+			   
+			if (right != null)
+			{
+			   letb.Expression = right;
+			   right = letb;
+			}
+			else
+			{
+			   letb.Expression = left;
+			   left = letb;
+			}
 			
 		}
 		ProcessBinding(block, bid, left, right); 
@@ -1705,17 +1705,17 @@ internal sealed partial class Parser {
 		while (la.kind == 1 || la.kind == 2) {
 			if (ci.TypeName != null)
 			{
-			    if (list == null)
-			    {
-			        list = new List<ElaClassInstance>();
-			        list.Add(ci);
-			    }
-			    
-			    ci = new ElaClassInstance { TypeClassPrefix = ci.TypeClassPrefix, TypeClassName = ci.TypeClassName };
-			    ci.SetLinePragma(ot.line, ot.col);
-			    ci.And = Program.Instances;
-			    Program.Instances = ci;
-			    list.Add(ci);
+			   if (list == null)
+			   {
+			       list = new List<ElaClassInstance>();
+			       list.Add(ci);
+			   }
+			   
+			   ci = new ElaClassInstance { TypeClassPrefix = ci.TypeClassPrefix, TypeClassName = ci.TypeClassName };
+			   ci.SetLinePragma(ot.line, ot.col);
+			   ci.And = Program.Instances;
+			   Program.Instances = ci;
+			   list.Add(ci);
 			}
 			
 			if (la.kind == 1) {
@@ -1735,8 +1735,8 @@ internal sealed partial class Parser {
 			   ci.Where = block; 
 			else
 			{
-			    for (var i = 0; i < list.Count; i++)
-			        list[i].Where = block;
+			   for (var i = 0; i < list.Count; i++)
+			       list[i].Where = block;
 			}
 			
 		}
@@ -1755,7 +1755,7 @@ internal sealed partial class Parser {
 			if (cexp2 != null)
 			   don.Statements.Add(new ElaDoAssignment(t) { Left = cexp1, Right = cexp2 });
 			else
-			    don.Statements.Add(cexp1);
+			   don.Statements.Add(cexp1);
 			
 		} else if (la.kind == 32) {
 			scanner.InjectBlock(); 
@@ -1800,6 +1800,7 @@ internal sealed partial class Parser {
 		la.val = "";		
 		Get();
 		Ela();
+		Expect(0);
 
     Expect(0);
 	}
@@ -2001,4 +2002,3 @@ internal sealed class Errors {
 } // Errors
 
 }
-

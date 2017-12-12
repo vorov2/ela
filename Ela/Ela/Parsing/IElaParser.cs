@@ -5,8 +5,8 @@ namespace Ela.Parsing
 {
     public interface IElaParser
     {
-        ParserResult Parse(string source);
-        
+        ParserResult Parse(SourceBuffer buffer);
+
         ParserResult Parse(FileInfo file);
     }
 }

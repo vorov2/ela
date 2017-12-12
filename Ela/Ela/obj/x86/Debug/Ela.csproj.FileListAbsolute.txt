@@ -1,6 +1,5 @@
 C:\repos\ela\Ela\bin\Ela.dll
 C:\repos\ela\Ela\bin\Ela.pdb
-C:\repos\ela\Ela\Ela\obj\x86\Debug\Ela.csprojResolveAssemblyReference.cache
 C:\repos\ela\Ela\Ela\obj\x86\Debug\Ela.Compilation.Strings.Messages.resources
 C:\repos\ela\Ela\Ela\obj\x86\Debug\Ela.Compilation.Strings.Hints.resources
 C:\repos\ela\Ela\Ela\obj\x86\Debug\Ela.Compilation.Strings.Errors.resources

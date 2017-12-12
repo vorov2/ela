@@ -1,7 +1,6 @@
 C:\repos\ela\Dependencies\VersionTracker.exe.config
 C:\repos\ela\Dependencies\VersionTracker.exe
 C:\repos\ela\Dependencies\VersionTracker.pdb
-C:\repos\ela\Ela\Utils\VersionTracker\obj\Debug\VersionTracker.csprojResolveAssemblyReference.cache
 C:\repos\ela\Ela\Utils\VersionTracker\obj\Debug\VersionTracker.MainForm.resources
 C:\repos\ela\Ela\Utils\VersionTracker\obj\Debug\VersionTracker.NewChangeListDialog.resources
 C:\repos\ela\Ela\Utils\VersionTracker\obj\Debug\VersionTracker.Properties.Resources.resources

@@ -169,7 +169,7 @@ namespace Ela.Linking
         private ElaValue Read(string str)
         {
             var p = new ElaParser();
-            var res = p.Parse(str);
+            var res = p.Parse(new StringBuffer(str));
 
             if (!res.Success)
                 throw Fail(str);

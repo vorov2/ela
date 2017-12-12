@@ -1,6 +1,5 @@
 C:\repos\ela\Ela\Tests\bin\Debug\Tests.dll
 C:\repos\ela\Ela\Tests\bin\Debug\Tests.pdb
-C:\repos\ela\Ela\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache
 C:\repos\ela\Ela\Tests\obj\Debug\Tests.csproj.CoreCompileInputs.cache
 C:\repos\ela\Ela\Tests\obj\Debug\Tests.dll
 C:\repos\ela\Ela\Tests\obj\Debug\Tests.pdb
