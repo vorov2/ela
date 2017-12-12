@@ -1,4 +1,6 @@
-﻿0.4.1.0:Release:Release of Elide 0.4.1.0.
+﻿0.4.2.0:Release:Release of Elide 0.4.2.0.
+0.4.1.1:Change:Updated license info and links to repository.
+0.4.1.0:Release:Release of Elide 0.4.1.0.
 0.4.0.1:Change:Elide is updated according to Ela changes.
 0.4.0.1:Change:Elide is updated to use a new version of internal parser generator (Coco/R).
 0.4.0.0:Release:Release of Elide 0.4.0.0.

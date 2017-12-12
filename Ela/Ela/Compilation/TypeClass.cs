@@ -2,7 +2,7 @@
 
 namespace Ela.Compilation
 {
-    //This enumerate contains a list of built-in type classes
+    //This enumeration contains a list of built-in type classes
     //(that have internal implementation). It is used to give built-in
     //classes unique IDs (which in their turn are by compiler to recognize
     //these classes).
@@ -24,7 +24,7 @@ namespace Ela.Compilation
         Show = 13
     }
 
-    //Convert a string to TypeClass enum.
+    //Converts a string to TypeClass enum.
     internal static class TypeClassHelper
     {
         public static TypeClass GetTypeClass(string val)

@@ -45,12 +45,12 @@
             this.documentationLabel = new System.Windows.Forms.Label();
             this.linkLayout3 = new System.Windows.Forms.FlowLayoutPanel();
             this.homepageLink = new System.Windows.Forms.LinkLabel();
+            this.repLink = new System.Windows.Forms.LinkLabel();
             this.rosettaLink = new System.Windows.Forms.LinkLabel();
             this.ohlohLink = new System.Windows.Forms.LinkLabel();
             this.groupLink = new System.Windows.Forms.LinkLabel();
             this.onlineConsoleLink = new System.Windows.Forms.LinkLabel();
             this.resourcesLabel = new System.Windows.Forms.Label();
-            this.repLink = new System.Windows.Forms.LinkLabel();
             this.panel.SuspendLayout();
             this.linkLayout1.SuspendLayout();
             this.linkLayout2.SuspendLayout();
@@ -96,7 +96,7 @@
             this.version.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.version.Location = new System.Drawing.Point(379, 150);
             this.version.Name = "version";
-            this.version.Size = new System.Drawing.Size(79, 13);
+            this.version.Size = new System.Drawing.Size(78, 13);
             this.version.TabIndex = 2;
             this.version.Text = "Version: {0} {1}";
             // 
@@ -266,6 +266,19 @@
             this.homepageLink.Text = "Ela Homepage";
             this.homepageLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.homepageLink_LinkClicked);
             // 
+            // repLink
+            // 
+            this.repLink.AutoSize = true;
+            this.repLink.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.repLink.Location = new System.Drawing.Point(3, 36);
+            this.repLink.Name = "repLink";
+            this.repLink.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.repLink.Size = new System.Drawing.Size(75, 18);
+            this.repLink.TabIndex = 5;
+            this.repLink.TabStop = true;
+            this.repLink.Text = "Ela at GitHub";
+            this.repLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.repLink_LinkClicked);
+            // 
             // rosettaLink
             // 
             this.rosettaLink.AutoSize = true;
@@ -331,19 +344,6 @@
             this.resourcesLabel.Size = new System.Drawing.Size(135, 21);
             this.resourcesLabel.TabIndex = 7;
             this.resourcesLabel.Text = "Useful resources";
-            // 
-            // repLink
-            // 
-            this.repLink.AutoSize = true;
-            this.repLink.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.repLink.Location = new System.Drawing.Point(3, 36);
-            this.repLink.Name = "repLink";
-            this.repLink.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.repLink.Size = new System.Drawing.Size(85, 18);
-            this.repLink.TabIndex = 5;
-            this.repLink.TabStop = true;
-            this.repLink.Text = "Ela at CodePlex";
-            this.repLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.repLink_LinkClicked);
             // 
             // WelcomePageView
             // 

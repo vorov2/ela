@@ -100,9 +100,9 @@ namespace Elide.Workbench
                     .Items(BuildHelpList)
                     .Separator()
                     .Item("Ela &Home Page", openLink("http://elalang.net/"))
-                    .Item("Ela &Code Repository", openLink("http://ela.codeplex.com/"))
+                    .Item("Ela &Code Repository", openLink("https://github.com/vorov2/ela"))
                     .Separator()
-                    .Item("&Submit a bug/Request a feature", openLink("https://ela.codeplex.com/WorkItem/Create"))
+                    .Item("&Submit a bug/Request a feature", openLink("https://github.com/vorov2/ela/issues"))
                     .Separator()
                     .Item("&About Elide...", ShowAbout)
                 .Finish();

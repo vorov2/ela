@@ -1,39 +1,34 @@
-﻿using System;
-using Ela.CodeModel;
-using Ela.Linking;
+﻿using Ela.CodeModel;
+using System;
 
 namespace Ela.Compilation
 {
-	public sealed class ElaCompiler : IElaCompiler
-	{
-		#region Construction
-		public ElaCompiler()
-		{
-			
-		}
-		#endregion
+    public sealed class ElaCompiler : IElaCompiler
+    {
+        public ElaCompiler()
+        {
 
+        }
 
-		#region Methods
-		public CompilerResult Compile(ElaProgram prog, CompilerOptions options, ExportVars builtins)
-		{
-			var frame = new CodeFrame();
-			return Compile(prog, options, builtins, frame, new Scope(false, null));
-		}
+        public CompilerResult Compile(ElaProgram prog, CompilerOptions options, ExportVars builtins)
+        {
+            var frame = new CodeFrame();
+            return Compile(prog, options, builtins, frame, new Scope(false, null));
+        }
 
 
         public CompilerResult Compile(ElaProgram prog, CompilerOptions options, ExportVars builtins, CodeFrame frame, Scope globalScope)
-		{
+        {
             Options = options;
             var helper = new Builder(frame, this, builtins, globalScope);
-                
+
             try
             {
                 helper.CompileUnit(prog);
             }
             catch (TerminationException)
             {
-                //Nothing should be done here. This was thrown to stop compilation.      
+                //Nothing should be done here. This was thrown to stop compilation.
             }
 #if !DEBUG
             catch (Exception ex)
@@ -50,29 +45,22 @@ namespace Ela.Compilation
             frame.GlobalScope = globalScope;
             return new CompilerResult(frame, helper.Success, helper.Errors.ToArray());
 
-		}
+        }
 
         public static int GetOpCodeSize(Op op)
         {
             return OpSizeHelper.OpSize[(Int32)op];
         }
-		#endregion
 
+        internal CompilerOptions Options { get; private set; }
 
-		#region Properties
-		internal CompilerOptions Options { get; private set; }
-		#endregion
+        public event EventHandler<ModuleEventArgs> ModuleInclude;
+        internal void OnModuleInclude(ModuleEventArgs e)
+        {
+            var h = ModuleInclude;
 
-
-		#region Events
-		public event EventHandler<ModuleEventArgs> ModuleInclude;
-		internal void OnModuleInclude(ModuleEventArgs e)
-		{
-			var h = ModuleInclude;
-
-			if (h != null)
-				h(this, e);
-		}
-		#endregion
-	}
+            if (h != null)
+                h(this, e);
+        }
+    }
 }

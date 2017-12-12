@@ -1,15 +1,13 @@
-﻿using System;
+﻿using Ela.CodeModel;
+using System;
 using System.Collections.Generic;
-using Ela.CodeModel;
-using Ela.Debug;
-using Ela.Linking;
 
 namespace Ela.Compilation
 {
     internal sealed partial class Builder
     {
         private ElaCompiler comp; //Reference to compiler, to raise ModuleInclude event
-                
+
         //Compilation options
         private bool debug; //Generate extended debug info
         private bool opt;   //Perform optimizations
@@ -41,7 +39,7 @@ namespace Ela.Compilation
             cleans.Push(true);
 
             ResumeIndexer();
-            Success = true;			
+            Success = true;
         }
 
         //Entry point

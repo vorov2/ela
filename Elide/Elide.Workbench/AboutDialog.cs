@@ -26,7 +26,7 @@ namespace Elide.Workbench
                 System.Environment.NewLine + ElideInfo.Copyright);
             infoBox.Text =
 @"
-This computer program and its source code are distributed under the terms of GNU GPL v2 license. Please refer to the text of the license for additional details. If a license file is not provided with your copy of the program you can obtain it from GNU site: http://www.gnu.org/licenses/gpl-2.0.html.
+This computer program and its source code are distributed under the terms of MIT license. Please refer to the text of the license for additional details. If a license file is not provided with your copy of the program you can obtain it from opensource.org site: https://opensource.org/licenses/MIT.
 
 This computer program uses the following open source components:
 • Scintilla editing component (http://scintilla.org)

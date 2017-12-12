@@ -90,7 +90,7 @@ namespace Elide.WelcomePage
 
         private void repLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            OpenLink("http://ela.codeplex.com");
+            OpenLink("https://github.com/vorov2/ela");
         }
 
         private void rosettaLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
