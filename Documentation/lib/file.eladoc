@@ -8,7 +8,8 @@ Module 'file' contains input and output functions.
 #readLines
 This function works like `map` but instead of a list it accepts a name of a text file 
 (`fl` argument). It then applies function `fun` to each of the lines in a file and concatenates 
-the result. //br
+the result.
+
 For example, if you have the following file:
 >First line
 >Second line
